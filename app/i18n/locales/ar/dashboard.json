@@ -1,11 +1,46 @@
 {
   "navItems": [
     { "text": "لوحة القيادة", "link": "/dashboard", "icon": "LuLayoutDashboard" },
-    { "text": "السيارات", "link": "/cars", "icon": "IoCarSportOutline" },
-    { "text": "العملاء", "link": "/customers", "icon": "FaRegUserCircle" },
-    { "text": "العقود", "link": "/contracts", "icon": "HiOutlineDocumentChartBar" },
-    { "text": "الخزينة", "link": "/treasury", "icon": "PiMoneyDuotone" },
-    { "text": "الفواتير", "link": "/invoices", "icon": "LiaFileInvoiceSolid" },
-    { "text": "الصيانة", "link": "/maintenance", "icon": "GrVmMaintenance" }
-  ]
+    { "text": "السيارات", "link": "/dashboard/cars", "icon": "IoCarSportOutline" },
+    { "text": "العملاء", "link": "/dashboard/customers", "icon": "FaRegUserCircle" },
+    { "text": "العقود", "link": "/dashboard/contracts", "icon": "HiOutlineDocumentChartBar" },
+    { "text": "الخزينة", "link": "/dashboard/treasury", "icon": "PiMoneyDuotone" },
+    { "text": "الفواتير", "link": "/dashboard/invoices", "icon": "LiaFileInvoiceSolid" },
+    { "text": "الصيانة", "link": "/dashboard/maintenance", "icon": "GrVmMaintenance" }
+  ],
+  "titles":{
+    "dashboard":"لوحة القيادة",
+    "cars":"السيارات",
+    "customers":"العملاء",
+    "contracts":"العقود",
+    "treasury":"الخزانة",
+    "invoices":"الفواتير",
+    "maintenance":"الصيانة"
+  },
+  "dashboard":{
+    "revenues": "الإيرادات",
+    "mostRentedCars": "أكثر السيارات استئجاراً",
+    "week1": "الأسبوع 1",
+    "week2": "الأسبوع 2",
+    "week3": "الأسبوع 3",
+    "week4": "الأسبوع 4",
+    "week5": "الأسبوع 5",
+    "week6": "الأسبوع 6",
+    "week7": "الأسبوع 7",
+    "week8": "الأسبوع 8",
+    "# of Revenues": "# من الإيرادات",
+    "totalRevenue": "إجمالي الإيرادات",
+    "totalExpenses": "إجمالي المصروفات",
+    "myFirstDataset": "مجموعة البيانات الأولى",
+    "totalVehicles": "إجمالي السيارات",
+    "totalRentalFrequency": "إجمالي تكرار الإيجار",
+    "totalSummary": "المجموع الكلي",
+    "carRentalOrdersLastMonth": "طلبات تأجير السيارات الشهر الماضي",
+    "carRentalCurrentMonth": "تأجير السيارات الشهر الحالي"
+  },
+  "tables":{
+    "plateNumber": "رقم اللوحة",
+    "carName": "اسم السيارة",
+    "frequency": "التكرار"
+  }
 }

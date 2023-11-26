@@ -1,11 +1,46 @@
 {
   "navItems": [
     { "text": "Dashboard", "link": "/dashboard", "icon": "LuLayoutDashboard" },
-    { "text": "Cars", "link": "/cars", "icon": "IoCarSportOutline" },
-    { "text": "Customers", "link": "/customers", "icon": "FaRegUserCircle" },
-    { "text": "Contracts", "link": "/contracts", "icon": "HiOutlineDocumentChartBar" },
-    { "text": "Treasury", "link": "/treasury", "icon": "PiMoneyDuotone" },
-    { "text": "Invoices", "link": "/invoices", "icon": "LiaFileInvoiceSolid" },
-    { "text": "Maintenance", "link": "/maintenance", "icon": "GrVmMaintenance" }
-  ]
+    { "text": "Cars", "link": "/dashboard/cars", "icon": "IoCarSportOutline" },
+    { "text": "Customers", "link": "/dashboard/customers", "icon": "FaRegUserCircle" },
+    { "text": "Contracts", "link": "/dashboard/contracts", "icon": "HiOutlineDocumentChartBar" },
+    { "text": "Treasury", "link": "/dashboard/treasury", "icon": "PiMoneyDuotone" },
+    { "text": "Invoices", "link": "/dashboard/invoices", "icon": "LiaFileInvoiceSolid" },
+    { "text": "Maintenance", "link": "/dashboard/maintenance", "icon": "GrVmMaintenance" }
+  ],
+  "titles":{
+    "dashboard":"Dashboard",
+    "cars":"Cars",
+    "customers":"Customers",
+    "contracts":"Contracts",
+    "treasury":"Treasury",
+    "invoices":"Invoices",
+    "maintenance":"Maintenance"
+  },
+  "dashboard":{
+    "revenues": "Revenues",
+    "mostRentedCars": "Most Rented Cars",
+    "week1": "Week 1",
+    "week2": "Week 2",
+    "week3": "Week 3",
+    "week4": "Week 4",
+    "week5": "Week 5",
+    "week6": "Week 6",
+    "week7": "Week 7",
+    "week8": "Week 8",
+    "# of Revenues": "# of Revenues",
+    "totalRevenue": "Total Revenue",
+    "totalExpenses": "Total Expenses",
+    "myFirstDataset": "My First Dataset",
+    "totalVehicles": "Total Vehicles",
+    "totalRentalFrequency": "Total Rental Frequency",
+    "totalSummary": "Total Summary",
+    "carRentalOrdersLastMonth": "Car Rental Orders last month",
+    "carRentalCurrentMonth": "Car Rental current month"
+  },
+  "tables":{
+    "plateNumber": "Plate Number",
+    "carName": "Car Name",
+    "frequency": "Frequency"
+  }
 }

@@ -1,25 +1,24 @@
 "use client"
+import { useTranslation } from '@/app/i18n/client';
 import React, { useState } from 'react';
 import { IoIosMore } from "react-icons/io";
 
-export const RentalRows = ({ rentalData  }) => {
+export const RentalRows = ({ rentalData  , lng}) => {
+    const { t } = useTranslation(lng , "dashboard")
     const carNames = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Nissan'];
-  
     return (
-      <div className="relative">
-        <h1 className='text-sm py-3'>Most Rented Cars</h1>
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
           <thead className="text-xs  text-blue-900 uppercase bg-gray-50 ">
             <tr >
-              <th scope="col" className="px-2 py-3">
-                Plate Number
-              </th>
-              <th scope="col" className="px-2 py-3">
-                Car Name
-              </th>
-              <th scope="col" className="px-2 py-3">
-                Frequency
-              </th>
+            <th scope="col" className="px-2 py-3">
+              {t('tables.plateNumber')}
+            </th>
+            <th scope="col" className="px-2 py-3">
+              {t('tables.carName')}
+            </th>
+            <th scope="col" className="px-2 py-3">
+              {t('tables.frequency')}
+            </th>
             </tr>
           </thead>
           <tbody>
@@ -38,7 +37,6 @@ export const RentalRows = ({ rentalData  }) => {
             ))}
           </tbody>
         </table>
-      </div>
     );
 };
 

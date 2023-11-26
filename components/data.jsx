@@ -2,13 +2,19 @@
 import { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import { TotalSummary } from '@/data/info';
+import { useTranslation } from '@/app/i18n/client';
 
-export const BarChart = () => {
+export const BarChart = ({lng}) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
+  const { t } =  useTranslation(lng,'dashboard'); // Replace 'dashboard' with the appropriate translation namespace
 
   const generateRandomData = () => {
-    return Array.from({ length: 8 }, () => Math.floor(Math.random() * 100));
+    const data = [];
+    for (let i = 0; i < 8; i++) {
+      data.push(Math.floor(Math.random() * 1000) + 1);
+    }
+    return data;
   };
 
   useEffect(() => {
@@ -22,9 +28,18 @@ export const BarChart = () => {
       chartInstance.current = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6','Week 7','Week 8'],
+          labels: [
+            t('dashboard.week1'),
+            t('dashboard.week2'),
+            t('dashboard.week3'),
+            t('dashboard.week4'),
+            t('dashboard.week5'),
+            t('dashboard.week6'),
+            t('dashboard.week7'),
+            t('dashboard.week8'),
+          ],
           datasets: [{
-            label: '# of Revenues',
+            label: t('dashboard.# of Revenues'),
             data: generateRandomData(),
             backgroundColor: [
               '#E6E8EC',
@@ -48,20 +63,17 @@ export const BarChart = () => {
         chartInstance.current.destroy();
       }
     };
-  }, []);
+  }, [t]); 
 
   return (
-    <div className="w-5/6 h-60">
-      <h1 className='text-lg'>Revenues</h1>
-      <canvas ref={chartRef} id="myChart" width="650" height="300"></canvas>
-    </div>
+      <canvas ref={chartRef} />
   );
 };
-export const Doughnut = () => {
+export const Doughnut = ({lng}) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
-
   const { TotalRevenue, TotalExpenses } = TotalSummary;
+  const { t } = useTranslation(lng,'dashboard'); // Replace 'dashboard' with your translation namespace
 
   useEffect(() => {
     if (chartRef && chartRef.current) {
@@ -74,9 +86,9 @@ export const Doughnut = () => {
       chartInstance.current = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: ['Total Revenue', 'Total Expenses'],
+          labels: [t('dashboard.totalRevenue'), t('dashboard.totalExpenses')],
           datasets: [{
-            label: 'My First Dataset',
+            label: t('dashboard.myFirstDataset'),
             data: [TotalRevenue, TotalExpenses],
             backgroundColor: [
               '#5A6ACF',
@@ -93,7 +105,7 @@ export const Doughnut = () => {
         chartInstance.current.destroy();
       }
     };
-  }, [TotalSummary]);
+  }, [TotalRevenue, TotalExpenses, t]); // Include translations and state dependencies
 
   return (
     <div className="h-60 w-[40%]">
@@ -101,9 +113,10 @@ export const Doughnut = () => {
     </div>
   );
 };
-export const LineChart = () => {
+export const LineChart = ({lng}) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
+  const { t } = useTranslation(lng,'dashboard'); // Replace 'dashboard' with your translation namespace
 
   useEffect(() => {
     if (chartRef && chartRef.current) {
@@ -113,7 +126,7 @@ export const LineChart = () => {
         chartInstance.current.destroy();
       }
 
-      const labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'];
+      const labels = [t('dashboard.week1'), t('dashboard.week2'), t('dashboard.week3'), t('dashboard.week4'), t('dashboard.week5'), t('dashboard.week6')];
 
       // Random data for two lines representing car rental orders
       const line1Data = [40, 55, 30, 70, 45, 60]; // Example data for Line 1
@@ -124,16 +137,16 @@ export const LineChart = () => {
         data: {
           labels: labels,
           datasets: [{
-            label: 'Car Rental Orders last month',
+            label: t('dashboard.carRentalOrdersLastMonth'),
             data: line1Data,
             fill: false,
             borderColor: '#E6E8EC',
             tension: 0.1
           }, {
-            label: 'Car Rental current month',
+            label: t('dashboard.carRentalCurrentMonth'),
             data: line2Data,
             fill: false,
-            borderColor:  '#5A6ACF',
+            borderColor: '#5A6ACF',
             tension: 0.1
           }]
         },
@@ -152,15 +165,17 @@ export const LineChart = () => {
         chartInstance.current.destroy();
       }
     };
-  }, []);
+  }, [t]); // Include translations as a dependency
 
   return (
-      <canvas ref={chartRef} id="myChart" width="200" height="150"></canvas>
+    <canvas ref={chartRef} id="myChart" width="200" height="150"></canvas>
   );
 };
-export const TotalSummaryChart = () => {
+export const TotalSummaryChart = ({ lng }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
+  const { TotalVehicles, TotalRentalFrequency } = TotalSummary;
+  const { t } = useTranslation(lng ,'dashboard'); // Replace 'dashboard' with your translation namespace
 
   useEffect(() => {
     if (chartRef && chartRef.current) {
@@ -171,14 +186,14 @@ export const TotalSummaryChart = () => {
       }
 
       const data = {
-        labels: ['Total Vehicles', 'Total Rental Frequency'],
+        labels: [t('dashboard.totalVehicles'), t('dashboard.totalRentalFrequency')],
         datasets: [
           {
-            label: 'Total Summary',
-            data: [TotalSummary.TotalVehicles, TotalSummary.TotalRentalFrequency],
+            label: t('dashboard.totalSummary'),
+            data: [TotalVehicles, TotalRentalFrequency],
             backgroundColor: [
               '#F99C30',
-              '#6463D6', 
+              '#6463D6',
             ],
             borderWidth: 1,
           },
@@ -193,7 +208,7 @@ export const TotalSummaryChart = () => {
           plugins: {
             title: {
               display: true,
-              text: 'Total Summary',
+              text: t('dashboard.totalSummary'),
               font: { size: 18 },
             },
             legend: {
@@ -213,7 +228,7 @@ export const TotalSummaryChart = () => {
         chartInstance.current.destroy();
       }
     };
-  }, [TotalSummary]);
+  }, [TotalVehicles, TotalRentalFrequency, t]); // Include translations and state dependencies
 
   return (
     <div className="w-full">

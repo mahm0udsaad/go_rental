@@ -8,25 +8,12 @@ import { LiaFileInvoiceSolid } from "react-icons/lia";
 import { HiOutlineDocumentChartBar } from "react-icons/hi2";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslation } from "@/app/i18n/client";
+import Link from "next/link";
 
-const navItems = [
-  { text: 'Dashboard', link: '/dashboard', icon: <LuLayoutDashboard /> },
-  { text: 'Cars', link: '/cars', icon: <IoCarSportOutline /> },
-  { text: 'Customers', link: '/customers', icon: <FaRegUserCircle /> },
-  { text: 'Contracts', link: '/contracts', icon: <HiOutlineDocumentChartBar />},
-  { text: 'Treasury', link: '/treasury', icon: <PiMoneyDuotone /> },
-  { text: 'Invoices', link: '/invoices', icon: <LiaFileInvoiceSolid />},
-  { text: 'Maintenance', link: '/maintenance', icon: <GrVmMaintenance />},
-];
 
 const NavLinks = ({lng}) => {
-    const router = useRouter();
-    const page = useSearchParams().get('p')
-  const handleLinkClick = (link) => {
-    const currentLink = link.split('/')[1]
-    router.push(`?p=${currentLink}`);
-  };
     const { t } = useTranslation(lng , "dashboard")
+    const router = useRouter()
     const renderIcon = (iconName) => {
       switch (iconName) {
         case 'LuLayoutDashboard':
@@ -50,19 +37,20 @@ const NavLinks = ({lng}) => {
   return (
     <section className="flex flex-col w-full mx-4">
      {t('navItems', { returnObjects: true }).map((item, index) => (
-      <div
-        key={index}
-        className={`hover:text-white self-stretch flex justify-between gap-4 mt-7 ${
-          page === item.text.toLowerCase() ? 'text-white' : 'text-[#a6a6a6]'
-        }`}
-        onClick={() => handleLinkClick(item.link)}
-      >
-        <div className="text-2xl flex items-center cursor-pointer">
-          {renderIcon(item.icon)}
-          <span className="text-lg font-semibold mx-2">{item.text}</span>
-        </div>
-      </div>
-    ))}
+        <Link href={item.link} key={index}>
+          {/* Wrap the content inside the Link component */}
+          <div
+            className={`hover:text-white self-stretch flex justify-between gap-4 mt-7 ${
+              router.pathname === item.link ? 'text-white' : 'text-[#a6a6a6]'
+            }`}
+          >
+            <div className="text-2xl flex items-center cursor-pointer">
+              {renderIcon(item.icon)}
+              <span className="text-lg font-semibold mx-2">{item.text}</span>
+            </div>
+          </div>
+        </Link>
+      ))}
     </section>
   );
 }

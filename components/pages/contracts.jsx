@@ -1,3 +1,4 @@
+"use client"
 import { ActionBtns } from "@/components/actionBtns"
 import { Cards } from "@/components/cards"
 import { CollabsedTable } from "@/components/tables"
