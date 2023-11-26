@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+body{
+  background-color: #f7f7f7;
+}
+.hero {
+  margin: 0;
+  padding: 0;
+  background: url('/Hero 3.png') center/cover no-repeat; /* Replace '/Hero 3.png' with the actual path to your image */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-shadow {
+  animation: shadowAnimation 3s ease infinite;
+  box-shadow: -5px 4px 37px 3px #20de8c, 0px -1px 25px 2px #ff00de;
+}
+.text-gradient{
+  /* background-clip: text; */
+  background: -webkit-linear-gradient(left, #2023de, #2072de);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.dash{
+  background-color: #253665;
+  height: 100dvh;
+}
+.main-color{
+    color: #253665;
+}
+.btn :hover{
+  background-color: #9b9b9b69;
+}
+@keyframes shadowAnimation {
+  0% {
+    box-shadow: 0px 0px 0px 0px #20de8c, 0px 0px 0px 0px #ff00de;
+  }
+  100% {
+    box-shadow: -5px 4px 37px 3px #20de8c, 0px -1px 25px 2px #ff00de;
+  }
+}

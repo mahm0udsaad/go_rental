@@ -1,0 +1,11 @@
+{
+  "navItems": [
+    { "text": "Dashboard", "link": "/dashboard", "icon": "LuLayoutDashboard" },
+    { "text": "Cars", "link": "/cars", "icon": "IoCarSportOutline" },
+    { "text": "Customers", "link": "/customers", "icon": "FaRegUserCircle" },
+    { "text": "Contracts", "link": "/contracts", "icon": "HiOutlineDocumentChartBar" },
+    { "text": "Treasury", "link": "/treasury", "icon": "PiMoneyDuotone" },
+    { "text": "Invoices", "link": "/invoices", "icon": "LiaFileInvoiceSolid" },
+    { "text": "Maintenance", "link": "/maintenance", "icon": "GrVmMaintenance" }
+  ]
+}

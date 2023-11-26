@@ -1,0 +1,11 @@
+{
+  "navItems": [
+    { "text": "لوحة القيادة", "link": "/dashboard", "icon": "LuLayoutDashboard" },
+    { "text": "السيارات", "link": "/cars", "icon": "IoCarSportOutline" },
+    { "text": "العملاء", "link": "/customers", "icon": "FaRegUserCircle" },
+    { "text": "العقود", "link": "/contracts", "icon": "HiOutlineDocumentChartBar" },
+    { "text": "الخزينة", "link": "/treasury", "icon": "PiMoneyDuotone" },
+    { "text": "الفواتير", "link": "/invoices", "icon": "LiaFileInvoiceSolid" },
+    { "text": "الصيانة", "link": "/maintenance", "icon": "GrVmMaintenance" }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "navbar": {
+    "home": "Home",
+    "support": "Support",
+    "pricing": "Pricing",
+    "dashboard":"dashboard"
+  },
+  "homepage": {
+    "title": "Drive Efficiency Navigate Success Your Journey Our System.",
+    "subtitle": "Navigate your car rental business with precision and ease. Our management system ensures you never miss a task, fromreservations to tracking. Drive efficiency and success withour seamless solution.",
+    "cta": "Join now"
+  },
+  "features": {
+    "title": "Never miss any task",
+    "loginCTA": "Add First Task",
+    "list": [
+      {
+        "icon": "FiTruck",
+        "title": "Fleet Management",
+        "description": "Efficiently manage vehicle inventory and maintenance schedules."
+      },
+      {
+        "icon": "FiCalendar",
+        "title": "Booking System",
+        "description": "Customize rental durations and pricing with ease."
+      },
+      {
+        "icon": "FiDollarSign",
+        "title": "Accounting Integration",
+        "description": "Automate invoicing and seamlessly track expenses."
+      },
+      {
+        "icon": "FiBarChart",
+        "title": "Business Analytics",
+        "description": "Track KPIs and generate custom reports for insights."
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Powerful features for powerful creators",
+    "description": "Choose a plan that’s right for you",
+    "monthly": "Pay Monthly",
+    "yearly": "Pay Yearly"
+  },
+  "footer": {
+    "company": "Your Company",
+    "rights": "All rights reserved",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
+  }
+}
