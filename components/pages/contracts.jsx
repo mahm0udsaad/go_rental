@@ -1,4 +1,5 @@
 "use client"
+import { useTranslation } from "@/app/i18n/client"
 import { ActionBtns } from "@/components/actionBtns"
 import { Cards } from "@/components/cards"
 import { CollabsedTable } from "@/components/tables"
@@ -10,7 +11,7 @@ const ContractsCards =[
   {title: 'Limited Contracts ' ,number: 30 , color:'#ff8f00'},
 ]
 
-export default  function Contracts (){
+export default  function Contracts ({ lng }){
   const [formData ,setFormData ] = useState({
     Plate: "",
     Brand: "",
@@ -28,15 +29,16 @@ export default  function Contracts (){
     ReturnStatus: "",
     InvoiceDetails: ""
   })
+  const { t } = useTranslation(lng , "dashboard")
   return (
     <div className="">
-    <h1>Contracts</h1>
+      <h1>{t('titles.contracts')}</h1>
     <div className="relative flex w-full gap-4 justify-around py-4">
       {ContractsCards.map((card , i )=> (
         <Cards card={card} key={i}/>
       ))}
       </div>
-      <ActionBtns formTitle={"New Contract"} formData={formData} setFormData={setFormData} data={ContractsData} fileName={"Contracts"}/>
+      <ActionBtns lng={lng} formTitle={"New Contract"} formData={formData} setFormData={setFormData} data={ContractsData} fileName={"Contracts"}/>
       <CollabsedTable data={ContractsData} />
       </div>
   )

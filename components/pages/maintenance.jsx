@@ -6,8 +6,9 @@ import { maintenanceData, maintenanceOverview } from "@/data/info";
 import InvoiceFormModal from "@/components/invoicesForm";
 import { useState } from "react";
 import { formatDate } from "@/helper/dateNow";
+import { useTranslation } from "@/app/i18n/client";
 
-export default function Maintenance (){
+export default function Maintenance ({ lng }){
   const [formData, setFormData] = useState({
     plate: '',
     amount: '',
@@ -17,15 +18,16 @@ export default function Maintenance (){
     Description: '',
     maintenanceType: '', 
   });
+  const { t } = useTranslation(lng , "dashboard")
   return (
     <div className="">
-    <h1>Maintanance</h1>
+    <h1>{t('titles.maintenance')}</h1>
     <div className="relative flex w-full gap-4 justify-around py-4">
       {maintenanceOverview.map((card , i )=> (
         <Cards card={card} key={i}/>
       ))}
       </div>
-      <ActionBtns formTitle={"Maintanance Card"} data={maintenanceData} fileName={'maintenance'} formData={formData} setFormData={setFormData}/>
+      <ActionBtns lng={lng} formTitle={"Maintanance Card"} data={maintenanceData} fileName={'maintenance'} formData={formData} setFormData={setFormData}/>
       <CollabsedTable data={maintenanceData} />
       </div>
   )

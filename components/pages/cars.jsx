@@ -4,8 +4,11 @@ import { Cards } from "@/components/cards";
 import { ActionBtns } from "@/components/actionBtns";
 import { CarsOverview, VehicleDetails } from "@/data/info";
 import { useState } from "react";
+import { t } from "i18next";
+import { useTranslation } from "@/app/i18n/client";
 
-export default function Cars (){
+export default function Cars ({lng}){
+  const { t } = useTranslation(lng , "dashboard")
   const [formData, setFormData] = useState({
       Plate: "",
       Brand: "",
@@ -25,13 +28,13 @@ export default function Cars (){
   });
   return (
     <div className="">
-    <h1>Cars</h1>
+    <h1>{t('titles.cars')}</h1>
     <div className="relative flex w-full gap-4 justify-around py-4">
       {CarsOverview.map((card , i )=> (
         <Cards card={card} i={i} key={i}/>
       ))}
       </div>
-      <ActionBtns formTitle={"New Car"} data={VehicleDetails} fileName={'Cars'} formData={formData} setFormData={setFormData} />
+      <ActionBtns lng={lng} formTitle={"New Car"} data={VehicleDetails} fileName={'Cars'} formData={formData} setFormData={setFormData} />
       <CollabsedTable data={VehicleDetails} />
       </div>
   )
