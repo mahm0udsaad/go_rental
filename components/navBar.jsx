@@ -7,7 +7,7 @@ const NavBar = async ({lng}) => {
   if(!user) return ;
   return (
     <>
-    <ToggleableNavBar />
+    <ToggleableNavBar lng={lng}/>
     <section className="hidden lg:flex flex-col w-[15%] mx-4 ">
        <section className="flex flex-col pt-14 max-md:mt-10">
         {/* Profile Picture */}

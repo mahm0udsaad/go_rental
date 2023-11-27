@@ -10,10 +10,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslation } from "@/app/i18n/client";
 import Link from "next/link";
 
-
 const NavLinks = ({lng}) => {
     const { t } = useTranslation(lng , "dashboard")
-    const router = useRouter()
     const renderIcon = (iconName) => {
       switch (iconName) {
         case 'LuLayoutDashboard':
@@ -31,18 +29,15 @@ const NavLinks = ({lng}) => {
         case 'GrVmMaintenance':
           return <GrVmMaintenance />;
         default:
-          return null; // Return a default icon or handle the case as needed
+          return null;
       }
     };
   return (
     <section className="flex flex-col w-full mx-4">
      {t('navItems', { returnObjects: true }).map((item, index) => (
         <Link href={item.link} key={index}>
-          {/* Wrap the content inside the Link component */}
           <div
-            className={`hover:text-white self-stretch flex justify-between gap-4 mt-7 ${
-              router.pathname === item.link ? 'text-white' : 'text-[#a6a6a6]'
-            }`}
+            className={`text-white self-stretch flex justify-between gap-4 mt-7 `}
           >
             <div className="text-2xl flex items-center cursor-pointer">
               {renderIcon(item.icon)}

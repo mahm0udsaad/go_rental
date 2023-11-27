@@ -4,7 +4,7 @@ import NavLinks from './navLinks';
 import { CiMenuBurger } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
 
-const ToggleableNavBar = () => {
+const ToggleableNavBar = ({lng}) => {
   const [showNav, setShowNav] = useState(false);
 
   const toggleNav = () => {
@@ -18,7 +18,7 @@ const ToggleableNavBar = () => {
       </button>
       {showNav && (
         <section className="flex flex-col pt-14 max-md:mt-10">
-          <NavLinks />
+          <NavLinks lng={lng}/>
         </section>
       )}
     </section>

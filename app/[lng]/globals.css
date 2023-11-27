@@ -44,6 +44,7 @@ body{
 .btn :hover{
   background-color: #9b9b9b69;
 }
+
 @keyframes shadowAnimation {
   0% {
     box-shadow: 0px 0px 0px 0px #20de8c, 0px 0px 0px 0px #ff00de;

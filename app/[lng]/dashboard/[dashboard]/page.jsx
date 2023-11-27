@@ -43,10 +43,10 @@ const PageRenderer = ({params}) => {
     const currentPage = getPageComponent();
     return (
         <main className="dash">
-        <section className="gap-4 flex">
-          <NavBar lng={params.lng}/>
-          <section className="flex w-full sm:h-[98dvh]">
-          <section className="flex-col mt-4 bg-white rounded-xl w-full lg:w-[99%] pt-8 px-4 text-blue-950 text-3xl font-semibold tracking-wide relative">
+         <section className="sm:gap-4 sm:flex">
+            <NavBar lng={params.lng}/>
+            <section className="flex w-full sm:h-[98dvh]">
+              <section className="flex-col mt-16 sm:mt-4 bg-white rounded-xl w-full lg:w-[99%] pt-3 px-4 text-blue-950 text-3xl font-semibold relative">
             {currentPage}
             </section>
           </section>

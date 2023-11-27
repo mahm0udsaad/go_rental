@@ -36,15 +36,34 @@
     "totalRentalFrequency": "إجمالي تكرار الإيجار",
     "totalSummary": "المجموع الكلي",
     "carRentalOrdersLastMonth": "طلبات تأجير السيارات الشهر الماضي",
-    "carRentalCurrentMonth": "تأجير السيارات الشهر الحالي"
+    "carRentalCurrentMonth": "تأجير السيارات الشهر الحالي",
+    "totalCustomers": "إجمالي العملاء",
+    "inactiveCustomers": "العملاء الغير نشطين",
+    "activeCustomers": "العملاء النشطين",
+    "allCars": "جميع السيارات",
+    "Rented": "مؤجرة",
+    "Available": "متاحة",
+    "totalContracts": "إجمالي العقود",
+    "limitedContracts": "العقود المحدودة",
+    "openContracts": "العقود المفتوحة",
+    "totalRevenues": "إجمالي الإيرادات",
+    "totalInvoices":"اجمالي الفواتير",
+    "totalDebt":"اجمالي الديون",
+    "fuelRefill": "تعبئة الوقود",
+    "tireChange": "تغيير الإطارات",
+    "oilChange": "تغيير الزيت",
+    "other": "أخرى",
+    "description": "الوصف"
+
   },
   "actions":{
     "filter": "تصفية",
     "export": "تصدير",
-    "addNew": "إضافة جديدة"
+    "addNew": "إضافة"
   },
   "tables":{
     "id": "id",
+    "addtax":"القيمه المضافه",
     "submit":"اضافه",
     "car":"السياره",
     "rentalcount":"مرات الايجار",
@@ -78,6 +97,7 @@
     "maintenanceType": "نوع الصيانة",
     "client": "العميل",
     "date": "التاريخ",
+    "Date": "التاريخ",
     "cost": "التكلفة",
     "description": "الوصف",
     "customer": "العميل",
@@ -94,7 +114,7 @@
     "returnDate": "تاريخ الإرجاع",
     "remainingDues": "المتبقي",
     "contractDebt": "دين العقد",
-    "meterReadingOut": "قراءة العداد الخارجي",
+    "meterReadingOut": "قراءة العداد ",
     "meterReadingIn": "قراءة العداد الداخلي",
     "timeOut": "وقت الخروج",
     "timeIn": "وقت العودة",
@@ -121,14 +141,16 @@
     "workPhone": "رقم الهاتف العملي",
     "homeAddress": "عنوان المنزل",
     "workAddress": "عنوان العمل",
-    "New Customer":"اضافه عميل جديد",
-    "New Contract":"اضافه عقد جديد",
-    "New Car":"اضافه سياره جديده",
+    "New Customer":" عميل جديد",
+    "New Contract":" عقد جديد",
+    "New Car":" سياره جديده",
     "branch": "الفرع",
     "employeeCustomerName": "اسم العميل للموظف",
     "userCustomerName": "اسم العميل للمستخدم",
     "bankCheckNumber": "رقم شيك البنك",
     "bankCheckDate": "تاريخ شيك البنك",
-    "bankCustomerName": "اسم العميل للبنك"
+    "bankCustomerName": "اسم العميل للبنك",
+    "Maintanance Card":"كارت صيانه",
+    "New Invoice":"فاتوره "
   }
 }

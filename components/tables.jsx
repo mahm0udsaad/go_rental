@@ -42,12 +42,11 @@ export const RentalRows = ({ rentalData  , lng}) => {
 export const CollabsedTable = ({ data, lng }) => {
   const { t } = useTranslation(lng, 'dashboard');
   const tableHeaders = Object.keys(data[0]).slice(0, 7);
-  console.log(data , tableHeaders);
   const getColorClass = (status) => {
     if (status === 'Rented') {
-      return 'bg-orange-300 text-orange-600 font-bold';
-    } else if (status === 'open' || status === 'Active' || status === 'available') {
-      return 'bg-green-300 text-green-600 font-bold';
+      return 'bg-orange-300 text-orange-700 font-bold';
+    } else if (status === 'open' || status === 'Active' || status === 'Available') {
+      return 'bg-green-300 text-green-700 font-bold';
     }
     return '';
   };
@@ -110,7 +109,7 @@ export const CollabsedTable = ({ data, lng }) => {
   };
 
   return (
-    <div className="flex flex-col h-[55dvh]  overflow-x-hidden">
+    <div className="flex flex-col overflow-x-hidden h-[60dvh]">
       <TableContainer>
         <Table>
           <TableHead>

@@ -6,27 +6,7 @@ import { CarsOverview, VehicleDetails } from "@/data/info";
 import { useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
 
-const carsHeads = [
-  "id",
-  "plateNumber",
-  "brand",
-  "meter",
-  "status",
-  "rentalCount",
-  "transmission",
-  "manufactureYear",
-  "color",
-  "extraHourPrice",
-  "dailyRent",
-  "weeklyRent",
-  "monthlyRent",
-  "insuranceCompany",
-  "registrationType",
-  "fuelType",
-  "extraKilometerPrice",
-  "vehicleType",
-  "dailyKilometerLimit"
-]
+
 export default function Cars ({lng}){
   const { t } = useTranslation(lng , "dashboard")
   const [formData, setFormData] = useState({
@@ -47,15 +27,15 @@ export default function Cars ({lng}){
       dailyKilometerLimit: 0.00
   });
   return (
-    <div className="">
+    <>
     <h1>{t('titles.cars')}</h1>
     <div className="relative flex w-full gap-4 justify-around py-4">
       {CarsOverview.map((card , i )=> (
-        <Cards card={card} i={i} key={i}/>
+        <Cards lng={lng} card={card} i={i} key={i}/>
       ))}
       </div>
       <ActionBtns lng={lng} formTitle={"New Car"} data={VehicleDetails} fileName={'Cars'} formData={formData} setFormData={setFormData} />
-      <CollabsedTable lng={lng} headers={carsHeads} data={VehicleDetails} />
-      </div>
+      <CollabsedTable lng={lng} data={VehicleDetails} />
+      </>
   )
 }

@@ -72,25 +72,24 @@ return (
         const formattedKey = t(`tables.${key}`)
         if (key === 'maintenanceType') {
         return (
-        <Grid item xs={12} sm={6} key={key}>
-        <InputLabel>{formattedKey}</InputLabel>
-        <Select
-        {...register(key, { required: true })}
-        fullWidth
-        variant="outlined"
-        displayEmpty // Allows an empty item to be displayed
-        >
-        <MenuItem value="" disabled>
-          Select {key}
-        </MenuItem>
-        {maintenanceTypes.map((type, index) => (
-          <MenuItem key={index} value={type}>
-            {type}
-          </MenuItem>
-        ))}
-        </Select>
-        {errors[key] && <span>This field is required</span>}
-        </Grid>
+          <Grid item xs={12} sm={6} key={key}>
+          <Autocomplete
+          options={maintenanceTypes}
+          getOptionLabel={(type) => `${type}`}
+          onChange={(event, newValue) => {
+          if (newValue) {
+          setFormData((prevData) => ({
+            ...prevData,
+            maintenanceType:newValue
+          }));
+          }
+          }}
+          renderInput={(params) => (
+          <TextField {...params} label={formattedKey} variant="outlined" fullWidth />
+          )}
+          />
+          {errors[key] && <span>This field is required</span>}
+          </Grid>
         );
         } 
         if (key === 'car' && cars) {
@@ -120,12 +119,12 @@ return (
         <Grid item xs={12} sm={6} key={key}>
         <Autocomplete
         options={customers}
-        getOptionLabel={(customer) => `${customer.fullName}`}
+        getOptionLabel={(customer) => `${customer.customerName}`}
         onChange={(event, newValue) => {
         if (newValue) {
         setFormData((prevData) => ({
           ...prevData,
-          Name: `${newValue.firstName} ${newValue.lastName}`,
+          Name: `${newValue.customerName}`,
         }));
         }
         }}
@@ -142,20 +141,23 @@ return (
           <TextField
             {...register(key)}
             label={formattedKey}
-            value={key.includes('Date') || key.includes('dateOut') ? formatDate() : ''}
             variant="outlined"
             fullWidth
             required={key !== 'RemainingDues' && key !== 'ContractDebt'}
             type={key.includes('Date') ? 'date' : 'text'}
             error={!!errors[key]}
             helperText={errors[key] && 'This field is required'}
+            InputLabelProps={{
+              shrink: key.includes('Date'), // This will shrink the label when date type is used
+              placeholder: key.includes('Date') ? 'Select Date' : '', // Placeholder for date fields
+            }}
           />
         </Grid>
         );
         }
         })}
         </Grid>
-        <Button type="submit" variant="contained" color="success" className="mt-3">
+        <Button type="submit" variant="contained" color="success" className="mt-3 bg-green-500">
         {t("tables.submit")}
         </Button>
       </form>

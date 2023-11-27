@@ -25,7 +25,7 @@ export const VehicleDetails = [
   "plateNumber": "R S L 8644 R S L",
   "brand": "R S L",
   "meter": 2222,
-  "status":"available",
+  "status":"Available",
   "rentalCount": 1,
   "transmission": "Automatic",
   "manufactureYear": 2023,
@@ -46,7 +46,7 @@ export const VehicleDetails = [
   "plateNumber": "R S L 8650 R S L",
   "brand": "R S L",
   "meter": 1111,
-  "status":"available",
+  "status":"Available",
   "rentalCount": 1,
   "transmission": "Automatic",
   "manufactureYear": 2023,
@@ -292,7 +292,7 @@ export const Contracts = [
 export const Customers = [  
 {
 "id": 1,
-"fullcustomerName": "عوض بن مكده",
+"customerName": "عوض بن مكده",
 "category": "فرد",
 "idNumber": "1059854628",
 "idExpirationDate": "10/10/1450",
@@ -301,7 +301,7 @@ export const Customers = [
 },
   {
   "id": 1,
-  "fullcustomerName": "نوف سعود عوض بن مكده",
+  "customerName": "نوف سعود عوض بن مكده",
   "category": "فرد",
   "idNumber": "1059854628",
   "idExpirationDate": "10/10/1450",
@@ -310,7 +310,7 @@ export const Customers = [
   },
   {
   "id": 2,
-  "fullcustomerName": "محمد بن مسفر بن منصور العلياني",
+  "customerName": "محمد بن مسفر بن منصور العلياني",
   "category": "فرد",
   "idNumber": "1022267791",
   "idExpirationDate": "10/10/1450",
@@ -319,7 +319,7 @@ export const Customers = [
   },
   {
   "id": 3,
-  "fullcustomerName": "ندى عبدالله علي الوعله",
+  "customerName": "ندى عبدالله علي الوعله",
   "category": "فرد",
   "idNumber": "1037029905",
   "idExpirationDate": "10/10/1450",
@@ -328,7 +328,7 @@ export const Customers = [
   },
   {
   "id": 4,
-  "fullcustomerName": "عائض سعيد عائض الغرابي",
+  "customerName": "عائض سعيد عائض الغرابي",
   "category": "فرد",
   "idNumber": "1109159689",
   "idExpirationDate": "10/10/1450",
@@ -337,7 +337,7 @@ export const Customers = [
   },
   {
   "id": 5,
-  "fullcustomerName": "ادريس موسى حسن مجممي",
+  "customerName": "ادريس موسى حسن مجممي",
   "category": "فرد",
   "idNumber": "1024941302",
   "idExpirationDate": "10/10/1449",
@@ -345,7 +345,7 @@ export const Customers = [
   "debt": 0.00
   }, {
   "id": 6,
-  "fullcustomerName": "علي صالح علي السعدي",
+  "customerName": "علي صالح علي السعدي",
   "category": "فرد",
   "idNumber": "2464554266",
   "idExpirationDate": "10/10/1449",
@@ -354,7 +354,7 @@ export const Customers = [
   },
   {
   "id": 7,
-  "fullcustomerName": "عبدالعزيز شيتيان ثوديكا",
+  "customerName": "عبدالعزيز شيتيان ثوديكا",
   "category": "فرد",
   "idNumber": "2250495831",
   "idExpirationDate": "10/10/1449",
@@ -363,7 +363,7 @@ export const Customers = [
   },
   {
   "id": 8,
-  "fullcustomerName": "ضيف الله الحربي",
+  "customerName": "ضيف الله الحربي",
   "category": "فرد",
   "idNumber": "1051083838",
   "idExpirationDate": "10/10/1449",
@@ -372,7 +372,7 @@ export const Customers = [
   },
   {
   "id": 9,
-  "fullcustomerName": "رضوان مقبل قاسم مصلح",
+  "customerName": "رضوان مقبل قاسم مصلح",
   "category": "فرد",
   "idNumber": "2272193562",
   "idExpirationDate": "11/11/1450",
@@ -381,7 +381,7 @@ export const Customers = [
   },
   {
   "id": 10,
-  "fullcustomerName": "عبدالرحمن حسين محمد العمري",
+  "customerName": "عبدالرحمن حسين محمد العمري",
   "category": "فرد",
   "idNumber": "1098567991",
   "idExpirationDate": "10/10/1450",
@@ -609,16 +609,16 @@ export const Invoices = [
 ]
 export const overview = [
   {
-    title: "Total Invoices",
+    title: "totalInvoices",
     number: 5,
   },
   {
-    title: "Total Revenue",
+    title: "totalRevenue",
     number: 747.48,
     color:'green'
   },
   {
-    title: "Total debt",
+    title: "totalDebt",
     number: 237.48,
     color:'red'
   }
@@ -627,80 +627,80 @@ export const maintenanceData = [
   {
     id:1,
     plateNumber: '2468 و س 5',
-    maintenanceType: 'تعبئة وقود',
+    maintenanceType: 'fuelRefill',
     client: 'ياسمين سعيد',
     date: '20/07/2023',
     cost: 300.00,
-    Description: 'تعبئة وقود',
+    description: 'تعبئه وقود',
   },
   {
     id:2,
     plateNumber: '1357 ط ح 8',
-    maintenanceType: 'بنشر',
+    maintenanceType: 'tireChange',
     client: 'أحمد مصطفى',
     date: '07/06/2023',
     cost: 450.00,
-    Description: 'بنشر',
+    description: 'تغيير اطارات',
   },
   {
     id:3,
     plateNumber: '9870 ك س 2',
-    maintenanceType: 'غيار زيت',
+    maintenanceType: 'oilChange',
     client: 'سارة العوضي',
     date: '12/05/2023',
     cost: 380.00,
-    Description: 'غيار زيت',
+    description: 'تغيير زيت',
   },
   {
     id:4,
     plateNumber: '3210 د ب 6',
-    maintenanceType: 'غيار إطارات',
+    maintenanceType: 'tireChange',
     client: 'نور عبدالله',
     date: '28/04/2023',
     cost: 320.00,
-    Description: 'غيار إطارات',
+    description: 'تغيير اطارات',
   },
   {
     id:5,
     plateNumber: '7890 ر س 3',
-    maintenanceType: 'غيار زيت',
+    maintenanceType: 'oilChange',
     client: 'علي العويس',
     date: '15/03/2023',
     cost: 500.00,
-    Description: 'غيار زيت',
+    description: 'تغيير زيت',
   },
   {
     id:6,
     plateNumber: '6543 ف ح 4',
-    maintenanceType: 'تعبئة وقود',
+    maintenanceType: 'fuelRefill',
     client: 'لمى المنصور',
     date: '22/02/2023',
     cost: 400.00,
-    Description: 'تعبئة وقود',
+    description: 'fuelRefill',
   },
   {
     id:7,
     plateNumber: '4321 ب ن 7',
-    maintenanceType: 'اخري',
+    maintenanceType: 'other',
     client: 'محمود خالد',
     date: '07/01/2023',
     cost: 350.00,
-    Description: 'اخري',
+    description: 'حادث',
   },
   {
     id:8,
     plateNumber: '8765 ق ر 2',
-    maintenanceType: 'غيار إطارات',
+    maintenanceType: 'tireChange',
     client: 'ريم الصالح',
     date: '12/12/2022',
     cost: 300.00,
-    Description: 'غيار إطارات',
+    description: 'تغيير اطارات',
   },
 ];
 
-// Overview functions 
-const generateCarsOverview = (detailsArray, fieldsToCount, titleToAdd) => {
+const generateCarsOverview = (detailsArray, fieldsToCount, titlesToAdd) => {
   const CarsCards = {};
+
   detailsArray.forEach((data) => {
     const fieldValue = fieldsToCount.map(field => data[field]).join('_');
     if (!CarsCards[fieldValue]) {
@@ -715,14 +715,17 @@ const generateCarsOverview = (detailsArray, fieldsToCount, titleToAdd) => {
     number,
   }));
 
-  if (titleToAdd && detailsArray.length > 0) {
-    CarsOverview.unshift({ title: titleToAdd, number: detailsArray.length });
+  if (titlesToAdd && detailsArray.length > 0) {
+    titlesToAdd.forEach((title, index) => {
+      CarsOverview.splice(index, 0, { title, number: detailsArray.length });
+    });
   }
 
   return CarsOverview;
 };
 
-export const CarsOverview = generateCarsOverview(VehicleDetails , ["Status"] , "All Cars")
+export const CarsOverview = generateCarsOverview(VehicleDetails, ["status"], ["allCars"]);
+
 const maintenanceTypes = {};
 maintenanceData.forEach((data) => {
 const { maintenanceType, cost } = data;

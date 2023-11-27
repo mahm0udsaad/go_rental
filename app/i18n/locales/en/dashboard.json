@@ -36,7 +36,25 @@
     "totalRentalFrequency": "Total Rental Frequency",
     "totalSummary": "Total Summary",
     "carRentalOrdersLastMonth": "Car Rental Orders last month",
-    "carRentalCurrentMonth": "Car Rental current month"
+    "carRentalCurrentMonth": "Car Rental current month",
+    "totalCustomers": "Total Customers",
+    "inactiveCustomers": "Inactive Customers",
+    "activeCustomers": "Active Customers",
+    "allCars": "All Cars",
+    "Rented": "Rented",
+    "Available": "Available",
+    "totalContracts": "Total Contracts",
+    "limitedContracts": "Limited Contracts",
+    "openContracts": "Open Contracts",
+    "totalRevenues": "Total Revenues",
+    "totalInvoices":"Total Invoices",
+    "totalDebt":"Total Debt",
+    "fuelRefill": "Fuel Refill",
+    "tireChange": "Tire Change",
+    "oilChange": "Oil Change",
+    "other": "Other",
+    "description": "Description"
+
   },
   "actions":{
     "filter": "Filter",
@@ -47,6 +65,7 @@
     "submit":"submit",
     "id": "id",
     "car":"car",
+    "addtax":"Add Tax",
     "rentalcount":"Rental Count",
     "plateNumber": "Plate Number",
     "carname": "Car Name",
@@ -78,6 +97,7 @@
     "maintenanceType": "Maintenance Type",
     "client": "Client",
     "date": "Date",
+    "Date": "Date",
     "cost": "Cost",
     "description": "Description",
     "customer": "Customer",
@@ -129,7 +149,8 @@
     "userCustomerName": "User Customer Name",
     "bankCheckNumber": "Bank Check Number",
     "bankCheckDate": "Bank Check Date",
-    "bankCustomerName": "Bank Customer Name"
-
+    "bankCustomerName": "Bank Customer Name",
+    "Maintanance Card":"Maintanance Card",
+    "New Invoice":"New Invoice"
   }
 }

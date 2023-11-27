@@ -7,7 +7,7 @@ import { useTranslation } from '@/app/i18n/client';
 export const BarChart = ({lng}) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
-  const { t } =  useTranslation(lng,'dashboard'); // Replace 'dashboard' with the appropriate translation namespace
+  const { t } =  useTranslation(lng,'dashboard'); 
 
   const generateRandomData = () => {
     const data = [];
@@ -63,10 +63,10 @@ export const BarChart = ({lng}) => {
         chartInstance.current.destroy();
       }
     };
-  }, [t]); 
+  }, []); 
 
-  return (
-      <canvas ref={chartRef} />
+  return (  
+      <canvas ref={chartRef}  width="300" height="200" className='w-full'/>
   );
 };
 export const Doughnut = ({lng}) => {
@@ -105,12 +105,10 @@ export const Doughnut = ({lng}) => {
         chartInstance.current.destroy();
       }
     };
-  }, [TotalRevenue, TotalExpenses, t]); // Include translations and state dependencies
+  }, []); 
 
   return (
-    <div className="h-60 w-[40%]">
       <canvas ref={chartRef} id="myChart" width="200" height="100"></canvas>
-    </div>
   );
 };
 export const LineChart = ({lng}) => {
@@ -165,10 +163,10 @@ export const LineChart = ({lng}) => {
         chartInstance.current.destroy();
       }
     };
-  }, [t]); // Include translations as a dependency
+  }, []); // Include translations as a dependency
 
   return (
-    <canvas ref={chartRef} id="myChart" width="200" height="150"></canvas>
+    <canvas ref={chartRef} id="myChart"  width="300" height="200"></canvas>
   );
 };
 export const TotalSummaryChart = ({ lng }) => {
@@ -228,7 +226,7 @@ export const TotalSummaryChart = ({ lng }) => {
         chartInstance.current.destroy();
       }
     };
-  }, [TotalVehicles, TotalRentalFrequency, t]); // Include translations and state dependencies
+  }, []); // Include translations and state dependencies
 
   return (
     <div className="w-full">
