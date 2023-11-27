@@ -21,7 +21,7 @@ export default async function HomePage({ lng }) {
                 <div className="text-zinc-900 text-2xl sm:text-5xl font-extrabold sm:leading-[66px] w-full">
                     {t("homepage.title")}
                 </div>
-                <Link href={`/${lng}/signup`} className="hover:bg-white hover:text-[#334155] border border-[#334155] transition text-white text-center text-lg font-bold leading-6 whitespace-nowrap justify-center items-center bg-slate-700 w-[197px] max-w-full mt-28 px-5 py-4 rounded-xl self-start max-md:mt-10">
+                <Link href={`/${lng}/auth/sign-up`} className="hover:bg-white hover:text-[#334155] border border-[#334155] transition text-white text-center text-lg font-bold leading-6 whitespace-nowrap justify-center items-center bg-slate-700 w-[197px] max-w-full mt-28 px-5 py-4 rounded-xl self-start max-md:mt-10">
                 {t("homepage.cta")}
                 </Link>
                 </div>
@@ -49,7 +49,7 @@ export default async function HomePage({ lng }) {
                   <div className="text-zinc-700 text-base leading-7 self-stretch mt-6 max-md:max-w-full">
                     {t('features.description')}
                   </div>
-                  <Link href={'/login'} className="hover:bg-white hover:text-[#334155] border border-[#334155] transition text-white text-right text-lg font-bold leading-6 whitespace-nowrap justify-center items-center bg-slate-700 w-[179px] max-w-full mt-6 px-5 py-4 rounded-xl">
+                  <Link href={`/${lng}/sign-in`} className="hover:bg-white hover:text-[#334155] border border-[#334155] transition text-white text-right text-lg font-bold leading-6 whitespace-nowrap justify-center items-center bg-slate-700 w-[179px] max-w-full mt-6 px-5 py-4 rounded-xl">
                   {t('features.loginCTA')}
                   </Link>
                 </div>

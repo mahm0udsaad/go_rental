@@ -29,9 +29,9 @@ export default function Customers ({ lng }){
       workAddress: ''
   })
   const cards = [
-    {title:t('dashboard.totalCustomers'),number: `120`},
-    {title:t('dashboard.inactiveCustomers'),number: `50`},
-    {title:t('dashboard.activeCustomers'),number: `70`},
+    {title:t('totalCustomers'),number: `120`},
+    {title:t('inactiveCustomers'),number: `50`},
+    {title:t('activeCustomers'),number: `70`},
   ]
   return (
     <>

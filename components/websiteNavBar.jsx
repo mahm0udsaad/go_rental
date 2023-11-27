@@ -21,16 +21,16 @@ export async function  WebsiteNavBar({lng}){
           <div className="bg-zinc-300 w-px shrink-0 h-[17px] mt-5 self-start" />
          
           {user ? 
-          <Link href={`${lng}/dashboard`} className="hover:bg-black hover:text-white text-lg-zinc-900 text-right text-base font-medium  whitespace-nowrap justify-center items-stretch border-[color:var(--gray-400,#A1A1AA)] self-stretch grow px-4 py-3 rounded-xl border-[1.5px] border-solid max-md:pr-0">
+          <Link href={`/${lng}/dashboard`} className="hover:bg-black hover:text-white text-lg-zinc-900 text-right text-base font-medium  whitespace-nowrap justify-center items-stretch border-[color:var(--gray-400,#A1A1AA)] self-stretch grow px-4 py-3 rounded-xl border-[1.5px] border-solid max-md:pr-0">
            {t('navbar.dashboard')}
         </Link>
         :
          <>
-         <div className="text-zinc-900 text-base font-medium  self-center my-auto">
-            Login
-          </div>
-          <Link href={`${lng}/signup`} className="hover:bg-black hover:text-white text-lg-zinc-900 text-right text-base font-medium  whitespace-nowrap justify-center items-stretch border-[color:var(--gray-400,#A1A1AA)] self-stretch grow px-4 py-3 rounded-xl border-[1.5px] border-solid max-md:pr-0">
-          Create free account
+         <Link href={`/${lng}/auth/sign-in`} className="text-zinc-900 text-base font-medium  self-center my-auto">
+            {t('Login')}
+          </Link>
+          <Link href={`/${lng}/auth/sign-up`} className="hover:bg-black hover:text-white text-lg-zinc-900 text-right text-base font-medium  whitespace-nowrap justify-center items-stretch border-[color:var(--gray-400,#A1A1AA)] self-stretch grow px-4 py-3 rounded-xl border-[1.5px] border-solid max-md:pr-0">
+          {t('Create free account')}
         </Link>  
          </>
         }
