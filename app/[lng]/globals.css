@@ -17,6 +17,12 @@ body{
   align-items: center;
   justify-content: center;
 }
+.css-1ygcj2i-MuiTableCell-root{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
 
 .hero-shadow {
   animation: shadowAnimation 3s ease infinite;

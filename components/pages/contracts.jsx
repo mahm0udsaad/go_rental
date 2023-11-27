@@ -2,44 +2,43 @@
 import { useTranslation } from "@/app/i18n/client"
 import { ActionBtns } from "@/components/actionBtns"
 import { Cards } from "@/components/cards"
-import { CollabsedTable } from "@/components/tables"
-import { Contracts as ContractsData } from "@/data/info"
+import { Contracts as ContractsData , VehicleDetails ,Customers} from "@/data/info"
 import { useState } from "react"
+import { CollabsedTable } from "../tables"
+
 const ContractsCards =[
   {title: 'Total Contracts ' ,number: 50 , color:'black'},
   {title: 'Opend Contracts ' ,number: 20 , color:'green'},
   {title: 'Limited Contracts ' ,number: 30 , color:'#ff8f00'},
 ]
-
 export default  function Contracts ({ lng }){
+  const cars = VehicleDetails.filter(car => car.status == "available")
   const [formData ,setFormData ] = useState({
-    Plate: "",
-    Brand: "",
-    Contract: "",
-    Name: "",
-    ReturnDate: "",
-    RemainingDues: 0,
-    ContractDebt: 0,
-    MeterReadingOut: 0,
-    MeterReadingIn: 0,
-    TimeOut: "",
-    TimeIn: "",
-    DateOut: "",
-    DateIn: "",
-    ReturnStatus: "",
-    InvoiceDetails: ""
+    customerName: "",
+    car: "",
+    brand: "",
+    returnDate: "",
+    paid:0,
+    remainingDues: 0,
+    meterReadingOut: 0,
+    meterReadingIn: 0,
+    timeOut: "",
+    timeIn: "",
+    dateOut: "",
+    dateIn: "",
+    invoiceDetails: ""
   })
   const { t } = useTranslation(lng , "dashboard")
   return (
-    <div className="">
+    <>
       <h1>{t('titles.contracts')}</h1>
-    <div className="relative flex w-full gap-4 justify-around py-4">
+      <div className="relative flex w-full gap-4 justify-around py-4">
       {ContractsCards.map((card , i )=> (
         <Cards card={card} key={i}/>
       ))}
       </div>
-      <ActionBtns lng={lng} formTitle={"New Contract"} formData={formData} setFormData={setFormData} data={ContractsData} fileName={"Contracts"}/>
-      <CollabsedTable data={ContractsData} />
-      </div>
+        <ActionBtns formData={formData} setFormData={setFormData} formTitle={"New Contract"} cars={cars} customers={Customers} lng={lng}  data={ContractsData}/>
+        <CollabsedTable lng={lng} data={ContractsData} />
+      </>
   )
 }

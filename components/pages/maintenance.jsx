@@ -3,7 +3,6 @@ import { ActionBtns } from "@/components/actionBtns";
 import { Cards } from "@/components/cards";
 import { CollabsedTable } from "@/components/tables";
 import { maintenanceData, maintenanceOverview } from "@/data/info";
-import InvoiceFormModal from "@/components/invoicesForm";
 import { useState } from "react";
 import { formatDate } from "@/helper/dateNow";
 import { useTranslation } from "@/app/i18n/client";
@@ -28,7 +27,7 @@ export default function Maintenance ({ lng }){
       ))}
       </div>
       <ActionBtns lng={lng} formTitle={"Maintanance Card"} data={maintenanceData} fileName={'maintenance'} formData={formData} setFormData={setFormData}/>
-      <CollabsedTable data={maintenanceData} />
+      <CollabsedTable lng={lng} data={maintenanceData} />
       </div>
   )
 }

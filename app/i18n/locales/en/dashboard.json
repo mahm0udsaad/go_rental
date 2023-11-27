@@ -44,7 +44,9 @@
     "addNew": "Add New"
   },
   "tables":{
+    "submit":"submit",
     "id": "id",
+    "car":"car",
     "rentalcount":"Rental Count",
     "plateNumber": "Plate Number",
     "carname": "Car Name",
@@ -102,6 +104,32 @@
     "issueBranch": "Issue Branch",
     "returnStatus": "Return Status",
     "returnUser": "Return User",
-    "invoiceDetails": "Invoice Details"
+    "invoiceDetails": "Invoice Details",
+    "customerNumber": "Customer Number",
+    "customerName": "Customer Name",
+    "idOrResidenceCard": "ID or Residence Card",
+    "idCardDate": "ID Card Date",
+    "placeOfIssueIDCard": "Place of Issue (ID Card)",
+    "nationality": "Nationality",
+    "driversLicenseNumber": "Driver's License Number",
+    "licenseExpiryDate": "License Expiry Date",
+    "placeOfIssueLicense": "Place of Issue (License)",
+    "dateOfBirth": "Date of Birth",
+    "placeOfBirth": "Place of Birth",
+    "mobileNumber": "Mobile Number",
+    "homePhone": "Home Phone",
+    "workPhone": "Work Phone",
+    "homeAddress": "Home Address",
+    "workAddress": "Work Address",
+    "New Customer":"New Customer",
+    "New Contract":"New Contract",
+    "New Car":"New Car",
+    "branch": "Branch",
+    "employeeCustomerName": "Employee Customer Name",
+    "userCustomerName": "User Customer Name",
+    "bankCheckNumber": "Bank Check Number",
+    "bankCheckDate": "Bank Check Date",
+    "bankCustomerName": "Bank Customer Name"
+
   }
 }

@@ -4,11 +4,12 @@ import ToggleableNavBar from "./toggleableNav";
 import { useTranslation } from "@/app/i18n";
 const NavBar = async ({lng}) => {
   const user = await currentUser()
+  if(!user) return ;
   return (
     <>
     <ToggleableNavBar />
     <section className="hidden lg:flex flex-col w-[15%] mx-4 ">
-      <section className="flex flex-col pt-14 max-md:mt-10">
+       <section className="flex flex-col pt-14 max-md:mt-10">
         {/* Profile Picture */}
         <div className="user-image-wrapper w-[100px] pb-3">
         <img
@@ -28,7 +29,7 @@ const NavBar = async ({lng}) => {
       </section>
      <NavLinks lng={lng}/>      
     </section>
-    </>
+    </> 
   );
 }
 export default  NavBar ;

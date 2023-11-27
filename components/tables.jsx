@@ -1,5 +1,6 @@
 "use client"
 import { useTranslation } from '@/app/i18n/client';
+import { Grid,Collapse, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography} from '@mui/material'
 import React, { useState } from 'react';
 
 export const RentalRows = ({ rentalData  , lng}) => {
@@ -38,20 +39,10 @@ export const RentalRows = ({ rentalData  , lng}) => {
         </table>
     );
 };
-export const CollabsedTable = ({ data , lng}) => {
-  const { t } = useTranslation(lng , "dashboard")
-  const [expandedRows, setExpandedRows] = useState([]);
-
-  const toggleRow = (index) => {
-    const updatedExpandedRows = [...expandedRows];
-    if (updatedExpandedRows.includes(index)) {
-      updatedExpandedRows.splice(updatedExpandedRows.indexOf(index), 1);
-    } else {
-      updatedExpandedRows.push(index);
-    }
-    setExpandedRows(updatedExpandedRows);
-  };
-  const tableHeaders = Object.keys(data[0]).slice(0, 7); // Displaying only the first 6 headers
+export const CollabsedTable = ({ data, lng }) => {
+  const { t } = useTranslation(lng, 'dashboard');
+  const tableHeaders = Object.keys(data[0]).slice(0, 7);
+  console.log(data , tableHeaders);
   const getColorClass = (status) => {
     if (status === 'Rented') {
       return 'bg-orange-300 text-orange-600 font-bold';
@@ -60,59 +51,84 @@ export const CollabsedTable = ({ data , lng}) => {
     }
     return '';
   };
+
+  const Row = ({ item, index }) => {
+    const [open, setOpen] = React.useState(false);
+
+    const handleRowClick = () => {
+      setOpen(!open);
+    };
+
+    return (
+      <React.Fragment>
+        <TableRow className="border-b transition duration-300 ease-in-out hover:bg-[#2536656b] " onClick={handleRowClick}>
+          {tableHeaders.map((header, i) => (
+            <TableCell key={i} className="whitespace-nowrap px-6 py-4 font-medium ">
+              <span className={getColorClass(item[header]) + ' px-4 py-2 rounded-full'}>{item[header]}</span>
+            </TableCell>
+          ))}
+        </TableRow>
+        <TableRow>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={tableHeaders.length + 1}>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <Typography variant="body2" component="div">
+                <TableContainer component={Paper}>
+                  <Table size="small" aria-label="purchases">
+                    <TableBody>
+                      {Object.entries(item)
+                        .slice(6)
+                        .reduce((result, [key, value], idx, array) => {
+                          if (idx % 2 === 0) {
+                            result.push(
+                              <TableRow key={idx}>
+                                <TableCell component="th" scope="row" style={{ fontWeight: 'bold' }}>
+                                  {t(`tables.${array[idx][0]}`)}
+                                </TableCell>
+                                <TableCell>{array[idx][1]}</TableCell>
+                                {array[idx + 1] && (
+                                  <>
+                                    <TableCell component="th" scope="row" style={{ fontWeight: 'bold' }}>
+                                      {t(`tables.${array[idx + 1][0]}`)}
+                                    </TableCell>
+                                    <TableCell>{array[idx + 1][1]}</TableCell>
+                                  </>
+                                )}
+                              </TableRow>
+                            );
+                          }
+                          return result;
+                        }, [])}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Typography>
+            </Collapse>
+          </TableCell>
+        </TableRow>
+      </React.Fragment>
+    );
+  };
+
   return (
-    <div className="flex flex-col h-[55dvh] overflow-y-scroll overflow-x-hidden ">
-      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-          <div className="overflow-hidden">
-            <table className="min-w-full text-left text-sm font-light">
-              <thead className="border-b font-medium dark:border-neutral-500">
-                <tr>
-                  {tableHeaders.map((item, i) => (
-                    <th key={i} scope="col" className="px-6 py-4">
-                      <span className='flex justify-center items-center'>
-                      {t(`tables.${item}`)}
-                      </span>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item, index) => (
-                  <React.Fragment key={index}>
-                    <tr
-                      className="border-b transition duration-300 ease-in-out hover:bg-[#253665] hover:text-white"
-                      onClick={() => toggleRow(index)}
-                    >
-                      {tableHeaders.map((header, i) => (
-                        <td  key={i} className="whitespace-nowrap px-6 py-4 font-medium ">
-                          <span className={getColorClass(item[header]) + ' px-4 py-2 rounded-full'}>{item[header]}</span>
-                        </td>
-                      ))}
-                    </tr>
-                    {expandedRows.includes(index) && (
-                    <tr className="bg-gray-100">
-                      <td colSpan={tableHeaders.length + 1} className="border-t border-gray-200 p-4">
-                        <div className="grid grid-cols-2 gap-4">
-                          {Object.entries(item)
-                            .slice(6) 
-                            .map(([key, value], idx) => (
-                              <div key={idx} className="flex py-1">
-                                <div className="w-1/2 font-bold">{t(`tables.${key}`)}:</div>
-                                <div className="w-1/2">{value}</div>
-                              </div>
-                            ))}
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-                  </React.Fragment>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+    <div className="flex flex-col h-[55dvh]  overflow-x-hidden">
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {tableHeaders.map((item, i) => (
+                <TableCell key={i} scope="col" className="px-6 py-4 ml-3 ">
+                  {t(`tables.${item}`)}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((item, index) => (
+              <Row key={index} item={item} index={index} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 };

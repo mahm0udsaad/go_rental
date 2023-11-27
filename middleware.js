@@ -36,6 +36,7 @@ const customBeforeAuth = (req, res) => {
 };
 
 export default authMiddleware({
-  publicRoutes: ['/ar' , '/en' , '/sign-in' , '/sign-up'],
+  publicRoutes: ['/ar' , '/en' , '/en/auth/sign-up', '/en/auth/sign-in' , '/ar/auth/sign-up', '/ar/auth/sign-in'],
   beforeAuth: customBeforeAuth,
 });
+

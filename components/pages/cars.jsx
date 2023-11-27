@@ -1,30 +1,50 @@
 "use client"
-import { CollabsedTable, StaticTable } from "@/components/tables";
+import { CollabsedTable} from "@/components/tables";
 import { Cards } from "@/components/cards";
 import { ActionBtns } from "@/components/actionBtns";
 import { CarsOverview, VehicleDetails } from "@/data/info";
 import { useState } from "react";
-import { t } from "i18next";
 import { useTranslation } from "@/app/i18n/client";
 
+const carsHeads = [
+  "id",
+  "plateNumber",
+  "brand",
+  "meter",
+  "status",
+  "rentalCount",
+  "transmission",
+  "manufactureYear",
+  "color",
+  "extraHourPrice",
+  "dailyRent",
+  "weeklyRent",
+  "monthlyRent",
+  "insuranceCompany",
+  "registrationType",
+  "fuelType",
+  "extraKilometerPrice",
+  "vehicleType",
+  "dailyKilometerLimit"
+]
 export default function Cars ({lng}){
   const { t } = useTranslation(lng , "dashboard")
   const [formData, setFormData] = useState({
-      Plate: "",
-      Brand: "",
-      VehicleType: "",
-      Meter: 0,
-      ManufactureYear: 0,
-      Color: "",
-      ExtraHourPrice: 0.00,
-      DailyRent: 0.00,
-      WeeklyRent: 0.00,
-      MonthlyRent: 0.00,
-      InsuranceCompany: "",
-      RegistrationType: "",
-      FuelType: "",
-      ExtraKilometerPrice: 0.00,
-      DailyKilometerLimit: 0.00
+      plateNumber: "",
+      brand: "",
+      vehicleType: "",
+      meter: 0,
+      manufactureYear: 0,
+      color: "",
+      extraHourPrice: 0.00,
+      dailyRent: 0.00,
+      weeklyRent: 0.00,
+      monthlyRent: 0.00,
+      insuranceCompany: "",
+      registrationType: "",
+      fuelType: "",
+      extraKilometerPrice: 0.00,
+      dailyKilometerLimit: 0.00
   });
   return (
     <div className="">
@@ -35,7 +55,7 @@ export default function Cars ({lng}){
       ))}
       </div>
       <ActionBtns lng={lng} formTitle={"New Car"} data={VehicleDetails} fileName={'Cars'} formData={formData} setFormData={setFormData} />
-      <CollabsedTable data={VehicleDetails} />
+      <CollabsedTable lng={lng} headers={carsHeads} data={VehicleDetails} />
       </div>
   )
 }

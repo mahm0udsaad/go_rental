@@ -4,6 +4,7 @@ import { ActionBtns } from "@/components/actionBtns";
 import { Cards } from "@/components/cards";
 import { CollabsedTable } from "@/components/tables";
 import { Transactions  } from "@/data/info";
+
 const ContractsCards =[
   {title: 'Total Revenue' ,number: '$12,500' ,color:"green"},
   {title: 'Total Expenses ' ,number: "$5400" , color:"#bb0101"},
@@ -20,7 +21,7 @@ export default function Treasury ({ lng }){
       ))}
       </div>
       <ActionBtns lng={lng} noAdd={true} data={Transactions } fileName={"Transactions"} />
-      <CollabsedTable data={Transactions } />
+      <CollabsedTable lng={lng} data={Transactions} />
       </div>
   )
 }

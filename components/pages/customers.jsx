@@ -32,6 +32,7 @@ export default function Customers ({ lng }){
       homeAddress: '',
       workAddress: ''
   })
+  const headers = Object.keys(formData)
   return (
     <div className="">
     <h1>{t('titles.customers')}</h1>
@@ -41,7 +42,7 @@ export default function Customers ({ lng }){
       ))}
       </div>
       <ActionBtns lng={lng} formTitle={"New Customer"} data={CustomersData} fileName={"Customers"} formData={formData} setFormData={setFormData} />
-      <CollabsedTable data={CustomersData} />
+      <CollabsedTable lng={lng} headers={headers} data={CustomersData} />
       </div>
-  )
+  ) 
 }
