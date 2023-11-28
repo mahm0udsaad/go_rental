@@ -7,7 +7,7 @@ const NavBar = async ({lng}) => {
     <>
     <ToggleableNavBar lng={lng}/>
     <section className="hidden lg:flex flex-col w-[15%] mx-4 ">
-       <section className="flex flex-col pt-14 max-md:mt-10">
+       <section className="flex flex-col pt-14 md:pt-4 md:mt-0">
         {/* Profile Picture */}
         <div className="user-image-wrapper w-[100px] pb-3">
         <img

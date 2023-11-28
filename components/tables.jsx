@@ -10,13 +10,13 @@ export const RentalRows = ({ rentalData  , lng}) => {
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
           <thead className="text-xs  text-blue-900 uppercase bg-gray-50 ">
             <tr >
-            <th scope="col" className="px-2 py-3">
+            <th scope="col" className="px-2 py-3 md:py-0">
               {t('tables.plateNumber')}
             </th>
-            <th scope="col" className="px-2 py-3">
+            <th scope="col" className="px-2 py-3 md:py-0">
               {t('tables.carName')}
             </th>
-            <th scope="col" className="px-2 py-3">
+            <th scope="col" className="px-2 py-3 md:py-0">
               {t('tables.frequency')}
             </th>
             </tr>
@@ -24,13 +24,13 @@ export const RentalRows = ({ rentalData  , lng}) => {
           <tbody>
             {rentalData.map((car, index) => (
               <tr key={index} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} border-b  text-blue-900`}>
-                <td className="px-4 py-4 font-medium whitespace-nowrap">
+                <td className="px-4 py-4  md:py-2  font-medium whitespace-nowrap">
                   {car.plateNumber}
                 </td>
-                <td className="px-4 py-4">
+                <td className="px-4 py-4  md:py-2 ">
                   {carNames[index]}
                 </td>
-                <td className="px-4 py-4 flex justify-center">
+                <td className="px-4 py-4  md:py-2  flex justify-center">
                   {car.rentalFrequency}
                 </td>
               </tr>
@@ -62,7 +62,7 @@ export const CollabsedTable = ({ data, lng }) => {
       <React.Fragment>
         <TableRow className="border-b transition duration-300 ease-in-out hover:bg-[#2536656b] " onClick={handleRowClick}>
           {tableHeaders.map((header, i) => (
-            <TableCell key={i} className="whitespace-nowrap px-6 py-4 font-medium ">
+            <TableCell key={i} className="whitespace-nowrap px-6 py-4  md:py-2  font-medium ">
               <span className={getColorClass(item[header]) + ' px-4 py-2 rounded-full'}>{item[header]}</span>
             </TableCell>
           ))}
@@ -115,7 +115,7 @@ export const CollabsedTable = ({ data, lng }) => {
           <TableHead>
             <TableRow>
               {tableHeaders.map((item, i) => (
-                <TableCell key={i} scope="col" className="px-6 py-4 ml-3 ">
+                <TableCell key={i} scope="col" className="px-6 py-4  md:py-2  ml-3 ">
                   {t(`tables.${item}`)}
                 </TableCell>
               ))}

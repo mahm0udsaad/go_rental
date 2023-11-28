@@ -37,7 +37,7 @@ const NavLinks = ({lng}) => {
      {t('navItems', { returnObjects: true }).map((item, index) => (
         <Link href={item.link} key={index}>
           <div
-            className={`text-white self-stretch flex justify-between gap-4 mt-7 `}
+            className={`text-white self-stretch flex justify-between gap-4 mt-7 md:mt-5 `}
           >
             <div className="text-2xl flex items-center cursor-pointer">
               {renderIcon(item.icon)}
