@@ -1,10 +1,8 @@
 import { currentUser } from "@clerk/nextjs";
 import NavLinks from './navLinks';
 import ToggleableNavBar from "./toggleableNav";
-import { useTranslation } from "@/app/i18n";
 const NavBar = async ({lng}) => {
   const user = await currentUser()
-  if(!user) return ;
   return (
     <>
     <ToggleableNavBar lng={lng}/>

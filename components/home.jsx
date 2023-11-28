@@ -21,7 +21,7 @@ export default async function HomePage({ lng }) {
                 <div className="text-zinc-900 text-2xl sm:text-5xl font-extrabold sm:leading-[66px] w-full">
                     {t("homepage.title")}
                 </div>
-                <Link href={`/${lng}/auth/sign-up`} className="hover:bg-white hover:text-[#334155] border border-[#334155] transition text-white text-center text-lg font-bold leading-6 whitespace-nowrap justify-center items-center bg-slate-700 w-[197px] max-w-full mt-28 px-5 py-4 rounded-xl self-start max-md:mt-10">
+                <Link href={`/${lng}/sign-up`} className="hover:bg-white hover:text-[#334155] border border-[#334155] transition text-white text-center text-lg font-bold leading-6 whitespace-nowrap justify-center items-center bg-slate-700 w-[197px] max-w-full mt-28 px-5 py-4 rounded-xl self-start max-md:mt-10">
                 {t("homepage.cta")}
                 </Link>
                 </div>

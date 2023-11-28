@@ -26,10 +26,10 @@ export async function  WebsiteNavBar({lng}){
         </Link>
         :
          <>
-         <Link href={`/${lng}/auth/sign-in`} className="text-zinc-900 text-base font-medium  self-center my-auto">
+         <Link href={`/${lng}/sign-in`} className="text-zinc-900 text-base font-medium  self-center my-auto">
             {t('Login')}
           </Link>
-          <Link href={`/${lng}/auth/sign-up`} className="hover:bg-black hover:text-white text-lg-zinc-900 text-right text-base font-medium  whitespace-nowrap justify-center items-stretch border-[color:var(--gray-400,#A1A1AA)] self-stretch grow px-4 py-3 rounded-xl border-[1.5px] border-solid max-md:pr-0">
+          <Link href={`/${lng}/sign-up`} className="hover:bg-black hover:text-white text-lg-zinc-900 text-right text-base font-medium  whitespace-nowrap justify-center items-stretch border-[color:var(--gray-400,#A1A1AA)] self-stretch grow px-4 py-3 rounded-xl border-[1.5px] border-solid max-md:pr-0">
           {t('Create free account')}
         </Link>  
          </>

@@ -1,11 +1,10 @@
 "use client"
 import { Cards } from "@/components/cards"
 import { Customers as CustomersData } from "@/data/info"
-import { CollabsedTable, DaynamicTable } from "@/components/tables";
+import { CollabsedTable } from "@/components/tables";
 import { ActionBtns } from "@/components/actionBtns";
 import { useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
-
 
 export default function Customers ({ lng }){
   const { t } = useTranslation(lng , "dashboard")
