@@ -12,7 +12,7 @@ const ContractsCards =[
   {title: 'openContracts' ,number: 20 , color:'green'},
 ]
 export default  function Contracts ({ lng }){
-  const cars = VehicleDetails.filter(car => car.status == "Available")
+  const cars = VehicleDetails.filter(car => car.status !== "Rented")
   const [formData ,setFormData ] = useState({
     customerName: "",
     car: "",
@@ -35,7 +35,7 @@ export default  function Contracts ({ lng }){
         <Cards lng={lng} i={i} card={card} key={i}/>
       ))}
       </div>
-        <ActionBtns formData={formData} setFormData={setFormData} formTitle={"New Contract"} cars={cars} customers={Customers} lng={lng}  data={ContractsData}/>
+        <ActionBtns formData={formData}  formTitle={"New Contract"} cars={cars} customers={Customers} lng={lng}  data={ContractsData}/>
         <CollabsedTable lng={lng} data={ContractsData} />
       </>
   )

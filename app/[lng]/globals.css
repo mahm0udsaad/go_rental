@@ -41,6 +41,9 @@ body{
 .main-color{
     color: #253665;
 }
+.main-bg{
+  background-color: #253665;
+}
 .btn :hover{
   background-color: #9b9b9b69;
 }

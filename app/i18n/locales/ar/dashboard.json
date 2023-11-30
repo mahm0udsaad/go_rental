@@ -1,11 +1,11 @@
 {
   "navItems": [
-    { "text": "لوحة القيادة", "link": "/dashboard", "icon": "LuLayoutDashboard" },
-    { "text": "السيارات", "link": "/dashboard/cars", "icon": "IoCarSportOutline" },
+    { "text": "السيارات", "link": "/dashboard", "icon": "IoCarSportOutline" },
     { "text": "العملاء", "link": "/dashboard/customers", "icon": "FaRegUserCircle" },
     { "text": "العقود", "link": "/dashboard/contracts", "icon": "HiOutlineDocumentChartBar" },
     { "text": "الخزينة", "link": "/dashboard/treasury", "icon": "PiMoneyDuotone" },
     { "text": "الفواتير", "link": "/dashboard/invoices", "icon": "LiaFileInvoiceSolid" },
+    { "text": "التقارير", "link": "/dashboard/reports", "icon": "LuLayoutDashboard" },
     { "text": "الصيانة", "link": "/dashboard/maintenance", "icon": "GrVmMaintenance" }
   ],
   "titles":{
@@ -19,6 +19,7 @@
   },
   "dashboard":{
     "revenues": "الإيرادات",
+    "lateCars":"المركبات المتاخره",
     "mostRentedCars": "أكثر السيارات استئجاراً",
     "week1": "الأسبوع 1",
     "week2": "الأسبوع 2",
@@ -63,6 +64,8 @@
   },
   "tables":{
     "id": "id",
+    "ID": "id",
+    "rent":"تاجير",
     "addtax":"القيمه المضافه",
     "submit":"اضافه",
     "car":"السياره",
@@ -117,7 +120,7 @@
     "meterReadingOut": "قراءة العداد ",
     "meterReadingIn": "قراءة العداد الداخلي",
     "timeOut": "وقت الخروج",
-    "timeIn": "وقت العودة",
+    "timeIn": "وقت الارجاع",
     "dateOut": "تاريخ الخروج",
     "dateIn": "تاريخ العودة",
     "returnBranch": "فرع العودة",
@@ -152,5 +155,9 @@
     "bankCustomerName": "اسم العميل للبنك",
     "Maintanance Card":"كارت صيانه",
     "New Invoice":"فاتوره "
-  }
+  },
+  "carDetalis":"تفاصيل السياره",
+  "customerDetalis":"تفاصيل العميل",
+  "contractDetalis":"تفاصيل العقد الاساسيه",
+  "days":"عدد الايام"
 }

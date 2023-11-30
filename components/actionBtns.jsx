@@ -33,7 +33,7 @@ export const ActionBtns = ({lng , data , fileName , formData , setFormData  ,noA
       </button>}
       </div>
       {addNew && (
-          <InvoiceFormModal lng={lng} cars={cars} customers={customers}  formTitle={formTitle} formData={formData} setFormData={setFormData} isOpen={addNew} setIsOpen={setAddNew} />
+          <InvoiceFormModal lng={lng} cars={cars} customers={customers}  formTitle={formTitle} formData={formData}  isOpen={addNew} setIsOpen={setAddNew} />
       )}
       </>
     )

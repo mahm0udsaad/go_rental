@@ -4,7 +4,7 @@ import { RentalRows } from "@/components/tables";
 import { RentalExport } from '@/data/info';
 import { Cards } from "../cards";
 
-export default async function Dashboard ({lng}){
+export default async function Analytics ({lng}){
   const { t } = await useTranslation(lng , "dashboard")
   const cards = [
     {title:t('totalCustomers'),number: `120`},

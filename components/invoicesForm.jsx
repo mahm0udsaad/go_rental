@@ -3,13 +3,19 @@ import React, { useState } from 'react';
 import { Dialog, TextField, Button, Snackbar, Grid, InputLabel, Select, MenuItem, Autocomplete } from '@mui/material';
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useForm } from 'react-hook-form';
-import { formatDate } from '@/helper/dateNow';
 import { useTranslation } from '@/app/i18n/client';
+import { FaRegCheckCircle } from 'react-icons/fa';
 
-export const InvoiceFormModal = ({ isOpen, setIsOpen, formData,setFormData , formTitle, cars, customers , lng}) => {
+export const InvoiceFormModal = ({ isOpen, setIsOpen, formData , formTitle, cars, customers , lng}) => {
   const { t } = useTranslation(lng , 'dashboard')
   const [submitted, setSubmitted] = useState(false);
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue, 
+    formState: { errors },
+  } = useForm();
   const maintenanceTypes = [
     'غيار زيت',
     'غيار إطارات',
@@ -77,12 +83,9 @@ return (
           options={maintenanceTypes}
           getOptionLabel={(type) => `${type}`}
           onChange={(event, newValue) => {
-          if (newValue) {
-          setFormData((prevData) => ({
-            ...prevData,
-            maintenanceType:newValue
-          }));
-          }
+            if (newValue) {
+              setValue(key, newValue); // Update value using setValue
+            }
           }}
           renderInput={(params) => (
           <TextField {...params} label={formattedKey} variant="outlined" fullWidth />
@@ -99,13 +102,10 @@ return (
         options={cars}
         getOptionLabel={(car) => `${car.plateNumber} - ${car.brand} - ${car.status}`}
         onChange={(event, newValue) => {
-        if (newValue) {
-        setFormData((prevData) => ({
-          ...prevData,
-          Plate: newValue.plateNumber,
-          Brand: newValue.brand,
-        }));
-        }
+          if (newValue) {
+            setValue('Plate', newValue.plateNumber); // Update value using setValue
+            setValue('Brand', newValue.brand); // Update value using setValue
+          }
         }}
         renderInput={(params) => (
         <TextField {...params} label={formattedKey} variant="outlined" fullWidth />
@@ -122,10 +122,7 @@ return (
         getOptionLabel={(customer) => `${customer.customerName}`}
         onChange={(event, newValue) => {
         if (newValue) {
-        setFormData((prevData) => ({
-          ...prevData,
-          Name: `${newValue.customerName}`,
-        }));
+        setValue('Name' , newValue.customerName)
         }
         }}
         renderInput={(params) => (

@@ -2,17 +2,21 @@
 import Contracts from '@/components/pages/contracts.jsx';
 import Cars from '@/components/pages/cars';
 import Customers from '@/components/pages/customers.jsx';
-import Dashboard from '@/components/pages/dashboard.jsx';
+import Dashboard from '@/components/pages/reports.jsx';
 import Invoices from '@/components/pages/invoices.jsx';
 import Maintenance from '@/components/pages/maintenance.jsx';
 import Treasury from '@/components/pages/treasury.jsx';
 import NavBar from '@/components/navBar';
+import Analytics from '@/components/pages/reports.jsx';
+import RentNewCar from '@/components/pages/rent';
 
 const PageRenderer = ({ params }) => {
   const renderPageComponent = () => {
     switch (params.dashboard) {
-      case 'cars':
-        return <Cars lng={params.lng} />;
+      case 'reports':
+        return <Analytics lng={params.lng} />;
+        case 'rent':
+          return <RentNewCar lng={params.lng} />;
       case 'contracts':
         return <Contracts lng={params.lng} />;
       case 'customers':
@@ -45,12 +49,13 @@ const PageRenderer = ({ params }) => {
 export async function generateStaticParams() {
   // Define the possible dashboard pages
   const pages = [
-    'cars',
+    'reports',
     'contracts',
     'customers',
     'invoices',
     'maintenance',
     'treasury',
+    'rent',
   ];
 
   // Generate params for each page

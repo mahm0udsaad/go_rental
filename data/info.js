@@ -1,6 +1,6 @@
 export const VehicleDetails = [
 {
-  "id": "1",
+  "ID": "1",
   "plateNumber": "R S L 8648 R S L",
   "brand": "R S L",
   "meter": 1269,
@@ -21,7 +21,7 @@ export const VehicleDetails = [
   "dailyKilometerLimit": 300.00
 },
 {
-  "id": "2",
+  "ID": "2",
   "plateNumber": "R S L 8644 R S L",
   "brand": "R S L",
   "meter": 2222,
@@ -42,7 +42,7 @@ export const VehicleDetails = [
   "dailyKilometerLimit": 300.00
 },
 {
-  "id": "3",
+  "ID": "3",
   "plateNumber": "R S L 8650 R S L",
   "brand": "R S L",
   "meter": 1111,
@@ -63,7 +63,7 @@ export const VehicleDetails = [
   "dailyKilometerLimit": 300.00
 },
 {
-  "id": "10",
+  "ID": "10",
   "plateNumber": "R S L 8655 R S L",
   "brand": "R S L",
   "meter": 715,
@@ -84,7 +84,7 @@ export const VehicleDetails = [
   "dailyKilometerLimit": 300.00
 },  
 {
-  "id": "4",
+  "ID": "4",
   "plateNumber": "R S L 8646 R S L",
   "brand": "R S L",
   "meter": 3025,
@@ -105,7 +105,7 @@ export const VehicleDetails = [
   "dailyKilometerLimit": 300.00
   },
   {
-  "id": "5",
+  "ID": "5",
   "plateNumber": "V S L 8643 R S L",
   "brand": "V S L",
   "meter": 2222,
@@ -126,7 +126,7 @@ export const VehicleDetails = [
   "dailyKilometerLimit": 300.00
   },
   {
-  "id": "6",
+  "ID": "6",
   "plateNumber": "R S L 8649 R S L",
   "brand": "R S L",
   "meter": 1693,
@@ -147,7 +147,7 @@ export const VehicleDetails = [
   "dailyKilometerLimit": 300.00
   },
   {
-  "id": "7",
+  "ID": "7",
   "plateNumber": "R S L 8654 R S L",
   "brand": "R S L",
   "meter": 1248,
@@ -170,7 +170,7 @@ export const VehicleDetails = [
 ]
 export const Contracts = [
 {
-  "id": "4",
+  "ID": "4",
   "plateNumber": "R S L 8652 R S L",
   "brand": "R S L",
   "contract": "100035",
@@ -187,7 +187,7 @@ export const Contracts = [
   "invoiceDetails": "تفاصيل الفاتورة"
 },
 {
-  "id": "5",
+  "ID": "5",
   "plateNumber": "R S L 8646 R S L",
   "brand": "R S L",
   "contract": "100034",
@@ -204,7 +204,7 @@ export const Contracts = [
   "invoiceDetails": "تفاصيل الفاتورة"
 },
 {
-  "id": "6",
+  "ID": "6",
   "plateNumber": "R S L 8647 R S L",
   "brand": "R S L",
   "contract": "100022",
@@ -221,7 +221,7 @@ export const Contracts = [
   "invoiceDetails": "تفاصيل الفاتورة"
 },
 {
-  "id": "7",
+  "ID": "7",
   "plateNumber": "R S L 8650 R S L",
   "brand": "R S L",
   "contract": "100011",
@@ -238,7 +238,7 @@ export const Contracts = [
   "invoiceDetails": "تفاصيل الفاتورة"
 }, 
 {
-  "id": "8",
+  "ID": "8",
   "plateNumber": "R S L 8648 R S L",
   "brand": "R S L",
   "contract": "100006",
@@ -255,7 +255,7 @@ export const Contracts = [
   "invoiceDetails": "تفاصيل الفاتورة"
   },
   {
-  "id": "9",
+  "ID": "9",
   "plateNumber": "R S L 8653 R S L",
   "brand": "R S L",
   "contract": "100031",
@@ -272,7 +272,7 @@ export const Contracts = [
   "invoiceDetails": "تفاصيل الفاتورة"
   },
   {
-  "id": "10",
+  "ID": "10",
   "plateNumber": "R S L 8645 R S L",
   "brand": "R S L",
   "contract": "100032",
@@ -291,7 +291,7 @@ export const Contracts = [
 ]
 export const Customers = [  
 {
-"id": 1,
+"ID": 1,
 "customerName": "عوض بن مكده",
 "category": "فرد",
 "idNumber": "1059854628",
@@ -300,7 +300,7 @@ export const Customers = [
 "debt": 0.00
 },
   {
-  "id": 1,
+  "ID": 1,
   "customerName": "نوف سعود عوض بن مكده",
   "category": "فرد",
   "idNumber": "1059854628",
@@ -309,7 +309,7 @@ export const Customers = [
   "debt": 0.00
   },
   {
-  "id": 2,
+  "ID": 2,
   "customerName": "محمد بن مسفر بن منصور العلياني",
   "category": "فرد",
   "idNumber": "1022267791",
@@ -318,7 +318,7 @@ export const Customers = [
   "debt": 0.00
   },
   {
-  "id": 3,
+  "ID": 3,
   "customerName": "ندى عبدالله علي الوعله",
   "category": "فرد",
   "idNumber": "1037029905",
@@ -327,7 +327,7 @@ export const Customers = [
   "debt": 0.00
   },
   {
-  "id": 4,
+  "ID": 4,
   "customerName": "عائض سعيد عائض الغرابي",
   "category": "فرد",
   "idNumber": "1109159689",
@@ -336,7 +336,7 @@ export const Customers = [
   "debt": 0.00
   },
   {
-  "id": 5,
+  "ID": 5,
   "customerName": "ادريس موسى حسن مجممي",
   "category": "فرد",
   "idNumber": "1024941302",
@@ -344,7 +344,7 @@ export const Customers = [
   "mobile": "966501143479",
   "debt": 0.00
   }, {
-  "id": 6,
+  "ID": 6,
   "customerName": "علي صالح علي السعدي",
   "category": "فرد",
   "idNumber": "2464554266",
@@ -353,7 +353,7 @@ export const Customers = [
   "debt": 0.00
   },
   {
-  "id": 7,
+  "ID": 7,
   "customerName": "عبدالعزيز شيتيان ثوديكا",
   "category": "فرد",
   "idNumber": "2250495831",
@@ -362,7 +362,7 @@ export const Customers = [
   "debt": 0.00
   },
   {
-  "id": 8,
+  "ID": 8,
   "customerName": "ضيف الله الحربي",
   "category": "فرد",
   "idNumber": "1051083838",
@@ -371,7 +371,7 @@ export const Customers = [
   "debt": 0.00
   },
   {
-  "id": 9,
+  "ID": 9,
   "customerName": "رضوان مقبل قاسم مصلح",
   "category": "فرد",
   "idNumber": "2272193562",
@@ -380,7 +380,7 @@ export const Customers = [
   "debt": 0.00
   },
   {
-  "id": 10,
+  "ID": 10,
   "customerName": "عبدالرحمن حسين محمد العمري",
   "category": "فرد",
   "idNumber": "1098567991",
@@ -391,8 +391,8 @@ export const Customers = [
 ]
 export const Transactions= [
   {
-  "id": 1,
-  "document": "AR55",
+  "ID": 1,
+  "transactionId": "AR55",
   "operation": "تصفية",
   "payment": "كاش",
   "paymentDate": "27/07/2023",
@@ -408,8 +408,8 @@ export const Transactions= [
   "bankCustomerName": null
   },
   {
-  "id": 2,
-  "document": "AR54",
+  "ID": 2,
+  "transactionId": "AR54",
   "operation": "تصفية",
   "payment": "كاش",
   "paymentDate": "27/07/2023",
@@ -425,8 +425,8 @@ export const Transactions= [
   "bankCustomerName": null
   },
   {
-  "id": 3,
-  "document": "AR53",
+  "ID": 3,
+  "transactionId": "AR53",
   "operation": "تصفية",
   "payment": "كاش",
   "paymentDate": "27/07/2023",
@@ -442,8 +442,8 @@ export const Transactions= [
   "bankCustomerName": null
   },
   {
-    "id": 4,
-    "document": "AR52",
+    "ID": 4,
+    "transactionId": "AR52",
     "operation": "تصفية",
     "payment": "كاش",
     "paymentDate": "27/07/2023",
@@ -459,8 +459,8 @@ export const Transactions= [
     "bankCustomerName": null
     },
     {
-      "id": 5,
-      "document": "AR51",
+      "ID": 5,
+      "transactionId": "AR51",
       "operation": "تصفية",
       "payment": "كاش",
       "paymentDate": "15/07/2023",
@@ -476,8 +476,8 @@ export const Transactions= [
       "bankCustomerName": null
     },
     {
-      "id": 6,
-      "document": "AR50",
+      "ID": 6,
+      "transactionId": "AR50",
       "operation": "تصفية",
       "payment": "كاش",
       "paymentDate": "15/07/2023",
@@ -493,8 +493,8 @@ export const Transactions= [
       "bankCustomerName": null
     },
     {
-      "id": 7,
-      "document": "AR49",
+      "ID": 7,
+      "transactionId": "AR49",
       "operation": "تصفية",
       "payment": "كاش",
       "paymentDate": "14/07/2023",
@@ -547,7 +547,7 @@ export const TotalSummary= {
 }
 export const Invoices = [
   {
-    "id": "INV001",
+    "ID": "INV001",
     "date": "2023-11-01",
     "customer": "محمد أحمد",
     "price": 150.00,
@@ -559,7 +559,7 @@ export const Invoices = [
     "addtax": true
   },
   {
-    "id": "INV002",
+    "ID": "INV002",
     "date": "2023-10-15",
     "customer": "فاطمة علي",
     "price": 49.99,
@@ -571,7 +571,7 @@ export const Invoices = [
     "addtax": false
   },
   {
-    "id": "INV003",
+    "ID": "INV003",
     "date": "2023-11-05",
     "customer": "ليلى حسين",
     "price": 75.50,
@@ -583,7 +583,7 @@ export const Invoices = [
     "addtax": true
   },
   {
-    "id": "INV004",
+    "ID": "INV004",
     "date": "2023-10-20",
     "customer": "عبد الرحمن محمود",
     "price": 99.00,
@@ -595,7 +595,7 @@ export const Invoices = [
     "addtax": true
   },
   {
-    "id": "INV005",
+    "ID": "INV005",
     "date": "2023-11-10",
     "customer": "نورة سعيد",
     "price": 19.99,
@@ -725,7 +725,7 @@ const generateCarsOverview = (detailsArray, fieldsToCount, titlesToAdd) => {
 };
 
 export const CarsOverview = generateCarsOverview(VehicleDetails, ["status"], ["allCars"]);
-
+CarsOverview.push({title:"lateCars" , number:5})
 const maintenanceTypes = {};
 maintenanceData.forEach((data) => {
 const { maintenanceType, cost } = data;
