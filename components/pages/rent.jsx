@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { TextField, Grid, Button, Autocomplete, Paper } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -15,7 +15,6 @@ const RentNewCar = ({ lng }) => {
   const { t } = useTranslation(lng, 'dashboard');
   const car = VehicleDetails.find((car) => car.ID === carId) || null;
   const autocompleteCar = {
-    ID: car.ID || '',
     plateNumber: car.plateNumber || '',
     meter: car.meter || '',
     manufactureYear: car.manufactureYear || '',
@@ -68,7 +67,7 @@ const handleCustomerSelection = (selectedCustomer) => {
   return (
     <div className="p-4 h-[94vh] overflow-y-scroll">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1 className='pb-4'>{t("carDetalis")}</h1>
+        <h1 className='text-lg pb-4'>{t("carDetalis")}</h1>
         <Grid container spacing={2}>
           {Object.keys(autocompleteCar).map((key) => (
             <Grid item xs={12} sm={6} md={4} key={key}>
@@ -96,7 +95,7 @@ const handleCustomerSelection = (selectedCustomer) => {
         </Grid>
 
         <Paper variant="outlined" style={{ margin: '20px 0', padding: '20px' }}>
-          <h1 className='pb-4'>{t("customerDetalis")}</h1>
+          <h1 className='text-lg pb-4'>{t("customerDetalis")}</h1>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
               <Controller
@@ -154,7 +153,7 @@ const handleCustomerSelection = (selectedCustomer) => {
         </Paper>
 
         <Paper variant="outlined" style={{ margin: '20px 0', padding: '20px' }}>
-          <h1 className='pb-4'>{t("contractDetalis")}</h1>
+          <h1 className='text-lg pb-4'>{t("contractDetalis")}</h1>
             <Grid container spacing={2}>
             <Grid item xs={12} sm={6} >
             <Controller

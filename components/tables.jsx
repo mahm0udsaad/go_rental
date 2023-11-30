@@ -1,48 +1,79 @@
 "use client"
 import { useTranslation } from '@/app/i18n/client';
-import { Grid,Collapse, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography} from '@mui/material'
+import { Collapse, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography} from '@mui/material'
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { Skeleton } from '@mui/material'; // Assuming you are using Material-UI for the Skeleton component
+import React , { useEffect, useState } from 'react';
 
-export const RentalRows = ({ rentalData  , lng }) => {
-    const { t } = useTranslation(lng , "dashboard")
-    const carNames = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Nissan'];
-    return (
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-          <thead className="text-xs  text-blue-900 uppercase bg-gray-50 ">
-            <tr >
-            <th scope="col" className="px-2 py-3 md:py-0">
-              {t('tables.plateNumber')}
-            </th>
-            <th scope="col" className="px-2 py-3 md:py-0">
-              {t('tables.carName')}
-            </th>
-            <th scope="col" className="px-2 py-3 md:py-0">
-              {t('tables.frequency')}
-            </th>
+
+export const RentalRows = ({ rentalData, lng, isLoading }) => {
+  const { t } = useTranslation(lng, 'dashboard');
+  const carNames = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Nissan'];
+
+  const LoadingSkeleton = () => (
+    <tbody>
+      {[1, 2, 3, 4].map((_, index) => (
+        <tr key={index} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} border-b text-blue-900`}>
+          <td className="px-4 py-4 md:py-2 font-medium whitespace-nowrap">
+            <Skeleton variant="text" animation="wave" width={100} />
+          </td>
+          <td className="px-4 py-4 md:py-2">
+            <Skeleton variant="text" animation="wave" width={100} />
+          </td>
+          <td className="px-4 py-4 md:py-2 flex justify-center">
+            <Skeleton variant="text" animation="wave" width={100} />
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  );
+
+  return (
+    <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+      {/* Table Header */}
+      <thead className="text-xs text-blue-900 uppercase bg-gray-50">
+        <tr>
+          <th scope="col" className="px-2 py-3 md:py-0">
+            {t('tables.plateNumber')}
+          </th>
+          <th scope="col" className="px-2 py-3 md:py-0">
+            {t('tables.carName')}
+          </th>
+          <th scope="col" className="px-2 py-3 md:py-0">
+            {t('tables.frequency')}
+          </th>
+        </tr>
+      </thead>
+
+      {/* Conditional Rendering: Show Skeleton or RentalData */}
+      {isLoading ? (
+        <LoadingSkeleton /> // Show Skeleton when isLoading is true
+      ) : (
+        <tbody>
+          {/* Render Rental Data */}
+          {rentalData.map((car, index) => (
+            <tr key={index} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} border-b text-blue-900`}>
+              <td className="px-4 py-4 md:py-2 font-medium whitespace-nowrap">
+                {car.plateNumber}
+              </td>
+              <td className="px-4 py-4 md:py-2 ">
+                {carNames[index]}
+              </td>
+              <td className="px-4 py-4 md:py-2 flex justify-center">
+                {car.rentalFrequency}
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {rentalData.map((car, index) => (
-              <tr key={index} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} border-b  text-blue-900`}>
-                <td className="px-4 py-4  md:py-2  font-medium whitespace-nowrap">
-                  {car.plateNumber}
-                </td>
-                <td className="px-4 py-4  md:py-2 ">
-                  {carNames[index]}
-                </td>
-                <td className="px-4 py-4  md:py-2  flex justify-center">
-                  {car.rentalFrequency}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-    );
+          ))}
+        </tbody>
+      )}
+    </table>
+  );
 };
+
 export const CollabsedTable = ({ data, lng , cars}) => {
   const { t } = useTranslation(lng, 'dashboard');
   const tableHeaders = Object.keys(data[0]).slice(0, 7);
+  const [isLoading, setIsLoading] = useState(true); // State to manage loading
   const getColorClass = (status) => {
     if (status === 'Rented') {
       return 'bg-orange-300 text-orange-700 font-bold';
@@ -52,11 +83,29 @@ export const CollabsedTable = ({ data, lng , cars}) => {
     return '';
   };
 
-  const Row = ({ item, index}) => {
+  useEffect(() => {
+    // Simulate loading for 2 seconds
+    const timer = setTimeout(() => {
+      setIsLoading(false); // After 2 seconds, set loading to false
+    }, 500);
+
+    return () => clearTimeout(timer); // Clear the timer on component unmount
+  }, []);
+  const LoadingSkeletonRow = () => (
+    <TableRow>
+      {tableHeaders.map((header, i) => (
+        <TableCell key={i}>
+          <Skeleton variant="text" animation="wave" width={100} />
+        </TableCell>
+      ))}
+    </TableRow>
+  );
+
+  const Row = ({ item, index }) => {
     const [open, setOpen] = React.useState(false);
 
-    const handleRowClick = () => {
-      if(e){
+    const handleRowClick = (e) => {
+      if (e) {
         if (e.target.tagName.toLowerCase() === 'a') {
           return;
         }
@@ -66,17 +115,17 @@ export const CollabsedTable = ({ data, lng , cars}) => {
 
     return (
       <React.Fragment>
-        <TableRow className="border-b transition duration-300 ease-in-out hover:bg-[#2536656b] " onClick={handleRowClick}>
+        <TableRow className="border-b transition duration-300 ease-in-out hover:bg-[#2536656b]" onClick={(e)=>handleRowClick}>
           {tableHeaders.map((header, i) => (
-            <TableCell key={i} className="whitespace-nowrap px-6 py-4  md:py-2 ">
-              <span className={getColorClass(item[header]) + ' px-4 py-2 rounded-full '}>{item[header]}</span>
+            <TableCell key={i} className="whitespace-nowrap px-6 py-4 md:py-2">
+              <span className={getColorClass(item[header]) + ' px-4 py-2 rounded-full'}>{item[header]}</span>
             </TableCell>
           ))}
-           {cars && (
-          <Link href={`dashboard/rent?carId=${item.ID}`} className='px-4 py-4 flex items-center justify-center main-bg hover:bg-blue-800' passHref>
-              <span className={'text-sm text-white w-full '}>{t(`tables.rent`)}</span>
-          </Link>
-        )}
+          {cars && (
+            <Link href={`dashboard/rent?carId=${item.ID}`} className="px-4 py-4 flex items-center justify-center main-bg hover:bg-blue-800" passHref>
+              <span className={'text-sm text-white w-full'}>{t(`tables.rent`)}</span>
+            </Link>
+          )}
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={tableHeaders.length + 1}>
@@ -126,16 +175,28 @@ export const CollabsedTable = ({ data, lng , cars}) => {
           <TableHead>
             <TableRow>
               {tableHeaders.map((item, i) => (
-                <TableCell key={i} scope="col" className="px-6 py-4  md:py-2  ml-3 ">
+                <TableCell key={i} scope="col">
                   {t(`tables.${item}`)}
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item, index) => (
-              <Row key={index} item={item} index={index} />
-            ))}
+            {isLoading ? (
+              <>
+                <LoadingSkeletonRow />
+                <LoadingSkeletonRow />
+                <LoadingSkeletonRow />
+                <LoadingSkeletonRow />
+                <LoadingSkeletonRow />
+                <LoadingSkeletonRow />
+              </>
+            ) : (
+              // Render Rows with data
+              data.map((item, index) => (
+                <Row key={index} item={item} index={index} />
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>
