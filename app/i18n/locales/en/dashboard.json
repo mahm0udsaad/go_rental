@@ -60,11 +60,14 @@
   "actions":{
     "filter": "Filter",
     "export": "Export",
-    "addNew": "Add New"
+    "addNew": "Add New",
+    "addNewCustomer":"Add New Customer"
+
   },
   "tables":{
     "submit":"submit",
-    "rent":"rent",
+    "rent":"Rent",
+    "Rent":"Rent",
     "id": "id",
     "ID": "ID",
     "car":"car",
@@ -128,6 +131,7 @@
     "returnStatus": "Return Status",
     "returnUser": "Return User",
     "invoiceDetails": "Invoice Details",
+    "Details": "Details",
     "customerNumber": "Customer Number",
     "customerName": "Customer Name",
     "idOrResidenceCard": "ID or Residence Card",

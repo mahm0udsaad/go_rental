@@ -1,14 +1,15 @@
 "use client"
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { TextField, Grid, Button, Autocomplete, Paper } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { VehicleDetails, Customers } from '@/data/info';
+import { VehicleDetails, Customers , nationalitiesArray} from '@/data/info';
 import { useTranslation } from '@/app/i18n/client';
 import { calculateReturnDate, formatDate, formatTime } from '@/helper/dateNow';
 
 const RentNewCar = ({ lng }) => {
   const { control, handleSubmit, setValue , watch , reset } = useForm();
+  const [ newCustomer , setNewCustomer ] = useState(false)
   const router = useRouter()
   const carId = useSearchParams().get('carId');
   const customerID = useSearchParams().get('customerID') || 1;
@@ -32,8 +33,21 @@ const RentNewCar = ({ lng }) => {
     category:'' ,
     mobile: ''
   };
-console.log(autocompleteCustomer);
-
+  const autocompleteContract = {
+    paid: '',
+    dateOut: formatDate(), 
+    timeOut:formatTime(), 
+    returnDate: '', 
+    timeIn: formatTime(), 
+};
+const quickCustomer = {
+  customerName : '',
+  idNumber: '',
+  nationality : ''
+}
+const quickAddCustomer = () =>{
+  setNewCustomer(true)
+}
 const handleCustomerSelection = (selectedCustomer) => {
     if (selectedCustomer) {
       const { customerName, idNumber, mobile, debt, category } = selectedCustomer;
@@ -51,13 +65,7 @@ const handleCustomerSelection = (selectedCustomer) => {
     const updatedDateIn = calculateReturnDate(days);
     setValue('returnDate' , updatedDateIn)
   }, [days]);
-  const autocompleteContract = {
-      paid: '',
-      dateOut: formatDate(), 
-      timeOut:formatTime(), 
-      returnDate: '', 
-      timeIn: formatTime(), 
-  };
+
   const onSubmit = (data) => {
     console.log(data);
     reset()
@@ -67,6 +75,7 @@ const handleCustomerSelection = (selectedCustomer) => {
   return (
     <div className="p-4 h-[94vh] overflow-y-scroll">
       <form onSubmit={handleSubmit(onSubmit)}>
+        <Paper variant="outlined" style={{ margin: '20px 0', padding: '20px' }}>
         <h1 className='text-lg pb-4'>{t("carDetalis")}</h1>
         <Grid container spacing={2}>
           {Object.keys(autocompleteCar).map((key) => (
@@ -76,7 +85,6 @@ const handleCustomerSelection = (selectedCustomer) => {
                 control={control}
                 defaultValue={autocompleteCar[key] || ''}
                 render={({ field }) => {
-                  const isRTL = lng === 'ar';
                   const label = t(`tables.${key}`);
                   return (
                     <TextField
@@ -85,7 +93,6 @@ const handleCustomerSelection = (selectedCustomer) => {
                       variant="outlined"
                       fullWidth
                       dir="rtl"
-                      sx={{ textAlign: isRTL ? 'right' : 'left' }}
                     />
                   );
                 }}
@@ -93,9 +100,69 @@ const handleCustomerSelection = (selectedCustomer) => {
             </Grid>
           ))}
         </Grid>
-
+        </Paper>
+        
         <Paper variant="outlined" style={{ margin: '20px 0', padding: '20px' }}>
           <h1 className='text-lg pb-4'>{t("customerDetalis")}</h1>
+             {newCustomer ?
+             <>
+             <Grid container spacing={2}>
+             {Object.keys(quickCustomer).map((key) => (
+                <Grid item xs={12} sm={6} key={key}>
+                    {key === 'nationality' ? (
+                    <Controller
+                    name={key}
+                    control={control}
+                    defaultValue={quickCustomer[key] || ''}
+                    render={({ field }) => (
+                      <Autocomplete
+                        {...field}
+                        options={nationalitiesArray} 
+                        getOptionLabel={(option) => option} 
+                        onChange={(e, value) => {
+                          field.onChange(value)
+                          setValue("nationality" , value)
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label={t(`tables.${key}`)}
+                            variant="outlined"
+                            fullWidth
+                            dir="rtl"
+                          />
+                        )}
+                      />
+                    )}
+                  />
+                  ) : (
+                    // For other keys, render regular text fields
+                    <Controller
+                      name={key}
+                      control={control}
+                      rules={{ required: true }}
+                      defaultValue={quickCustomer[key] || ''}
+                      render={({ field }) => {
+                        const label = t(`tables.${key}`);
+                        return (
+                          <TextField
+                            {...field}
+                            label={label}
+                            variant="outlined"
+                            fullWidth
+                            dir="rtl"
+                          />
+                        );
+                      }}
+                    />
+                  )}
+                </Grid>
+              ))}
+           </Grid>
+           </>
+            :
+            <>
+          <Button onClick={quickAddCustomer} style={{ marginBottom:'1rem'}} variant='contained' >{t('actions.addNewCustomer')}</Button>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
               <Controller
@@ -133,7 +200,6 @@ const handleCustomerSelection = (selectedCustomer) => {
                     control={control}
                     defaultValue={autocompleteCustomer[key] || ''}
                     render={({ field }) => {
-                      const isRTL = lng === 'ar';
                       const label = t(`tables.${key}`);
                       return (
                         <TextField
@@ -142,7 +208,6 @@ const handleCustomerSelection = (selectedCustomer) => {
                           variant="outlined"
                           fullWidth
                           dir="rtl"
-                          sx={{ textAlign: isRTL ? 'right' : 'left' }}
                         />
                       );
                     }}
@@ -150,6 +215,8 @@ const handleCustomerSelection = (selectedCustomer) => {
                 </Grid>
               ))}
           </Grid>
+            </>
+          }
         </Paper>
 
         <Paper variant="outlined" style={{ margin: '20px 0', padding: '20px' }}>
@@ -178,7 +245,6 @@ const handleCustomerSelection = (selectedCustomer) => {
                   control={control}
                   defaultValue={autocompleteContract[key] || ''}
                   render={({ field }) => {
-                    const isRTL = lng === 'ar';
                     const label = t(`tables.${key}`);
                     return (
                       <TextField
@@ -189,7 +255,6 @@ const handleCustomerSelection = (selectedCustomer) => {
                         dir="rtl"
                         value={field.value} // Use 'value' instead of 'defaultValue'
                         onChange={(e) => field.onChange(e)} // Ensure 'onChange' is passed
-                        sx={{ textAlign: isRTL ? 'right' : 'left' }}
                       />
                     );
                   }}

@@ -1,10 +1,9 @@
 "use client"
 import { useTranslation } from '@/app/i18n/client';
-import { Collapse, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography} from '@mui/material'
+import {Collapse, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Button} from '@mui/material'
 import Link from 'next/link';
-import { Skeleton } from '@mui/material'; // Assuming you are using Material-UI for the Skeleton component
+import { Skeleton } from '@mui/material'; 
 import React , { useEffect, useState } from 'react';
-
 
 export const RentalRows = ({ rentalData, lng, isLoading }) => {
   const { t } = useTranslation(lng, 'dashboard');
@@ -73,7 +72,6 @@ export const RentalRows = ({ rentalData, lng, isLoading }) => {
 export const CollabsedTable = ({ data, lng , cars}) => {
   const { t } = useTranslation(lng, 'dashboard');
   const tableHeaders = Object.keys(data[0]).slice(0, 7);
-  const [isLoading, setIsLoading] = useState(true); // State to manage loading
   const getColorClass = (status) => {
     if (status === 'Rented') {
       return 'bg-orange-300 text-orange-700 font-bold';
@@ -82,6 +80,7 @@ export const CollabsedTable = ({ data, lng , cars}) => {
     }
     return '';
   };
+  const [isLoading, setIsLoading] = useState(true); // State to manage loading
 
   useEffect(() => {
     // Simulate loading for 2 seconds
@@ -91,6 +90,7 @@ export const CollabsedTable = ({ data, lng , cars}) => {
 
     return () => clearTimeout(timer); // Clear the timer on component unmount
   }, []);
+
   const LoadingSkeletonRow = () => (
     <TableRow>
       {tableHeaders.map((header, i) => (
@@ -100,7 +100,6 @@ export const CollabsedTable = ({ data, lng , cars}) => {
       ))}
     </TableRow>
   );
-
   const Row = ({ item, index }) => {
     const [open, setOpen] = React.useState(false);
 
@@ -122,8 +121,8 @@ export const CollabsedTable = ({ data, lng , cars}) => {
             </TableCell>
           ))}
           {cars && (
-            <Link href={`dashboard/rent?carId=${item.ID}`} className="px-4 py-4 flex items-center justify-center main-bg hover:bg-blue-800" passHref>
-              <span className={'text-sm text-white w-full'}>{t(`tables.rent`)}</span>
+            <Link href={`dashboard/rent?carId=${item.ID}`} >
+             <Button variant="contained" className='text-sm' color='primary' size="small">{t('tables.rent')}</Button>
             </Link>
           )}
         </TableRow>
@@ -169,7 +168,7 @@ export const CollabsedTable = ({ data, lng , cars}) => {
   };
 
   return (
-    <div className="flex flex-col overflow-x-hidden h-[60dvh]">
+    <div className="flex flex-col view">
       <TableContainer>
         <Table>
           <TableHead>

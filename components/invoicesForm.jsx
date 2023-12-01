@@ -5,6 +5,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useForm } from 'react-hook-form';
 import { useTranslation } from '@/app/i18n/client';
 import { FaRegCheckCircle } from 'react-icons/fa';
+import { nationalitiesArray } from '@/data/info';
 
 export const InvoiceFormModal = ({ isOpen, setIsOpen, formData , formTitle, cars, customers , lng}) => {
   const { t } = useTranslation(lng , 'dashboard')
@@ -50,6 +51,29 @@ export const InvoiceFormModal = ({ isOpen, setIsOpen, formData , formTitle, cars
         }
       />
       </>
+    );
+  };
+  const renderTextField = (key, formattedKey) => {
+    const requiredKeys = ['customerName', 'PlateNumber'];
+    const isRequired = requiredKeys.includes(key);
+
+    return (
+      <Grid item xs={12} sm={6} key={key}>
+        <TextField
+          {...register(key)}
+          label={formattedKey}
+          variant="outlined"
+          fullWidth
+          required={isRequired}
+          type={key.includes('Date') ? 'date' : 'text'}
+          error={!!errors[key]}
+          helperText={errors[key] && 'This field is required'}
+          InputLabelProps={{
+            shrink: key.includes('Date'),
+            placeholder: key.includes('Date') ? 'Select Date' : '',
+          }}
+        />
+      </Grid>
     );
   };
 return (
@@ -103,8 +127,8 @@ return (
         getOptionLabel={(car) => `${car.plateNumber} - ${car.brand} - ${car.status}`}
         onChange={(event, newValue) => {
           if (newValue) {
-            setValue('Plate', newValue.plateNumber); // Update value using setValue
-            setValue('Brand', newValue.brand); // Update value using setValue
+            setValue('Plate', newValue.plateNumber); 
+            setValue('Brand', newValue.brand); 
           }
         }}
         renderInput={(params) => (
@@ -132,25 +156,28 @@ return (
         {errors[key] && <span>This field is required</span>}
         </Grid>
         );
-        } else {
-        return (
-        <Grid item xs={12} sm={6} key={key}>
-          <TextField
-            {...register(key)}
-            label={formattedKey}
-            variant="outlined"
-            fullWidth
-            required={key !== 'RemainingDues' && key !== 'ContractDebt'}
-            type={key.includes('Date') ? 'date' : 'text'}
-            error={!!errors[key]}
-            helperText={errors[key] && 'This field is required'}
-            InputLabelProps={{
-              shrink: key.includes('Date'), // This will shrink the label when date type is used
-              placeholder: key.includes('Date') ? 'Select Date' : '', // Placeholder for date fields
-            }}
-          />
-        </Grid>
-        );
+        } else if (key === 'nationality' && nationalitiesArray) {
+          return (
+            <Grid item xs={12} sm={6} key={key}>
+              <InputLabel>{formattedKey}</InputLabel>
+              <Select
+                {...register(key)}
+                label={formattedKey}
+                variant="outlined"
+                fullWidth
+                defaultValue="" 
+              >
+                {nationalitiesArray.map((option, index) => (
+                  <MenuItem key={index} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors[key] && <span>This field is required</span>}
+            </Grid>
+          );
+        }else {
+          return renderTextField(key, formattedKey);
         }
         })}
         </Grid>

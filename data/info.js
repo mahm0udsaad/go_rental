@@ -697,7 +697,13 @@ export const maintenanceData = [
     description: 'تغيير اطارات',
   },
 ];
-
+export const  nationalitiesArray =[
+'سعودي',
+'مصري',
+'اليمن',
+'الهند',
+'تشاد',
+]
 const generateCarsOverview = (detailsArray, fieldsToCount, titlesToAdd) => {
   const CarsCards = {};
 

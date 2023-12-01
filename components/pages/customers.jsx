@@ -11,11 +11,11 @@ export default function Customers ({ lng }){
   const newCustomerNumber = CustomersData[CustomersData.length - 1].id + 1;
   const [formData , setFormData ] = useState({
       customerNumber: newCustomerNumber,
+      nationality: '',
       customerName: '',
       idOrResidenceCard: '',
       idCardDate: '',
       placeOfIssueIDCard: '',
-      nationality: '',
       driversLicenseNumber: '',
       licenseExpiryDate: '',
       placeOfIssueLicense: '',
