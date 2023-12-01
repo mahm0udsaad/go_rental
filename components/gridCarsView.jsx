@@ -19,7 +19,7 @@ import {
 import { useTranslation } from '@/app/i18n/client';
 import Link from 'next/link';
 
-export const GridView = ({ data, lng, cars }) => {
+export const GridView = ({ data, lng}) => {
   const { t } = useTranslation(lng, 'dashboard');
   const [isLoading, setIsLoading] = useState(true); 
 
@@ -29,7 +29,7 @@ export const GridView = ({ data, lng, cars }) => {
     // Simulating data loading delay
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 20);
 
     return () => clearTimeout(timeout);
   }, []);
