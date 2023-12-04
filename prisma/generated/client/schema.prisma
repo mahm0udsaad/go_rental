@@ -1,0 +1,124 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db" 
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+model User {
+  id        Int    @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  userId    String    @unique
+  username  String
+  email     String    @unique
+  Vehicles  Vehicle[]
+  Customers  Customer[]
+  Contracts  Contract[]
+}
+
+model Vehicle {
+  id                  Int  @id @default(autoincrement())
+  user                User?   @relation(fields: [userId], references: [userId])
+  userId              String?
+  plateNumber         String  @unique
+  brand               String
+  meter               Int
+  status              String @default("Available")
+  rentalCount         Int?    @default(0)
+  transmission        String?
+  manufactureYear     Int?
+  color               String?
+  extraHourPrice      Int
+  dailyRent           Int
+  weeklyRent          Int
+  monthlyRent         Int
+  insuranceCompany    String?
+  registrationType    String?
+  fuelType            String
+  extraKilometerPrice Int
+  vehicleType         String?
+  dailyKilometerLimit Int
+  Contracts           Contract[]
+}
+model Customer {
+  id        Int    @id        @default(autoincrement())
+  user                User     @relation(fields: [userId], references: [userId])
+  userId              String
+  customerName        String       
+  category            String
+  nationality         String
+  idNumber            String
+  idExpirationDate    String?
+  mobile              String?
+  debt                Int
+  Contracts           Contract[]
+}
+model Contract {
+  id        Int    @id            @default(autoincrement())
+  user                User        @relation(fields: [userId], references: [userId])
+  userId              String
+  plateNumber         String      @unique
+  total               Int
+  paid                Int
+  remainingDues       Int
+  meterReadingOut     Int
+  meterReadingIn      Int?
+  timeOut             String
+  dailyRent           Int
+  timeIn              String
+  dateOut             String
+  returnedDate        String
+  invoiceDetails      String?
+  customerId          Int
+  customer            Customer     @relation(fields: [customerId], references: [id])
+  vehicle             Vehicle      @relation(fields: [plateNumber], references: [plateNumber])
+}
+
+// model Maintenance {
+//   id        Int    @id @default(autoincrement())
+//   plateNumber         String
+//   maintenanceType     String
+//   client              String
+//   date                String
+//   cost                Int
+//   description         String?
+
+//   vehicle             Vehicle      @relation(fields: [plateNumber], references: [plateNumber])
+//   user                User?        @relation("user_maintenances", fields: [userId], references: [userId])
+//   userId              String?
+// }
+// model Invoice {
+//   id        Int    @id @default(autoincrement())
+//   user                User?        @relation(fields: [userId], references: [id])
+//   userId              String?
+//   customerId          String    
+//   customer            Customer     @relation(fields: [customerId], references: [id])
+//   date                String
+//   price               Int
+//   debt                Int
+//   paid                Int
+//   total               Int
+//   amount              Int
+//   description         String
+//   addTax              Boolean
+//   contract            Contract?    @relation(fields: [contractId], references: [id])
+//   contractId          String?
+// }
+// model Transaction {
+//   id                  String       @id @default(uuid()) @map("_id")
+//   transactionId       String
+//   operation           String
+//   payment             String
+//   paymentDate         String
+//   amount              Int
+//   contract            Contract[]    
+//   contractId          String?
+//   invoice             Invoice[]     
+//   invoiceId           String?
+//   maintenance         Maintenance[] 
+//   maintenanceId       String?
+//   user                User?        
+//   userId              String?
+// }

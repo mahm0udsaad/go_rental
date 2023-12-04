@@ -1,5 +1,5 @@
 "use server"
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "./generated/client/edge";
 
 let prisma;
 
