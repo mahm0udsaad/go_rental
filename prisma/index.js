@@ -1,16 +1,6 @@
 "use server"
-import { PrismaClient } from "./generated/client/edge";
 
-let prisma;
-
-if (process.env.NODE_ENV === 'production') {
-  prisma = new PrismaClient();
-} else {
-  if (!global.prisma) {
-    global.prisma = new PrismaClient();
-  }
-  prisma = global.prisma;
-}
+import prisma from "./prisma";
 
 export const fetchUserCars = async (userId) => {
   try {

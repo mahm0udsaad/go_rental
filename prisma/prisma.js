@@ -1,4 +1,4 @@
-import { PrismaClient } from "./generated/client/edge";
+import { Prisma } from "./generated/client";
 
 let prisma;
 
