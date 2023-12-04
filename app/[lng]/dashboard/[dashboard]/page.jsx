@@ -9,8 +9,13 @@ import Treasury from '@/components/pages/treasury.jsx';
 import NavBar from '@/components/navBar';
 import Analytics from '@/components/pages/reports.jsx';
 import RentNewCar from '@/components/pages/rent';
+import { auth } from '@clerk/nextjs';
+import { getAllContractsByUserId } from '@/prisma/contracts';
+import CloseContract from '@/components/pages/closeContract';
 
-const PageRenderer = ({ params }) => {
+const PageRenderer =async ({ params }) => {
+  const { userId } = await auth()
+  const contracts= await getAllContractsByUserId(userId)
   const renderPageComponent = () => {
     switch (params.dashboard) {
       case 'reports':
@@ -18,7 +23,7 @@ const PageRenderer = ({ params }) => {
         case 'rent':
           return <RentNewCar lng={params.lng} />;
       case 'contracts':
-        return <Contracts lng={params.lng} />;
+        return <Contracts contracts={contracts} lng={params.lng} />;
       case 'customers':
         return <Customers lng={params.lng} />;
       case 'invoices':
@@ -27,6 +32,8 @@ const PageRenderer = ({ params }) => {
         return <Maintenance lng={params.lng} />;
       case 'treasury':
         return <Treasury lng={params.lng} />;
+        case 'closeContract':
+        return <CloseContract lng={params.lng} />;
       default:
         return null;
     }

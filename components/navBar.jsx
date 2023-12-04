@@ -3,6 +3,7 @@ import NavLinks from './navLinks';
 import ToggleableNavBar from "./toggleableNav";
 const NavBar = async ({lng}) => {
   const user = await currentUser()
+  
   return (
     <>
     <ToggleableNavBar lng={lng}/>

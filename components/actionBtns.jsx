@@ -7,7 +7,7 @@ import { InvoiceFormModal } from "@/components/invoicesForm";
 import { useTranslation } from "@/app/i18n/client";
 import { useSystemContext } from "@/context/context";
 
-export const ActionBtns = ({lng , data , fileName , formData , setFormData  ,noAdd , formTitle ,cars ,customers}) =>{
+export const ActionBtns = ({lng, requiredKeys,userId, data , fileName , formData , setFormData  ,noAdd , formTitle ,cars ,customers}) =>{
   const { addNew , setAddNew } = useSystemContext()
   const isAr = lng === "ar"
   const { t } = useTranslation(lng , "dashboard")
@@ -33,7 +33,7 @@ export const ActionBtns = ({lng , data , fileName , formData , setFormData  ,noA
       </button>}
       </div>
       {addNew && (
-          <InvoiceFormModal lng={lng} cars={cars} customers={customers}  formTitle={formTitle} formData={formData}  isOpen={addNew} setIsOpen={setAddNew} />
+          <InvoiceFormModal requiredKeys={requiredKeys} userId={userId} lng={lng} cars={cars} customers={customers}  formTitle={formTitle} formData={formData}  isOpen={addNew} setIsOpen={setAddNew} />
       )}
       </>
     )

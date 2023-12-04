@@ -1,9 +1,9 @@
 "use client"
 import { useTranslation } from '@/app/i18n/client';
 import {Collapse, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Button} from '@mui/material'
-import Link from 'next/link';
 import { Skeleton } from '@mui/material'; 
 import React , { useEffect, useState } from 'react';
+import ButtonLink from './buttonLink';
 
 export const RentalRows = ({ rentalData, lng, isLoading }) => {
   const { t } = useTranslation(lng, 'dashboard');
@@ -80,7 +80,7 @@ export const CollabsedTable = ({ data, lng , cars}) => {
     }
     return '';
   };
-  const [isLoading, setIsLoading] = useState(true); // State to manage loading
+  const [isLoading, setIsLoading] = useState(true); 
 
   useEffect(() => {
     // Simulate loading for 2 seconds
@@ -103,29 +103,26 @@ export const CollabsedTable = ({ data, lng , cars}) => {
   const Row = ({ item, index }) => {
     const [open, setOpen] = React.useState(false);
 
-    const handleRowClick = (e) => {
-      if (e) {
-        if (e.target.tagName.toLowerCase() === 'a') {
-          return;
-        }
-      }
+    const handleRowClick = () => {
       setOpen(!open);
     };
 
     return (
       <React.Fragment>
-        <TableRow className="border-b transition duration-300 ease-in-out hover:bg-[#2536656b]" onClick={(e)=>handleRowClick}>
-          {tableHeaders.map((header, i) => (
-            <TableCell key={i} className="whitespace-nowrap px-6 py-4 md:py-2">
-              <span className={getColorClass(item[header]) + ' px-4 py-2 rounded-full'}>{item[header]}</span>
+        <TableRow className="border-b transition duration-300 ease-in-out hover:bg-[#2536656b]" >
+            {tableHeaders.map((header, i) => (
+              <TableCell onClick={handleRowClick} key={i} className="whitespace-nowrap px-6 py-4 md:py-2">
+                  <span className={getColorClass(item[header]) + ' px-4 py-2 rounded-full'}>
+                    {item[header]}
+                  </span>
+              </TableCell>
+            ))}
+            <TableCell>
+              {cars && (
+                <ButtonLink lng={lng} item={item} />
+              )}
             </TableCell>
-          ))}
-          {cars && (
-            <Link href={`dashboard/rent?carId=${item.ID}`} >
-             <Button variant="contained" className='text-sm' color='primary' size="small">{t('tables.rent')}</Button>
-            </Link>
-          )}
-        </TableRow>
+          </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={tableHeaders.length + 1}>
             <Collapse in={open} timeout="auto" unmountOnExit>

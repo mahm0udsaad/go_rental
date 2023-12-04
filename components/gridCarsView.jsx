@@ -14,10 +14,10 @@ import {
     Typography,
     CardActions,
     Button,
-    Skeleton,
 } from '@mui/material';
 import { useTranslation } from '@/app/i18n/client';
 import Link from 'next/link';
+import ButtonLink from './buttonLink';
 
 export const GridView = ({ data, lng}) => {
   const { t } = useTranslation(lng, 'dashboard');
@@ -114,9 +114,7 @@ export const GridView = ({ data, lng}) => {
             </Typography>
           </CardContent>
           <CardActions>
-          <Link href={`dashboard/rent?carId=${item.ID}`} >
-             <Button variant="contained" className='text-sm'  size="small">{t('tables.rent')}</Button>
-            </Link>
+              <ButtonLink isGrid={true} lng={lng} item={item} />
             <Button onClick={() => handleGridItemClick(item)} className='text-sm' size="small">{t(`tables.Details`)}</Button>
           </CardActions>
         </Card>
@@ -126,7 +124,7 @@ export const GridView = ({ data, lng}) => {
   };
 
   return (
-    <div className="grid-container view">
+    <div className="grid-container Gridview">
       {isLoading ? (
         // Skeleton Loader
         <Grid container spacing={2}>

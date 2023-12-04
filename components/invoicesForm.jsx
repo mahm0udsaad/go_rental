@@ -1,15 +1,19 @@
 "use client"
-import React, { useState } from 'react';
+import React from 'react';
 import { Dialog, TextField, Button, Snackbar, Grid, InputLabel, Select, MenuItem, Autocomplete } from '@mui/material';
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useForm } from 'react-hook-form';
 import { useTranslation } from '@/app/i18n/client';
-import { FaRegCheckCircle } from 'react-icons/fa';
-import { nationalitiesArray } from '@/data/info';
+import { nationalitiesArray} from '@/data/info';
+import { createVehicle } from '@/prisma';
+import { useSystemContext } from '@/context/context';
+import { useRouter } from 'next/navigation';
+import { convertFieldsToInt } from '@/helper/convertors';
 
-export const InvoiceFormModal = ({ isOpen, setIsOpen, formData , formTitle, cars, customers , lng}) => {
+  export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formData , formTitle, cars, customers , lng}) => {
   const { t } = useTranslation(lng , 'dashboard')
-  const [submitted, setSubmitted] = useState(false);
+  const {  setSubmitted , displaySuccessMessage} = useSystemContext()
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -24,58 +28,75 @@ export const InvoiceFormModal = ({ isOpen, setIsOpen, formData , formTitle, cars
     'تعبئة وقود',
     'اخري',
   ];
+
   const onSubmit = (data) => {
-    console.log(data);
-    setSubmitted(true);
-    reset(); 
-  };
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-    return;
+    data = {...data , userId}
+    data = convertFieldsToInt(data);
+    createVehicle(data)
+    .then((result) => {
+      setSubmitted(true);
+      reset()
+      router.refresh()
+    })
+    .catch((error) => {
+      console.error( error);
+    });
+  }
+
+  const getType = (key) => {
+    if (key.includes('Date')) {
+      return 'date';
+      
+    } else if (
+      key.includes('dailyKilometerLimit') ||
+      key.includes('extraKilometerPrice') ||
+      key.includes('extraHourPrice') ||
+      key.includes('manufactureYear') ||
+      key.includes('rentalCount') ||
+      key.includes('meter') ||
+      key.includes('extraHourPrice') ||
+      key.includes('Rent') ||
+      key.includes('remainingDues') ||
+      key.includes('debt') ||
+      key.includes('cost') ||
+      key.includes('price') ||
+      key.includes('paid') ||
+      key.includes('total') ||
+      key.includes('amount') ||
+      key.includes('maintenance')
+    ) {
+      return 'number';
+    } else {
+      return 'text';
     }
-    setSubmitted(false);
-  };
-  const displaySuccessMessage = () => {
-    if(!submitted) return ;
-    return (
-      <>
-      <Snackbar
-        open={submitted}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message={
-          <div className="flex items-center">
-            <FaRegCheckCircle className="text-green-500 mr-2" />
-            <span className="block sm:inline">Form submitted successfully!</span>
-          </div>
-        }
-      />
-      </>
-    );
   };
   const renderTextField = (key, formattedKey) => {
-    const requiredKeys = ['customerName', 'PlateNumber'];
     const isRequired = requiredKeys.includes(key);
 
     return (
-      <Grid item xs={12} sm={6} key={key}>
+      <Grid item xs={12} sm={6} md={4} key={key}>
         <TextField
           {...register(key)}
           label={formattedKey}
+          defaultValue={formData[key]}
           variant="outlined"
           fullWidth
           required={isRequired}
-          type={key.includes('Date') ? 'date' : 'text'}
+          type={getType(key)}
           error={!!errors[key]}
           helperText={errors[key] && 'This field is required'}
           InputLabelProps={{
             shrink: key.includes('Date'),
             placeholder: key.includes('Date') ? 'Select Date' : '',
           }}
+          inputProps={{
+            step: 'any', // Allows both integers and decimal numbers
+          }}
         />
       </Grid>
     );
   };
+
 return (
   <div className="flex justify-center items-center h-screen">
     {displaySuccessMessage()}
@@ -102,7 +123,7 @@ return (
         const formattedKey = t(`tables.${key}`)
         if (key === 'maintenanceType') {
         return (
-          <Grid item xs={12} sm={6} key={key}>
+          <Grid xs={12} sm={6} md={4} key={key}>
           <Autocomplete
           options={maintenanceTypes}
           getOptionLabel={(type) => `${type}`}
@@ -121,7 +142,7 @@ return (
         } 
         if (key === 'car' && cars) {
         return (
-        <Grid item xs={12} sm={6} key={key}>
+        <Grid xs={12} sm={6} md={4} key={key}>
         <Autocomplete
         options={cars}
         getOptionLabel={(car) => `${car.plateNumber} - ${car.brand} - ${car.status}`}
@@ -140,7 +161,7 @@ return (
         );
         } else if (key === 'customerName' && customers) {
         return (
-        <Grid item xs={12} sm={6} key={key}>
+        <Grid xs={12} sm={6} md={4} key={key}>
         <Autocomplete
         options={customers}
         getOptionLabel={(customer) => `${customer.customerName}`}
@@ -158,7 +179,7 @@ return (
         );
         } else if (key === 'nationality' && nationalitiesArray) {
           return (
-            <Grid item xs={12} sm={6} key={key}>
+            <Grid xs={12} sm={6} md={4} key={key}>
               <InputLabel>{formattedKey}</InputLabel>
               <Select
                 {...register(key)}
@@ -173,6 +194,24 @@ return (
                   </MenuItem>
                 ))}
               </Select>
+              {errors[key] && <span>This field is required</span>}
+            </Grid>
+          );
+        }else if (key === 'transmission') {
+          return (
+            <Grid item xs={12} sm={6} md={4} key={key}>
+              <Autocomplete
+                options={['automatic', 'manual']}
+                value='automatic'
+                onChange={(event, newValue) => {
+                  if (newValue) {
+                    setValue(key, newValue); 
+                  }
+                }}
+                renderInput={(params) => (
+                  <TextField {...params} label={formattedKey} variant="outlined" fullWidth />
+                )}
+              />
               {errors[key] && <span>This field is required</span>}
             </Grid>
           );

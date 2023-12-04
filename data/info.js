@@ -704,9 +704,11 @@ export const  nationalitiesArray =[
 'الهند',
 'تشاد',
 ]
-const generateCarsOverview = (detailsArray, fieldsToCount, titlesToAdd) => {
+export const generateCarsOverview = (detailsArray, fieldsToCount, titlesToAdd) => {
   const CarsCards = {};
-
+ if(!detailsArray){
+  return [];
+ }
   detailsArray.forEach((data) => {
     const fieldValue = fieldsToCount.map(field => data[field]).join('_');
     if (!CarsCards[fieldValue]) {
@@ -731,7 +733,7 @@ const generateCarsOverview = (detailsArray, fieldsToCount, titlesToAdd) => {
 };
 
 export const CarsOverview = generateCarsOverview(VehicleDetails, ["status"], ["allCars"]);
-CarsOverview.push({title:"lateCars" , number:5})
+CarsOverview.push({title:"lateCars" , number:0})
 const maintenanceTypes = {};
 maintenanceData.forEach((data) => {
 const { maintenanceType, cost } = data;

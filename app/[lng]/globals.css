@@ -47,9 +47,13 @@ body{
 .btn :hover{
   background-color: #9b9b9b69;
 }
-.view {
+.Gridview {
   overflow-y: scroll;
   overflow-x: hidden;
+  height: 52dvh;
+}
+.view {
+  overflow: hidden;
   height: 52dvh;
 }
 @keyframes shadowAnimation {

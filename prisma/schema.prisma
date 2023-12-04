@@ -1,125 +1,124 @@
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db" // You can adjust the file path as needed
+}
+
+generator client {
+  provider = "prisma-client-js"
 }
 
 model User {
-  id           String        @id @map("_id")
-  userId       String        @unique
-  username     String        @unique
-  email        String        @unique
+  id        Int    @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  userId    String    @unique
+  username  String
+  email     String    @unique
+  Vehicles  Vehicle[]
+  Customers  Customer[]
+  Contracts  Contract[]
 }
 
 model Vehicle {
-  id                  String       @id @map("_id")
-  user                User        @relation("user_vehicles", fields: [userId], references: [id])
+  id                  Int  @id @default(autoincrement())
+  user                User?   @relation(fields: [userId], references: [userId])
   userId              String?
-  plateNumber         String       @unique
+  plateNumber         String  @unique
   brand               String
   meter               Int
-  status              String
-  rentalCount         Int
-  transmission        String
-  manufactureYear     Int
-  color               String
-  extraHourPrice      Float
-  dailyRent           Float
-  weeklyRent          Float
-  monthlyRent         Float
-  insuranceCompany    String
-  registrationType    String
+  status              String @default("Available")
+  rentalCount         Int?    @default(0)
+  transmission        String?
+  manufactureYear     Int?
+  color               String?
+  extraHourPrice      Int
+  dailyRent           Int
+  weeklyRent          Int
+  monthlyRent         Int
+  insuranceCompany    String?
+  registrationType    String?
   fuelType            String
-  extraKilometerPrice Float
-  vehicleType         String
-  dailyKilometerLimit Float
-  contracts           Contract[]   @relation(fields: [plateNumber], references: [plateNumber])
-  maintenances        Maintenance[]@relation(fields: [plateNumber], references: [plateNumber])
+  extraKilometerPrice Int
+  vehicleType         String?
+  dailyKilometerLimit Int
+  Contracts           Contract[]
 }
-
-model Contract {
-  id                  String       @id @map("_id")
-  user                User?        @relation("user_contracts", fields: [userId], references: [id])
-  userId              String?
-  plateNumber         String
-  brand               String
-  contract            String
-  returnDate          String
-  remainingDues       Float
-  debt                Float
-  meterReadingOut     Int
-  meterReadingIn      Int
-  timeOut             String
-  timeIn              String
-  dateOut             String
-  dateIn              String
-  invoiceDetails      String
-  customerId          String
-  invoices            Invoice[]
-  customer            Customer     @relation(fields: [customerId], references: [id])
-  vehicle             Vehicle      @relation(fields: [plateNumber], references: [plateNumber])
-  Transaction         Transaction     @relation(fields: [transactionId], references: [transactionId])
-  transactionId       String
-
-}
-
 model Customer {
-  id                  String       @id @map("_id")
-  customerId          String       @unique
+  id        Int    @id        @default(autoincrement())
+  user                User     @relation(fields: [userId], references: [userId])
+  userId              String
   customerName        String       
   category            String
+  nationality         String
   idNumber            String
-  idExpirationDate    String
-  mobile              String
-  debt                Float
-  contracts           Contract[] 
-  invoices            Invoice[] 
+  idExpirationDate    String?
+  mobile              String?
+  debt                Int
+  Contracts           Contract[]
 }
-
-model Maintenance {
-  id                  String       @id @map("_id")
-  plateNumber         String
-  maintenanceType     String
-  client              String
-  date                String
-  cost                Float
-  description         String?
-
-  vehicle             Vehicle      @relation(fields: [plateNumber], references: [plateNumber])
-  user                User?        @relation("user_maintenances", fields: [userId], references: [userId])
-  userId              String?
-}
-
-model Invoice {
-  id                  String       @id @map("_id")
-  user                User?        @relation(fields: [userId], references: [id])
-  userId              String?
-  customerId          String    
+model Contract {
+  id        Int    @id            @default(autoincrement())
+  user                User        @relation(fields: [userId], references: [userId])
+  userId              String
+  plateNumber         String      @unique
+  total               Int
+  paid                Int
+  remainingDues       Int
+  meterReadingOut     Int
+  meterReadingIn      Int?
+  timeOut             String
+  dailyRent           Int
+  timeIn              String
+  dateOut             String
+  returnedDate        String
+  invoiceDetails      String?
+  customerId          Int
   customer            Customer     @relation(fields: [customerId], references: [id])
-  date                String
-  price               Float
-  debt                Float
-  paid                Float
-  total               Float
-  amount              Int
-  description         String
-  addTax              Boolean
-  contract            Contract?    @relation(fields: [contractId], references: [id])
-  contractId          String?
+  vehicle             Vehicle      @relation(fields: [plateNumber], references: [plateNumber])
 }
 
-model Transaction {
-  id                  String       @id @default(uuid()) @map("_id")
-  transactionId       String
-  operation           String
-  payment             String
-  paymentDate         String
-  amount              Float
-  contract            Contract[]    
-  contractId          String?
-  invoice             Invoice[]     
-  invoiceId           String?
-  maintenance         Maintenance[] 
-  maintenanceId       String?
-  user                User?        
-  userId              String?
-}
+// model Maintenance {
+//   id        Int    @id @default(autoincrement())
+//   plateNumber         String
+//   maintenanceType     String
+//   client              String
+//   date                String
+//   cost                Int
+//   description         String?
+
+//   vehicle             Vehicle      @relation(fields: [plateNumber], references: [plateNumber])
+//   user                User?        @relation("user_maintenances", fields: [userId], references: [userId])
+//   userId              String?
+// }
+// model Invoice {
+//   id        Int    @id @default(autoincrement())
+//   user                User?        @relation(fields: [userId], references: [id])
+//   userId              String?
+//   customerId          String    
+//   customer            Customer     @relation(fields: [customerId], references: [id])
+//   date                String
+//   price               Int
+//   debt                Int
+//   paid                Int
+//   total               Int
+//   amount              Int
+//   description         String
+//   addTax              Boolean
+//   contract            Contract?    @relation(fields: [contractId], references: [id])
+//   contractId          String?
+// }
+// model Transaction {
+//   id                  String       @id @default(uuid()) @map("_id")
+//   transactionId       String
+//   operation           String
+//   payment             String
+//   paymentDate         String
+//   amount              Int
+//   contract            Contract[]    
+//   contractId          String?
+//   invoice             Invoice[]     
+//   invoiceId           String?
+//   maintenance         Maintenance[] 
+//   maintenanceId       String?
+//   user                User?        
+//   userId              String?
+// }

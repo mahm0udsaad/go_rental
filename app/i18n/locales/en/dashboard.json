@@ -67,6 +67,7 @@
   "tables":{
     "submit":"submit",
     "rent":"Rent",
+    "closeContract":"Close Contract",
     "Rent":"Rent",
     "id": "id",
     "ID": "ID",
@@ -125,7 +126,7 @@
     "timeOut": "Time Out",
     "timeIn": "Time In",
     "dateOut": "Date Out",
-    "dateIn": "Date In",
+    "returnedDate": "Returned Date",
     "returnBranch": "Return Branch",
     "issueBranch": "Issue Branch",
     "returnStatus": "Return Status",

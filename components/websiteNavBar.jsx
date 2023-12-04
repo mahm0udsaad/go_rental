@@ -2,7 +2,7 @@ import { useTranslation } from "@/app/i18n";
 import { currentUser } from "@clerk/nextjs";
 import Link from 'next/link';
 
-export async function  WebsiteNavBar({lng}){
+export async function  WebsiteNavBar({ lng }){
   const { t } = await useTranslation(lng)  
   const user = await currentUser()
 
