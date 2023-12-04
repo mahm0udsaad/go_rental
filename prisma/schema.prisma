@@ -1,12 +1,12 @@
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db" // You can adjust the file path as needed
+  url      = "file:./dev.db" 
 }
 
 generator client {
   provider = "prisma-client-js"
+  output   = "./generated/client"
 }
-
 model User {
   id        Int    @id @default(autoincrement())
   createdAt DateTime  @default(now())
