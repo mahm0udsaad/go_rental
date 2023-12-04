@@ -16,7 +16,7 @@ export default  function Contracts ({ lng  ,contracts}){
   const cars = VehicleDetails.filter(car => car.status !== "Rented")
   const contractsData = extractNonObjectKeyValuePairsFromArray(contracts)
   console.log(contractsData);
-  const [formData ,setFormData ] = useState({
+  const formData = {
     customerName: "",
     car: "",
     returnDate: "",
@@ -28,7 +28,7 @@ export default  function Contracts ({ lng  ,contracts}){
     timeOut: "",
     timeIn: "",
     invoiceDetails: ""
-  })
+  }
   const { t } = useTranslation(lng , "dashboard")
   return (
     <>

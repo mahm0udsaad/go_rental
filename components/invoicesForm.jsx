@@ -9,10 +9,11 @@ import { createVehicle } from '@/prisma';
 import { useSystemContext } from '@/context/context';
 import { useRouter } from 'next/navigation';
 import { convertFieldsToInt } from '@/helper/convertors';
+import { DisplaySuccessMessage, ErrorMessage } from './messages';
 
   export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formData , formTitle, cars, customers , lng}) => {
   const { t } = useTranslation(lng , 'dashboard')
-  const {  setSubmitted , displaySuccessMessage} = useSystemContext()
+  const { setErrorMessage , setSuccessMessage ,setSubmitted} = useSystemContext()
   const router = useRouter()
   const {
     register,
@@ -28,18 +29,23 @@ import { convertFieldsToInt } from '@/helper/convertors';
     'تعبئة وقود',
     'اخري',
   ];
-
   const onSubmit = (data) => {
     data = {...data , userId}
     data = convertFieldsToInt(data);
     createVehicle(data)
     .then((result) => {
-      setSubmitted(true);
-      reset()
-      router.refresh()
+      if (result.error) {
+        console.error(result.error);
+        setErrorMessage(`vehicleExists`);
+      } else {
+        setSubmitted(true);
+        setSuccessMessage('vehicleCreatedSuccess');
+        reset();
+        router.refresh();
+      }
     })
     .catch((error) => {
-      console.error( error);
+      console.error("Error:", error);
     });
   }
 
@@ -99,7 +105,6 @@ import { convertFieldsToInt } from '@/helper/convertors';
 
 return (
   <div className="flex justify-center items-center h-screen">
-    {displaySuccessMessage()}
     <Dialog
     open={isOpen}
     onClose={() => setIsOpen(false)}
@@ -107,6 +112,8 @@ return (
     maxWidth="md" // Adjust as needed
     PaperProps={{ style: { width: '90%', maxHeight: '90vh', overflowY: 'auto' } }}
     >
+      <ErrorMessage lng={lng}/>
+      <DisplaySuccessMessage lng={lng}/>
       <div className="flex justify-between items-center">
       <h1 className="p-4 text-xl font-semibold">{t(`tables.${formTitle}`)}</h1>
         <button

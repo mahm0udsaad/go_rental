@@ -45,7 +45,7 @@ export const fetchUserCars = async (userId) => {
 export async function getVehicleById(id) {
   try {
     const vehicle = await prisma.vehicle.findUnique({
-      where: { id: Number(id) },
+      where: { id: id },
     });
     return  vehicle ;
   } catch (error) {
@@ -54,10 +54,24 @@ export async function getVehicleById(id) {
 }
 
 // Create a new vehicle
-export async function createVehicle(vehicleData) {
+export async function createVehicle(vehicleData , userId) {
   try {
+    // Check if the plateNumber already exists
+    const existingVehicle = await prisma.vehicle.findUnique({
+      where: {
+        userId,
+        plateNumber: vehicleData.plateNumber,
+      },
+    });
+
+    if (existingVehicle) {
+      console.log(`Vehicle with plate number ${vehicleData.plateNumber} already exists.`);
+      return { error: `Vehicle with plate number ${vehicleData.plateNumber} already exists.` };
+    }
+
+    // If plate number doesn't exist, create the new vehicle
     const newVehicle = await prisma.vehicle.create({
-      data: vehicleData,
+      data: { userId , ...vehicleData },
     });
     return { newVehicle };
   } catch (error) {
@@ -65,11 +79,12 @@ export async function createVehicle(vehicleData) {
   }
 }
 
+
 // Update a specific vehicle by ID
 export async function updateVehicleById(id, updatedVehicleData) {
   try {
     const updatedVehicle = await prisma.vehicle.update({
-      where: { id: Number(id) },
+      where: { id: id },
       data: updatedVehicleData,
     });
     return { updatedVehicle };
@@ -82,7 +97,7 @@ export async function updateVehicleById(id, updatedVehicleData) {
 export async function deleteVehicleById(id) {
   try {
     const deletedVehicle = await prisma.vehicle.delete({
-      where: { id: Number(id) },
+      where: { id: id },
     });
     return { deletedVehicle };
   } catch (error) {

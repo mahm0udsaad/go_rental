@@ -1,8 +1,8 @@
 "use server"
-
 import prisma from "./prisma";
 
 export async function createContractAndCustomer(data , userId) {
+  console.log(data.category.lable)
     try {
       const {
         customerName,
@@ -16,22 +16,12 @@ export async function createContractAndCustomer(data , userId) {
         category,
         mobile,
         dailyRent,
-        extraHourPrice,
-        extraKilometerPrice,
         remainingDues,
-        monthlyRent,
         nationality,
         paid,
         timeIn,
         timeOut,
-        weeklyRent,
       } = data;
-      const updatedVehicle = await prisma.vehicle.update({
-        where: { plateNumber },
-        data: {
-          status: 'Rented',
-        },
-      });
       const newCustomer = await prisma.Customer.create({
         data: {
           userId,
@@ -39,11 +29,10 @@ export async function createContractAndCustomer(data , userId) {
           nationality,
           idNumber,
           debt:remainingDues,
-          category,
+          category:category.label,
           mobile,
         },
       });
-  
       const newContract = await prisma.Contract.create({
         data: {
           dateOut,
@@ -57,7 +46,7 @@ export async function createContractAndCustomer(data , userId) {
           meterReadingOut,
           timeIn,
           timeOut,
-          vehicle:{connect:{plateNumber}},
+          vehicle:{ connect:{plateNumber} },
           user: { connect: { userId } },
           customer: {
             connect: {
@@ -66,8 +55,13 @@ export async function createContractAndCustomer(data , userId) {
           },
         },
       });
-  
-      return { newCustomer, newContract , updatedVehicle };
+      const updatedVehicle = await prisma.Vehicle.update({
+        where: { plateNumber },
+        data: {
+          status: 'Rented',
+        },
+      });
+      return {newCustomer, newContract , updatedVehicle};
     } catch (error) {
       console.error("Error creating contract and customer:", error);
       throw error;

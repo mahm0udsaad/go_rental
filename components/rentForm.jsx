@@ -10,26 +10,34 @@ import { getVehicleById } from '@/prisma';
 import { convertFieldsToInt } from '@/helper/convertors';
 import { createContractAndCustomer } from '@/prisma/contracts';
 import { useSystemContext } from '@/context/context';
-import DisplaySuccessMessage, { displaySuccessMessage } from './successMessage';
+import { DisplaySuccessMessage, ErrorMessage } from './messages';
 
 const RentNewCarForm = ({ lng , userId}) => {
   const { control, handleSubmit, setValue, watch, reset } = useForm();
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false); // State for controlling success message visibility
+  const {  setSuccessMessage, setlinkDisabled , setErrorMessage , isLinkLoading ,setLinkLoading } = useSystemContext()
   const [newCustomer, setNewCustomer] = useState(false);
   const [car, setCar] = useState(null);
   const router = useRouter();
   const carId = useSearchParams().get('carId');
+  const requiredKeys = [
+    'plateNumber',
+    "customerName",
+      "category",
+      "days",
+      "idNumber",
+      "nationality",
+]
+  const isRequired = (key) => requiredKeys.includes(key);
+    useEffect(()=>{
+      getVehicleById(carId)
+      .then(res => {
+        setCar(res); 
+      })
+      .catch(error => {
+        console.error('Error fetching car data:', error);
+      });
+    },[])
 
-  useEffect(()=>{
-    getVehicleById(carId)
-    .then(res => {
-      setCar(res); // Assuming setCar is a function to update state
-    })
-    .catch(error => {
-      console.error('Error fetching car data:', error);
-    });
-  },[])
-  console.log(car);
     if (!carId) {
       useEffect(() => {
         router.push('/dashboard');
@@ -37,7 +45,7 @@ const RentNewCarForm = ({ lng , userId}) => {
       return null;
     }
   
-    const customerID = useSearchParams().get('customerID') || 1;
+    const customerID = useSearchParams().get('customerId') || 1;
     const { t } = useTranslation(lng, 'dashboard');
     const autocompleteCar = {
       plateNumber:car ? car.plateNumber : '',
@@ -59,7 +67,7 @@ const RentNewCarForm = ({ lng , userId}) => {
     };
     const quickCustomer = {
         customerName : '',
-        category : '',
+        category : 'individual',
         idNumber: '',
         nationality : ''
     }
@@ -84,8 +92,8 @@ const RentNewCarForm = ({ lng , userId}) => {
             setValue('debt', debt);
             setValue('category', category);
         }
-};
-   console.log(car);
+    };
+
     const formatedDays = watch('days')
     const paid = watch('paid')
     const days = parseInt(formatedDays, 10);
@@ -105,30 +113,26 @@ const RentNewCarForm = ({ lng , userId}) => {
     }, [days , paid]);
   
     const onSubmit = async (data) => {
+      setlinkDisabled(true)
+      setLinkLoading(true)
       data = convertFieldsToInt(data);
+      console.log(data);
       try {
         await createContractAndCustomer(data, userId);
-        setShowSuccessMessage(true); // Show success message on successful form submission
-        console.log(data);
+        setSuccessMessage("contractAddedSuccessfully")
+        setLinkLoading(false)
+        setlinkDisabled(false)
       } catch (error) {
         console.error('Error submitting form:', error);
       }
     };
-    const handleCloseSuccessMessage = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-      setShowSuccessMessage(false);
-    };
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-       <DisplaySuccessMessage
-        text="Contract Created Successfully"
-        open={showSuccessMessage}
-        handleClose={handleCloseSuccessMessage}
-      />
-        <Paper variant="outlined" style={{ margin: '20px 0', padding: '20px' }}>
+       <ErrorMessage lng={lng}/>
+       <DisplaySuccessMessage lng={lng}/>
+        <Paper variant="outlined" style={{ padding: '20px' }}>
         <h1 className='text-lg pb-4'>{t("carDetalis")}</h1>
         <Grid container spacing={2}>
           {car && Object.keys(autocompleteCar).map((key) => (
@@ -143,6 +147,7 @@ const RentNewCarForm = ({ lng , userId}) => {
                     <TextField
                       {...field}
                       label={label}
+                      required={isRequired(key)}
                       variant="outlined"
                       fullWidth
                       dir="rtl"
@@ -180,6 +185,7 @@ const RentNewCarForm = ({ lng , userId}) => {
                           <TextField
                             {...params}
                             label={t(`tables.${key}`)}
+                           required={isRequired(key)}
                             variant="outlined"
                             fullWidth
                             dir="rtl"
@@ -196,8 +202,11 @@ const RentNewCarForm = ({ lng , userId}) => {
                     render={({ field }) => (
                       <Autocomplete
                         {...field}
-                        defaultValue={'individual'}
-                        options={['individual', 'company']} // Options for 'individual' and 'company'
+                        defaultValue={quickCustomer[key] || ''}
+                        options={['individual', 'company'].map((option) => ({
+                          value: option,
+                          label: t(`tables.${option}`), // Translate options here
+                        }))} 
                         onChange={(e, value) => {
                           field.onChange(value);
                           setValue("category", value);
@@ -206,6 +215,7 @@ const RentNewCarForm = ({ lng , userId}) => {
                           <TextField
                             {...params}
                             label={t(`tables.${key}`)}
+                            required={isRequired(key)}
                             variant="outlined"
                             fullWidth
                             dir="rtl"
@@ -227,6 +237,7 @@ const RentNewCarForm = ({ lng , userId}) => {
                         <TextField
                           {...field}
                           label={label}
+                          required={isRequired(key)}
                           variant="outlined"
                           fullWidth
                           dir="rtl"
@@ -266,7 +277,7 @@ const RentNewCarForm = ({ lng , userId}) => {
                         }
                     }}
                     renderInput={(params) => (
-                        <TextField {...params} label={t('tables.customer')} variant="outlined" fullWidth value={''} /> 
+                        <TextField {...params}  label={t('tables.customer')} variant="outlined" fullWidth value={''} /> 
                         )}
                     />
                 )}
@@ -276,6 +287,7 @@ const RentNewCarForm = ({ lng , userId}) => {
               {Object.keys(autocompleteCustomer).map((key) => (
                 <Grid item xs={12} sm={6} key={key}>
                   <Controller
+                    required={isRequired(autocompleteCustomer[key])}
                     name={key}
                     control={control}
                     defaultValue={autocompleteCustomer[key] || ''}
@@ -321,6 +333,7 @@ const RentNewCarForm = ({ lng , userId}) => {
                 {Object.keys(autocompleteContract).map((key) => (
                 <Grid item xs={12} sm={6} md={4} key={key}>
                 <Controller
+                 required={true}
                   name={key}
                   control={control}
                   defaultValue={isNaN(autocompleteContract[key])?'':autocompleteContract[key]}
@@ -330,6 +343,7 @@ const RentNewCarForm = ({ lng , userId}) => {
                       <TextField
                         {...field}
                         label={label}
+                        required={isRequired(key)}
                         variant="outlined"
                         fullWidth
                         dir="rtl"
@@ -344,8 +358,14 @@ const RentNewCarForm = ({ lng , userId}) => {
           </Grid>
         </Paper>
        
-        <Button type="submit" variant="contained" color="primary" className="mt-3">
-          {t('actions.addNew')}
+        <Button type="submit" variant="contained" color="success" className="mt-3">
+        {isLinkLoading ? (
+          <div class="flex justify-center items-center">
+            <div class="border-t-4 border-blue-500 rounded-full animate-spin h-5 w-5"></div>
+        </div>
+        ) : (
+          t('actions.addNew')
+        )}
         </Button>
       </form>
   );

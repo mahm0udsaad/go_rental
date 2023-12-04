@@ -26,8 +26,8 @@ model Vehicle {
   brand               String
   meter               Int
   status              String @default("Available")
-  rentalCount         Int?    @default(0)
-  transmission        String?
+  rentalCount         Int?    
+  transmission        String @default("Automatic")
   manufactureYear     Int?
   color               String?
   extraHourPrice      Int

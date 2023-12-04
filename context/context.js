@@ -19,6 +19,31 @@ export const SystemProvider = ({ children }) => {
   const [addNew, setAddNew] = useState(false);
   const [userId, setUserId] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [isLinkLoading, setLinkLoading] = useState(false);
+  const [linkDisabled, setlinkDisabled] = useState(false);
+  
+  const handleButtonClick = () => {
+    setLinkLoading(true);
+    setlinkDisabled(true)
+  };
+
+  useEffect(() => {
+    let timeoutId;
+
+    if (successMessage) {
+      timeoutId = setTimeout(() => {
+        setSuccessMessage('');
+        setErrorMessage('')
+      }, 5000); 
+    }
+
+    return () => {
+      // Clear timeout on component unmount or when successMessage changes
+      clearTimeout(timeoutId);
+    };
+  }, [successMessage, setSuccessMessage ,errorMessage, setErrorMessage]);
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
     return;
@@ -44,7 +69,7 @@ export const SystemProvider = ({ children }) => {
     );
   };
   return (
-    <SystemContext.Provider value={{displaySuccessMessage, addNew, setAddNew, userId, setUserId,submitted, setSubmitted }}>
+    <SystemContext.Provider value={{isLinkLoading, setLinkLoading ,linkDisabled, setlinkDisabled ,handleButtonClick,successMessage, setSuccessMessage,errorMessage, setErrorMessage,displaySuccessMessage, addNew, setAddNew, userId, setUserId,submitted, setSubmitted }}>
       {children}
     </SystemContext.Provider>
   );

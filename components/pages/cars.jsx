@@ -17,21 +17,21 @@ export default function Cars ({userId, lng , Cars}){
   const { t } = useTranslation(lng , "dashboard")
   const formData = {
     plateNumber: "",
-    brand: "",
+    brand: "kia",
     vehicleType: "sedan",
-    transmission:'',
+    transmission:'automatic',
     manufactureYear: 2023,
-    meter: 0,
+    meter: 1200,
     color: "",
     insuranceCompany: "",
-    fuelType: "",
-    dailyRent: 0.00,
-    weeklyRent: 0.00,
-    monthlyRent: 0.00,
-    extraHourPrice: 0.00,
+    fuelType: "gasolin 91",
+    dailyRent: 300,
+    weeklyRent: 2000,
+    monthlyRent: 4000,
+    extraHourPrice: 0.45,
     registrationType: "",
-    extraKilometerPrice: 0.00,
-    dailyKilometerLimit: 0.00
+    extraKilometerPrice: 0.55,
+    dailyKilometerLimit: 300
   }
   const requiredKeys= [
     "plateNumber",
@@ -78,7 +78,7 @@ export default function Cars ({userId, lng , Cars}){
        </>
        :
        <>
-       <p className="text-center pt-8 text-lg justify-center w-full ">There is no Cars Start adding some</p>
+       <p className="text-center pt-8 text-lg justify-center w-full ">{t('messages.emptyCar')}</p>
        </>
        }
       </>

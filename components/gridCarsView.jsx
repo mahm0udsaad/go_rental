@@ -102,7 +102,7 @@ export const GridView = ({ data, lng}) => {
           <CardMedia
             component="img"
             height="140"
-            image="/vehicle.jpg" 
+            image="./vehicle.jpg" 
             alt={item.plateNumber}
           />
           <CardContent>

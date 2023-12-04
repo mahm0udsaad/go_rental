@@ -158,7 +158,16 @@
     "bankCheckDate": "تاريخ شيك البنك",
     "bankCustomerName": "اسم العميل للبنك",
     "Maintanance Card":"كارت صيانه",
-    "New Invoice":"فاتوره "
+    "New Invoice":"فاتوره ",
+    "individual": "فرد",
+    "company": "شركة"
+  },
+  "messages":{
+    "vehicleCreatedSuccess": "تم اضافه السياره بنجاح ! ",
+    "vehicleExists": "المركبة ذات اللوحه  ب ط ل 8888 موجودة بالفعل.",
+    "ContractAddedSuccessfully": "تمت إضافة العقد بنجاح",
+    "emptyCars":"لا يوجد سيارات ابدا بالاضافه"
+
   },
   "carDetalis":"تفاصيل السياره",
   "customerDetalis":"تفاصيل العميل",

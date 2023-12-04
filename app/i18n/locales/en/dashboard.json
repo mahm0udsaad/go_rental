@@ -159,7 +159,16 @@
     "bankCheckDate": "Bank Check Date",
     "bankCustomerName": "Bank Customer Name",
     "Maintanance Card":"Maintanance Card",
-    "New Invoice":"New Invoice"
+    "New Invoice":"New Invoice",
+    "individual": "Individual",
+    "company": "Company"
+  },
+  "messages":{
+    "vehicleExists": "Vehicle with plate number ب ط ل 8888 already exists.",
+    "vehicleCreatedSuccess": "Vehicle created successfully!",
+    "ContractAddedSuccessfully": "Contract Added Successfully",
+    "emptyCars":"There is no cars start adding"
+
   },
   "carDetalis":"car Details",
   "customerDetalis":"Customer Detalis",

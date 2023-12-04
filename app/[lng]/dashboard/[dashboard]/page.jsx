@@ -12,6 +12,7 @@ import RentNewCar from '@/components/pages/rent';
 import { auth } from '@clerk/nextjs';
 import { getAllContractsByUserId } from '@/prisma/contracts';
 import CloseContract from '@/components/pages/closeContract';
+import { ErrorMessage } from '@/components/messages';
 
 const PageRenderer =async ({ params }) => {
   const { userId } = await auth()

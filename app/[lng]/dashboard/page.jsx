@@ -1,4 +1,5 @@
 
+import { ErrorMessage } from "@/components/messages";
 import NavBar from "@/components/navBar";
 import Cars from "@/components/pages/cars";
 import { fetchUserCars } from "@/prisma";
@@ -27,8 +28,7 @@ export default async function MainDashboardPage ({params:{lng}}){
         console.log('New user created:', newUser);
         return { success: true, message: 'New user created.' };
       } else {
-        console.log('User already exists:', existingUser);
-        return { success: false, message: 'User already exists.' };
+        return ;
       }
     } catch (error) {
       console.error('Error creating user:', error);

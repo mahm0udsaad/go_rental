@@ -2555,7 +2555,7 @@ export namespace Prisma {
     meter: number
     status: string
     rentalCount: number | null
-    transmission: string | null
+    transmission: string
     manufactureYear: number | null
     color: string | null
     extraHourPrice: number
@@ -2659,7 +2659,7 @@ export namespace Prisma {
       meter: number
       status: string
       rentalCount: number | null
-      transmission: string | null
+      transmission: string
       manufactureYear: number | null
       color: string | null
       extraHourPrice: number
@@ -5966,7 +5966,7 @@ export namespace Prisma {
     meter?: IntFilter<"Vehicle"> | number
     status?: StringFilter<"Vehicle"> | string
     rentalCount?: IntNullableFilter<"Vehicle"> | number | null
-    transmission?: StringNullableFilter<"Vehicle"> | string | null
+    transmission?: StringFilter<"Vehicle"> | string
     manufactureYear?: IntNullableFilter<"Vehicle"> | number | null
     color?: StringNullableFilter<"Vehicle"> | string | null
     extraHourPrice?: IntFilter<"Vehicle"> | number
@@ -6019,7 +6019,7 @@ export namespace Prisma {
     meter?: IntFilter<"Vehicle"> | number
     status?: StringFilter<"Vehicle"> | string
     rentalCount?: IntNullableFilter<"Vehicle"> | number | null
-    transmission?: StringNullableFilter<"Vehicle"> | string | null
+    transmission?: StringFilter<"Vehicle"> | string
     manufactureYear?: IntNullableFilter<"Vehicle"> | number | null
     color?: StringNullableFilter<"Vehicle"> | string | null
     extraHourPrice?: IntFilter<"Vehicle"> | number
@@ -6075,7 +6075,7 @@ export namespace Prisma {
     meter?: IntWithAggregatesFilter<"Vehicle"> | number
     status?: StringWithAggregatesFilter<"Vehicle"> | string
     rentalCount?: IntNullableWithAggregatesFilter<"Vehicle"> | number | null
-    transmission?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
+    transmission?: StringWithAggregatesFilter<"Vehicle"> | string
     manufactureYear?: IntNullableWithAggregatesFilter<"Vehicle"> | number | null
     color?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
     extraHourPrice?: IntWithAggregatesFilter<"Vehicle"> | number
@@ -6354,7 +6354,7 @@ export namespace Prisma {
     meter: number
     status?: string
     rentalCount?: number | null
-    transmission?: string | null
+    transmission?: string
     manufactureYear?: number | null
     color?: string | null
     extraHourPrice: number
@@ -6379,7 +6379,7 @@ export namespace Prisma {
     meter: number
     status?: string
     rentalCount?: number | null
-    transmission?: string | null
+    transmission?: string
     manufactureYear?: number | null
     color?: string | null
     extraHourPrice: number
@@ -6401,7 +6401,7 @@ export namespace Prisma {
     meter?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
-    transmission?: NullableStringFieldUpdateOperationsInput | string | null
+    transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
     extraHourPrice?: IntFieldUpdateOperationsInput | number
@@ -6425,7 +6425,7 @@ export namespace Prisma {
     meter?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
-    transmission?: NullableStringFieldUpdateOperationsInput | string | null
+    transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
     extraHourPrice?: IntFieldUpdateOperationsInput | number
@@ -6449,7 +6449,7 @@ export namespace Prisma {
     meter: number
     status?: string
     rentalCount?: number | null
-    transmission?: string | null
+    transmission?: string
     manufactureYear?: number | null
     color?: string | null
     extraHourPrice: number
@@ -6470,7 +6470,7 @@ export namespace Prisma {
     meter?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
-    transmission?: NullableStringFieldUpdateOperationsInput | string | null
+    transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
     extraHourPrice?: IntFieldUpdateOperationsInput | number
@@ -6492,7 +6492,7 @@ export namespace Prisma {
     meter?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
-    transmission?: NullableStringFieldUpdateOperationsInput | string | null
+    transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
     extraHourPrice?: IntFieldUpdateOperationsInput | number
@@ -7628,7 +7628,7 @@ export namespace Prisma {
     meter: number
     status?: string
     rentalCount?: number | null
-    transmission?: string | null
+    transmission?: string
     manufactureYear?: number | null
     color?: string | null
     extraHourPrice: number
@@ -7651,7 +7651,7 @@ export namespace Prisma {
     meter: number
     status?: string
     rentalCount?: number | null
-    transmission?: string | null
+    transmission?: string
     manufactureYear?: number | null
     color?: string | null
     extraHourPrice: number
@@ -7779,7 +7779,7 @@ export namespace Prisma {
     meter?: IntFilter<"Vehicle"> | number
     status?: StringFilter<"Vehicle"> | string
     rentalCount?: IntNullableFilter<"Vehicle"> | number | null
-    transmission?: StringNullableFilter<"Vehicle"> | string | null
+    transmission?: StringFilter<"Vehicle"> | string
     manufactureYear?: IntNullableFilter<"Vehicle"> | number | null
     color?: StringNullableFilter<"Vehicle"> | string | null
     extraHourPrice?: IntFilter<"Vehicle"> | number
@@ -8149,7 +8149,7 @@ export namespace Prisma {
     meter: number
     status?: string
     rentalCount?: number | null
-    transmission?: string | null
+    transmission?: string
     manufactureYear?: number | null
     color?: string | null
     extraHourPrice: number
@@ -8173,7 +8173,7 @@ export namespace Prisma {
     meter: number
     status?: string
     rentalCount?: number | null
-    transmission?: string | null
+    transmission?: string
     manufactureYear?: number | null
     color?: string | null
     extraHourPrice: number
@@ -8272,7 +8272,7 @@ export namespace Prisma {
     meter?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
-    transmission?: NullableStringFieldUpdateOperationsInput | string | null
+    transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
     extraHourPrice?: IntFieldUpdateOperationsInput | number
@@ -8295,7 +8295,7 @@ export namespace Prisma {
     meter?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
-    transmission?: NullableStringFieldUpdateOperationsInput | string | null
+    transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
     extraHourPrice?: IntFieldUpdateOperationsInput | number
@@ -8317,7 +8317,7 @@ export namespace Prisma {
     meter: number
     status?: string
     rentalCount?: number | null
-    transmission?: string | null
+    transmission?: string
     manufactureYear?: number | null
     color?: string | null
     extraHourPrice: number
@@ -8366,7 +8366,7 @@ export namespace Prisma {
     meter?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
-    transmission?: NullableStringFieldUpdateOperationsInput | string | null
+    transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
     extraHourPrice?: IntFieldUpdateOperationsInput | number
@@ -8388,7 +8388,7 @@ export namespace Prisma {
     meter?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
-    transmission?: NullableStringFieldUpdateOperationsInput | string | null
+    transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
     extraHourPrice?: IntFieldUpdateOperationsInput | number
@@ -8410,7 +8410,7 @@ export namespace Prisma {
     meter?: IntFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
-    transmission?: NullableStringFieldUpdateOperationsInput | string | null
+    transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
     extraHourPrice?: IntFieldUpdateOperationsInput | number
