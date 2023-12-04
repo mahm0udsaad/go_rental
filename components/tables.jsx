@@ -4,6 +4,7 @@ import {Collapse, Table, TableBody, TableCell, TableContainer, TableHead, TableR
 import { Skeleton } from '@mui/material'; 
 import React , { useEffect, useState } from 'react';
 import ButtonLink from './buttonLink';
+import { getLastNumber } from '@/helper/convertors';
 
 export const RentalRows = ({ rentalData, lng, isLoading }) => {
   const { t } = useTranslation(lng, 'dashboard');
@@ -113,7 +114,7 @@ export const CollabsedTable = ({ data, lng , cars}) => {
             {tableHeaders.map((header, i) => (
               <TableCell onClick={handleRowClick} key={i} className="whitespace-nowrap px-6 py-4 md:py-2">
                   <span className={getColorClass(item[header]) + ' px-4 py-2 rounded-full'}>
-                    {item[header]}
+                    {header === 'id' ? getLastNumber(item[header]):item[header]}
                   </span>
               </TableCell>
             ))}

@@ -91,52 +91,6 @@ export class PrismaClient<
   $use(cb: Prisma.Middleware): void
 
 /**
-   * Executes a prepared raw query and returns the number of affected rows.
-   * @example
-   * ```
-   * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
-   * ```
-   * 
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
-   */
-  $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
-
-  /**
-   * Executes a raw query and returns the number of affected rows.
-   * Susceptible to SQL injections, see documentation.
-   * @example
-   * ```
-   * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
-   * ```
-   * 
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
-   */
-  $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
-
-  /**
-   * Performs a prepared raw query and returns the `SELECT` data.
-   * @example
-   * ```
-   * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
-   * ```
-   * 
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
-   */
-  $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
-
-  /**
-   * Performs a raw query and returns the `SELECT` data.
-   * Susceptible to SQL injections, see documentation.
-   * @example
-   * ```
-   * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
-   * ```
-   * 
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
-   */
-  $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
-
-  /**
    * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
    * @example
    * ```
@@ -149,10 +103,24 @@ export class PrismaClient<
    * 
    * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
    */
-  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P]): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
-  $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
+  $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number }): $Utils.JsPromise<R>
 
+  /**
+   * Executes a raw MongoDB command and returns the result of it.
+   * @example
+   * ```
+   * const user = await prisma.$runCommandRaw({
+   *   aggregate: 'User',
+   *   pipeline: [{ $match: { name: 'Bob' } }, { $project: { email: true, _id: false } }],
+   *   explain: false,
+   * })
+   * ```
+   * 
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
+   */
+  $runCommandRaw(command: Prisma.InputJsonObject): Prisma.PrismaPromise<Prisma.JsonObject>
 
   $extends: $Extensions.ExtendsHook<'extends', Prisma.TypeMapCb, ExtArgs>
 
@@ -686,7 +654,7 @@ export namespace Prisma {
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
       modelProps: 'user' | 'vehicle' | 'customer' | 'contract'
-      txIsolationLevel: Prisma.TransactionIsolationLevel
+      txIsolationLevel: never
     },
     model: {
       User: {
@@ -717,6 +685,10 @@ export namespace Prisma {
             args: Prisma.UserCreateArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
           }
+          createMany: {
+            args: Prisma.UserCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
           delete: {
             args: Prisma.UserDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
@@ -744,6 +716,14 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.UserGroupByArgs<ExtArgs>,
             result: $Utils.Optional<UserGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.UserFindRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.UserAggregateRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
           }
           count: {
             args: Prisma.UserCountArgs<ExtArgs>,
@@ -779,6 +759,10 @@ export namespace Prisma {
             args: Prisma.VehicleCreateArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
           }
+          createMany: {
+            args: Prisma.VehicleCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
           delete: {
             args: Prisma.VehicleDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$VehiclePayload>
@@ -806,6 +790,14 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.VehicleGroupByArgs<ExtArgs>,
             result: $Utils.Optional<VehicleGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.VehicleFindRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.VehicleAggregateRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
           }
           count: {
             args: Prisma.VehicleCountArgs<ExtArgs>,
@@ -841,6 +833,10 @@ export namespace Prisma {
             args: Prisma.CustomerCreateArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CustomerPayload>
           }
+          createMany: {
+            args: Prisma.CustomerCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
           delete: {
             args: Prisma.CustomerDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$CustomerPayload>
@@ -868,6 +864,14 @@ export namespace Prisma {
           groupBy: {
             args: Prisma.CustomerGroupByArgs<ExtArgs>,
             result: $Utils.Optional<CustomerGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.CustomerFindRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.CustomerAggregateRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
           }
           count: {
             args: Prisma.CustomerCountArgs<ExtArgs>,
@@ -903,6 +907,10 @@ export namespace Prisma {
             args: Prisma.ContractCreateArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$ContractPayload>
           }
+          createMany: {
+            args: Prisma.ContractCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
           delete: {
             args: Prisma.ContractDeleteArgs<ExtArgs>,
             result: $Utils.PayloadToResult<Prisma.$ContractPayload>
@@ -931,6 +939,14 @@ export namespace Prisma {
             args: Prisma.ContractGroupByArgs<ExtArgs>,
             result: $Utils.Optional<ContractGroupByOutputType>[]
           }
+          findRaw: {
+            args: Prisma.ContractFindRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ContractAggregateRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
+          }
           count: {
             args: Prisma.ContractCountArgs<ExtArgs>,
             result: $Utils.Optional<ContractCountAggregateOutputType> | number
@@ -942,21 +958,9 @@ export namespace Prisma {
     other: {
       payload: any
       operations: {
-        $executeRawUnsafe: {
-          args: [query: string, ...values: any[]],
-          result: any
-        }
-        $executeRaw: {
-          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
-          result: any
-        }
-        $queryRawUnsafe: {
-          args: [query: string, ...values: any[]],
-          result: any
-        }
-        $queryRaw: {
-          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
-          result: any
+        $runCommandRaw: {
+          args: Prisma.InputJsonObject,
+          result: Prisma.JsonObject
         }
       }
     }
@@ -1213,22 +1217,12 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
 
-  export type UserAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type UserSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type UserMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     createdAt: Date | null
     userId: string | null
     username: string | null
@@ -1236,7 +1230,7 @@ export namespace Prisma {
   }
 
   export type UserMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     createdAt: Date | null
     userId: string | null
     username: string | null
@@ -1252,14 +1246,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type UserAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type UserSumAggregateInputType = {
-    id?: true
-  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -1324,18 +1310,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -1366,21 +1340,17 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
-    _avg?: UserAvgAggregateInputType
-    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
 
   export type UserGroupByOutputType = {
-    id: number
+    id: string
     createdAt: Date
     userId: string
     username: string
     email: string
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -1435,7 +1405,7 @@ export namespace Prisma {
       Contracts: Prisma.$ContractPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       createdAt: Date
       userId: string
       username: string
@@ -1557,6 +1527,22 @@ export namespace Prisma {
     ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
+     * Create many Users.
+     *     @param {UserCreateManyArgs} args - Arguments to create many Users.
+     *     @example
+     *     // Create many Users
+     *     const user = await prisma.user.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends UserCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
      * Delete a User.
      * @param {UserDeleteArgs} args - Arguments to delete one User.
      * @example
@@ -1648,6 +1634,33 @@ export namespace Prisma {
     upsert<T extends UserUpsertArgs<ExtArgs>>(
       args: SelectSubset<T, UserUpsertArgs<ExtArgs>>
     ): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Users that matches the filter.
+     * @param {UserFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const user = await prisma.user.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: UserFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a User.
+     * @param {UserAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const user = await prisma.user.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: UserAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
 
     /**
      * Count the number of Users.
@@ -1823,7 +1836,7 @@ export namespace Prisma {
    * Fields of the User model
    */ 
   interface UserFieldRefs {
-    readonly id: FieldRef<"User", 'Int'>
+    readonly id: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly userId: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
@@ -2033,6 +2046,17 @@ export namespace Prisma {
 
 
   /**
+   * User createMany
+   */
+  export type UserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+  }
+
+
+  /**
    * User update
    */
   export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2128,6 +2152,36 @@ export namespace Prisma {
 
 
   /**
+   * User findRaw
+   */
+  export type UserFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * User aggregateRaw
+   */
+  export type UserAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
    * User.Vehicles
    */
   export type User$VehiclesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2219,7 +2273,6 @@ export namespace Prisma {
   }
 
   export type VehicleAvgAggregateOutputType = {
-    id: number | null
     meter: number | null
     rentalCount: number | null
     manufactureYear: number | null
@@ -2232,7 +2285,6 @@ export namespace Prisma {
   }
 
   export type VehicleSumAggregateOutputType = {
-    id: number | null
     meter: number | null
     rentalCount: number | null
     manufactureYear: number | null
@@ -2245,7 +2297,7 @@ export namespace Prisma {
   }
 
   export type VehicleMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     userId: string | null
     plateNumber: string | null
     brand: string | null
@@ -2268,7 +2320,7 @@ export namespace Prisma {
   }
 
   export type VehicleMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     userId: string | null
     plateNumber: string | null
     brand: string | null
@@ -2316,7 +2368,6 @@ export namespace Prisma {
 
 
   export type VehicleAvgAggregateInputType = {
-    id?: true
     meter?: true
     rentalCount?: true
     manufactureYear?: true
@@ -2329,7 +2380,6 @@ export namespace Prisma {
   }
 
   export type VehicleSumAggregateInputType = {
-    id?: true
     meter?: true
     rentalCount?: true
     manufactureYear?: true
@@ -2498,7 +2548,7 @@ export namespace Prisma {
   }
 
   export type VehicleGroupByOutputType = {
-    id: number
+    id: string
     userId: string | null
     plateNumber: string
     brand: string
@@ -2602,7 +2652,7 @@ export namespace Prisma {
       Contracts: Prisma.$ContractPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       userId: string | null
       plateNumber: string
       brand: string
@@ -2739,6 +2789,22 @@ export namespace Prisma {
     ): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
+     * Create many Vehicles.
+     *     @param {VehicleCreateManyArgs} args - Arguments to create many Vehicles.
+     *     @example
+     *     // Create many Vehicles
+     *     const vehicle = await prisma.vehicle.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends VehicleCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, VehicleCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
      * Delete a Vehicle.
      * @param {VehicleDeleteArgs} args - Arguments to delete one Vehicle.
      * @example
@@ -2830,6 +2896,33 @@ export namespace Prisma {
     upsert<T extends VehicleUpsertArgs<ExtArgs>>(
       args: SelectSubset<T, VehicleUpsertArgs<ExtArgs>>
     ): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Vehicles that matches the filter.
+     * @param {VehicleFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const vehicle = await prisma.vehicle.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: VehicleFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Vehicle.
+     * @param {VehicleAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const vehicle = await prisma.vehicle.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: VehicleAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
 
     /**
      * Count the number of Vehicles.
@@ -3003,7 +3096,7 @@ export namespace Prisma {
    * Fields of the Vehicle model
    */ 
   interface VehicleFieldRefs {
-    readonly id: FieldRef<"Vehicle", 'Int'>
+    readonly id: FieldRef<"Vehicle", 'String'>
     readonly userId: FieldRef<"Vehicle", 'String'>
     readonly plateNumber: FieldRef<"Vehicle", 'String'>
     readonly brand: FieldRef<"Vehicle", 'String'>
@@ -3228,6 +3321,17 @@ export namespace Prisma {
 
 
   /**
+   * Vehicle createMany
+   */
+  export type VehicleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Vehicles.
+     */
+    data: VehicleCreateManyInput | VehicleCreateManyInput[]
+  }
+
+
+  /**
    * Vehicle update
    */
   export type VehicleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3323,6 +3427,36 @@ export namespace Prisma {
 
 
   /**
+   * Vehicle findRaw
+   */
+  export type VehicleFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Vehicle aggregateRaw
+   */
+  export type VehicleAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
    * Vehicle.user
    */
   export type Vehicle$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3388,17 +3522,15 @@ export namespace Prisma {
   }
 
   export type CustomerAvgAggregateOutputType = {
-    id: number | null
     debt: number | null
   }
 
   export type CustomerSumAggregateOutputType = {
-    id: number | null
     debt: number | null
   }
 
   export type CustomerMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     userId: string | null
     customerName: string | null
     category: string | null
@@ -3410,7 +3542,7 @@ export namespace Prisma {
   }
 
   export type CustomerMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     userId: string | null
     customerName: string | null
     category: string | null
@@ -3436,12 +3568,10 @@ export namespace Prisma {
 
 
   export type CustomerAvgAggregateInputType = {
-    id?: true
     debt?: true
   }
 
   export type CustomerSumAggregateInputType = {
-    id?: true
     debt?: true
   }
 
@@ -3569,7 +3699,7 @@ export namespace Prisma {
   }
 
   export type CustomerGroupByOutputType = {
-    id: number
+    id: string
     userId: string
     customerName: string
     category: string
@@ -3640,7 +3770,7 @@ export namespace Prisma {
       Contracts: Prisma.$ContractPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       userId: string
       customerName: string
       category: string
@@ -3766,6 +3896,22 @@ export namespace Prisma {
     ): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
+     * Create many Customers.
+     *     @param {CustomerCreateManyArgs} args - Arguments to create many Customers.
+     *     @example
+     *     // Create many Customers
+     *     const customer = await prisma.customer.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends CustomerCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, CustomerCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
      * Delete a Customer.
      * @param {CustomerDeleteArgs} args - Arguments to delete one Customer.
      * @example
@@ -3857,6 +4003,33 @@ export namespace Prisma {
     upsert<T extends CustomerUpsertArgs<ExtArgs>>(
       args: SelectSubset<T, CustomerUpsertArgs<ExtArgs>>
     ): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Customers that matches the filter.
+     * @param {CustomerFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const customer = await prisma.customer.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: CustomerFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Customer.
+     * @param {CustomerAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const customer = await prisma.customer.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: CustomerAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
 
     /**
      * Count the number of Customers.
@@ -4030,7 +4203,7 @@ export namespace Prisma {
    * Fields of the Customer model
    */ 
   interface CustomerFieldRefs {
-    readonly id: FieldRef<"Customer", 'Int'>
+    readonly id: FieldRef<"Customer", 'String'>
     readonly userId: FieldRef<"Customer", 'String'>
     readonly customerName: FieldRef<"Customer", 'String'>
     readonly category: FieldRef<"Customer", 'String'>
@@ -4244,6 +4417,17 @@ export namespace Prisma {
 
 
   /**
+   * Customer createMany
+   */
+  export type CustomerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Customers.
+     */
+    data: CustomerCreateManyInput | CustomerCreateManyInput[]
+  }
+
+
+  /**
    * Customer update
    */
   export type CustomerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4339,6 +4523,36 @@ export namespace Prisma {
 
 
   /**
+   * Customer findRaw
+   */
+  export type CustomerFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Customer aggregateRaw
+   */
+  export type CustomerAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
    * Customer.Contracts
    */
   export type Customer$ContractsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4388,29 +4602,25 @@ export namespace Prisma {
   }
 
   export type ContractAvgAggregateOutputType = {
-    id: number | null
     total: number | null
     paid: number | null
     remainingDues: number | null
     meterReadingOut: number | null
     meterReadingIn: number | null
     dailyRent: number | null
-    customerId: number | null
   }
 
   export type ContractSumAggregateOutputType = {
-    id: number | null
     total: number | null
     paid: number | null
     remainingDues: number | null
     meterReadingOut: number | null
     meterReadingIn: number | null
     dailyRent: number | null
-    customerId: number | null
   }
 
   export type ContractMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     userId: string | null
     plateNumber: string | null
     total: number | null
@@ -4424,11 +4634,11 @@ export namespace Prisma {
     dateOut: string | null
     returnedDate: string | null
     invoiceDetails: string | null
-    customerId: number | null
+    customerId: string | null
   }
 
   export type ContractMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     userId: string | null
     plateNumber: string | null
     total: number | null
@@ -4442,7 +4652,7 @@ export namespace Prisma {
     dateOut: string | null
     returnedDate: string | null
     invoiceDetails: string | null
-    customerId: number | null
+    customerId: string | null
   }
 
   export type ContractCountAggregateOutputType = {
@@ -4466,25 +4676,21 @@ export namespace Prisma {
 
 
   export type ContractAvgAggregateInputType = {
-    id?: true
     total?: true
     paid?: true
     remainingDues?: true
     meterReadingOut?: true
     meterReadingIn?: true
     dailyRent?: true
-    customerId?: true
   }
 
   export type ContractSumAggregateInputType = {
-    id?: true
     total?: true
     paid?: true
     remainingDues?: true
     meterReadingOut?: true
     meterReadingIn?: true
     dailyRent?: true
-    customerId?: true
   }
 
   export type ContractMinAggregateInputType = {
@@ -4629,7 +4835,7 @@ export namespace Prisma {
   }
 
   export type ContractGroupByOutputType = {
-    id: number
+    id: string
     userId: string
     plateNumber: string
     total: number
@@ -4643,7 +4849,7 @@ export namespace Prisma {
     dateOut: string
     returnedDate: string
     invoiceDetails: string | null
-    customerId: number
+    customerId: string
     _count: ContractCountAggregateOutputType | null
     _avg: ContractAvgAggregateOutputType | null
     _sum: ContractSumAggregateOutputType | null
@@ -4719,7 +4925,7 @@ export namespace Prisma {
       vehicle: Prisma.$VehiclePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       userId: string
       plateNumber: string
       total: number
@@ -4733,7 +4939,7 @@ export namespace Prisma {
       dateOut: string
       returnedDate: string
       invoiceDetails: string | null
-      customerId: number
+      customerId: string
     }, ExtArgs["result"]["contract"]>
     composites: {}
   }
@@ -4851,6 +5057,22 @@ export namespace Prisma {
     ): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
 
     /**
+     * Create many Contracts.
+     *     @param {ContractCreateManyArgs} args - Arguments to create many Contracts.
+     *     @example
+     *     // Create many Contracts
+     *     const contract = await prisma.contract.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ContractCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ContractCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
      * Delete a Contract.
      * @param {ContractDeleteArgs} args - Arguments to delete one Contract.
      * @example
@@ -4942,6 +5164,33 @@ export namespace Prisma {
     upsert<T extends ContractUpsertArgs<ExtArgs>>(
       args: SelectSubset<T, ContractUpsertArgs<ExtArgs>>
     ): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Contracts that matches the filter.
+     * @param {ContractFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const contract = await prisma.contract.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: ContractFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Contract.
+     * @param {ContractAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const contract = await prisma.contract.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: ContractAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
 
     /**
      * Count the number of Contracts.
@@ -5117,7 +5366,7 @@ export namespace Prisma {
    * Fields of the Contract model
    */ 
   interface ContractFieldRefs {
-    readonly id: FieldRef<"Contract", 'Int'>
+    readonly id: FieldRef<"Contract", 'String'>
     readonly userId: FieldRef<"Contract", 'String'>
     readonly plateNumber: FieldRef<"Contract", 'String'>
     readonly total: FieldRef<"Contract", 'Int'>
@@ -5131,7 +5380,7 @@ export namespace Prisma {
     readonly dateOut: FieldRef<"Contract", 'String'>
     readonly returnedDate: FieldRef<"Contract", 'String'>
     readonly invoiceDetails: FieldRef<"Contract", 'String'>
-    readonly customerId: FieldRef<"Contract", 'Int'>
+    readonly customerId: FieldRef<"Contract", 'String'>
   }
     
 
@@ -5337,6 +5586,17 @@ export namespace Prisma {
 
 
   /**
+   * Contract createMany
+   */
+  export type ContractCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Contracts.
+     */
+    data: ContractCreateManyInput | ContractCreateManyInput[]
+  }
+
+
+  /**
    * Contract update
    */
   export type ContractUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5432,6 +5692,36 @@ export namespace Prisma {
 
 
   /**
+   * Contract findRaw
+   */
+  export type ContractFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Contract aggregateRaw
+   */
+  export type ContractAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
    * Contract without action
    */
   export type ContractDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5450,13 +5740,6 @@ export namespace Prisma {
   /**
    * Enums
    */
-
-  export const TransactionIsolationLevel: {
-    Serializable: 'Serializable'
-  };
-
-  export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
-
 
   export const UserScalarFieldEnum: {
     id: 'id',
@@ -5539,12 +5822,12 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
   };
 
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
   /**
@@ -5553,9 +5836,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'String'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'String[]'
+   */
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
     
 
 
@@ -5567,9 +5857,23 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'String'
+   * Reference to a field of type 'DateTime[]'
    */
-  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -5577,6 +5881,13 @@ export namespace Prisma {
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -5587,7 +5898,7 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    id?: IntFilter<"User"> | number
+    id?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     userId?: StringFilter<"User"> | string
     username?: StringFilter<"User"> | string
@@ -5609,7 +5920,7 @@ export namespace Prisma {
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     userId?: string
     email?: string
     AND?: UserWhereInput | UserWhereInput[]
@@ -5629,17 +5940,15 @@ export namespace Prisma {
     username?: SortOrder
     email?: SortOrder
     _count?: UserCountOrderByAggregateInput
-    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
-    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
     AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"User"> | number
+    id?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     userId?: StringWithAggregatesFilter<"User"> | string
     username?: StringWithAggregatesFilter<"User"> | string
@@ -5650,7 +5959,7 @@ export namespace Prisma {
     AND?: VehicleWhereInput | VehicleWhereInput[]
     OR?: VehicleWhereInput[]
     NOT?: VehicleWhereInput | VehicleWhereInput[]
-    id?: IntFilter<"Vehicle"> | number
+    id?: StringFilter<"Vehicle"> | string
     userId?: StringNullableFilter<"Vehicle"> | string | null
     plateNumber?: StringFilter<"Vehicle"> | string
     brand?: StringFilter<"Vehicle"> | string
@@ -5676,31 +5985,31 @@ export namespace Prisma {
 
   export type VehicleOrderByWithRelationInput = {
     id?: SortOrder
-    userId?: SortOrderInput | SortOrder
+    userId?: SortOrder
     plateNumber?: SortOrder
     brand?: SortOrder
     meter?: SortOrder
     status?: SortOrder
-    rentalCount?: SortOrderInput | SortOrder
-    transmission?: SortOrderInput | SortOrder
-    manufactureYear?: SortOrderInput | SortOrder
-    color?: SortOrderInput | SortOrder
+    rentalCount?: SortOrder
+    transmission?: SortOrder
+    manufactureYear?: SortOrder
+    color?: SortOrder
     extraHourPrice?: SortOrder
     dailyRent?: SortOrder
     weeklyRent?: SortOrder
     monthlyRent?: SortOrder
-    insuranceCompany?: SortOrderInput | SortOrder
-    registrationType?: SortOrderInput | SortOrder
+    insuranceCompany?: SortOrder
+    registrationType?: SortOrder
     fuelType?: SortOrder
     extraKilometerPrice?: SortOrder
-    vehicleType?: SortOrderInput | SortOrder
+    vehicleType?: SortOrder
     dailyKilometerLimit?: SortOrder
     user?: UserOrderByWithRelationInput
     Contracts?: ContractOrderByRelationAggregateInput
   }
 
   export type VehicleWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     plateNumber?: string
     AND?: VehicleWhereInput | VehicleWhereInput[]
     OR?: VehicleWhereInput[]
@@ -5729,24 +6038,24 @@ export namespace Prisma {
 
   export type VehicleOrderByWithAggregationInput = {
     id?: SortOrder
-    userId?: SortOrderInput | SortOrder
+    userId?: SortOrder
     plateNumber?: SortOrder
     brand?: SortOrder
     meter?: SortOrder
     status?: SortOrder
-    rentalCount?: SortOrderInput | SortOrder
-    transmission?: SortOrderInput | SortOrder
-    manufactureYear?: SortOrderInput | SortOrder
-    color?: SortOrderInput | SortOrder
+    rentalCount?: SortOrder
+    transmission?: SortOrder
+    manufactureYear?: SortOrder
+    color?: SortOrder
     extraHourPrice?: SortOrder
     dailyRent?: SortOrder
     weeklyRent?: SortOrder
     monthlyRent?: SortOrder
-    insuranceCompany?: SortOrderInput | SortOrder
-    registrationType?: SortOrderInput | SortOrder
+    insuranceCompany?: SortOrder
+    registrationType?: SortOrder
     fuelType?: SortOrder
     extraKilometerPrice?: SortOrder
-    vehicleType?: SortOrderInput | SortOrder
+    vehicleType?: SortOrder
     dailyKilometerLimit?: SortOrder
     _count?: VehicleCountOrderByAggregateInput
     _avg?: VehicleAvgOrderByAggregateInput
@@ -5759,7 +6068,7 @@ export namespace Prisma {
     AND?: VehicleScalarWhereWithAggregatesInput | VehicleScalarWhereWithAggregatesInput[]
     OR?: VehicleScalarWhereWithAggregatesInput[]
     NOT?: VehicleScalarWhereWithAggregatesInput | VehicleScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Vehicle"> | number
+    id?: StringWithAggregatesFilter<"Vehicle"> | string
     userId?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
     plateNumber?: StringWithAggregatesFilter<"Vehicle"> | string
     brand?: StringWithAggregatesFilter<"Vehicle"> | string
@@ -5785,7 +6094,7 @@ export namespace Prisma {
     AND?: CustomerWhereInput | CustomerWhereInput[]
     OR?: CustomerWhereInput[]
     NOT?: CustomerWhereInput | CustomerWhereInput[]
-    id?: IntFilter<"Customer"> | number
+    id?: StringFilter<"Customer"> | string
     userId?: StringFilter<"Customer"> | string
     customerName?: StringFilter<"Customer"> | string
     category?: StringFilter<"Customer"> | string
@@ -5805,15 +6114,15 @@ export namespace Prisma {
     category?: SortOrder
     nationality?: SortOrder
     idNumber?: SortOrder
-    idExpirationDate?: SortOrderInput | SortOrder
-    mobile?: SortOrderInput | SortOrder
+    idExpirationDate?: SortOrder
+    mobile?: SortOrder
     debt?: SortOrder
     user?: UserOrderByWithRelationInput
     Contracts?: ContractOrderByRelationAggregateInput
   }
 
   export type CustomerWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: CustomerWhereInput | CustomerWhereInput[]
     OR?: CustomerWhereInput[]
     NOT?: CustomerWhereInput | CustomerWhereInput[]
@@ -5836,8 +6145,8 @@ export namespace Prisma {
     category?: SortOrder
     nationality?: SortOrder
     idNumber?: SortOrder
-    idExpirationDate?: SortOrderInput | SortOrder
-    mobile?: SortOrderInput | SortOrder
+    idExpirationDate?: SortOrder
+    mobile?: SortOrder
     debt?: SortOrder
     _count?: CustomerCountOrderByAggregateInput
     _avg?: CustomerAvgOrderByAggregateInput
@@ -5850,7 +6159,7 @@ export namespace Prisma {
     AND?: CustomerScalarWhereWithAggregatesInput | CustomerScalarWhereWithAggregatesInput[]
     OR?: CustomerScalarWhereWithAggregatesInput[]
     NOT?: CustomerScalarWhereWithAggregatesInput | CustomerScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Customer"> | number
+    id?: StringWithAggregatesFilter<"Customer"> | string
     userId?: StringWithAggregatesFilter<"Customer"> | string
     customerName?: StringWithAggregatesFilter<"Customer"> | string
     category?: StringWithAggregatesFilter<"Customer"> | string
@@ -5865,7 +6174,7 @@ export namespace Prisma {
     AND?: ContractWhereInput | ContractWhereInput[]
     OR?: ContractWhereInput[]
     NOT?: ContractWhereInput | ContractWhereInput[]
-    id?: IntFilter<"Contract"> | number
+    id?: StringFilter<"Contract"> | string
     userId?: StringFilter<"Contract"> | string
     plateNumber?: StringFilter<"Contract"> | string
     total?: IntFilter<"Contract"> | number
@@ -5879,7 +6188,7 @@ export namespace Prisma {
     dateOut?: StringFilter<"Contract"> | string
     returnedDate?: StringFilter<"Contract"> | string
     invoiceDetails?: StringNullableFilter<"Contract"> | string | null
-    customerId?: IntFilter<"Contract"> | number
+    customerId?: StringFilter<"Contract"> | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     customer?: XOR<CustomerRelationFilter, CustomerWhereInput>
     vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
@@ -5893,13 +6202,13 @@ export namespace Prisma {
     paid?: SortOrder
     remainingDues?: SortOrder
     meterReadingOut?: SortOrder
-    meterReadingIn?: SortOrderInput | SortOrder
+    meterReadingIn?: SortOrder
     timeOut?: SortOrder
     dailyRent?: SortOrder
     timeIn?: SortOrder
     dateOut?: SortOrder
     returnedDate?: SortOrder
-    invoiceDetails?: SortOrderInput | SortOrder
+    invoiceDetails?: SortOrder
     customerId?: SortOrder
     user?: UserOrderByWithRelationInput
     customer?: CustomerOrderByWithRelationInput
@@ -5907,7 +6216,7 @@ export namespace Prisma {
   }
 
   export type ContractWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     plateNumber?: string
     AND?: ContractWhereInput | ContractWhereInput[]
     OR?: ContractWhereInput[]
@@ -5924,7 +6233,7 @@ export namespace Prisma {
     dateOut?: StringFilter<"Contract"> | string
     returnedDate?: StringFilter<"Contract"> | string
     invoiceDetails?: StringNullableFilter<"Contract"> | string | null
-    customerId?: IntFilter<"Contract"> | number
+    customerId?: StringFilter<"Contract"> | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     customer?: XOR<CustomerRelationFilter, CustomerWhereInput>
     vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
@@ -5938,13 +6247,13 @@ export namespace Prisma {
     paid?: SortOrder
     remainingDues?: SortOrder
     meterReadingOut?: SortOrder
-    meterReadingIn?: SortOrderInput | SortOrder
+    meterReadingIn?: SortOrder
     timeOut?: SortOrder
     dailyRent?: SortOrder
     timeIn?: SortOrder
     dateOut?: SortOrder
     returnedDate?: SortOrder
-    invoiceDetails?: SortOrderInput | SortOrder
+    invoiceDetails?: SortOrder
     customerId?: SortOrder
     _count?: ContractCountOrderByAggregateInput
     _avg?: ContractAvgOrderByAggregateInput
@@ -5957,7 +6266,7 @@ export namespace Prisma {
     AND?: ContractScalarWhereWithAggregatesInput | ContractScalarWhereWithAggregatesInput[]
     OR?: ContractScalarWhereWithAggregatesInput[]
     NOT?: ContractScalarWhereWithAggregatesInput | ContractScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Contract"> | number
+    id?: StringWithAggregatesFilter<"Contract"> | string
     userId?: StringWithAggregatesFilter<"Contract"> | string
     plateNumber?: StringWithAggregatesFilter<"Contract"> | string
     total?: IntWithAggregatesFilter<"Contract"> | number
@@ -5971,10 +6280,11 @@ export namespace Prisma {
     dateOut?: StringWithAggregatesFilter<"Contract"> | string
     returnedDate?: StringWithAggregatesFilter<"Contract"> | string
     invoiceDetails?: StringNullableWithAggregatesFilter<"Contract"> | string | null
-    customerId?: IntWithAggregatesFilter<"Contract"> | number
+    customerId?: StringWithAggregatesFilter<"Contract"> | string
   }
 
   export type UserCreateInput = {
+    id?: string
     createdAt?: Date | string
     userId: string
     username: string
@@ -5985,7 +6295,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateInput = {
-    id?: number
+    id?: string
     createdAt?: Date | string
     userId: string
     username: string
@@ -6006,7 +6316,6 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
@@ -6014,6 +6323,14 @@ export namespace Prisma {
     Vehicles?: VehicleUncheckedUpdateManyWithoutUserNestedInput
     Customers?: CustomerUncheckedUpdateManyWithoutUserNestedInput
     Contracts?: ContractUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateManyInput = {
+    id?: string
+    createdAt?: Date | string
+    userId: string
+    username: string
+    email: string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -6024,7 +6341,6 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
@@ -6032,6 +6348,7 @@ export namespace Prisma {
   }
 
   export type VehicleCreateInput = {
+    id?: string
     plateNumber: string
     brand: string
     meter: number
@@ -6055,7 +6372,7 @@ export namespace Prisma {
   }
 
   export type VehicleUncheckedCreateInput = {
-    id?: number
+    id?: string
     userId?: string | null
     plateNumber: string
     brand: string
@@ -6102,7 +6419,6 @@ export namespace Prisma {
   }
 
   export type VehicleUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
@@ -6123,6 +6439,29 @@ export namespace Prisma {
     vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
     dailyKilometerLimit?: IntFieldUpdateOperationsInput | number
     Contracts?: ContractUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type VehicleCreateManyInput = {
+    id?: string
+    userId?: string | null
+    plateNumber: string
+    brand: string
+    meter: number
+    status?: string
+    rentalCount?: number | null
+    transmission?: string | null
+    manufactureYear?: number | null
+    color?: string | null
+    extraHourPrice: number
+    dailyRent: number
+    weeklyRent: number
+    monthlyRent: number
+    insuranceCompany?: string | null
+    registrationType?: string | null
+    fuelType: string
+    extraKilometerPrice: number
+    vehicleType?: string | null
+    dailyKilometerLimit: number
   }
 
   export type VehicleUpdateManyMutationInput = {
@@ -6147,7 +6486,6 @@ export namespace Prisma {
   }
 
   export type VehicleUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
@@ -6170,6 +6508,7 @@ export namespace Prisma {
   }
 
   export type CustomerCreateInput = {
+    id?: string
     customerName: string
     category: string
     nationality: string
@@ -6182,7 +6521,7 @@ export namespace Prisma {
   }
 
   export type CustomerUncheckedCreateInput = {
-    id?: number
+    id?: string
     userId: string
     customerName: string
     category: string
@@ -6207,7 +6546,6 @@ export namespace Prisma {
   }
 
   export type CustomerUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     customerName?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -6217,6 +6555,18 @@ export namespace Prisma {
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
     debt?: IntFieldUpdateOperationsInput | number
     Contracts?: ContractUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerCreateManyInput = {
+    id?: string
+    userId: string
+    customerName: string
+    category: string
+    nationality: string
+    idNumber: string
+    idExpirationDate?: string | null
+    mobile?: string | null
+    debt: number
   }
 
   export type CustomerUpdateManyMutationInput = {
@@ -6230,7 +6580,6 @@ export namespace Prisma {
   }
 
   export type CustomerUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     customerName?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -6242,6 +6591,7 @@ export namespace Prisma {
   }
 
   export type ContractCreateInput = {
+    id?: string
     total: number
     paid: number
     remainingDues: number
@@ -6259,7 +6609,7 @@ export namespace Prisma {
   }
 
   export type ContractUncheckedCreateInput = {
-    id?: number
+    id?: string
     userId: string
     plateNumber: string
     total: number
@@ -6273,7 +6623,7 @@ export namespace Prisma {
     dateOut: string
     returnedDate: string
     invoiceDetails?: string | null
-    customerId: number
+    customerId: string
   }
 
   export type ContractUpdateInput = {
@@ -6294,7 +6644,6 @@ export namespace Prisma {
   }
 
   export type ContractUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
     total?: IntFieldUpdateOperationsInput | number
@@ -6308,7 +6657,25 @@ export namespace Prisma {
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
-    customerId?: IntFieldUpdateOperationsInput | number
+    customerId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContractCreateManyInput = {
+    id?: string
+    userId: string
+    plateNumber: string
+    total: number
+    paid: number
+    remainingDues: number
+    meterReadingOut: number
+    meterReadingIn?: number | null
+    timeOut: string
+    dailyRent: number
+    timeIn: string
+    dateOut: string
+    returnedDate: string
+    invoiceDetails?: string | null
+    customerId: string
   }
 
   export type ContractUpdateManyMutationInput = {
@@ -6326,7 +6693,6 @@ export namespace Prisma {
   }
 
   export type ContractUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
     total?: IntFieldUpdateOperationsInput | number
@@ -6340,35 +6706,13 @@ export namespace Prisma {
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
-    customerId?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+    customerId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6376,7 +6720,19 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type VehicleListRelationFilter = {
@@ -6417,10 +6773,6 @@ export namespace Prisma {
     email?: SortOrder
   }
 
-  export type UserAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
@@ -6437,30 +6789,28 @@ export namespace Prisma {
     email?: SortOrder
   }
 
-  export type UserSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6471,27 +6821,10 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6499,28 +6832,37 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
   }
 
   export type UserNullableRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type VehicleCountOrderByAggregateInput = {
@@ -6547,7 +6889,6 @@ export namespace Prisma {
   }
 
   export type VehicleAvgOrderByAggregateInput = {
-    id?: SortOrder
     meter?: SortOrder
     rentalCount?: SortOrder
     manufactureYear?: SortOrder
@@ -6606,7 +6947,6 @@ export namespace Prisma {
   }
 
   export type VehicleSumOrderByAggregateInput = {
-    id?: SortOrder
     meter?: SortOrder
     rentalCount?: SortOrder
     manufactureYear?: SortOrder
@@ -6620,8 +6960,8 @@ export namespace Prisma {
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6629,16 +6969,34 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
     not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -6649,6 +7007,7 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type UserRelationFilter = {
@@ -6669,7 +7028,6 @@ export namespace Prisma {
   }
 
   export type CustomerAvgOrderByAggregateInput = {
-    id?: SortOrder
     debt?: SortOrder
   }
 
@@ -6698,7 +7056,6 @@ export namespace Prisma {
   }
 
   export type CustomerSumOrderByAggregateInput = {
-    id?: SortOrder
     debt?: SortOrder
   }
 
@@ -6731,14 +7088,12 @@ export namespace Prisma {
   }
 
   export type ContractAvgOrderByAggregateInput = {
-    id?: SortOrder
     total?: SortOrder
     paid?: SortOrder
     remainingDues?: SortOrder
     meterReadingOut?: SortOrder
     meterReadingIn?: SortOrder
     dailyRent?: SortOrder
-    customerId?: SortOrder
   }
 
   export type ContractMaxOrderByAggregateInput = {
@@ -6778,49 +7133,53 @@ export namespace Prisma {
   }
 
   export type ContractSumOrderByAggregateInput = {
-    id?: SortOrder
     total?: SortOrder
     paid?: SortOrder
     remainingDues?: SortOrder
     meterReadingOut?: SortOrder
     meterReadingIn?: SortOrder
     dailyRent?: SortOrder
-    customerId?: SortOrder
   }
 
   export type VehicleCreateNestedManyWithoutUserInput = {
     create?: XOR<VehicleCreateWithoutUserInput, VehicleUncheckedCreateWithoutUserInput> | VehicleCreateWithoutUserInput[] | VehicleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: VehicleCreateOrConnectWithoutUserInput | VehicleCreateOrConnectWithoutUserInput[]
+    createMany?: VehicleCreateManyUserInputEnvelope
     connect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
   }
 
   export type CustomerCreateNestedManyWithoutUserInput = {
     create?: XOR<CustomerCreateWithoutUserInput, CustomerUncheckedCreateWithoutUserInput> | CustomerCreateWithoutUserInput[] | CustomerUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CustomerCreateOrConnectWithoutUserInput | CustomerCreateOrConnectWithoutUserInput[]
+    createMany?: CustomerCreateManyUserInputEnvelope
     connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
   }
 
   export type ContractCreateNestedManyWithoutUserInput = {
     create?: XOR<ContractCreateWithoutUserInput, ContractUncheckedCreateWithoutUserInput> | ContractCreateWithoutUserInput[] | ContractUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutUserInput | ContractCreateOrConnectWithoutUserInput[]
+    createMany?: ContractCreateManyUserInputEnvelope
     connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
   }
 
   export type VehicleUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<VehicleCreateWithoutUserInput, VehicleUncheckedCreateWithoutUserInput> | VehicleCreateWithoutUserInput[] | VehicleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: VehicleCreateOrConnectWithoutUserInput | VehicleCreateOrConnectWithoutUserInput[]
+    createMany?: VehicleCreateManyUserInputEnvelope
     connect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
   }
 
   export type CustomerUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<CustomerCreateWithoutUserInput, CustomerUncheckedCreateWithoutUserInput> | CustomerCreateWithoutUserInput[] | CustomerUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CustomerCreateOrConnectWithoutUserInput | CustomerCreateOrConnectWithoutUserInput[]
+    createMany?: CustomerCreateManyUserInputEnvelope
     connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
   }
 
   export type ContractUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ContractCreateWithoutUserInput, ContractUncheckedCreateWithoutUserInput> | ContractCreateWithoutUserInput[] | ContractUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutUserInput | ContractCreateOrConnectWithoutUserInput[]
+    createMany?: ContractCreateManyUserInputEnvelope
     connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
   }
 
@@ -6836,6 +7195,7 @@ export namespace Prisma {
     create?: XOR<VehicleCreateWithoutUserInput, VehicleUncheckedCreateWithoutUserInput> | VehicleCreateWithoutUserInput[] | VehicleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: VehicleCreateOrConnectWithoutUserInput | VehicleCreateOrConnectWithoutUserInput[]
     upsert?: VehicleUpsertWithWhereUniqueWithoutUserInput | VehicleUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: VehicleCreateManyUserInputEnvelope
     set?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
     disconnect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
     delete?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
@@ -6849,6 +7209,7 @@ export namespace Prisma {
     create?: XOR<CustomerCreateWithoutUserInput, CustomerUncheckedCreateWithoutUserInput> | CustomerCreateWithoutUserInput[] | CustomerUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CustomerCreateOrConnectWithoutUserInput | CustomerCreateOrConnectWithoutUserInput[]
     upsert?: CustomerUpsertWithWhereUniqueWithoutUserInput | CustomerUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CustomerCreateManyUserInputEnvelope
     set?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
     disconnect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
     delete?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
@@ -6862,6 +7223,7 @@ export namespace Prisma {
     create?: XOR<ContractCreateWithoutUserInput, ContractUncheckedCreateWithoutUserInput> | ContractCreateWithoutUserInput[] | ContractUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutUserInput | ContractCreateOrConnectWithoutUserInput[]
     upsert?: ContractUpsertWithWhereUniqueWithoutUserInput | ContractUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ContractCreateManyUserInputEnvelope
     set?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
     disconnect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
     delete?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
@@ -6871,18 +7233,11 @@ export namespace Prisma {
     deleteMany?: ContractScalarWhereInput | ContractScalarWhereInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type VehicleUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<VehicleCreateWithoutUserInput, VehicleUncheckedCreateWithoutUserInput> | VehicleCreateWithoutUserInput[] | VehicleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: VehicleCreateOrConnectWithoutUserInput | VehicleCreateOrConnectWithoutUserInput[]
     upsert?: VehicleUpsertWithWhereUniqueWithoutUserInput | VehicleUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: VehicleCreateManyUserInputEnvelope
     set?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
     disconnect?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
     delete?: VehicleWhereUniqueInput | VehicleWhereUniqueInput[]
@@ -6896,6 +7251,7 @@ export namespace Prisma {
     create?: XOR<CustomerCreateWithoutUserInput, CustomerUncheckedCreateWithoutUserInput> | CustomerCreateWithoutUserInput[] | CustomerUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CustomerCreateOrConnectWithoutUserInput | CustomerCreateOrConnectWithoutUserInput[]
     upsert?: CustomerUpsertWithWhereUniqueWithoutUserInput | CustomerUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CustomerCreateManyUserInputEnvelope
     set?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
     disconnect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
     delete?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
@@ -6909,6 +7265,7 @@ export namespace Prisma {
     create?: XOR<ContractCreateWithoutUserInput, ContractUncheckedCreateWithoutUserInput> | ContractCreateWithoutUserInput[] | ContractUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutUserInput | ContractCreateOrConnectWithoutUserInput[]
     upsert?: ContractUpsertWithWhereUniqueWithoutUserInput | ContractUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ContractCreateManyUserInputEnvelope
     set?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
     disconnect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
     delete?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
@@ -6927,13 +7284,23 @@ export namespace Prisma {
   export type ContractCreateNestedManyWithoutVehicleInput = {
     create?: XOR<ContractCreateWithoutVehicleInput, ContractUncheckedCreateWithoutVehicleInput> | ContractCreateWithoutVehicleInput[] | ContractUncheckedCreateWithoutVehicleInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutVehicleInput | ContractCreateOrConnectWithoutVehicleInput[]
+    createMany?: ContractCreateManyVehicleInputEnvelope
     connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
   }
 
   export type ContractUncheckedCreateNestedManyWithoutVehicleInput = {
     create?: XOR<ContractCreateWithoutVehicleInput, ContractUncheckedCreateWithoutVehicleInput> | ContractCreateWithoutVehicleInput[] | ContractUncheckedCreateWithoutVehicleInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutVehicleInput | ContractCreateOrConnectWithoutVehicleInput[]
+    createMany?: ContractCreateManyVehicleInputEnvelope
     connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -6942,17 +7309,19 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+    unset?: boolean
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+    unset?: boolean
   }
 
   export type UserUpdateOneWithoutVehiclesNestedInput = {
     create?: XOR<UserCreateWithoutVehiclesInput, UserUncheckedCreateWithoutVehiclesInput>
     connectOrCreate?: UserCreateOrConnectWithoutVehiclesInput
     upsert?: UserUpsertWithoutVehiclesInput
-    disconnect?: UserWhereInput | boolean
+    disconnect?: boolean
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVehiclesInput, UserUpdateWithoutVehiclesInput>, UserUncheckedUpdateWithoutVehiclesInput>
@@ -6962,6 +7331,7 @@ export namespace Prisma {
     create?: XOR<ContractCreateWithoutVehicleInput, ContractUncheckedCreateWithoutVehicleInput> | ContractCreateWithoutVehicleInput[] | ContractUncheckedCreateWithoutVehicleInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutVehicleInput | ContractCreateOrConnectWithoutVehicleInput[]
     upsert?: ContractUpsertWithWhereUniqueWithoutVehicleInput | ContractUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: ContractCreateManyVehicleInputEnvelope
     set?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
     disconnect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
     delete?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
@@ -6975,6 +7345,7 @@ export namespace Prisma {
     create?: XOR<ContractCreateWithoutVehicleInput, ContractUncheckedCreateWithoutVehicleInput> | ContractCreateWithoutVehicleInput[] | ContractUncheckedCreateWithoutVehicleInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutVehicleInput | ContractCreateOrConnectWithoutVehicleInput[]
     upsert?: ContractUpsertWithWhereUniqueWithoutVehicleInput | ContractUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: ContractCreateManyVehicleInputEnvelope
     set?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
     disconnect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
     delete?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
@@ -6993,12 +7364,14 @@ export namespace Prisma {
   export type ContractCreateNestedManyWithoutCustomerInput = {
     create?: XOR<ContractCreateWithoutCustomerInput, ContractUncheckedCreateWithoutCustomerInput> | ContractCreateWithoutCustomerInput[] | ContractUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutCustomerInput | ContractCreateOrConnectWithoutCustomerInput[]
+    createMany?: ContractCreateManyCustomerInputEnvelope
     connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
   }
 
   export type ContractUncheckedCreateNestedManyWithoutCustomerInput = {
     create?: XOR<ContractCreateWithoutCustomerInput, ContractUncheckedCreateWithoutCustomerInput> | ContractCreateWithoutCustomerInput[] | ContractUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutCustomerInput | ContractCreateOrConnectWithoutCustomerInput[]
+    createMany?: ContractCreateManyCustomerInputEnvelope
     connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
   }
 
@@ -7014,6 +7387,7 @@ export namespace Prisma {
     create?: XOR<ContractCreateWithoutCustomerInput, ContractUncheckedCreateWithoutCustomerInput> | ContractCreateWithoutCustomerInput[] | ContractUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutCustomerInput | ContractCreateOrConnectWithoutCustomerInput[]
     upsert?: ContractUpsertWithWhereUniqueWithoutCustomerInput | ContractUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: ContractCreateManyCustomerInputEnvelope
     set?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
     disconnect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
     delete?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
@@ -7027,6 +7401,7 @@ export namespace Prisma {
     create?: XOR<ContractCreateWithoutCustomerInput, ContractUncheckedCreateWithoutCustomerInput> | ContractCreateWithoutCustomerInput[] | ContractUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutCustomerInput | ContractCreateOrConnectWithoutCustomerInput[]
     upsert?: ContractUpsertWithWhereUniqueWithoutCustomerInput | ContractUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: ContractCreateManyCustomerInputEnvelope
     set?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
     disconnect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
     delete?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
@@ -7078,32 +7453,10 @@ export namespace Prisma {
     update?: XOR<XOR<VehicleUpdateToOneWithWhereWithoutContractsInput, VehicleUpdateWithoutContractsInput>, VehicleUncheckedUpdateWithoutContractsInput>
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -7114,10 +7467,108 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -7132,8 +7583,8 @@ export namespace Prisma {
 
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
@@ -7141,83 +7592,10 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -7228,20 +7606,23 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+    isSet?: boolean
   }
 
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
   }
 
   export type VehicleCreateWithoutUserInput = {
+    id?: string
     plateNumber: string
     brand: string
     meter: number
@@ -7264,7 +7645,7 @@ export namespace Prisma {
   }
 
   export type VehicleUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     plateNumber: string
     brand: string
     meter: number
@@ -7291,7 +7672,12 @@ export namespace Prisma {
     create: XOR<VehicleCreateWithoutUserInput, VehicleUncheckedCreateWithoutUserInput>
   }
 
+  export type VehicleCreateManyUserInputEnvelope = {
+    data: VehicleCreateManyUserInput | VehicleCreateManyUserInput[]
+  }
+
   export type CustomerCreateWithoutUserInput = {
+    id?: string
     customerName: string
     category: string
     nationality: string
@@ -7303,7 +7689,7 @@ export namespace Prisma {
   }
 
   export type CustomerUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     customerName: string
     category: string
     nationality: string
@@ -7319,7 +7705,12 @@ export namespace Prisma {
     create: XOR<CustomerCreateWithoutUserInput, CustomerUncheckedCreateWithoutUserInput>
   }
 
+  export type CustomerCreateManyUserInputEnvelope = {
+    data: CustomerCreateManyUserInput | CustomerCreateManyUserInput[]
+  }
+
   export type ContractCreateWithoutUserInput = {
+    id?: string
     total: number
     paid: number
     remainingDues: number
@@ -7336,7 +7727,7 @@ export namespace Prisma {
   }
 
   export type ContractUncheckedCreateWithoutUserInput = {
-    id?: number
+    id?: string
     plateNumber: string
     total: number
     paid: number
@@ -7349,12 +7740,16 @@ export namespace Prisma {
     dateOut: string
     returnedDate: string
     invoiceDetails?: string | null
-    customerId: number
+    customerId: string
   }
 
   export type ContractCreateOrConnectWithoutUserInput = {
     where: ContractWhereUniqueInput
     create: XOR<ContractCreateWithoutUserInput, ContractUncheckedCreateWithoutUserInput>
+  }
+
+  export type ContractCreateManyUserInputEnvelope = {
+    data: ContractCreateManyUserInput | ContractCreateManyUserInput[]
   }
 
   export type VehicleUpsertWithWhereUniqueWithoutUserInput = {
@@ -7377,7 +7772,7 @@ export namespace Prisma {
     AND?: VehicleScalarWhereInput | VehicleScalarWhereInput[]
     OR?: VehicleScalarWhereInput[]
     NOT?: VehicleScalarWhereInput | VehicleScalarWhereInput[]
-    id?: IntFilter<"Vehicle"> | number
+    id?: StringFilter<"Vehicle"> | string
     userId?: StringNullableFilter<"Vehicle"> | string | null
     plateNumber?: StringFilter<"Vehicle"> | string
     brand?: StringFilter<"Vehicle"> | string
@@ -7419,7 +7814,7 @@ export namespace Prisma {
     AND?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
     OR?: CustomerScalarWhereInput[]
     NOT?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
-    id?: IntFilter<"Customer"> | number
+    id?: StringFilter<"Customer"> | string
     userId?: StringFilter<"Customer"> | string
     customerName?: StringFilter<"Customer"> | string
     category?: StringFilter<"Customer"> | string
@@ -7450,7 +7845,7 @@ export namespace Prisma {
     AND?: ContractScalarWhereInput | ContractScalarWhereInput[]
     OR?: ContractScalarWhereInput[]
     NOT?: ContractScalarWhereInput | ContractScalarWhereInput[]
-    id?: IntFilter<"Contract"> | number
+    id?: StringFilter<"Contract"> | string
     userId?: StringFilter<"Contract"> | string
     plateNumber?: StringFilter<"Contract"> | string
     total?: IntFilter<"Contract"> | number
@@ -7464,10 +7859,11 @@ export namespace Prisma {
     dateOut?: StringFilter<"Contract"> | string
     returnedDate?: StringFilter<"Contract"> | string
     invoiceDetails?: StringNullableFilter<"Contract"> | string | null
-    customerId?: IntFilter<"Contract"> | number
+    customerId?: StringFilter<"Contract"> | string
   }
 
   export type UserCreateWithoutVehiclesInput = {
+    id?: string
     createdAt?: Date | string
     userId: string
     username: string
@@ -7477,7 +7873,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutVehiclesInput = {
-    id?: number
+    id?: string
     createdAt?: Date | string
     userId: string
     username: string
@@ -7492,6 +7888,7 @@ export namespace Prisma {
   }
 
   export type ContractCreateWithoutVehicleInput = {
+    id?: string
     total: number
     paid: number
     remainingDues: number
@@ -7508,7 +7905,7 @@ export namespace Prisma {
   }
 
   export type ContractUncheckedCreateWithoutVehicleInput = {
-    id?: number
+    id?: string
     userId: string
     total: number
     paid: number
@@ -7521,12 +7918,16 @@ export namespace Prisma {
     dateOut: string
     returnedDate: string
     invoiceDetails?: string | null
-    customerId: number
+    customerId: string
   }
 
   export type ContractCreateOrConnectWithoutVehicleInput = {
     where: ContractWhereUniqueInput
     create: XOR<ContractCreateWithoutVehicleInput, ContractUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type ContractCreateManyVehicleInputEnvelope = {
+    data: ContractCreateManyVehicleInput | ContractCreateManyVehicleInput[]
   }
 
   export type UserUpsertWithoutVehiclesInput = {
@@ -7550,7 +7951,6 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateWithoutVehiclesInput = {
-    id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
@@ -7576,6 +7976,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutCustomersInput = {
+    id?: string
     createdAt?: Date | string
     userId: string
     username: string
@@ -7585,7 +7986,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutCustomersInput = {
-    id?: number
+    id?: string
     createdAt?: Date | string
     userId: string
     username: string
@@ -7600,6 +8001,7 @@ export namespace Prisma {
   }
 
   export type ContractCreateWithoutCustomerInput = {
+    id?: string
     total: number
     paid: number
     remainingDues: number
@@ -7616,7 +8018,7 @@ export namespace Prisma {
   }
 
   export type ContractUncheckedCreateWithoutCustomerInput = {
-    id?: number
+    id?: string
     userId: string
     plateNumber: string
     total: number
@@ -7635,6 +8037,10 @@ export namespace Prisma {
   export type ContractCreateOrConnectWithoutCustomerInput = {
     where: ContractWhereUniqueInput
     create: XOR<ContractCreateWithoutCustomerInput, ContractUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type ContractCreateManyCustomerInputEnvelope = {
+    data: ContractCreateManyCustomerInput | ContractCreateManyCustomerInput[]
   }
 
   export type UserUpsertWithoutCustomersInput = {
@@ -7658,7 +8064,6 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateWithoutCustomersInput = {
-    id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
@@ -7684,6 +8089,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutContractsInput = {
+    id?: string
     createdAt?: Date | string
     userId: string
     username: string
@@ -7693,7 +8099,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutContractsInput = {
-    id?: number
+    id?: string
     createdAt?: Date | string
     userId: string
     username: string
@@ -7708,6 +8114,7 @@ export namespace Prisma {
   }
 
   export type CustomerCreateWithoutContractsInput = {
+    id?: string
     customerName: string
     category: string
     nationality: string
@@ -7719,7 +8126,7 @@ export namespace Prisma {
   }
 
   export type CustomerUncheckedCreateWithoutContractsInput = {
-    id?: number
+    id?: string
     userId: string
     customerName: string
     category: string
@@ -7736,6 +8143,7 @@ export namespace Prisma {
   }
 
   export type VehicleCreateWithoutContractsInput = {
+    id?: string
     plateNumber: string
     brand: string
     meter: number
@@ -7758,7 +8166,7 @@ export namespace Prisma {
   }
 
   export type VehicleUncheckedCreateWithoutContractsInput = {
-    id?: number
+    id?: string
     userId?: string | null
     plateNumber: string
     brand: string
@@ -7806,7 +8214,6 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateWithoutContractsInput = {
-    id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
@@ -7838,7 +8245,6 @@ export namespace Prisma {
   }
 
   export type CustomerUncheckedUpdateWithoutContractsInput = {
-    id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     customerName?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
@@ -7883,7 +8289,6 @@ export namespace Prisma {
   }
 
   export type VehicleUncheckedUpdateWithoutContractsInput = {
-    id?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
@@ -7903,6 +8308,56 @@ export namespace Prisma {
     extraKilometerPrice?: IntFieldUpdateOperationsInput | number
     vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
     dailyKilometerLimit?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type VehicleCreateManyUserInput = {
+    id?: string
+    plateNumber: string
+    brand: string
+    meter: number
+    status?: string
+    rentalCount?: number | null
+    transmission?: string | null
+    manufactureYear?: number | null
+    color?: string | null
+    extraHourPrice: number
+    dailyRent: number
+    weeklyRent: number
+    monthlyRent: number
+    insuranceCompany?: string | null
+    registrationType?: string | null
+    fuelType: string
+    extraKilometerPrice: number
+    vehicleType?: string | null
+    dailyKilometerLimit: number
+  }
+
+  export type CustomerCreateManyUserInput = {
+    id?: string
+    customerName: string
+    category: string
+    nationality: string
+    idNumber: string
+    idExpirationDate?: string | null
+    mobile?: string | null
+    debt: number
+  }
+
+  export type ContractCreateManyUserInput = {
+    id?: string
+    plateNumber: string
+    total: number
+    paid: number
+    remainingDues: number
+    meterReadingOut: number
+    meterReadingIn?: number | null
+    timeOut: string
+    dailyRent: number
+    timeIn: string
+    dateOut: string
+    returnedDate: string
+    invoiceDetails?: string | null
+    customerId: string
   }
 
   export type VehicleUpdateWithoutUserInput = {
@@ -7928,7 +8383,6 @@ export namespace Prisma {
   }
 
   export type VehicleUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
     meter?: IntFieldUpdateOperationsInput | number
@@ -7951,7 +8405,6 @@ export namespace Prisma {
   }
 
   export type VehicleUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
     meter?: IntFieldUpdateOperationsInput | number
@@ -7984,7 +8437,6 @@ export namespace Prisma {
   }
 
   export type CustomerUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
     customerName?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
@@ -7996,7 +8448,6 @@ export namespace Prisma {
   }
 
   export type CustomerUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
     customerName?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     nationality?: StringFieldUpdateOperationsInput | string
@@ -8023,7 +8474,6 @@ export namespace Prisma {
   }
 
   export type ContractUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
     plateNumber?: StringFieldUpdateOperationsInput | string
     total?: IntFieldUpdateOperationsInput | number
     paid?: IntFieldUpdateOperationsInput | number
@@ -8036,11 +8486,10 @@ export namespace Prisma {
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
-    customerId?: IntFieldUpdateOperationsInput | number
+    customerId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ContractUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
     plateNumber?: StringFieldUpdateOperationsInput | string
     total?: IntFieldUpdateOperationsInput | number
     paid?: IntFieldUpdateOperationsInput | number
@@ -8053,7 +8502,24 @@ export namespace Prisma {
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
-    customerId?: IntFieldUpdateOperationsInput | number
+    customerId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContractCreateManyVehicleInput = {
+    id?: string
+    userId: string
+    total: number
+    paid: number
+    remainingDues: number
+    meterReadingOut: number
+    meterReadingIn?: number | null
+    timeOut: string
+    dailyRent: number
+    timeIn: string
+    dateOut: string
+    returnedDate: string
+    invoiceDetails?: string | null
+    customerId: string
   }
 
   export type ContractUpdateWithoutVehicleInput = {
@@ -8073,7 +8539,6 @@ export namespace Prisma {
   }
 
   export type ContractUncheckedUpdateWithoutVehicleInput = {
-    id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     total?: IntFieldUpdateOperationsInput | number
     paid?: IntFieldUpdateOperationsInput | number
@@ -8086,11 +8551,10 @@ export namespace Prisma {
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
-    customerId?: IntFieldUpdateOperationsInput | number
+    customerId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ContractUncheckedUpdateManyWithoutVehicleInput = {
-    id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     total?: IntFieldUpdateOperationsInput | number
     paid?: IntFieldUpdateOperationsInput | number
@@ -8103,7 +8567,24 @@ export namespace Prisma {
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
-    customerId?: IntFieldUpdateOperationsInput | number
+    customerId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContractCreateManyCustomerInput = {
+    id?: string
+    userId: string
+    plateNumber: string
+    total: number
+    paid: number
+    remainingDues: number
+    meterReadingOut: number
+    meterReadingIn?: number | null
+    timeOut: string
+    dailyRent: number
+    timeIn: string
+    dateOut: string
+    returnedDate: string
+    invoiceDetails?: string | null
   }
 
   export type ContractUpdateWithoutCustomerInput = {
@@ -8123,7 +8604,6 @@ export namespace Prisma {
   }
 
   export type ContractUncheckedUpdateWithoutCustomerInput = {
-    id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
     total?: IntFieldUpdateOperationsInput | number
@@ -8140,7 +8620,6 @@ export namespace Prisma {
   }
 
   export type ContractUncheckedUpdateManyWithoutCustomerInput = {
-    id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
     total?: IntFieldUpdateOperationsInput | number

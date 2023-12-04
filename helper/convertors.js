@@ -33,6 +33,14 @@ export const convertFieldsToInt = (data) => {
     return data;
   };
 
+export function getLastNumber(str) {
+  for (let i = str.length - 1; i >= 0; i--) {
+    if (!isNaN(parseInt(str[i]))) {
+      return parseInt(str[i]);
+    }
+  }
+  return null; // Return null if no number is found
+}
 
   export function extractNonObjectKeyValuePairsFromArray(arr) {
     const resultArray = [];
