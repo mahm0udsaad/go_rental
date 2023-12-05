@@ -24,93 +24,62 @@ export const SystemProvider = ({ children }) => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isLinkLoading, setLinkLoading] = useState(false);
   const [linkDisabled, setlinkDisabled] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [car, setCar] = useState(false);
   const [openModal, setIsOpen] = useState(false);
   const editParam = useSearchParams().get('edit')
   const deleteParam = useSearchParams().get('delete')
   const carId = useSearchParams().get('carId')
-  useEffect(()=>{
-    if(!carId){
-     return;
+  
+    useEffect(()=>{
+      if(!carId){
+      return;
+      }
+        getVehicleById(carId)
+      .then(res => {
+        setCar(res); 
+        setIsOpen(true)
+      })
+      .catch(error => {
+        console.error('Error fetching car data:', error);
+      });
+    },[carId])
+
+    useEffect(()=>{
+      if(editParam){
+        getVehicleById(editParam)
+      .then(res => {
+        setCar(res); 
+        setIsOpen(true)
+      })
+      .catch(error => {
+        console.error('Error fetching car data:', error);
+      });
     }
-      getVehicleById(carId)
-    .then(res => {
-      setCar(res); 
-      setIsOpen(true)
-    })
-    .catch(error => {
-      console.error('Error fetching car data:', error);
-    });
-  },[carId])
-  useEffect(()=>{
-    if(!deleteParam){
-     return;
-    }
-      getVehicleById(deleteParam)
-    .then(res => {
-      setCar(res); 
-    })
-    .catch(error => {
-      console.error('Error fetching car data:', error);
-    });
-  },[deleteParam])
-  useEffect(()=>{
-    if(!editParam){
-     return;
-    }
-      getVehicleById(editParam)
-    .then(res => {
-      setCar(res); 
-      setIsOpen(true)
-    })
-    .catch(error => {
-      console.error('Error fetching car data:', error);
-    });
-  },[editParam])
+    },[editParam])
+
+
+    useEffect(() => {
+      let timeoutId;
+
+      if (successMessage) {
+        timeoutId = setTimeout(() => {
+          setSuccessMessage('');
+          setErrorMessage('')
+        }, 5000); 
+      }
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }, [successMessage, setSuccessMessage ,errorMessage, setErrorMessage]);
+
   const handleButtonClick = () => {
     setLinkLoading(true);
     setlinkDisabled(true)
   };
-  useEffect(() => {
-    let timeoutId;
-
-    if (successMessage) {
-      timeoutId = setTimeout(() => {
-        setSuccessMessage('');
-        setErrorMessage('')
-      }, 5000); 
-    }
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [successMessage, setSuccessMessage ,errorMessage, setErrorMessage]);
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-    return;
-    }
-    setSubmitted(false);
-  };
-  const displaySuccessMessage = () => {
-    if(!submitted) return ;
-    return (
-      <>
-      <Snackbar
-        open={submitted}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message={
-          <div className="flex items-center">
-            <FaRegCheckCircle className="text-green-500 mr-2" />
-            <span className="block sm:inline">Form submitted successfully</span>
-          </div>
-        }
-      />
-      </>
-    );
-  };
   return (
-    <SystemContext.Provider value={{setIsOpen, openModal ,car ,carId ,isLinkLoading, setLinkLoading ,linkDisabled, setlinkDisabled ,handleButtonClick,successMessage, setSuccessMessage,errorMessage, setErrorMessage,displaySuccessMessage, addNew, setAddNew, userId, setUserId,submitted, setSubmitted }}>
+    <SystemContext.Provider value={{isDeleteModalOpen,deleteParam, setIsDeleteModalOpen,setIsOpen,setCar, openModal ,car ,carId ,isLinkLoading, setLinkLoading ,linkDisabled, setlinkDisabled ,handleButtonClick,successMessage, setSuccessMessage,errorMessage, setErrorMessage, addNew, setAddNew, userId, setUserId,submitted, setSubmitted }}>
       {children}
     </SystemContext.Provider>
   );

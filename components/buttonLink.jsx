@@ -13,68 +13,71 @@ import { deleteVehicleById, getVehicleById } from '@/prisma';
 import { useSystemContext } from '@/context/context';
 import { t } from 'i18next';
 
-export default function ButtonLink({item , lng , isGrid}){
-    const { t } = useTranslation(lng, 'dashboard');
-    const [isLinkLoading, setLinkLoading] = useState(false);
-    const [linkDisabled, setlinkDisabled] = useState(false);
-    
-    const handleButtonClick = () => {
-      setLinkLoading(true);
-      setlinkDisabled(true)
-    };
-    return(
-        <div className='flex gap-2'>
-                {item.status === "Rented"?(
-                  <Button
-                  variant="contained"
-                  onClick={handleButtonClick}
-                  disabled={linkDisabled}
-                  className='text-sm'
-                  color='error'
-                  size="small"
-                  component={Link} 
-                  href={`dashboard/closeContract?forPlateNumber=${item.plateNumber}`} 
-                >
-                   {isLinkLoading ? (
-                    <div class="flex justify-center items-center">
-                      <div class="border-t-4 border-blue-500 rounded-full animate-spin h-5 w-5"></div>
-                  </div>
-                  ) : (
-                    t('tables.closeContract')
-                  )}
-                </Button>
-                ):(
-                  <Button
-                  variant="contained"
-                  onClick={handleButtonClick}
-                  disabled={linkDisabled}
-                  className='text-sm'
-                  color='primary'
-                  size="small"
-                  component={Link} // Use the component prop to specify the link component
-                  href={`dashboard/rent?carId=${item.id}`} // Specify the link destination
-                >
-                   {isLinkLoading ? (
-                    <div class="flex justify-center items-center">
-                      <div class="border-t-4 border-blue-500 rounded-full animate-spin h-5 w-5"></div>
-                  </div>
-                  ) : (
-                    t('tables.rent')
-                  )}
-                </Button>
-                )}
-
-               {!isGrid && <MorePopup lng={lng} item={item}/>}
-                </div>
-    )
-}
-function EditButton({  item }) {
+const ButtonLink = React.memo(({ item, lng, isGrid }) => {
+  const { t } = useTranslation(lng, 'dashboard');
   const [isLinkLoading, setLinkLoading] = useState(false);
   const [linkDisabled, setlinkDisabled] = useState(false);
+
+  const handleButtonClick = () => {
+    setLinkLoading(true);
+    setlinkDisabled(true);
+  };
+
+  return (
+    <div className='flex gap-2'>
+      {item.status === "Rented" ? (
+        <Button
+          variant="contained"
+          onClick={handleButtonClick}
+          disabled={linkDisabled}
+          className='text-sm'
+          color='error'
+          size="small"
+          component={Link}
+          href={`dashboard/closeContract?forPlateNumber=${item.plateNumber}`}
+        >
+          {isLinkLoading ? (
+            <div className="flex justify-center items-center">
+              <div className="border-t-4 border-blue-500 rounded-full animate-spin h-5 w-5"></div>
+            </div>
+          ) : (
+            t('tables.closeContract')
+          )}
+        </Button>
+      ) : (
+        <Button
+          variant="contained"
+          onClick={handleButtonClick}
+          disabled={linkDisabled}
+          className='text-sm'
+          color='primary'
+          size="small"
+          component={Link}
+          href={`dashboard/rent?carId=${item.id}`}
+        >
+          {isLinkLoading ? (
+            <div className="flex justify-center items-center">
+              <div className="border-t-4 border-blue-500 rounded-full animate-spin h-5 w-5"></div>
+            </div>
+          ) : (
+            t('tables.rent')
+          )}
+        </Button>
+      )}
+      {!isGrid && <MorePopup lng={lng} item={item} />}
+    </div>
+  );
+});
+
+const EditButton = React.memo(({ item }) => {
+  const [isLinkLoading, setLinkLoading] = useState(false);
+  const [linkDisabled, setlinkDisabled] = useState(false);
+
   const handleLinkClick = () => {
     setlinkDisabled(true);
     setLinkLoading(true);
   };
+
   return (
     <Link href={`?edit=${item.id}`}>
       <Tooltip title="Edit">
@@ -90,8 +93,8 @@ function EditButton({  item }) {
           style={{ backgroundColor: 'lightgrey', marginRight: '10px' }}
         >
           {isLinkLoading ? (
-            <div class="flex justify-center items-center">
-              <div class="border-t-4 border-blue-500 rounded-full animate-spin h-5 w-5"></div>
+            <div className="flex justify-center items-center">
+              <div className="border-t-4 border-blue-500 rounded-full animate-spin h-5 w-5"></div>
             </div>
           ) : (
             <MdEdit style={{ color: 'white', marginRight: '5px' }} />
@@ -100,54 +103,57 @@ function EditButton({  item }) {
       </Tooltip>
     </Link>
   );
-}
-function DeleteButton({ item ,lng}) {
+});
+
+ const DeleteButton = React.memo(({ item, lng }) => {
   const { t } = useTranslation(lng, 'dashboard');
-  const router = useRouter()
-  const [isLinkLoading, setLinkLoading] = useState(false);
-  const [linkDisabled, setlinkDisabled] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const handleDelete = () => {
-    setlinkDisabled(true);
-    setLinkLoading(true);
-    deleteVehicleById(item.id)
-    router.push('/dashboard')
-    router.refresh()
-  };
+  const { car ,deleteParam , setCar , setIsDeleteModalOpen} = useSystemContext();
+
+
+const handleOpenDeleteModal = async ()=>{
+  if(deleteParam){
+    await getVehicleById(deleteParam)
+  .then(res => {
+    setCar(res);
+    setIsDeleteModalOpen(true);
+  })
+  .catch(error => {
+    console.error('Error fetching car data:', error);
+  });
+  }
+}
+  
   return (
     <>
-     <DeleteConfirmationDialog lng={lng} message={'deleteMessage'} isOpen={isOpen} setIsOpen={setIsOpen} handleDelete={handleDelete} />
-    <Link href={`?delete=${item.id}`}>
-      <Tooltip title="Delete">
-        <IconButton
-          aria-label="delete"
-          variant="contained"
-          onClick={()=>{
-            setIsOpen(true)
-          }}
-          disabled={linkDisabled}
-          style={{ color: 'red', backgroundColor: 'lightgrey', marginRight: '10px' }}
-        >
-          {isLinkLoading ? (
-            <div class="flex justify-center items-center">
-              <div class="border-t-4 border-blue-500 rounded-full animate-spin h-5 w-5"></div>
-            </div>
-          ) : (
-            <MdDelete style={{ marginRight: '5px' }} />
-          )}
-        </IconButton>
-      </Tooltip>
-    </Link>
+      <Link href={`?delete=${item.id}`}>
+        <Tooltip title="Delete">
+          <IconButton
+            onClick={handleOpenDeleteModal}
+            aria-label="delete"
+            variant="contained"
+            style={{ color: 'red', backgroundColor: 'lightgrey', marginRight: '10px' }}
+          >
+              <MdDelete style={{ marginRight: '5px' }} />
+          </IconButton>
+        </Tooltip>
+      </Link>
     </>
   );
-}
+});
 
-function DeleteConfirmationDialog({message,lng, isOpen, setIsOpen, handleDelete }) {
-  const { car } = useSystemContext()
+export const DeleteConfirmationDialog = React.memo(({ message, lng, isOpen, setIsOpen }) => {
+  const { car ,deleteParam} = useSystemContext();
+  const router = useRouter();
   const { t } = useTranslation(lng, 'dashboard');
-
+  const handleDelete = () => {
+    deleteVehicleById(deleteParam);
+    router.push('/dashboard');
+    router.refresh();
+  };
   const handleClose = () => {
     setIsOpen(false);
+    router.push('/dashboard')
+    router.refresh()
   };
 
   const handleConfirmDelete = () => {
@@ -163,22 +169,22 @@ function DeleteConfirmationDialog({message,lng, isOpen, setIsOpen, handleDelete 
       </DialogContent>
       <DialogActions>
         <div className="flex gap-4">
-        <Button onClick={handleClose}  variant='contained' color="primary">
-        {t('actions.cancel')}
-        </Button>
-        <Button  onClick={handleConfirmDelete} variant='contained' color="error">
-          {t('actions.delete')}
-        </Button>
+          <Button onClick={handleClose} variant='contained' color="primary">
+            {t('actions.cancel')}
+          </Button>
+          <Button onClick={handleDelete} variant='contained' color="error">
+            {t('actions.delete')}
+          </Button>
         </div>
       </DialogActions>
     </Dialog>
   );
-}
+});
 
-function MorePopup({ item, lng }) {
+const MorePopup = React.memo(({ item, lng }) => {
   const [anchor, setAnchor] = useState(null);
   const { openModal, setIsOpen, car } = useSystemContext();
-  
+
   const handleClick = (event) => {
     setAnchor(anchor ? null : event.currentTarget);
   };
@@ -195,11 +201,14 @@ function MorePopup({ item, lng }) {
         </Button>
         <BasePopup placement="top" id={id} open={open} anchor={anchor}>
           <div>
-            <EditButton     item={item}  />
-            <DeleteButton  lng={lng} item={item} />
+            <EditButton item={item} />
+            <DeleteButton lng={lng} item={item} />
           </div>
         </BasePopup>
       </div>
     </>
   );
-}
+});
+
+export default ButtonLink
+

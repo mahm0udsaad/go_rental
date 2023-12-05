@@ -8,10 +8,13 @@ import { CiViewTable ,CiGrid41} from "react-icons/ci";
 import { CollabsedTable } from "../tables";
 import { generateCarsOverview } from "@/data/info";
 import { Tooltip } from "@mui/material"; 
+import { DeleteConfirmationDialog } from "../buttonLink";
+import { useSystemContext } from "@/context/context";
 
 export default function Cars ({userId, lng , Cars}){
   const CarsOverview = generateCarsOverview(Cars, ["status"], ["allCars"]);
   CarsOverview.push({title:"lateCars" , number:0})
+  const { isDeleteModalOpen, setIsDeleteModalOpen, deleteParam, car, setCar } = useSystemContext();
 
   const [ isGrid , setIsGrid ] = useState(false)
   const { t } = useTranslation(lng , "dashboard")
@@ -53,6 +56,7 @@ export default function Cars ({userId, lng , Cars}){
   return (
     <>
     <h1>{t('titles.cars')}</h1>
+    <DeleteConfirmationDialog lng={lng} message={'deleteMessage'} isOpen={isDeleteModalOpen} setIsOpen={setIsDeleteModalOpen} />
     <div className="relative grid grid-cols-2 lg:grid-cols-4 w-full gap-3  py-4">
       {CarsOverview && CarsOverview.map((card , i )=> (
         <Cards lng={lng} card={card} i={i} key={i}/>

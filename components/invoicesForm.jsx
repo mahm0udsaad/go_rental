@@ -265,10 +265,9 @@ export const EditVehicleForm = ({ lng, isOpen, setIsOpen, formData }) => {
       <Dialog
         open={isOpen}
         onClose={() => {
-          setIsOpen(false)
+         setIsOpen(false)
          router.push('/dashboard')
          router.refresh()
-
         }}
         fullWidth
         maxWidth="md" // Adjust as needed
@@ -307,7 +306,7 @@ export const EditVehicleForm = ({ lng, isOpen, setIsOpen, formData }) => {
               )}
             </Button>
             <Button
-              onClose={() => {
+              onClick={() => {
                 router.push('/dashboard')
                 router.refresh()
                 setIsOpen(false)

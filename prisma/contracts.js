@@ -59,6 +59,7 @@ export async function createContractAndCustomer(data , userId) {
         where: { plateNumber },
         data: {
           status: 'Rented',
+        
         },
       });
       return {newCustomer, newContract , updatedVehicle};
@@ -111,6 +112,24 @@ export const getContractByPlateNumber = async (plateNumber) => {
     const contract = await prisma.contract.findFirst({
       where: {
         plateNumber: plateNumber,
+      }, 
+      include: {
+        vehicle: {
+          select: {
+            extraHourPrice: true,
+            meter:true,
+            extraHourPrice:true,
+            extraKilometerPrice:true,
+            dailyKilometerLimit:true
+          },
+        },
+        customer: {
+          select: {
+            customerName: true,
+            debt: true,
+            idNumber: true,
+          },
+        },
       },
     });
 

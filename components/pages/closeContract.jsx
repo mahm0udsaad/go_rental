@@ -10,7 +10,7 @@ const CloseContract = ({ lng }) => {
   const [contract, setContract] = useState(null);
   const plateNumber = useSearchParams().get('forPlateNumber');
   const isAr = lng === 'ar';
-
+  console.log(contract);
   useEffect(() => {
     getContractByPlateNumber(plateNumber)
       .then((contractData) => {
@@ -70,6 +70,7 @@ const CloseContract = ({ lng }) => {
               <TextField
                 label="Total"
                 value={contract.total}
+                InputProps={{ readOnly: true }}
                 onChange={(e) => handleInputChange('total', e.target.value)}
                 fullWidth
               />
@@ -77,6 +78,7 @@ const CloseContract = ({ lng }) => {
             <Grid item xs={12} sm={6} md={4}>
               <TextField
                 label="Paid"
+                InputProps={{ readOnly: true }}
                 value={contract.paid}
                 onChange={(e) => handleInputChange('paid', e.target.value)}
                 fullWidth
@@ -85,12 +87,74 @@ const CloseContract = ({ lng }) => {
             <Grid item xs={12} sm={6} md={4}>
               <TextField
                 label="Remaining Dues"
+                 InputProps={{ readOnly: true }}
                 value={contract.remainingDues}
                 onChange={(e) => handleInputChange('remainingDues', e.target.value)}
                 fullWidth
               />
             </Grid>
-            {/* Add other fields as needed */}
+             {/* Vehicle Information */}
+              <Grid item xs={12} sm={6} md={4}>
+            <TextField
+              label="Extra Hour Price"
+              value={contract.meterReadingIn}
+              required
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <TextField
+                  label="Daily Kilometer Limit"
+                  value={contract.vehicle?.dailyKilometerLimit}
+                  InputProps={{ readOnly: true }}
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                  />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <TextField
+                  label="Meter Reading Out"
+                  value={contract.meterReadingOut}
+                  InputProps={{ readOnly: true }}
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                  />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <TextField
+                  label="Customer Name"
+                  value={contract.customer?.customerName}
+                  InputProps={{ readOnly: true }}
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                  />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <TextField
+                  label="Total Debt"
+                  value={contract.customer?.debt}
+                  InputProps={{ readOnly: true }}
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                  />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <TextField
+                  label="ID Number"
+                  value={contract.customer?.idNumber}
+                  InputProps={{ readOnly: true }}
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                  />
+              </Grid>
+          {/* ...Other fields as needed */}
           </Grid>
           <Button style={{marginTop:'2rem'}} variant="contained" color="error" onClick={handleSubmit}>
             {t('titles.closeContract')}
