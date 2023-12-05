@@ -2,16 +2,14 @@
 import { useTranslation } from '@/app/i18n/client';
 import { Button, IconButton, Popover, Tooltip} from '@mui/material'
 import { MdDelete, MdEdit } from 'react-icons/md';
+import { IoIosMore, IoMdCreate, IoMdTrash } from 'react-icons/io'; 
 import Link from 'next/link';
-import { IoIosMore, IoMdCreate, IoMdTrash } from 'react-icons/io'; // Import your icon components
 import React , { useEffect, useState } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { Unstable_Popup as BasePopup , PopupBody } from '@mui/base/Unstable_Popup';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { EditVehicleForm, InvoiceFormModal } from './invoicesForm';
 import { deleteVehicleById, getVehicleById } from '@/prisma';
 import { useSystemContext } from '@/context/context';
-import { t } from 'i18next';
 
 const ButtonLink  = ({ item, lng, isGrid }) => {
   const { t } = useTranslation(lng, 'dashboard');
@@ -171,6 +169,8 @@ export const DeleteConfirmationDialog = ({ message, lng, isOpen, setIsOpen }) =>
 const MorePopup = ({ item, lng }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [car, setCar] = useState(null);
+  const editParam = useSearchParams().get('edit')
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -187,8 +187,6 @@ const MorePopup = ({ item, lng }) => {
     setOpenEditModal(true);
     handleClose();
   };
-  const [car, setCar] = useState(null);
-  const editParam = useSearchParams().get('edit')
 
   useEffect(() => {
     if (editParam) {

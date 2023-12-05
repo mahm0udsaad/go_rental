@@ -1,18 +1,18 @@
 "use client"
-import { Cards } from "@/components/cards";
-import { ActionBtns } from "@/components/actionBtns";
-import { useState } from "react";
-import { useTranslation } from "@/app/i18n/client";
-import { GridView } from "../gridCarsView";
-import { CiViewTable ,CiGrid41} from "react-icons/ci";
-import { CollabsedTable } from "../tables";
-import { generateCarsOverview } from "@/data/info";
-import { Tooltip } from "@mui/material"; 
 import { DeleteConfirmationDialog } from "../buttonLink";
+import { CiViewTable ,CiGrid41} from "react-icons/ci";
+import { ActionBtns } from "@/components/actionBtns";
 import { useSystemContext } from "@/context/context";
+import { useTranslation } from "@/app/i18n/client";
+import { generateCarsOverview } from "@/data/info";
+import { Cards } from "@/components/cards";
+import { CollabsedTable } from "../tables";
+import { GridView } from "../gridCarsView";
+import { Tooltip } from "@mui/material"; 
+import { useState } from "react";
 
 export default function Cars ({userId, lng ,Cars}){
-  
+
   const CarsOverview = generateCarsOverview(Cars, ["status"], ["allCars"]);
   CarsOverview.push({title:"lateCars" , number:0})
   const { isDeleteModalOpen, setIsDeleteModalOpen } = useSystemContext();
@@ -55,6 +55,7 @@ export default function Cars ({userId, lng ,Cars}){
   const gridView = () =>{
     setIsGrid(true)
   }
+
   return (
     <>
     <h1>{t('titles.cars')}</h1>

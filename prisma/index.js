@@ -79,7 +79,6 @@ export async function createVehicle(vehicleData , userId) {
   }
 }
 
-
 // Update a specific vehicle by ID
 export async function updateVehicleById(id, updatedVehicleData) {
   try {
