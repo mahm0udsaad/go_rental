@@ -116,12 +116,14 @@ const RentNewCarForm = ({ lng , userId}) => {
       setlinkDisabled(true)
       setLinkLoading(true)
       data = convertFieldsToInt(data);
-      console.log(data);
+
       try {
         await createContractAndCustomer(data, userId);
         setSuccessMessage("contractAddedSuccessfully")
         setLinkLoading(false)
         setlinkDisabled(false)
+        router.push('/dashboard')
+        router.refresh()
       } catch (error) {
         console.error('Error submitting form:', error);
       }

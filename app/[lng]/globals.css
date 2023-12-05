@@ -39,10 +39,10 @@ body{
   height: 100dvh;
 }
 .main-color{
-    color: #253665;
+    color: #253665 !important;
 }
 .main-bg{
-  background-color: #253665;
+  background-color: #253665 !important;
 }
 .btn :hover{
   background-color: #9b9b9b69;
@@ -55,6 +55,9 @@ body{
 .view {
   overflow: hidden;
   height: 52dvh;
+}
+.flex-row-reverse{
+  flex-direction: row-reverse !important;
 }
 @keyframes shadowAnimation {
   0% {

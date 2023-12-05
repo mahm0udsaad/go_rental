@@ -1,6 +1,7 @@
 
 "use client"
 import { useTranslation } from "@/app/i18n/client";
+import { Skeleton } from "@mui/material";
 
 export const Cards = ({ card, i ,lng}) => {
   const { t } =  useTranslation(lng , "dashboard")
@@ -17,7 +18,9 @@ export const Cards = ({ card, i ,lng}) => {
     }
   };
   return (
-    <div
+    <>
+    {card ? (
+      <div
       style={{
         background: getGradientColor(i), // Use index i to get gradient color
       }}
@@ -34,5 +37,14 @@ export const Cards = ({ card, i ,lng}) => {
         </div>
       </div>
     </div>
+    ):(
+      <Skeleton
+        sx={{ bgcolor: 'grey.900' }}
+        variant="rectangular"
+        width={210}
+        height={118}
+      />
+    )}
+    </>
   );
 };

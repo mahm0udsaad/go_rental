@@ -83,16 +83,31 @@ export async function createVehicle(vehicleData , userId) {
 // Update a specific vehicle by ID
 export async function updateVehicleById(id, updatedVehicleData) {
   try {
+    const { id, ...dataWithoutCarId } = updatedVehicleData;
+    console.log(dataWithoutCarId);
     const updatedVehicle = await prisma.vehicle.update({
       where: { id: id },
-      data: updatedVehicleData,
+      data: { ...dataWithoutCarId },
     });
-    return { updatedVehicle };
+    return updatedVehicle;
   } catch (error) {
     return { error: `Error updating vehicle: ${error.message}` };
   }
 }
 
+export async function updateVehicle(id, updatedVehicleData) {
+  try {
+    const { id, ...dataWithoutCarId } = updatedVehicleData;
+    console.log(dataWithoutCarId);
+    const updatedVehicle = await prisma.vehicle.update({
+      where: { id: id },
+      data: { ...dataWithoutCarId },
+    });
+    return updatedVehicle;
+  } catch (error) {
+    return { error: `Error updating vehicle: ${error.message}` };
+  }
+}
 // Delete a specific vehicle by ID
 export async function deleteVehicleById(id) {
   try {

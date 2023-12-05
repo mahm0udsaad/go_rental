@@ -15,7 +15,8 @@
     "contracts":"Contracts",
     "treasury":"Treasury",
     "invoices":"Invoices",
-    "maintenance":"Maintenance"
+    "maintenance":"Maintenance",
+    "closeContract":"Close Contract"
   },
   "dashboard":{
     "revenues": "Revenues",
@@ -61,7 +62,9 @@
     "filter": "Filter",
     "export": "Export",
     "addNew": "Add New",
-    "addNewCustomer":"Add New Customer"
+    "addNewCustomer":"Add New Customer",
+    "delete": "Delete",
+    "cancel": "Cancel"
 
   },
   "tables":{
@@ -161,15 +164,21 @@
     "Maintanance Card":"Maintanance Card",
     "New Invoice":"New Invoice",
     "individual": "Individual",
-    "company": "Company"
+    "company": "Company",
+    "edit":"Edit",
+    "close":"close"
   },
   "messages":{
     "vehicleExists": "Vehicle with plate number ب ط ل 8888 already exists.",
     "vehicleCreatedSuccess": "Vehicle created successfully!",
     "ContractAddedSuccessfully": "Contract Added Successfully",
-    "emptyCars":"There is no cars start adding"
+    "emptyCars":"There is no cars start adding",
+    "editCarSuccessful": "Car Edited Successfully !",
+    "contractDetails":"Contract Details for Plate Number ",
+    "deleteMessage":"Are you sure of deleting the car"
 
   },
+
   "carDetalis":"car Details",
   "customerDetalis":"Customer Detalis",
   "contractDetalis":"Contract Basic Details",

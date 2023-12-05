@@ -1,9 +1,10 @@
 "use client"
-import { getAllCars } from '@/prisma';
+import { getAllCars, getVehicleById } from '@/prisma';
 import React, { createContext, useState, useContext } from 'react';
 import { useEffect } from 'react';
 import { Dialog, TextField, Button, Snackbar, Grid, InputLabel, Select, MenuItem, Autocomplete } from '@mui/material';
 import { FaRegCheckCircle } from 'react-icons/fa';
+import { useSearchParams } from 'next/navigation';
 
 const SystemContext = createContext();
 
@@ -23,12 +24,53 @@ export const SystemProvider = ({ children }) => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isLinkLoading, setLinkLoading] = useState(false);
   const [linkDisabled, setlinkDisabled] = useState(false);
-  
+  const [car, setCar] = useState(false);
+  const [openModal, setIsOpen] = useState(false);
+  const editParam = useSearchParams().get('edit')
+  const deleteParam = useSearchParams().get('delete')
+  const carId = useSearchParams().get('carId')
+  useEffect(()=>{
+    if(!carId){
+     return;
+    }
+      getVehicleById(carId)
+    .then(res => {
+      setCar(res); 
+      setIsOpen(true)
+    })
+    .catch(error => {
+      console.error('Error fetching car data:', error);
+    });
+  },[carId])
+  useEffect(()=>{
+    if(!deleteParam){
+     return;
+    }
+      getVehicleById(deleteParam)
+    .then(res => {
+      setCar(res); 
+    })
+    .catch(error => {
+      console.error('Error fetching car data:', error);
+    });
+  },[deleteParam])
+  useEffect(()=>{
+    if(!editParam){
+     return;
+    }
+      getVehicleById(editParam)
+    .then(res => {
+      setCar(res); 
+      setIsOpen(true)
+    })
+    .catch(error => {
+      console.error('Error fetching car data:', error);
+    });
+  },[editParam])
   const handleButtonClick = () => {
     setLinkLoading(true);
     setlinkDisabled(true)
   };
-
   useEffect(() => {
     let timeoutId;
 
@@ -40,7 +82,6 @@ export const SystemProvider = ({ children }) => {
     }
 
     return () => {
-      // Clear timeout on component unmount or when successMessage changes
       clearTimeout(timeoutId);
     };
   }, [successMessage, setSuccessMessage ,errorMessage, setErrorMessage]);
@@ -69,7 +110,7 @@ export const SystemProvider = ({ children }) => {
     );
   };
   return (
-    <SystemContext.Provider value={{isLinkLoading, setLinkLoading ,linkDisabled, setlinkDisabled ,handleButtonClick,successMessage, setSuccessMessage,errorMessage, setErrorMessage,displaySuccessMessage, addNew, setAddNew, userId, setUserId,submitted, setSubmitted }}>
+    <SystemContext.Provider value={{setIsOpen, openModal ,car ,carId ,isLinkLoading, setLinkLoading ,linkDisabled, setlinkDisabled ,handleButtonClick,successMessage, setSuccessMessage,errorMessage, setErrorMessage,displaySuccessMessage, addNew, setAddNew, userId, setUserId,submitted, setSubmitted }}>
       {children}
     </SystemContext.Provider>
   );

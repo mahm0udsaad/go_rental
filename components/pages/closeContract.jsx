@@ -1,36 +1,105 @@
-
 "use client"
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { getContractByPlateNumber } from '@/prisma/contracts'; // Assuming you have a function to get contract data
+import { getContractByPlateNumber } from '@/prisma/contracts';
+import { Paper, Typography, Grid, Stepper, Step, StepLabel, TextField, Button } from '@mui/material';
+import { useTranslation } from '@/app/i18n/client';
 
-const CloseContract = ({lng}) => {
+const CloseContract = ({ lng }) => {
+  const { t } = useTranslation(lng , "dashboard")
   const [contract, setContract] = useState(null);
   const plateNumber = useSearchParams().get('forPlateNumber');
+  const isAr = lng === 'ar';
 
   useEffect(() => {
-    // Fetch contract data based on the plate number from the URL
     getContractByPlateNumber(plateNumber)
       .then((contractData) => {
-        setContract(contractData); // Set the retrieved contract data
+        setContract(contractData);
       })
       .catch((error) => {
         console.error('Error fetching contract:', error);
       });
   }, [plateNumber]);
 
+  const handleInputChange = (field, value) => {
+    setContract(prevContract => ({
+      ...prevContract,
+      [field]: value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    // Implement logic to submit updated contract data
+    console.log('Updated contract data:', contract);
+  };
+
   if (!contract) {
-    return <div>Loading...</div>; // Add a loading state or spinner while fetching data
+    return <div>Loading...</div>;
   }
+
+  const steps = ['Date Out', 'Returned Date'];
+
   return (
     <div className="container mx-auto">
-      <h1 className='border-rose-600 text-rose-600 border w-60 p-3'>Close Contract</h1>
-      <h1>Contract Details for Plate Number : <br /> {plateNumber}</h1>
-      <p>Date: {contract.dateOut}</p>
-      <p>Date In: {contract.returnedDate}</p>
-      <p>Details: {contract.details}</p>
+      <Paper className={`p-4 `}>
+        <Typography variant="h4" color="primary" gutterBottom>
+          {t('titles.closeContract')}
+        </Typography>
+        <Typography variant="h6" gutterBottom>
+          {t('messages.contractDetails')} {plateNumber}
+        </Typography>
+        <div className="flex flex-col items-center w-full" >
+          <Stepper className={`p-4 w-full ${isAr ? 'flex-row-reverse' : ''}`} activeStep={1} alternativeLabel>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <Grid className={` ${isAr ? 'flex-row-reverse' : ''}`} container spacing={2}>
+            {/* Date Out */}
+            <Grid className='items-center justify-center flex' item xs={6}>
+              <Typography variant="body1">{contract.dateOut}</Typography>
+            </Grid>
+            {/* Returned Date */}
+            <Grid className='items-center justify-center flex' item xs={6}>
+              <Typography variant="body1">{contract.returnedDate}</Typography>
+            </Grid>
+            {/* Editable Inputs */}
+            <Grid item xs={12} sm={6} md={4}>
+              <TextField
+                label="Total"
+                value={contract.total}
+                onChange={(e) => handleInputChange('total', e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <TextField
+                label="Paid"
+                value={contract.paid}
+                onChange={(e) => handleInputChange('paid', e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <TextField
+                label="Remaining Dues"
+                value={contract.remainingDues}
+                onChange={(e) => handleInputChange('remainingDues', e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            {/* Add other fields as needed */}
+          </Grid>
+          <Button style={{marginTop:'2rem'}} variant="contained" color="error" onClick={handleSubmit}>
+            {t('titles.closeContract')}
+          </Button>
+        </div>
+      </Paper>
     </div>
   );
 };
 
 export default CloseContract;
+

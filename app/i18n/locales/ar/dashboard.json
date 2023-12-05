@@ -15,6 +15,7 @@
     "contracts":"العقود",
     "treasury":"الخزانة",
     "invoices":"الفواتير",
+    "closeContract":"اغلاق العقد",
     "maintenance":"الصيانة"
   },
   "dashboard":{
@@ -59,6 +60,8 @@
   },
   "actions":{
     "filter": "تصفية",
+    "delete": "مسح",
+    "cancel": "الغاء",
     "export": "تصدير",
     "addNew": "إضافة",
     "addNewCustomer":"اضافه عميل جديد"
@@ -160,13 +163,18 @@
     "Maintanance Card":"كارت صيانه",
     "New Invoice":"فاتوره ",
     "individual": "فرد",
-    "company": "شركة"
+    "company": "شركة",
+    "edit":"تعديل",
+    "close":"اغلاق"
   },
   "messages":{
     "vehicleCreatedSuccess": "تم اضافه السياره بنجاح ! ",
     "vehicleExists": "المركبة ذات اللوحه  ب ط ل 8888 موجودة بالفعل.",
     "ContractAddedSuccessfully": "تمت إضافة العقد بنجاح",
-    "emptyCars":"لا يوجد سيارات ابدا بالاضافه"
+    "emptyCars":"لا يوجد سيارات ابدا بالاضافه",
+    "editCarSuccessful":"لقد تم تعديل السياره بنجاح",
+    "contractDetails":"تفاصيل عقد السياره",
+    "deleteMessage":"هل انت متاكد من حذف السياره ؟"
 
   },
   "carDetalis":"تفاصيل السياره",
