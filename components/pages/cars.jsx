@@ -82,7 +82,7 @@ export default function Cars ({userId, lng , Cars}){
        </>
        :
        <>
-       <p className="text-center pt-8 text-lg justify-center w-full ">{t('messages.emptyCar')}</p>
+       <p className="text-center pt-8 text-lg justify-center w-full ">{t('messages.emptyCars')}</p>
        </>
        }
       </>
