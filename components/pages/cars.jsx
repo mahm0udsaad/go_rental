@@ -10,36 +10,16 @@ import { generateCarsOverview } from "@/data/info";
 import { Tooltip } from "@mui/material"; 
 import { DeleteConfirmationDialog } from "../buttonLink";
 import { useSystemContext } from "@/context/context";
-import { useEffect } from "react";
-import { fetchUserCars } from "@/prisma";
-import { createUserIfNotExists } from "@/prisma/user";
 
-export default function Cars ({userId, userData, lng }){
+export default function Cars ({userId, lng ,Cars}){
+  
+  const CarsOverview = generateCarsOverview(Cars, ["status"], ["allCars"]);
+  CarsOverview.push({title:"lateCars" , number:0})
   const { isDeleteModalOpen, setIsDeleteModalOpen } = useSystemContext();
-  const [ UserCars , setUserCars ] = useState([])
+
   const [ isGrid , setIsGrid ] = useState(false)
   const { t } = useTranslation(lng , "dashboard")
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const result = await createUserIfNotExists(userData);
-        const cars = await fetchUserCars(userId);
-        setUserCars(cars?.Vehicles);
-        console.log(result);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    }
-
-    fetchData();
-  }, []);
-
-
-
-  console.log(UserCars);
-  const CarsOverview = generateCarsOverview(UserCars, ["status"], ["allCars"]);
-  CarsOverview.push({title:"lateCars" , number:0})
-
+  
   const formData = {
     plateNumber: "",
     brand: "kia",
@@ -84,7 +64,7 @@ export default function Cars ({userId, userData, lng }){
         <Cards lng={lng} card={card} i={i} key={i}/>
       ))}
       </div>
-      <ActionBtns requiredKeys={requiredKeys}  userId={userId} lng={lng} formTitle={"New Car"} data={UserCars} fileName={'Cars'} formData={formData}  />
+      <ActionBtns requiredKeys={requiredKeys}  userId={userId} lng={lng} formTitle={"New Car"} data={Cars} fileName={'Cars'} formData={formData}  />
       <div className="flex justify-end w-full">
       <Tooltip title="Table View">
           <button onClick={tableView} className='p-2 text-black hover:bg-gray-200'>
@@ -97,10 +77,10 @@ export default function Cars ({userId, userData, lng }){
           </button>
         </Tooltip>
         </div>
-       {UserCars && UserCars.length > 0?
+       {Cars && Cars.length > 0?
        <>
-       {isGrid && <GridView data={UserCars} lng={lng} cars={true}/>}
-      {!isGrid && <CollabsedTable data={UserCars} lng={lng} cars={true}/>}
+       {isGrid && <GridView data={Cars} lng={lng} cars={true}/>}
+      {!isGrid && <CollabsedTable data={Cars} lng={lng} cars={true}/>}
        </>
        :
        <>

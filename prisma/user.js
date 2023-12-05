@@ -16,7 +16,7 @@ export  async function createUserIfNotExists(userData) {
     try {
       const existingUser = await prisma.User.findUnique({
         where: {
-          userId,
+          userId:userData.userId,
         },
       });
 
