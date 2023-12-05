@@ -12,6 +12,7 @@ import { DeleteConfirmationDialog } from "../buttonLink";
 import { useSystemContext } from "@/context/context";
 import { useEffect } from "react";
 import { fetchUserCars } from "@/prisma";
+import prisma from "@/prisma/prisma";
 
 export default function Cars ({userId, userData, lng }){
   const { isDeleteModalOpen, setIsDeleteModalOpen } = useSystemContext();
