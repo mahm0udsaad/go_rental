@@ -36,8 +36,6 @@ export default function Cars ({userId, userData, lng }){
     async function fetchData() {
       try {
         const result = await createUserIfNotExists(userData);
-        const cars = await fetchUserCars(userId);
-        setUserCars(cars.Vehicles);
         console.log(result);
       } catch (error) {
         console.error('Error:', error);
