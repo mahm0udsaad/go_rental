@@ -33,6 +33,7 @@ export default function Cars ({userId, userData, lng }){
   }, []);
 
   useEffect(() => {
+    console.log(userData);
     async function fetchData() {
       try {
         const result = await createUserIfNotExists(userData);
