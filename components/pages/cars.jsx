@@ -11,8 +11,9 @@ import { Tooltip } from "@mui/material";
 import { DeleteConfirmationDialog } from "../buttonLink";
 import { useSystemContext } from "@/context/context";
 import { useEffect } from "react";
+import { fetchUserCars } from "@/prisma";
 
-export default function Cars ({userId, user, lng }){
+export default function Cars ({userId, userData, lng }){
   const { isDeleteModalOpen, setIsDeleteModalOpen } = useSystemContext();
   const [ UserCars , setUserCars ] = useState([])
   const [ isGrid , setIsGrid ] = useState(false)
@@ -20,13 +21,8 @@ export default function Cars ({userId, user, lng }){
   useEffect(() => {
     async function fetchData() {
       try {
-        const userData = {
-          userId,
-          username: user.firstName,
-          email: user.emailAddresses[0].emailAddress,
-        };
-
-        const result = await createUserIfNotExists(userData);
+        const cars = await fetchUserCars(userId);
+        setUserCars(cars.Vehicles);
         console.log(result);
       } catch (error) {
         console.error('Error:', error);
@@ -36,11 +32,26 @@ export default function Cars ({userId, user, lng }){
     fetchData();
   }, []);
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const result = await createUserIfNotExists(userData);
+        const cars = await fetchUserCars(userId);
+        setUserCars(cars.Vehicles);
+        console.log(result);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    fetchData();
+  }, [userId]);
+
   async function createUserIfNotExists(userData) {
     try {
       const existingUser = await prisma.User.findUnique({
         where: {
-          userId: userData.userId,
+          userId,
         },
       });
 
@@ -62,11 +73,7 @@ export default function Cars ({userId, user, lng }){
     }
   }
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
-
-console.log(UserCars);
+  console.log(UserCars);
   const CarsOverview = generateCarsOverview(UserCars, ["status"], ["allCars"]);
   CarsOverview.push({title:"lateCars" , number:0})
 
