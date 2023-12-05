@@ -12,7 +12,31 @@ export async function createUser(userData) {
       return { error: `Error creating user: ${error.message}` };
     }
   }
-  
+export  async function createUserIfNotExists(userData) {
+    try {
+      const existingUser = await prisma.User.findUnique({
+        where: {
+          userId,
+        },
+      });
+
+      if (!existingUser) {
+        const newUser = await prisma.User.create({
+          data: {
+            ...userData,
+          },
+        });
+
+        console.log('New user created:', newUser);
+        return { success: true, message: 'New user created.' };
+      } else {
+        return { success: false, message: 'User already exists.' };
+      }
+    } catch (error) {
+      console.error('Error creating user:', error);
+      return { success: false, message: 'Error creating user.' };
+    }
+  }
   // Read a specific user by ID
   export async function getUserById(id) {
     try {

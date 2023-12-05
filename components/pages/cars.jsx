@@ -12,7 +12,7 @@ import { DeleteConfirmationDialog } from "../buttonLink";
 import { useSystemContext } from "@/context/context";
 import { useEffect } from "react";
 import { fetchUserCars } from "@/prisma";
-import prisma from "@/prisma/prisma";
+import { createUserIfNotExists } from "@/prisma/user";
 
 export default function Cars ({userId, userData, lng }){
   const { isDeleteModalOpen, setIsDeleteModalOpen } = useSystemContext();
@@ -35,31 +35,7 @@ export default function Cars ({userId, userData, lng }){
     fetchData();
   }, []);
 
-  async function createUserIfNotExists(userData) {
-    try {
-      const existingUser = await prisma.User.findUnique({
-        where: {
-          userId,
-        },
-      });
 
-      if (!existingUser) {
-        const newUser = await prisma.User.create({
-          data: {
-            ...userData,
-          },
-        });
-
-        console.log('New user created:', newUser);
-        return { success: true, message: 'New user created.' };
-      } else {
-        return { success: false, message: 'User already exists.' };
-      }
-    } catch (error) {
-      console.error('Error creating user:', error);
-      return { success: false, message: 'Error creating user.' };
-    }
-  }
 
   console.log(UserCars);
   const CarsOverview = generateCarsOverview(UserCars, ["status"], ["allCars"]);
