@@ -22,10 +22,9 @@ export default function Cars ({userId, userData, lng }){
   useEffect(() => {
     async function fetchData() {
       try {
-        const cars = await fetchUserCars(userId);
         const result = await createUserIfNotExists(userData);
-        console.log(result);
-        setUserCars(cars.Vehicles);
+        const cars = await fetchUserCars(userId);
+        setUserCars(cars?.Vehicles);
         console.log(result);
       } catch (error) {
         console.error('Error:', error);
