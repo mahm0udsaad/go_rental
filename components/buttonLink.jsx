@@ -1,9 +1,9 @@
 "use client"
 import { useTranslation } from '@/app/i18n/client';
-import { Button, IconButton, Tooltip} from '@mui/material'
+import { Button, IconButton, Popover, Tooltip} from '@mui/material'
 import { MdDelete, MdEdit } from 'react-icons/md';
 import Link from 'next/link';
-import { IoIosMore } from "react-icons/io";
+import { IoIosMore, IoMdCreate, IoMdTrash } from 'react-icons/io'; // Import your icon components
 import React , { useEffect, useState } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { Unstable_Popup as BasePopup , PopupBody } from '@mui/base/Unstable_Popup';
@@ -13,7 +13,7 @@ import { deleteVehicleById, getVehicleById } from '@/prisma';
 import { useSystemContext } from '@/context/context';
 import { t } from 'i18next';
 
-const ButtonLink = React.memo(({ item, lng, isGrid }) => {
+const ButtonLink  = ({ item, lng, isGrid }) => {
   const { t } = useTranslation(lng, 'dashboard');
   const [isLinkLoading, setLinkLoading] = useState(false);
   const [linkDisabled, setlinkDisabled] = useState(false);
@@ -67,9 +67,9 @@ const ButtonLink = React.memo(({ item, lng, isGrid }) => {
       {!isGrid && <MorePopup lng={lng} item={item} />}
     </div>
   );
-});
+}
 
-const EditButton = React.memo(({ item }) => {
+const EditButton =({ item }) => {
   const [isLinkLoading, setLinkLoading] = useState(false);
   const [linkDisabled, setlinkDisabled] = useState(false);
 
@@ -103,25 +103,12 @@ const EditButton = React.memo(({ item }) => {
       </Tooltip>
     </Link>
   );
-});
+}
 
- const DeleteButton = React.memo(({ item, lng }) => {
+ const DeleteButton = ({ item, lng }) => {
   const { t } = useTranslation(lng, 'dashboard');
   const { car ,deleteParam , setCar , setIsDeleteModalOpen} = useSystemContext();
 
-
-const handleOpenDeleteModal = async ()=>{
-  if(deleteParam){
-    await getVehicleById(deleteParam)
-  .then(res => {
-    setCar(res);
-    setIsDeleteModalOpen(true);
-  })
-  .catch(error => {
-    console.error('Error fetching car data:', error);
-  });
-  }
-}
   
   return (
     <>
@@ -139,9 +126,9 @@ const handleOpenDeleteModal = async ()=>{
       </Link>
     </>
   );
-});
+}
 
-export const DeleteConfirmationDialog = React.memo(({ message, lng, isOpen, setIsOpen }) => {
+export const DeleteConfirmationDialog = ({ message, lng, isOpen, setIsOpen }) => {
   const { car ,deleteParam} = useSystemContext();
   const router = useRouter();
   const { t } = useTranslation(lng, 'dashboard');
@@ -179,36 +166,79 @@ export const DeleteConfirmationDialog = React.memo(({ message, lng, isOpen, setI
       </DialogActions>
     </Dialog>
   );
-});
+}
 
-const MorePopup = React.memo(({ item, lng }) => {
-  const [anchor, setAnchor] = useState(null);
-  const { openModal, setIsOpen, car } = useSystemContext();
+const MorePopup = ({ item, lng }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [openEditModal, setOpenEditModal] = useState(false);
 
   const handleClick = (event) => {
-    setAnchor(anchor ? null : event.currentTarget);
+    setAnchorEl(event.currentTarget);
   };
 
-  const open = Boolean(anchor);
-  const id = open ? 'more-popper' : undefined;
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'popup' : undefined;
+
+  const handleEditClick = () => {
+    setOpenEditModal(true);
+    handleClose();
+  };
+  const [car, setCar] = useState(null);
+  const editParam = useSearchParams().get('edit')
+
+  useEffect(() => {
+    if (editParam) {
+      getVehicleById(editParam)
+        .then((res) => {
+          setCar(res);
+          setOpenEditModal(true);
+        })
+        .catch((error) => {
+          console.error('Error fetching car data:', error);
+        });
+    }
+  }, [openEditModal, editParam]);
 
   return (
     <>
-      <EditVehicleForm lng={lng} formData={car} isOpen={openModal} setIsOpen={setIsOpen} />
+      <EditVehicleForm formData={car} lng={lng}  isOpen={openEditModal} setIsOpen={setOpenEditModal} />
       <div>
         <Button aria-describedby={id} type="button" onClick={handleClick}>
           <IoIosMore />
         </Button>
-        <BasePopup placement="top" id={id} open={open} anchor={anchor}>
-          <div>
-            <EditButton item={item} />
-            <DeleteButton lng={lng} item={item} />
-          </div>
-        </BasePopup>
+        <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <div style={{ padding: '10px' }}>
+          <Link href={`dashboard?edit=${item.id}`}>
+          <IconButton onClick={handleEditClick} aria-label="edit" >
+            <IoMdCreate />
+          </IconButton>
+          </Link>
+          <IconButton aria-label="delete" >
+            <IoMdTrash />
+          </IconButton>
+        </div>
+      </Popover>
       </div>
     </>
   );
-});
+}
 
 export default ButtonLink
 

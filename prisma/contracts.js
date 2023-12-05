@@ -107,11 +107,11 @@ export async function getAllContractsByUserId(userId) {
   }
 }
 
-export const getContractByPlateNumber = async (plateNumber) => {
+export async function getContractByPlateNumber(plateNumber){
   try {
     const contract = await prisma.contract.findFirst({
       where: {
-        plateNumber: plateNumber,
+        plateNumber,
       }, 
       include: {
         vehicle: {
@@ -132,7 +132,6 @@ export const getContractByPlateNumber = async (plateNumber) => {
         },
       },
     });
-
     return contract; 
   } catch (error) {
     throw new Error(`Error fetching contract: ${error}`);

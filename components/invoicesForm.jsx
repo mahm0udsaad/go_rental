@@ -1,11 +1,11 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dialog, TextField, Button, Snackbar, Grid, InputLabel, Select, MenuItem, Autocomplete } from '@mui/material';
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useForm } from 'react-hook-form';
 import { useTranslation } from '@/app/i18n/client';
 import { nationalitiesArray} from '@/data/info';
-import { createVehicle ,updateVehicle } from '@/prisma';
+import { createVehicle ,getVehicleById,updateVehicle } from '@/prisma';
 import { useSystemContext } from '@/context/context';
 import { useRouter } from 'next/navigation';
 import { convertFieldsToInt } from '@/helper/convertors';
@@ -238,7 +238,8 @@ return (
 export const EditVehicleForm = ({ lng, isOpen, setIsOpen, formData }) => {
   const { t } = useTranslation(lng , 'dashboard')
   const router = useRouter()
-  const keys = Object.keys(formData).filter(key => key !== 'userId' && key !== 'id');
+  console.log(formData);
+  const keys = formData ? Object.keys(formData).filter(key => key !== 'userId' && key !== 'id') : [];
   const {
     register,
     handleSubmit,
@@ -246,7 +247,7 @@ export const EditVehicleForm = ({ lng, isOpen, setIsOpen, formData }) => {
     setValue,
     formState: { errors },
   } = useForm({ defaultValues: formData }); // Set default values for the form fields
-  const { editParam, setSuccessMessage,  setErrorMessage } = useSystemContext()
+  const {setSuccessMessage,  setErrorMessage } = useSystemContext()
   const [isLinkLoading, setLinkLoading] = useState(false);
   const [linkDisabled, setlinkDisabled] = useState(false);
 
@@ -256,6 +257,7 @@ export const EditVehicleForm = ({ lng, isOpen, setIsOpen, formData }) => {
       data = convertFieldsToInt(data)
       const result = await updateVehicle(data.id , data);
       setSuccessMessage("editCarSuccessful")
+      setIsOpen(false)
       router.push('/dashboard')
       router.refresh()
   };
@@ -307,9 +309,9 @@ export const EditVehicleForm = ({ lng, isOpen, setIsOpen, formData }) => {
             </Button>
             <Button
               onClick={() => {
+                setIsOpen(false)
                 router.push('/dashboard')
                 router.refresh()
-                setIsOpen(false)
               }
               }        
               variant="contained"
