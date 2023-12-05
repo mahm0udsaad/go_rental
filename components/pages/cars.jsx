@@ -10,26 +10,62 @@ import { generateCarsOverview } from "@/data/info";
 import { Tooltip } from "@mui/material"; 
 import { DeleteConfirmationDialog } from "../buttonLink";
 import { useSystemContext } from "@/context/context";
-import { fetchUserCars } from "@/prisma";
 import { useEffect } from "react";
 
-export default function Cars ({userId, lng }){
+export default function Cars ({userId, user, lng }){
   const { isDeleteModalOpen, setIsDeleteModalOpen } = useSystemContext();
   const [ UserCars , setUserCars ] = useState([])
   const [ isGrid , setIsGrid ] = useState(false)
   const { t } = useTranslation(lng , "dashboard")
   useEffect(() => {
-    const fetchData = async () => {
+    async function fetchData() {
       try {
-        const cars = await fetchUserCars(userId);
-        setUserCars(cars?.Vehicles);
+        const userData = {
+          userId,
+          username: user.firstName,
+          email: user.emailAddresses[0].emailAddress,
+        };
+
+        const result = await createUserIfNotExists(userData);
+        console.log(result);
       } catch (error) {
-        console.error('Error fetching user cars:', error);
+        console.error('Error:', error);
       }
-    };
+    }
 
     fetchData();
-  }, [userId]);
+  }, []);
+
+  async function createUserIfNotExists(userData) {
+    try {
+      const existingUser = await prisma.User.findUnique({
+        where: {
+          userId: userData.userId,
+        },
+      });
+
+      if (!existingUser) {
+        const newUser = await prisma.User.create({
+          data: {
+            ...userData,
+          },
+        });
+
+        console.log('New user created:', newUser);
+        return { success: true, message: 'New user created.' };
+      } else {
+        return { success: false, message: 'User already exists.' };
+      }
+    } catch (error) {
+      console.error('Error creating user:', error);
+      return { success: false, message: 'Error creating user.' };
+    }
+  }
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
 console.log(UserCars);
   const CarsOverview = generateCarsOverview(UserCars, ["status"], ["allCars"]);
   CarsOverview.push({title:"lateCars" , number:0})
