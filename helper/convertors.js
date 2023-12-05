@@ -1,7 +1,8 @@
 
-export const convertFieldsToInt = (data) => {
-    const keysToConvertToInt = ['meter',
-     'rentalCount',
+export const convertFieldsToNumber = (data) => {
+  const keysToConvertToNumber = [
+    'meter',
+    'rentalCount',
     'manufactureYear',
     'extraHourPrice',
     'dailyRent',
@@ -22,16 +23,17 @@ export const convertFieldsToInt = (data) => {
     'total',
     'amount',
     'amount',
-    'maintenance']; 
+    'maintenance'
+  ]; 
 
-    keysToConvertToInt.forEach((key) => {
-      if (data[key] !== undefined && !isNaN(data[key])) {
-        data[key] = parseInt(data[key]); // Convert the field value to an integer
-      }
-    });
+  keysToConvertToNumber.forEach((key) => {
+    if (data[key] !== undefined && !isNaN(data[key])) {
+      data[key] = parseFloat(data[key]); // Convert the field value to a number (float)
+    }
+  });
   
-    return data;
-  };
+  return data;
+};
 
 export function getLastNumber(str) {
   for (let i = str.length - 1; i >= 0; i--) {

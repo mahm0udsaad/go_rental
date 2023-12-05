@@ -81,12 +81,11 @@ export async function createVehicle(vehicleData , userId) {
 
 // Update a specific vehicle by ID
 export async function updateVehicleById(id, updatedVehicleData) {
+  console.log(id , updatedVehicleData);
   try {
-    const { id, ...dataWithoutCarId } = updatedVehicleData;
-    console.log(dataWithoutCarId);
     const updatedVehicle = await prisma.vehicle.update({
       where: { id: id },
-      data: { ...dataWithoutCarId },
+      data: { ...updatedVehicleData },
     });
     return updatedVehicle;
   } catch (error) {
@@ -96,10 +95,10 @@ export async function updateVehicleById(id, updatedVehicleData) {
 
 export async function updateVehicle(id, updatedVehicleData) {
   try {
+    console.log(id , updatedVehicleData);
     const { id, ...dataWithoutCarId } = updatedVehicleData;
-    console.log(dataWithoutCarId);
     const updatedVehicle = await prisma.vehicle.update({
-      where: { id: id },
+      where: { id },
       data: { ...dataWithoutCarId },
     });
     return updatedVehicle;

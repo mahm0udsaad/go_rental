@@ -4,7 +4,7 @@ import { Button, IconButton, Popover, Tooltip} from '@mui/material'
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { IoIosMore, IoMdCreate, IoMdTrash } from 'react-icons/io'; 
 import Link from 'next/link';
-import React , { useEffect, useState } from 'react';
+import React , { useEffect, useLayoutEffect, useState } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { EditVehicleForm, InvoiceFormModal } from './invoicesForm';
@@ -21,6 +21,7 @@ const ButtonLink  = ({ item, lng, isGrid }) => {
     setlinkDisabled(true);
   };
 
+  
   return (
     <div className='flex gap-2'>
       {item.status === "Rented" ? (
@@ -64,42 +65,6 @@ const ButtonLink  = ({ item, lng, isGrid }) => {
       )}
       {!isGrid && <MorePopup lng={lng} item={item} />}
     </div>
-  );
-}
-
-const EditButton =({ item }) => {
-  const [isLinkLoading, setLinkLoading] = useState(false);
-  const [linkDisabled, setlinkDisabled] = useState(false);
-
-  const handleLinkClick = () => {
-    setlinkDisabled(true);
-    setLinkLoading(true);
-  };
-
-  return (
-    <Link href={`?edit=${item.id}`}>
-      <Tooltip title="Edit">
-        <IconButton
-          disabled={linkDisabled}
-          onClick={() => {
-            handleLinkClick();
-            setIsOpen(true);
-          }}
-          variant="contained"
-          className="main-color"
-          aria-label="edit"
-          style={{ backgroundColor: 'lightgrey', marginRight: '10px' }}
-        >
-          {isLinkLoading ? (
-            <div className="flex justify-center items-center">
-              <div className="border-t-4 border-blue-500 rounded-full animate-spin h-5 w-5"></div>
-            </div>
-          ) : (
-            <MdEdit style={{ color: 'white', marginRight: '5px' }} />
-          )}
-        </IconButton>
-      </Tooltip>
-    </Link>
   );
 }
 
@@ -168,9 +133,6 @@ export const DeleteConfirmationDialog = ({ message, lng, isOpen, setIsOpen }) =>
 
 const MorePopup = ({ item, lng }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [openEditModal, setOpenEditModal] = useState(false);
-  const [car, setCar] = useState(null);
-  const editParam = useSearchParams().get('edit')
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -183,27 +145,10 @@ const MorePopup = ({ item, lng }) => {
   const open = Boolean(anchorEl);
   const id = open ? 'popup' : undefined;
 
-  const handleEditClick = () => {
-    setOpenEditModal(true);
-    handleClose();
-  };
 
-  useEffect(() => {
-    if (editParam) {
-      getVehicleById(editParam)
-        .then((res) => {
-          setCar(res);
-          setOpenEditModal(true);
-        })
-        .catch((error) => {
-          console.error('Error fetching car data:', error);
-        });
-    }
-  }, [openEditModal, editParam]);
 
   return (
     <>
-      <EditVehicleForm formData={car} lng={lng}  isOpen={openEditModal} setIsOpen={setOpenEditModal} />
       <div>
         <Button aria-describedby={id} type="button" onClick={handleClick}>
           <IoIosMore />
@@ -224,7 +169,7 @@ const MorePopup = ({ item, lng }) => {
       >
         <div style={{ padding: '10px' }}>
           <Link href={`dashboard?edit=${item.id}`}>
-          <IconButton onClick={handleEditClick} aria-label="edit" >
+          <IconButton aria-label="edit" >
             <IoMdCreate />
           </IconButton>
           </Link>

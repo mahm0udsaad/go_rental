@@ -5,16 +5,17 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useForm } from 'react-hook-form';
 import { useTranslation } from '@/app/i18n/client';
 import { nationalitiesArray} from '@/data/info';
-import { createVehicle ,getVehicleById,updateVehicle } from '@/prisma';
+import { createVehicle, updateVehicle, updateVehicleById } from '@/prisma';
 import { useSystemContext } from '@/context/context';
 import { useRouter } from 'next/navigation';
-import { convertFieldsToInt } from '@/helper/convertors';
+import { convertFieldsToNumber } from '@/helper/convertors';
 import { DisplaySuccessMessage, ErrorMessage } from './messages';
 
 export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formData , formTitle, cars, customers , lng}) => {
   const { t } = useTranslation(lng , 'dashboard')
   const { setErrorMessage , setSuccessMessage ,setSubmitted} = useSystemContext()
   const router = useRouter()
+  console.log('form');
   const {
     register,
     handleSubmit,
@@ -31,7 +32,7 @@ export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formD
   ];
   const onSubmit = (data) => {
     data = {...data , userId}
-    data = convertFieldsToInt(data);
+    data = convertFieldsToNumber(data);
     createVehicle(data)
     .then((result) => {
       if (result.error) {
@@ -238,7 +239,6 @@ return (
 export const EditVehicleForm = ({ lng, isOpen, setIsOpen, formData }) => {
   const { t } = useTranslation(lng , 'dashboard')
   const router = useRouter()
-  console.log(formData);
   const keys = formData ? Object.keys(formData).filter(key => key !== 'userId' && key !== 'id') : [];
   const {
     register,
@@ -252,25 +252,35 @@ export const EditVehicleForm = ({ lng, isOpen, setIsOpen, formData }) => {
   const [linkDisabled, setlinkDisabled] = useState(false);
 
   const onSubmit = async (data) => {  
-      setlinkDisabled(true);
-      setLinkLoading(true);
-      data = convertFieldsToInt(data)
-      const result = await updateVehicle(data.id , data);
-      setSuccessMessage("editCarSuccessful")
-      setIsOpen(false)
-      router.push('/dashboard')
-      router.refresh()
+    setlinkDisabled(true);
+    setLinkLoading(true);
+    data = convertFieldsToNumber(data); 
+    console.log(data);
+    try {
+      const updatedData = await updateVehicleById(formData.id, data);
+  
+      if (updatedData) {
+        setSuccessMessage("editCarSuccessful");
+        setIsOpen(false);
+        router.push('/dashboard');
+        router.refresh();
+      } else {
+        console.log(`can't update car`);
+      }
+    } catch (error) {
+      console.error('Error updating vehicle:', error);
+    } finally {
+      setlinkDisabled(false);
+      setLinkLoading(false);
+    }
   };
+  
 
   return (
     <div className="flex absolute top-0 justify-center items-center h-screen">
       <Dialog
         open={isOpen}
-        onClose={() => {
-         setIsOpen(false)
-         router.push('/dashboard')
-         router.refresh()
-        }}
+        onClose={()=> setIsOpen(false)}
         fullWidth
         maxWidth="md" // Adjust as needed
         PaperProps={{ style: { width: '90%', maxHeight: '90vh', overflowY: 'auto' } }}
@@ -300,8 +310,8 @@ export const EditVehicleForm = ({ lng, isOpen, setIsOpen, formData }) => {
           <div className="flex gap-4">
             <Button disabled={linkDisabled} type="submit" variant="contained" color="success" className="mt-3">
               {isLinkLoading?(
-                <div class="flex justify-center items-center">
-                <div class="border-t-4 border-blue-500 rounded-full animate-spin h-5 w-5"></div>
+                <div className="flex justify-center items-center">
+                <div className="border-t-4 border-blue-500 rounded-full animate-spin h-5 w-5"></div>
             </div>
               ):(
                t('tables.edit')

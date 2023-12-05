@@ -10,6 +10,10 @@ import { CollabsedTable } from "../tables";
 import { GridView } from "../gridCarsView";
 import { Tooltip } from "@mui/material"; 
 import { useState } from "react";
+import { EditVehicleForm } from "../invoicesForm";
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import { getVehicleById } from "@/prisma";
 
 export default function Cars ({userId, lng ,Cars}){
 
@@ -55,6 +59,21 @@ export default function Cars ({userId, lng ,Cars}){
   const gridView = () =>{
     setIsGrid(true)
   }
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [car, setCar] = useState(null);
+  const editParam = useSearchParams().get('edit')
+  useEffect(() => {
+    if (editParam) {
+      getVehicleById(editParam)
+        .then((res) => {
+          setCar(res);
+          setOpenEditModal(true)
+        })
+        .catch((error) => {
+          console.error('Error fetching car data:', error);
+        });
+    }
+  }, [editParam]);
 
   return (
     <>
@@ -88,6 +107,7 @@ export default function Cars ({userId, lng ,Cars}){
        <p className="text-center pt-8 text-lg justify-center w-full ">{t('messages.emptyCars')}</p>
        </>
        }
+      <EditVehicleForm formData={car} lng={lng}  isOpen={openEditModal} setIsOpen={setOpenEditModal} />
       </>
   )
 }

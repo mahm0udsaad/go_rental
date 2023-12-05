@@ -37,12 +37,11 @@ const CloseContract = ({ lng }) => {
   if (!contract) {
     return <div>Loading...</div>;
   }
-
+ console.log(contract);
   const steps = ['Date Out', 'Returned Date'];
 
   return (
     <div className="container mx-auto">
-      <Paper className={`p-4 `}>
         <Typography variant="h4" color="primary" gutterBottom>
           {t('titles.closeContract')}
         </Typography>
@@ -155,13 +154,12 @@ const CloseContract = ({ lng }) => {
                   variant="outlined"
                   />
               </Grid>
-          {/* ...Other fields as needed */}
+
           </Grid>
           <Button style={{marginTop:'2rem'}} variant="contained" color="error" onClick={handleSubmit}>
             {t('titles.closeContract')}
           </Button>
         </div>
-      </Paper>
     </div>
   );
 };

@@ -59,7 +59,9 @@ export async function createContractAndCustomer(data , userId) {
         where: { plateNumber },
         data: {
           status: 'Rented',
-        
+          rentalCount: {
+            increment: 1, 
+          },
         },
       });
       return {newCustomer, newContract , updatedVehicle};
@@ -68,7 +70,6 @@ export async function createContractAndCustomer(data , userId) {
       throw error;
     }
 }
-  
 export async function getAllContractsByUserId(userId) {
   try {
     const contracts = await prisma.contract.findMany({
@@ -106,7 +107,6 @@ export async function getAllContractsByUserId(userId) {
     throw new Error('Failed to fetch contracts');
   }
 }
-
 export async function getContractByPlateNumber(plateNumber){
   try {
     const contract = await prisma.contract.findFirst({
