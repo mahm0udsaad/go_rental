@@ -1,40 +1,60 @@
-export function calculateDaysRented(dateOut, returnedDate) {
-    const date1 = new Date(dateOut);
-    const date2 = new Date(returnedDate);
-    const timeDifference = date2.getTime() - date1.getTime();
-    const daysRented = Math.ceil(timeDifference / (1000 * 3600 * 24)); // Milliseconds to days
-    return daysRented;
+export function calculateHoursDifference(timeIn , freeHours) {
+  // Get the current time
+  const now = new Date();
+
+  // Parse the provided timeIn
+  const [time, period] = timeIn.split(' ');
+  let [hours, minutes] = time.split(':');
+  hours = parseInt(hours, 10);
+
+  // Adjust hours if it's in PM
+  if (period === 'PM' && hours < 12) {
+      hours += 12;
   }
 
-  export function calculateDaysEarly(returnedDate, timeOut) {
-    const date1 = new Date(returnedDate);
-    const date2 = new Date(timeOut);
-    const timeDifference = date2.getTime() - date1.getTime();
-    const daysEarly = Math.floor(timeDifference / (1000 * 3600 * 24)); // Milliseconds to days
-    return daysEarly > 0 ? daysEarly : 0;
-  }
+  // Create a Date object for today with the given time
+  const timeInDate = new Date();
+  timeInDate.setHours(hours, parseInt(minutes, 10), 0, 0);
 
-  export function calculateDaysLate(returnedDate, timeOut) {
-    const date1 = new Date(returnedDate);
-    const date2 = new Date(timeOut);
-    const timeDifference = date1.getTime() - date2.getTime();
-    const daysLate = Math.floor(timeDifference / (1000 * 3600 * 24)); // Milliseconds to days
-    return daysLate > 0 ? daysLate : 0;
-  }
+  // Calculate the difference in milliseconds
+  let differenceInMilliseconds = now - timeInDate;
 
-  export function calculateExtraKmFee(meterReadingIn, daysRented, dailyKilometerLimit, extraKilometerPrice) {
-    const totalKilometers = meterReadingIn / daysRented;
-    const excessKilometers = Math.max(totalKilometers - dailyKilometerLimit, 0);
-    const extraKmFee = excessKilometers * extraKilometerPrice;
-    return extraKmFee;
+  // Convert milliseconds to hours
+  const differenceInHours = Math.floor(differenceInMilliseconds / (1000 * 60 * 60));
+  if(differenceInHours == 0){
+    return {inTime : 0}
   }
+  if(differenceInHours < freeHours ){
+   return  {FreeHours : differenceInHours}
+  }
+  return {lateInHours : differenceInHours};
+}
 
-  function calculateHoursLate(returnedDate, timeOut) {
-    const date1 = new Date(returnedDate);
-    const date2 = new Date(timeOut);
-    const timeDifference = date1.getTime() - date2.getTime();
-    const hoursLate = Math.floor(timeDifference / (1000 * 3600)); // Milliseconds to hours
-    return hoursLate > 0 ? hoursLate : 0;
+export function calculateLateHoursOrDays(contractInfo ,freeHours) {
+  const { returnedDate , timeIn} = contractInfo;
+  const returnedDateParts = returnedDate.split('/');
+  const returnedDay = parseInt(returnedDateParts[0], 10);
+  const returnedMonth = parseInt(returnedDateParts[1], 10) - 1; 
+  const returnedYear = 2000 + parseInt(returnedDateParts[2], 10); 
+
+  const returnedDateObj = new Date(returnedYear, returnedMonth, returnedDay);
+  const today = new Date();
+
+  // Calculate the difference in milliseconds
+  const differenceInMilliseconds = today - returnedDateObj;
+  // Convert milliseconds to days
+  const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+  
+  if (differenceInDays == 0 ){
+    return calculateHoursDifference(timeIn , freeHours)
   }
+  if (differenceInDays < 0 ){
+    return {earlyInDays : Math.abs(differenceInDays)}
+  }
+  return {lateInDays : differenceInDays};
+}
+
+
+
 
   

@@ -24,7 +24,7 @@ const ButtonLink  = ({ item, lng, isGrid }) => {
   
   return (
     <div className='flex gap-2'>
-      {item.status === "Rented" ? (
+      {item.status === "Rented" || item.status === "Late" ? (
         <Button
           variant="contained"
           onClick={handleButtonClick}

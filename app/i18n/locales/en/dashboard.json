@@ -55,8 +55,9 @@
     "tireChange": "Tire Change",
     "oilChange": "Oil Change",
     "other": "Other",
-    "description": "Description"
-
+    "description": "Description",
+    "Late":"Late"
+    
   },
   "actions":{
     "filter": "Filter",
@@ -166,7 +167,8 @@
     "individual": "Individual",
     "company": "Company",
     "edit":"Edit",
-    "close":"close"
+    "close":"close",
+    "remainingDuesToCustomer":"Remaining To Customer"
   },
   "messages":{
     "vehicleExists": "Vehicle with plate number ب ط ل 8888 already exists.",
@@ -175,14 +177,17 @@
     "emptyCars":"There is no cars start adding",
     "editCarSuccessful": "Car Edited Successfully !",
     "contractDetails":"Contract Details for Plate Number ",
-    "deleteMessage":"Are you sure of deleting the car"
-
+    "deleteMessage":"Are you sure of deleting the car",
+    "FreeHours":"Free late hours",
+    "lateInHours":"Late Hours",
+    "earlyInDays":"Early Days",
+    "lateInDays":"Late Days",
+    "inTime":"In Time"
   },
 
   "carDetalis":"car Details",
   "customerDetalis":"Customer Detalis",
   "contractDetalis":"Contract Basic Details",
   "days":"Numbers of Days"
-
 
 }

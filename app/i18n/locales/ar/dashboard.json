@@ -55,7 +55,8 @@
     "tireChange": "تغيير الإطارات",
     "oilChange": "تغيير الزيت",
     "other": "أخرى",
-    "description": "الوصف"
+    "description": "الوصف",
+    "Late":"متاخره"
 
   },
   "actions":{
@@ -123,8 +124,8 @@
     "returnDate": "تاريخ الإرجاع",
     "remainingDues": "المتبقي",
     "contractDebt": "دين العقد",
-    "meterReadingOut": "قراءة العداد ",
-    "meterReadingIn": "قراءة العداد الداخلي",
+    "meterReadingOut": " قراءة العداد وقت الخروج ",
+    "meterReadingIn": "قراءة العداد وقت الدخول",
     "timeOut": "وقت الخروج",
     "timeIn": "وقت الارجاع",
     "dateOut": "تاريخ الخروج",
@@ -165,7 +166,8 @@
     "individual": "فرد",
     "company": "شركة",
     "edit":"تعديل",
-    "close":"اغلاق"
+    "close":"اغلاق",
+    "remainingDuesToCustomer":"المتبقي له"
   },
   "messages":{
     "vehicleCreatedSuccess": "تم اضافه السياره بنجاح ! ",
@@ -174,8 +176,12 @@
     "emptyCars":"لا يوجد سيارات ابدا بالاضافه",
     "editCarSuccessful":"لقد تم تعديل السياره بنجاح",
     "contractDetails":"تفاصيل عقد السياره",
-    "deleteMessage":"هل انت متاكد من حذف السياره ؟"
-
+    "deleteMessage":"هل انت متاكد من حذف السياره ؟",
+    "FreeHours":"ساعات سماح متاخره",
+    "lateInHours":"ساعات متاخره",
+    "earlyInDays":"ايام مبكره",
+    "lateInDays":"ايام متاخره",
+    "inTime":"في الميعاد"
   },
   "carDetalis":"تفاصيل السياره",
   "customerDetalis":"تفاصيل العميل",

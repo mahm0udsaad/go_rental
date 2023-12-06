@@ -7,10 +7,10 @@ import { calculateReturnDate, formatDate, formatTime } from '@/helper/dateNow';
 import { nationalitiesArray, Customers } from '@/data/info';
 import { useTranslation } from '@/app/i18n/client';
 import { getVehicleById } from '@/prisma';
-import { convertFieldsToInt } from '@/helper/convertors';
 import { createContractAndCustomer } from '@/prisma/contracts';
 import { useSystemContext } from '@/context/context';
 import { DisplaySuccessMessage, ErrorMessage } from './messages';
+import { convertFieldsToNumber } from '@/helper/convertors';
 
 const RentNewCarForm = ({ lng , userId}) => {
   const { control, handleSubmit, setValue, watch, reset } = useForm();
@@ -115,7 +115,7 @@ const RentNewCarForm = ({ lng , userId}) => {
     const onSubmit = async (data) => {
       setlinkDisabled(true)
       setLinkLoading(true)
-      data = convertFieldsToInt(data);
+      data = convertFieldsToNumber(data);
 
       try {
         await createContractAndCustomer(data, userId);

@@ -76,6 +76,8 @@ export const CollabsedTable = ({ data, lng , cars}) => {
   const getColorClass = (status) => {
     if (status === 'Rented') {
       return 'bg-orange-300 text-orange-700 font-bold';
+    }else if (status === 'Late') {
+      return 'bg-red-300 text-red-700 font-bold';
     } else if (status === 'open' || status === 'Active' || status === 'Available') {
       return 'bg-green-300 text-green-700 font-bold';
     }

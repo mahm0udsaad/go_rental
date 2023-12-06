@@ -18,7 +18,6 @@ import { getVehicleById } from "@/prisma";
 export default function Cars ({userId, lng ,Cars}){
 
   const CarsOverview = generateCarsOverview(Cars, ["status"], ["allCars"]);
-  CarsOverview.push({title:"lateCars" , number:0})
   const { isDeleteModalOpen, setIsDeleteModalOpen } = useSystemContext();
 
   const [ isGrid , setIsGrid ] = useState(false)

@@ -1,4 +1,5 @@
 "use server"
+import { calculateLateHoursOrDays } from "@/helper/calc";
 import prisma from "./prisma";
 
 export async function createContractAndCustomer(data , userId) {
@@ -38,6 +39,7 @@ export async function createContractAndCustomer(data , userId) {
           dateOut,
           returnedDate,
           timeOut,
+          days,
           timeIn,
           dailyRent,
           total,
@@ -137,5 +139,28 @@ export async function getContractByPlateNumber(plateNumber){
     throw new Error(`Error fetching contract: ${error}`);
   }
 };
+export async function updateVehicleStatusForLateContracts() {
+  try {
+    const allContracts = await prisma.Contract.findMany({
+      include: {
+        vehicle: true,
+      },
+    });
 
+    for (const contract of allContracts) {
+      const lateInfo = await calculateLateHoursOrDays(contract , 6);
+      if ('lateInHours' in lateInfo || 'lateInDays' in lateInfo) {
+        await prisma.Vehicle.update({
+          where: { plateNumber: contract.vehicle.plateNumber },
+          data: {
+            status: 'Late',
+          },
+        });
+      }
+    }
+  } catch (error) {
+    console.error('Error updating vehicle status for late contracts:', error);
+    throw error;
+  }
+}
 

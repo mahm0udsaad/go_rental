@@ -285,8 +285,7 @@ export const EditVehicleForm = ({ lng, isOpen, setIsOpen, formData }) => {
         maxWidth="md" // Adjust as needed
         PaperProps={{ style: { width: '90%', maxHeight: '90vh', overflowY: 'auto' } }}
       >
-        <ErrorMessage lng={lng}/>
-       <DisplaySuccessMessage lng={lng}/>
+
         <div className="flex justify-between items-center">
           <h1 className="p-4 text-xl font-semibold">Edit Vehicle Details</h1>
         </div>

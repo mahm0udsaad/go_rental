@@ -3,6 +3,7 @@ import { ErrorMessage } from "@/components/messages";
 import NavBar from "@/components/navBar";
 import Cars from "@/components/pages/cars";
 import { fetchUserCars } from "@/prisma";
+import { updateVehicleStatusForLateContracts } from "@/prisma/contracts";
 import { createUserIfNotExists } from "@/prisma/user";
 import { auth, currentUser } from "@clerk/nextjs";
 
@@ -16,14 +17,15 @@ export default async function MainDashboardPage ({params:{lng}}){
     username:user.firstName,
     email:user.emailAddresses[0].emailAddress
   }
-  await createUserIfNotExists(userData)
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+await createUserIfNotExists(userData)
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
   
+  await updateVehicleStatusForLateContracts()
 
   return (
     <main className="dash">
