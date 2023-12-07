@@ -181,12 +181,12 @@ exports.Prisma.TransactionScalarFieldEnum = {
 exports.Prisma.MaintenanceScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  plateNumber: 'plateNumber',
+  createdAt: 'createdAt',
   maintenanceType: 'maintenanceType',
   client: 'client',
-  date: 'date',
   cost: 'cost',
-  description: 'description'
+  description: 'description',
+  plateNumber: 'plateNumber'
 };
 
 exports.Prisma.SortOrder = {

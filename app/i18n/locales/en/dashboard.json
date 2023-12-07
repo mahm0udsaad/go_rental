@@ -16,7 +16,9 @@
     "treasury":"Treasury",
     "invoices":"Invoices",
     "maintenance":"Maintenance",
-    "closeContract":"Close Contract"
+    "closeContract":"Close Contract",
+    "closeContractWithPayment":"Close Contract With Payment",
+    "closeContractWithDebt":"Close Contract With Debt "
   },
   "dashboard":{
     "revenues": "Revenues",
@@ -169,12 +171,15 @@
     "edit":"Edit",
     "close":"close",
     "type":"Type",
-    "remainingDuesToCustomer":"Remaining To Customer"
+    "remainingDuesToCustomer":"Remaining To Customer",
+    "createdAt":"Created At",
+    "lateFees":"Late Fees",
+    "addKillometerFees":"Additional Killometer Fees"
   },
   "messages":{
     "vehicleExists": "Vehicle with plate number ب ط ل 8888 already exists.",
     "vehicleCreatedSuccess": "Vehicle created successfully!",
-    "ContractAddedSuccessfully": "Contract Added Successfully",
+    "contractAddedSuccessfully": "Contract Added Successfully",
     "emptyCars":"There is no cars start adding",
     "editCarSuccessful": "Car Edited Successfully !",
     "contractDetails":"Contract Details for Plate Number ",
@@ -184,10 +189,16 @@
     "earlyInDays":"Early Days",
     "lateInDays":"Late Days",
     "inTime":"In Time",
-    "customerExists":"Customer Created Successfully "
+    "customerExists":"Customer Created Successfully ",
+    "maintenanceCardCreated":"Maintanance Card Created Successfully"
 
   },
-
+  "customerEvaluationOptions": {
+    "VIP": "VIP",
+    "Good": "Good",
+    "Bad": "Bad"
+  },
+  "customerEvaluation":"Customer Evaluation",
   "carDetalis":"car Details",
   "customerDetalis":"Customer Detalis",
   "contractDetalis":"Contract Basic Details",

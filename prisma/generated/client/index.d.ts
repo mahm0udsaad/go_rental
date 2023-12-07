@@ -2870,7 +2870,7 @@ export namespace Prisma {
     brand: string
     meter: number
     status: string
-    rentalCount: number | null
+    rentalCount: number
     transmission: string
     manufactureYear: number | null
     color: string | null
@@ -2980,7 +2980,7 @@ export namespace Prisma {
       brand: string
       meter: number
       status: string
-      rentalCount: number | null
+      rentalCount: number
       transmission: string
       manufactureYear: number | null
       color: string | null
@@ -7361,34 +7361,34 @@ export namespace Prisma {
   export type MaintenanceMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    plateNumber: string | null
+    createdAt: Date | null
     maintenanceType: string | null
     client: string | null
-    date: string | null
     cost: number | null
     description: string | null
+    plateNumber: string | null
   }
 
   export type MaintenanceMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    plateNumber: string | null
+    createdAt: Date | null
     maintenanceType: string | null
     client: string | null
-    date: string | null
     cost: number | null
     description: string | null
+    plateNumber: string | null
   }
 
   export type MaintenanceCountAggregateOutputType = {
     id: number
     userId: number
-    plateNumber: number
+    createdAt: number
     maintenanceType: number
     client: number
-    date: number
     cost: number
     description: number
+    plateNumber: number
     _all: number
   }
 
@@ -7404,34 +7404,34 @@ export namespace Prisma {
   export type MaintenanceMinAggregateInputType = {
     id?: true
     userId?: true
-    plateNumber?: true
+    createdAt?: true
     maintenanceType?: true
     client?: true
-    date?: true
     cost?: true
     description?: true
+    plateNumber?: true
   }
 
   export type MaintenanceMaxAggregateInputType = {
     id?: true
     userId?: true
-    plateNumber?: true
+    createdAt?: true
     maintenanceType?: true
     client?: true
-    date?: true
     cost?: true
     description?: true
+    plateNumber?: true
   }
 
   export type MaintenanceCountAggregateInputType = {
     id?: true
     userId?: true
-    plateNumber?: true
+    createdAt?: true
     maintenanceType?: true
     client?: true
-    date?: true
     cost?: true
     description?: true
+    plateNumber?: true
     _all?: true
   }
 
@@ -7524,12 +7524,12 @@ export namespace Prisma {
   export type MaintenanceGroupByOutputType = {
     id: string
     userId: string
-    plateNumber: string
+    createdAt: Date
     maintenanceType: string
     client: string | null
-    date: string
     cost: number
     description: string | null
+    plateNumber: string
     _count: MaintenanceCountAggregateOutputType | null
     _avg: MaintenanceAvgAggregateOutputType | null
     _sum: MaintenanceSumAggregateOutputType | null
@@ -7554,12 +7554,12 @@ export namespace Prisma {
   export type MaintenanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    plateNumber?: boolean
+    createdAt?: boolean
     maintenanceType?: boolean
     client?: boolean
-    date?: boolean
     cost?: boolean
     description?: boolean
+    plateNumber?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
     transaction?: boolean | Maintenance$transactionArgs<ExtArgs>
@@ -7568,12 +7568,12 @@ export namespace Prisma {
   export type MaintenanceSelectScalar = {
     id?: boolean
     userId?: boolean
-    plateNumber?: boolean
+    createdAt?: boolean
     maintenanceType?: boolean
     client?: boolean
-    date?: boolean
     cost?: boolean
     description?: boolean
+    plateNumber?: boolean
   }
 
   export type MaintenanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7593,12 +7593,12 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      plateNumber: string
+      createdAt: Date
       maintenanceType: string
       client: string | null
-      date: string
       cost: number
       description: string | null
+      plateNumber: string
     }, ExtArgs["result"]["maintenance"]>
     composites: {}
   }
@@ -8027,12 +8027,12 @@ export namespace Prisma {
   interface MaintenanceFieldRefs {
     readonly id: FieldRef<"Maintenance", 'String'>
     readonly userId: FieldRef<"Maintenance", 'String'>
-    readonly plateNumber: FieldRef<"Maintenance", 'String'>
+    readonly createdAt: FieldRef<"Maintenance", 'DateTime'>
     readonly maintenanceType: FieldRef<"Maintenance", 'String'>
     readonly client: FieldRef<"Maintenance", 'String'>
-    readonly date: FieldRef<"Maintenance", 'String'>
     readonly cost: FieldRef<"Maintenance", 'Float'>
     readonly description: FieldRef<"Maintenance", 'String'>
+    readonly plateNumber: FieldRef<"Maintenance", 'String'>
   }
     
 
@@ -8505,12 +8505,12 @@ export namespace Prisma {
   export const MaintenanceScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    plateNumber: 'plateNumber',
+    createdAt: 'createdAt',
     maintenanceType: 'maintenanceType',
     client: 'client',
-    date: 'date',
     cost: 'cost',
-    description: 'description'
+    description: 'description',
+    plateNumber: 'plateNumber'
   };
 
   export type MaintenanceScalarFieldEnum = (typeof MaintenanceScalarFieldEnum)[keyof typeof MaintenanceScalarFieldEnum]
@@ -8673,7 +8673,7 @@ export namespace Prisma {
     brand?: StringFilter<"Vehicle"> | string
     meter?: FloatFilter<"Vehicle"> | number
     status?: StringFilter<"Vehicle"> | string
-    rentalCount?: IntNullableFilter<"Vehicle"> | number | null
+    rentalCount?: IntFilter<"Vehicle"> | number
     transmission?: StringFilter<"Vehicle"> | string
     manufactureYear?: FloatNullableFilter<"Vehicle"> | number | null
     color?: StringNullableFilter<"Vehicle"> | string | null
@@ -8730,7 +8730,7 @@ export namespace Prisma {
     brand?: StringFilter<"Vehicle"> | string
     meter?: FloatFilter<"Vehicle"> | number
     status?: StringFilter<"Vehicle"> | string
-    rentalCount?: IntNullableFilter<"Vehicle"> | number | null
+    rentalCount?: IntFilter<"Vehicle"> | number
     transmission?: StringFilter<"Vehicle"> | string
     manufactureYear?: FloatNullableFilter<"Vehicle"> | number | null
     color?: StringNullableFilter<"Vehicle"> | string | null
@@ -8788,7 +8788,7 @@ export namespace Prisma {
     brand?: StringWithAggregatesFilter<"Vehicle"> | string
     meter?: FloatWithAggregatesFilter<"Vehicle"> | number
     status?: StringWithAggregatesFilter<"Vehicle"> | string
-    rentalCount?: IntNullableWithAggregatesFilter<"Vehicle"> | number | null
+    rentalCount?: IntWithAggregatesFilter<"Vehicle"> | number
     transmission?: StringWithAggregatesFilter<"Vehicle"> | string
     manufactureYear?: FloatNullableWithAggregatesFilter<"Vehicle"> | number | null
     color?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
@@ -9123,12 +9123,12 @@ export namespace Prisma {
     NOT?: MaintenanceWhereInput | MaintenanceWhereInput[]
     id?: StringFilter<"Maintenance"> | string
     userId?: StringFilter<"Maintenance"> | string
-    plateNumber?: StringFilter<"Maintenance"> | string
+    createdAt?: DateTimeFilter<"Maintenance"> | Date | string
     maintenanceType?: StringFilter<"Maintenance"> | string
     client?: StringNullableFilter<"Maintenance"> | string | null
-    date?: StringFilter<"Maintenance"> | string
     cost?: FloatFilter<"Maintenance"> | number
     description?: StringNullableFilter<"Maintenance"> | string | null
+    plateNumber?: StringFilter<"Maintenance"> | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
     transaction?: XOR<TransactionNullableRelationFilter, TransactionWhereInput> | null
@@ -9137,12 +9137,12 @@ export namespace Prisma {
   export type MaintenanceOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    plateNumber?: SortOrder
+    createdAt?: SortOrder
     maintenanceType?: SortOrder
     client?: SortOrder
-    date?: SortOrder
     cost?: SortOrder
     description?: SortOrder
+    plateNumber?: SortOrder
     user?: UserOrderByWithRelationInput
     vehicle?: VehicleOrderByWithRelationInput
     transaction?: TransactionOrderByWithRelationInput
@@ -9154,12 +9154,12 @@ export namespace Prisma {
     OR?: MaintenanceWhereInput[]
     NOT?: MaintenanceWhereInput | MaintenanceWhereInput[]
     userId?: StringFilter<"Maintenance"> | string
-    plateNumber?: StringFilter<"Maintenance"> | string
+    createdAt?: DateTimeFilter<"Maintenance"> | Date | string
     maintenanceType?: StringFilter<"Maintenance"> | string
     client?: StringNullableFilter<"Maintenance"> | string | null
-    date?: StringFilter<"Maintenance"> | string
     cost?: FloatFilter<"Maintenance"> | number
     description?: StringNullableFilter<"Maintenance"> | string | null
+    plateNumber?: StringFilter<"Maintenance"> | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
     transaction?: XOR<TransactionNullableRelationFilter, TransactionWhereInput> | null
@@ -9168,12 +9168,12 @@ export namespace Prisma {
   export type MaintenanceOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    plateNumber?: SortOrder
+    createdAt?: SortOrder
     maintenanceType?: SortOrder
     client?: SortOrder
-    date?: SortOrder
     cost?: SortOrder
     description?: SortOrder
+    plateNumber?: SortOrder
     _count?: MaintenanceCountOrderByAggregateInput
     _avg?: MaintenanceAvgOrderByAggregateInput
     _max?: MaintenanceMaxOrderByAggregateInput
@@ -9187,12 +9187,12 @@ export namespace Prisma {
     NOT?: MaintenanceScalarWhereWithAggregatesInput | MaintenanceScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Maintenance"> | string
     userId?: StringWithAggregatesFilter<"Maintenance"> | string
-    plateNumber?: StringWithAggregatesFilter<"Maintenance"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Maintenance"> | Date | string
     maintenanceType?: StringWithAggregatesFilter<"Maintenance"> | string
     client?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
-    date?: StringWithAggregatesFilter<"Maintenance"> | string
     cost?: FloatWithAggregatesFilter<"Maintenance"> | number
     description?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    plateNumber?: StringWithAggregatesFilter<"Maintenance"> | string
   }
 
   export type UserCreateInput = {
@@ -9273,7 +9273,7 @@ export namespace Prisma {
     brand: string
     meter: number
     status?: string
-    rentalCount?: number | null
+    rentalCount?: number
     transmission?: string
     manufactureYear?: number | null
     color?: string | null
@@ -9300,7 +9300,7 @@ export namespace Prisma {
     brand: string
     meter: number
     status?: string
-    rentalCount?: number | null
+    rentalCount?: number
     transmission?: string
     manufactureYear?: number | null
     color?: string | null
@@ -9324,7 +9324,7 @@ export namespace Prisma {
     brand?: StringFieldUpdateOperationsInput | string
     meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalCount?: IntFieldUpdateOperationsInput | number
     transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9350,7 +9350,7 @@ export namespace Prisma {
     brand?: StringFieldUpdateOperationsInput | string
     meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalCount?: IntFieldUpdateOperationsInput | number
     transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9376,7 +9376,7 @@ export namespace Prisma {
     brand: string
     meter: number
     status?: string
-    rentalCount?: number | null
+    rentalCount?: number
     transmission?: string
     manufactureYear?: number | null
     color?: string | null
@@ -9397,7 +9397,7 @@ export namespace Prisma {
     brand?: StringFieldUpdateOperationsInput | string
     meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalCount?: IntFieldUpdateOperationsInput | number
     transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9419,7 +9419,7 @@ export namespace Prisma {
     brand?: StringFieldUpdateOperationsInput | string
     meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalCount?: IntFieldUpdateOperationsInput | number
     transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9757,9 +9757,9 @@ export namespace Prisma {
 
   export type MaintenanceCreateInput = {
     id?: string
+    createdAt?: Date | string
     maintenanceType: string
     client?: string | null
-    date: string
     cost: number
     description?: string | null
     user: UserCreateNestedOneWithoutMaintenancesInput
@@ -9770,19 +9770,19 @@ export namespace Prisma {
   export type MaintenanceUncheckedCreateInput = {
     id?: string
     userId: string
-    plateNumber: string
+    createdAt?: Date | string
     maintenanceType: string
     client?: string | null
-    date: string
     cost: number
     description?: string | null
+    plateNumber: string
     transaction?: TransactionUncheckedCreateNestedOneWithoutMaintenanceInput
   }
 
   export type MaintenanceUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceType?: StringFieldUpdateOperationsInput | string
     client?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: StringFieldUpdateOperationsInput | string
     cost?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutMaintenancesNestedInput
@@ -9792,42 +9792,42 @@ export namespace Prisma {
 
   export type MaintenanceUncheckedUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string
-    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceType?: StringFieldUpdateOperationsInput | string
     client?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: StringFieldUpdateOperationsInput | string
     cost?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    plateNumber?: StringFieldUpdateOperationsInput | string
     transaction?: TransactionUncheckedUpdateOneWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceCreateManyInput = {
     id?: string
     userId: string
-    plateNumber: string
+    createdAt?: Date | string
     maintenanceType: string
     client?: string | null
-    date: string
     cost: number
     description?: string | null
+    plateNumber: string
   }
 
   export type MaintenanceUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceType?: StringFieldUpdateOperationsInput | string
     client?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: StringFieldUpdateOperationsInput | string
     cost?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string
-    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceType?: StringFieldUpdateOperationsInput | string
     client?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: StringFieldUpdateOperationsInput | string
     cost?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    plateNumber?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -9989,16 +9989,15 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-    isSet?: boolean
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -10146,21 +10145,20 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-    isSet?: boolean
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -10395,12 +10393,12 @@ export namespace Prisma {
   export type MaintenanceCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    plateNumber?: SortOrder
+    createdAt?: SortOrder
     maintenanceType?: SortOrder
     client?: SortOrder
-    date?: SortOrder
     cost?: SortOrder
     description?: SortOrder
+    plateNumber?: SortOrder
   }
 
   export type MaintenanceAvgOrderByAggregateInput = {
@@ -10410,23 +10408,23 @@ export namespace Prisma {
   export type MaintenanceMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    plateNumber?: SortOrder
+    createdAt?: SortOrder
     maintenanceType?: SortOrder
     client?: SortOrder
-    date?: SortOrder
     cost?: SortOrder
     description?: SortOrder
+    plateNumber?: SortOrder
   }
 
   export type MaintenanceMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    plateNumber?: SortOrder
+    createdAt?: SortOrder
     maintenanceType?: SortOrder
     client?: SortOrder
-    date?: SortOrder
     cost?: SortOrder
     description?: SortOrder
+    plateNumber?: SortOrder
   }
 
   export type MaintenanceSumOrderByAggregateInput = {
@@ -10707,13 +10705,12 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
-    unset?: boolean
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -11235,18 +11232,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-    isSet?: boolean
-  }
-
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -11277,6 +11262,18 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -11293,21 +11290,20 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-    isSet?: boolean
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11333,7 +11329,7 @@ export namespace Prisma {
     brand: string
     meter: number
     status?: string
-    rentalCount?: number | null
+    rentalCount?: number
     transmission?: string
     manufactureYear?: number | null
     color?: string | null
@@ -11358,7 +11354,7 @@ export namespace Prisma {
     brand: string
     meter: number
     status?: string
-    rentalCount?: number | null
+    rentalCount?: number
     transmission?: string
     manufactureYear?: number | null
     color?: string | null
@@ -11478,9 +11474,9 @@ export namespace Prisma {
 
   export type MaintenanceCreateWithoutUserInput = {
     id?: string
+    createdAt?: Date | string
     maintenanceType: string
     client?: string | null
-    date: string
     cost: number
     description?: string | null
     vehicle: VehicleCreateNestedOneWithoutMaintenancesInput
@@ -11489,12 +11485,12 @@ export namespace Prisma {
 
   export type MaintenanceUncheckedCreateWithoutUserInput = {
     id?: string
-    plateNumber: string
+    createdAt?: Date | string
     maintenanceType: string
     client?: string | null
-    date: string
     cost: number
     description?: string | null
+    plateNumber: string
     transaction?: TransactionUncheckedCreateNestedOneWithoutMaintenanceInput
   }
 
@@ -11564,7 +11560,7 @@ export namespace Prisma {
     brand?: StringFilter<"Vehicle"> | string
     meter?: FloatFilter<"Vehicle"> | number
     status?: StringFilter<"Vehicle"> | string
-    rentalCount?: IntNullableFilter<"Vehicle"> | number | null
+    rentalCount?: IntFilter<"Vehicle"> | number
     transmission?: StringFilter<"Vehicle"> | string
     manufactureYear?: FloatNullableFilter<"Vehicle"> | number | null
     color?: StringNullableFilter<"Vehicle"> | string | null
@@ -11675,12 +11671,12 @@ export namespace Prisma {
     NOT?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
     id?: StringFilter<"Maintenance"> | string
     userId?: StringFilter<"Maintenance"> | string
-    plateNumber?: StringFilter<"Maintenance"> | string
+    createdAt?: DateTimeFilter<"Maintenance"> | Date | string
     maintenanceType?: StringFilter<"Maintenance"> | string
     client?: StringNullableFilter<"Maintenance"> | string | null
-    date?: StringFilter<"Maintenance"> | string
     cost?: FloatFilter<"Maintenance"> | number
     description?: StringNullableFilter<"Maintenance"> | string | null
+    plateNumber?: StringFilter<"Maintenance"> | string
   }
 
   export type TransactionUpsertWithWhereUniqueWithoutUserInput = {
@@ -11831,9 +11827,9 @@ export namespace Prisma {
 
   export type MaintenanceCreateWithoutVehicleInput = {
     id?: string
+    createdAt?: Date | string
     maintenanceType: string
     client?: string | null
-    date: string
     cost: number
     description?: string | null
     user: UserCreateNestedOneWithoutMaintenancesInput
@@ -11843,9 +11839,9 @@ export namespace Prisma {
   export type MaintenanceUncheckedCreateWithoutVehicleInput = {
     id?: string
     userId: string
+    createdAt?: Date | string
     maintenanceType: string
     client?: string | null
-    date: string
     cost: number
     description?: string | null
     transaction?: TransactionUncheckedCreateNestedOneWithoutMaintenanceInput
@@ -12187,7 +12183,7 @@ export namespace Prisma {
     brand: string
     meter: number
     status?: string
-    rentalCount?: number | null
+    rentalCount?: number
     transmission?: string
     manufactureYear?: number | null
     color?: string | null
@@ -12213,7 +12209,7 @@ export namespace Prisma {
     brand: string
     meter: number
     status?: string
-    rentalCount?: number | null
+    rentalCount?: number
     transmission?: string
     manufactureYear?: number | null
     color?: string | null
@@ -12351,7 +12347,7 @@ export namespace Prisma {
     brand?: StringFieldUpdateOperationsInput | string
     meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalCount?: IntFieldUpdateOperationsInput | number
     transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12376,7 +12372,7 @@ export namespace Prisma {
     brand?: StringFieldUpdateOperationsInput | string
     meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalCount?: IntFieldUpdateOperationsInput | number
     transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12523,9 +12519,9 @@ export namespace Prisma {
 
   export type MaintenanceCreateWithoutTransactionInput = {
     id?: string
+    createdAt?: Date | string
     maintenanceType: string
     client?: string | null
-    date: string
     cost: number
     description?: string | null
     user: UserCreateNestedOneWithoutMaintenancesInput
@@ -12535,12 +12531,12 @@ export namespace Prisma {
   export type MaintenanceUncheckedCreateWithoutTransactionInput = {
     id?: string
     userId: string
-    plateNumber: string
+    createdAt?: Date | string
     maintenanceType: string
     client?: string | null
-    date: string
     cost: number
     description?: string | null
+    plateNumber: string
   }
 
   export type MaintenanceCreateOrConnectWithoutTransactionInput = {
@@ -12554,7 +12550,7 @@ export namespace Prisma {
     brand: string
     meter: number
     status?: string
-    rentalCount?: number | null
+    rentalCount?: number
     transmission?: string
     manufactureYear?: number | null
     color?: string | null
@@ -12580,7 +12576,7 @@ export namespace Prisma {
     brand: string
     meter: number
     status?: string
-    rentalCount?: number | null
+    rentalCount?: number
     transmission?: string
     manufactureYear?: number | null
     color?: string | null
@@ -12738,9 +12734,9 @@ export namespace Prisma {
   }
 
   export type MaintenanceUpdateWithoutTransactionInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceType?: StringFieldUpdateOperationsInput | string
     client?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: StringFieldUpdateOperationsInput | string
     cost?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutMaintenancesNestedInput
@@ -12749,12 +12745,12 @@ export namespace Prisma {
 
   export type MaintenanceUncheckedUpdateWithoutTransactionInput = {
     userId?: StringFieldUpdateOperationsInput | string
-    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceType?: StringFieldUpdateOperationsInput | string
     client?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: StringFieldUpdateOperationsInput | string
     cost?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    plateNumber?: StringFieldUpdateOperationsInput | string
   }
 
   export type VehicleUpsertWithoutTransactionsInput = {
@@ -12773,7 +12769,7 @@ export namespace Prisma {
     brand?: StringFieldUpdateOperationsInput | string
     meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalCount?: IntFieldUpdateOperationsInput | number
     transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12798,7 +12794,7 @@ export namespace Prisma {
     brand?: StringFieldUpdateOperationsInput | string
     meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalCount?: IntFieldUpdateOperationsInput | number
     transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12851,7 +12847,7 @@ export namespace Prisma {
     brand: string
     meter: number
     status?: string
-    rentalCount?: number | null
+    rentalCount?: number
     transmission?: string
     manufactureYear?: number | null
     color?: string | null
@@ -12877,7 +12873,7 @@ export namespace Prisma {
     brand: string
     meter: number
     status?: string
-    rentalCount?: number | null
+    rentalCount?: number
     transmission?: string
     manufactureYear?: number | null
     color?: string | null
@@ -12976,7 +12972,7 @@ export namespace Prisma {
     brand?: StringFieldUpdateOperationsInput | string
     meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalCount?: IntFieldUpdateOperationsInput | number
     transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13001,7 +12997,7 @@ export namespace Prisma {
     brand?: StringFieldUpdateOperationsInput | string
     meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalCount?: IntFieldUpdateOperationsInput | number
     transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13056,7 +13052,7 @@ export namespace Prisma {
     brand: string
     meter: number
     status?: string
-    rentalCount?: number | null
+    rentalCount?: number
     transmission?: string
     manufactureYear?: number | null
     color?: string | null
@@ -13107,12 +13103,12 @@ export namespace Prisma {
 
   export type MaintenanceCreateManyUserInput = {
     id?: string
-    plateNumber: string
+    createdAt?: Date | string
     maintenanceType: string
     client?: string | null
-    date: string
     cost: number
     description?: string | null
+    plateNumber: string
   }
 
   export type TransactionCreateManyUserInput = {
@@ -13131,7 +13127,7 @@ export namespace Prisma {
     brand?: StringFieldUpdateOperationsInput | string
     meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalCount?: IntFieldUpdateOperationsInput | number
     transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13155,7 +13151,7 @@ export namespace Prisma {
     brand?: StringFieldUpdateOperationsInput | string
     meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalCount?: IntFieldUpdateOperationsInput | number
     transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13179,7 +13175,7 @@ export namespace Prisma {
     brand?: StringFieldUpdateOperationsInput | string
     meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    rentalCount?: IntFieldUpdateOperationsInput | number
     transmission?: StringFieldUpdateOperationsInput | string
     manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13295,9 +13291,9 @@ export namespace Prisma {
   }
 
   export type MaintenanceUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceType?: StringFieldUpdateOperationsInput | string
     client?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: StringFieldUpdateOperationsInput | string
     cost?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     vehicle?: VehicleUpdateOneRequiredWithoutMaintenancesNestedInput
@@ -13305,22 +13301,22 @@ export namespace Prisma {
   }
 
   export type MaintenanceUncheckedUpdateWithoutUserInput = {
-    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceType?: StringFieldUpdateOperationsInput | string
     client?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: StringFieldUpdateOperationsInput | string
     cost?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    plateNumber?: StringFieldUpdateOperationsInput | string
     transaction?: TransactionUncheckedUpdateOneWithoutMaintenanceNestedInput
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutUserInput = {
-    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceType?: StringFieldUpdateOperationsInput | string
     client?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: StringFieldUpdateOperationsInput | string
     cost?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    plateNumber?: StringFieldUpdateOperationsInput | string
   }
 
   export type TransactionUpdateWithoutUserInput = {
@@ -13389,9 +13385,9 @@ export namespace Prisma {
   export type MaintenanceCreateManyVehicleInput = {
     id?: string
     userId: string
+    createdAt?: Date | string
     maintenanceType: string
     client?: string | null
-    date: string
     cost: number
     description?: string | null
   }
@@ -13492,9 +13488,9 @@ export namespace Prisma {
   }
 
   export type MaintenanceUpdateWithoutVehicleInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceType?: StringFieldUpdateOperationsInput | string
     client?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: StringFieldUpdateOperationsInput | string
     cost?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutMaintenancesNestedInput
@@ -13503,9 +13499,9 @@ export namespace Prisma {
 
   export type MaintenanceUncheckedUpdateWithoutVehicleInput = {
     userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceType?: StringFieldUpdateOperationsInput | string
     client?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: StringFieldUpdateOperationsInput | string
     cost?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     transaction?: TransactionUncheckedUpdateOneWithoutMaintenanceNestedInput
@@ -13513,9 +13509,9 @@ export namespace Prisma {
 
   export type MaintenanceUncheckedUpdateManyWithoutVehicleInput = {
     userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     maintenanceType?: StringFieldUpdateOperationsInput | string
     client?: NullableStringFieldUpdateOperationsInput | string | null
-    date?: StringFieldUpdateOperationsInput | string
     cost?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }

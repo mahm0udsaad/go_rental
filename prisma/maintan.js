@@ -1,17 +1,16 @@
 "use server"
 import prisma from "./prisma";
 
-export async function createMaintenanceForVehicle(plateNumber, maintenanceData , userId) {
+export async function createMaintenanceForVehicle(plateNumber, userId , maintenanceData) {
     try {
       const {
-        client,
-        date,
+        maintenanceType,
         cost,
-        description = null, 
+        description, 
       } = maintenanceData;
-  
+      console.log(maintenanceData);
       // Check if the vehicle exists
-      const existingVehicle = await prisma.vehicle.findUnique({
+      const existingVehicle = await prisma.vehicle.findFirst({
         where: { plateNumber },
       });
   
@@ -22,18 +21,24 @@ export async function createMaintenanceForVehicle(plateNumber, maintenanceData ,
       // Create maintenance record associated with the vehicle
       const newMaintenance = await prisma.maintenance.create({
         data: {
-          plateNumber,
-          maintenanceType:"Expense",
-          client,
-          date,
+          user: { connect: { userId } },
+          vehicle: { connect: { plateNumber } },
+          maintenanceType,
           cost,
           description,
+        },
+      });
+  
+      const newTransaction = await prisma.transaction.create({
+        data: {
+          amount: cost,
+          type: 'Expense', 
+          Maintenance: { connect: { id: newMaintenance.id } },
           vehicle: { connect: { plateNumber } },
           user: { connect: { userId } },
         },
       });
-  
-      return newMaintenance;
+      return {newMaintenance , newTransaction};
     } catch (error) {
       console.error('Error creating maintenance for vehicle:', error);
       throw error;

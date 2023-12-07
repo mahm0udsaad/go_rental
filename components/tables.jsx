@@ -4,7 +4,7 @@ import {Collapse, Table, TableBody, TableCell, TableContainer, TableHead, TableR
 import { Skeleton } from '@mui/material'; 
 import React , { useEffect, useState } from 'react';
 import ButtonLink from './buttonLink';
-import { extractNonObjectKeyValuePairsFromArray, getLastNumber } from '@/helper/convertors';
+import { extractNonObjectKeyValuePairsFromArray, formatDate, formatDateAndTime, getLastNumber } from '@/helper/convertors';
 
 export const RentalRows = ({ rentalData, lng, isLoading }) => {
   const { t } = useTranslation(lng, 'dashboard');
@@ -89,10 +89,10 @@ export const CollabsedTable = ({ data, lng , cars}) => {
   useEffect(() => {
     // Simulate loading for 2 seconds
     const timer = setTimeout(() => {
-      setIsLoading(false); // After 2 seconds, set loading to false
+      setIsLoading(false); 
     }, 500);
 
-    return () => clearTimeout(timer); // Clear the timer on component unmount
+    return () => clearTimeout(timer); 
   }, []);
 
   const LoadingSkeletonRow = () => (
@@ -110,14 +110,24 @@ export const CollabsedTable = ({ data, lng , cars}) => {
     const handleRowClick = () => {
       setOpen(!open);
     };
+    
 
     return (
       <React.Fragment>
         <TableRow className="border-b transition duration-300 ease-in-out hover:bg-[#2536656b]" >
             {tableHeaders.map((header, i) => (
               <TableCell onClick={handleRowClick} key={i} className="whitespace-nowrap px-6 py-4 md:py-2">
-                  <span className={getColorClass(item[header]) + ' px-4 py-2 rounded-full'}>
-                    {header === 'id' ? getLastNumber(item[header]):item[header]}
+                 <span className={getColorClass(item[header]) + ' px-4 py-2 rounded-full'}>
+                    {(() => {
+                      if (header === 'id') {
+                        return getLastNumber(item[header]);
+                      } else if (header === 'createdAt'){
+                        console.log(formatDate(item[header]));
+                        formatDate(item[header])
+                      }else {
+                        return item[header];
+                      }
+                    })()}
                   </span>
               </TableCell>
             ))}

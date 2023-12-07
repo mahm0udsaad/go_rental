@@ -4,13 +4,13 @@ import { Dialog, TextField, Button, Snackbar, Grid, InputLabel, Select, MenuItem
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from '@/app/i18n/client';
-import { nationalitiesArray} from '@/data/info';
+import { nationalitiesArray , maintenanceTypes} from '@/data/info';
 import { createVehicle, updateVehicle, updateVehicleById } from '@/prisma';
 import { useSystemContext } from '@/context/context';
 import { useRouter } from 'next/navigation';
 import { convertFieldsToNumber } from '@/helper/convertors';
-import { DisplaySuccessMessage, ErrorMessage } from './messages';
 import { createCustomer } from '@/prisma/customers';
+import { createMaintenanceForVehicle } from '@/prisma/maintan';
 
 export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formData , formTitle, cars, customers , lng , type}) => {
   const { t } = useTranslation(lng , 'dashboard')
@@ -24,13 +24,7 @@ export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formD
     setValue, 
     formState: { errors },
   } = useForm();
-  const maintenanceTypes = [
-    'غيار زيت',
-    'غيار إطارات',
-    'بنشر',
-    'تعبئة وقود',
-    'اخري',
-  ];
+
   const onSubmit = (data) => {
     data = { ...data};
     data = convertFieldsToNumber(data);
@@ -52,18 +46,11 @@ export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formD
           console.error('Error:', error);
         });
     }  else if (type === 'maintenance') {
-      const { plateNumber, maintenanceType, client, date, cost, description } = data;
-      createMaintenanceForVehicle(plateNumber,userId, {
-        maintenanceType,
-        client,
-        date,
-        cost,
-        description,
-      })
+      createMaintenanceForVehicle(data.plateNumber,userId, data)
         .then((newMaintenance) => {
           setAddNew(false)
           setSubmitted(true);
-          setSuccessMessage('customerCreatedSuccess');
+          setSuccessMessage('maintenanceCardCreated');
           reset();
           router.refresh();
         })
@@ -168,13 +155,13 @@ return (
         const formattedKey = t(`tables.${key}`)
         if (key === 'maintenanceType') {
         return (
-          <Grid xs={12} sm={6} md={4} key={key}>
+          <Grid item xs={12} sm={6} md={4} key={key}>
           <Autocomplete
           options={maintenanceTypes}
           getOptionLabel={(type) => `${type}`}
           onChange={(event, newValue) => {
             if (newValue) {
-              setValue(key, newValue); // Update value using setValue
+              setValue(key, newValue);
             }
           }}
           renderInput={(params) => (
@@ -207,16 +194,15 @@ return (
             />
            </Grid>
           );
-        }else if (key === 'car' && cars) {
+        }else if (key === 'plateNumber' && cars) {
         return (
-        <Grid xs={12} sm={6} md={4} key={key}>
+        <Grid item xs={12} sm={6} md={4} key={key}>
         <Autocomplete
         options={cars}
         getOptionLabel={(car) => `${car.plateNumber} - ${car.brand} - ${car.status}`}
         onChange={(event, newValue) => {
           if (newValue) {
-            setValue('Plate', newValue.plateNumber); 
-            setValue('Brand', newValue.brand); 
+            setValue('plateNumber', newValue.plateNumber); 
           }
         }}
         renderInput={(params) => (

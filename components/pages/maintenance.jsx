@@ -2,19 +2,27 @@
 import { ActionBtns } from "@/components/actionBtns";
 import { Cards } from "@/components/cards";
 import { CollabsedTable } from "@/components/tables";
-import { VehicleDetails, maintenanceData, maintenanceOverview } from "@/data/info";
 import { useState } from "react";
 import { formatDate } from "@/helper/dateNow";
 import { useTranslation } from "@/app/i18n/client";
+import { useSystemContext } from "@/context/context";
+import { InvoiceFormModal } from "../invoicesForm";
+import { generateCarsOverview } from "@/data/info";
 
-export default function Maintenance ({ lng }){
-  const [formData, setFormData] = useState({
-    car: "",
+export default function Maintenance ({ lng , cars , maintenance , userId}){
+  const { addNew , setAddNew  } = useSystemContext();
+  const maintenanceOverview = generateCarsOverview(maintenance, ["maintenanceType"]);
+  const formData = {
+    plateNumber: "",
     maintenanceType: '', 
-    Date: '',
     cost: '',
     description: '',
-  });
+  }
+  const requiredKeys =[
+    "plateNumber",
+    "maintenanceType",
+    "cost"
+  ]
   const { t } = useTranslation(lng , "dashboard")
   return (
     <>
@@ -24,8 +32,13 @@ export default function Maintenance ({ lng }){
         <Cards lng={lng} card={card} key={i}/>
       ))}
       </div>
-      <ActionBtns cars={VehicleDetails} lng={lng} formTitle={"Maintanance Card"} data={maintenanceData} fileName={'maintenance'} formData={formData} setFormData={setFormData}/>
-      <CollabsedTable  lng={lng} data={maintenanceData} />
+      <ActionBtns formTitle={'Maintanance Card'} lng={lng} />
+      {
+        !maintenance || maintenance.length == 0 ?  <h1 className="text-center pt-8">no maintenance data</h1> : <CollabsedTable  lng={lng} data={maintenance} /> 
+      }
+      {addNew && (
+        <InvoiceFormModal type={'maintenance'} requiredKeys={requiredKeys} cars={cars} data={maintenance} fileName={'maintenance'} userId={userId} lng={lng}  formTitle={"Maintanance Card"} formData={formData}  isOpen={addNew} setIsOpen={setAddNew} />
+    )}
       </>
   )
 }

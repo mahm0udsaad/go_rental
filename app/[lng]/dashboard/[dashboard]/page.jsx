@@ -30,7 +30,7 @@ const PageRenderer =async ({ params }) => {
       case 'invoices':
         return <Invoices lng={params.lng} />;
       case 'maintenance':
-        return <Maintenance maintenance={userData.Maintenance} lng={params.lng} />;
+        return <Maintenance userId={userId} cars={userData.Vehicles} maintenance={userData.Maintenances} lng={params.lng} />;
       case 'treasury':
         return <Treasury Transactions={userData.Transactions} lng={params.lng} />;
         case 'closeContract':
@@ -44,8 +44,8 @@ const PageRenderer =async ({ params }) => {
     <main className="dash">
       <section className="sm:gap-4 sm:flex">
         <NavBar lng={params.lng} />
-        <section className="flex w-full sm:h-[98dvh]">
-          <section className="flex-col mt-16 sm:mt-4 bg-white rounded-xl w-full lg:w-[99%] pt-3 px-4 text-blue-950 text-3xl font-semibold relative">
+        <section className="flex w-full sm:h-[98dvh] ">
+          <section className="flex-col scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-blue-200 mt-16 sm:mt-4 overflow-y-scroll bg-white rounded-xl w-full lg:w-[99%] pt-3 px-4 text-blue-950 text-3xl font-semibold relative">
             {renderPageComponent()}
           </section>
         </section>

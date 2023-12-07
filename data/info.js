@@ -704,6 +704,34 @@ export const  nationalitiesArray =[
 'الهند',
 'تشاد',
 ]
+export  const maintenanceTypes = [
+  'غيار زيت',
+  'غيار إطارات',
+  'بنشر',
+  'تعبئة وقود',
+  'اخري',
+];
+
+export function createFinancialOverview(transactions) {
+  let totalRevenues = 0;
+  let totalExpenses = 0;
+
+  transactions.forEach(transaction => {
+    if (transaction.type === 'Revenue') {
+      totalRevenues += transaction.amount;
+    } else {
+      totalExpenses += transaction.amount;
+    }
+  });
+
+  const TreasuryCards = [
+    { title: 'totalRevenues', number: `$${totalRevenues.toLocaleString()}` },
+    { title: 'totalExpenses', number: `$${totalExpenses.toLocaleString()}` }
+  ];
+
+  return TreasuryCards;
+}
+
 export const generateCarsOverview = (detailsArray, fieldsToCount, titlesToAdd) => {
   const CarsCards = {};
  if(!detailsArray){
@@ -731,19 +759,4 @@ export const generateCarsOverview = (detailsArray, fieldsToCount, titlesToAdd) =
 
   return CarsOverview;
 };
-
 export const CarsOverview = generateCarsOverview(VehicleDetails, ["status"], ["allCars"]);
-CarsOverview.push({title:"lateCars" , number:0})
-const maintenanceTypes = {};
-maintenanceData.forEach((data) => {
-const { maintenanceType, cost } = data;
-if (!maintenanceTypes[maintenanceType]) {
-  maintenanceTypes[maintenanceType] = cost;
-} else {
-  maintenanceTypes[maintenanceType] += cost;
-}
-});
-export const maintenanceOverview = Object.entries(maintenanceTypes).map(([title, number]) => ({
-title,
-number,
-}));

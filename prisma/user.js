@@ -49,27 +49,3 @@ export  async function createUserIfNotExists(userData) {
     }
   }
   
-  // Update a user by ID
-  export async function updateUserById(id, updatedUserData) {
-    try {
-      const updatedUser = await prisma.user.update({
-        where: { id },
-        data: updatedUserData,
-      });
-      return { updatedUser };
-    } catch (error) {
-      return { error: `Error updating user: ${error.message}` };
-    }
-  }
-  
-  // Delete a user by ID
-  export async function deleteUserById(id) {
-    try {
-      const deletedUser = await prisma.user.delete({
-        where: { id },
-      });
-      return { deletedUser };
-    } catch (error) {
-      return { error: `Error deleting user: ${error.message}` };
-    }
-  }

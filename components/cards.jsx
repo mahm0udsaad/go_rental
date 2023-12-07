@@ -1,6 +1,7 @@
 
 "use client"
 import { useTranslation } from "@/app/i18n/client";
+import { maintenanceTypes } from "@/data/info";
 import { Skeleton } from "@mui/material";
 
 export const Cards = ({ card, i ,lng}) => {
@@ -29,7 +30,15 @@ export const Cards = ({ card, i ,lng}) => {
       <div
         className={`text-xs font-medium leading-5 tracking-wider  whitespace-nowrap`}
       >
-        {t(`dashboard.${card.title}`)}
+ 
+      {maintenanceTypes.includes(card.title) ? (
+        <>
+          <span>{card.title}</span>
+        </>
+      ) : (
+        t(`dashboard.${card.title}`)
+      )}
+
       </div>
       <div className="justify-between items-stretch flex w-full gap-5 mt-3">
         <div className="text-xl font-bold leading-8">

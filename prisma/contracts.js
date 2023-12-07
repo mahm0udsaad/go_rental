@@ -27,7 +27,7 @@ export async function createContractAndCustomer(data, userId) {
       // Create a new customer
       const newCustomer = await prisma.customer.create({
         data: {
-          userId,
+          user: { connect: { userId } },
           customerName,
           nationality,
           idNumber,
@@ -69,6 +69,7 @@ export async function createContractAndCustomer(data, userId) {
           type: 'expense', // Or specify the type here
           contract: { connect: { id: newContract.id } },
           customer: { connect: { id: newCustomer.id } },
+          user: { connect: { userId } },
           vehicle: { connect: { plateNumber } },
         },
       });
@@ -229,9 +230,7 @@ export  async function createContractWithExistingCustomer(contractData, customer
       where: { plateNumber },
       data: {
         status: 'Rented',
-        rentalCount: {
-          increment: 1,
-        },
+        rentalCount: { increment: 1},
       },
     });
 

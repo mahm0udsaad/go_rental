@@ -8,7 +8,7 @@ const RentNewCar = async ({ lng }) => {
     getAllCustomersByUserId(userId),
   ]);
   return (
-    <div className="p-4 h-[94vh] overflow-y-scroll">
+    <div className="p-4">
       <RentNewCarForm Customers={customersResult} lng={lng} userId={userId} />
     </div>
   );

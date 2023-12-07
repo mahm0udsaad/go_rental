@@ -135,7 +135,7 @@ const RentNewCarForm = ({ lng , userId , Customers}) => {
             timeIn: data.timeIn,
             dailyRent: data.dailyRent,
           };
-    
+  
           const { newContract, updatedVehicle } = await createContractWithExistingCustomer(
             contractData,
             customer.id,
@@ -144,9 +144,10 @@ const RentNewCarForm = ({ lng , userId , Customers}) => {
           );
           // Perform actions after creating the contract and updating the vehicle
           setSuccessMessage('contractAddedSuccessfully');
-          // setLinkLoading(false);
-          // setlinkDisabled(false);
-          // router.push('/dashboard');
+          setLinkLoading(false);
+          setlinkDisabled(false);
+          router.push('/dashboard');
+          router.refresh()
         } else {
           await createContractAndCustomer(data, userId);
     
@@ -154,6 +155,8 @@ const RentNewCarForm = ({ lng , userId , Customers}) => {
           setLinkLoading(false);
           setlinkDisabled(false);
           router.push('/dashboard');
+          router.refresh()
+
         }
       } catch (error) {
         console.error('Error:', error);

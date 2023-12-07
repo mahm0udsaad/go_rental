@@ -16,6 +16,8 @@
     "treasury":"الخزانة",
     "invoices":"الفواتير",
     "closeContract":"اغلاق العقد",
+    "closeContractWithPayment":"اغلاق العقد مع دفع المبلغ",
+    "closeContractWithDebt":"اغلاق العقد مع التحويل الي ميديونيه",
     "maintenance":"الصيانة"
   },
   "dashboard":{
@@ -168,12 +170,15 @@
     "edit":"تعديل",
     "close":"اغلاق",
     "type":"النوع",
-    "remainingDuesToCustomer":"المتبقي له"
+    "remainingDuesToCustomer":"المتبقي له",
+    "createdAt":"تاريخ الانشاء",
+    "lateFees":"رسوم تاخير",
+    "addKillometerFees":"رسوم كيلومتر اضافي"
   },
   "messages":{
     "vehicleCreatedSuccess": "تم اضافه السياره بنجاح ! ",
     "vehicleExists": "المركبة ذات اللوحه  ب ط ل 8888 موجودة بالفعل.",
-    "ContractAddedSuccessfully": "تمت إضافة العقد بنجاح",
+    "contractAddedSuccessfully": "تمت إضافة العقد بنجاح",
     "emptyCars":"لا يوجد سيارات ابدا بالاضافه",
     "editCarSuccessful":"لقد تم تعديل السياره بنجاح",
     "contractDetails":"تفاصيل عقد السياره",
@@ -183,8 +188,15 @@
     "earlyInDays":"ايام مبكره",
     "lateInDays":"ايام متاخره",
     "inTime":"في الميعاد",
-    "customerExists":"تم اضافه العميل بنجاح"
+    "customerExists":"تم اضافه العميل بنجاح",
+    "maintenanceCardCreated":"تم اضافه كارت الصيانه"
   },
+  "customerEvaluationOptions": {
+    "VIP": "مميز",
+    "Good": "جيد",
+    "Bad": "سيء"
+  },
+  "customerEvaluation":"تقييم العميل",
   "carDetalis":"تفاصيل السياره",
   "customerDetalis":"تفاصيل العميل",
   "contractDetalis":"تفاصيل العقد الاساسيه",

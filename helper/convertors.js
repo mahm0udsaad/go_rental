@@ -67,3 +67,29 @@ export function getLastNumber(str) {
   
     return resultArray;
   }
+
+  export function formatDate(timestamp) {
+    const date = new Date(timestamp);
+  
+    const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+  
+    return formattedDate;
+  }
+
+  export function extractNonObjectKeyValuePairsFromObject(obj) {
+    const result = {};
+  
+    function extract(obj) {
+      for (const key in obj) {
+        if (typeof obj[key] !== 'object') {
+          result[key] = obj[key];
+        } else {
+          extract(obj[key]); // Recursively check for nested objects
+        }
+      }
+    }
+  
+    extract(obj);
+    return result;
+  }

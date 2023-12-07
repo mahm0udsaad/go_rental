@@ -79,6 +79,15 @@ export const fetchUserCars = async (userId) => {
             type:true,      
             plateNumber:true,
           }
+        },
+        Maintenances:{
+          select:{
+            id:true,
+            createdAt:true,
+            maintenanceType:true,
+            cost:true,
+            plateNumber:true,
+          }
         }
       },
     });
