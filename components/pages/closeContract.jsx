@@ -6,6 +6,7 @@ import { Paper, Typography, Grid, Stepper, Step, StepLabel, TextField, Button, A
 import { useTranslation } from '@/app/i18n/client';
 import {  calculateHoursDifference, calculateLateHoursOrDays } from '@/helper/calc';
 import { useForm, Controller } from 'react-hook-form';
+import { convertFieldsToNumber } from '@/helper/convertors';
 
 const CloseContract = ({ lng }) => {
   const { t } = useTranslation(lng , "dashboard")
@@ -25,9 +26,7 @@ const CloseContract = ({ lng }) => {
   if (!contract) {
     return <div>Loading...</div>;
   }
-  const onSubmit = (data) =>{
-    console.log(data);
-  }
+
 
   const handleColorChangeBasedOnStatus = (status) => {
     switch (status) {
@@ -43,92 +42,67 @@ const CloseContract = ({ lng }) => {
         return '';
     }
   }
-  const GridItem = ({ control, name, label, value, readOnly, options, handleChange, t }) => {
-    if (name === 'autocomplete') {
-      return (
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <Autocomplete
-            options={options}
-            getOptionLabel={(option) => option.label}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={label}
-                variant="outlined"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            )}
-          />
-        </Grid>
-      );
-    }
-  
-    return (
-      <Grid item xs={12} sm={6} md={4} lg={3}>
-        <Controller
-          name={name}
-          control={control}
-          defaultValue={value}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              label={label}
-              InputProps={{ readOnly }}
-              value={value}
-              onChange={(e) => handleChange(name, e.target.value)}
-              fullWidth
-              margin="normal"
-              variant="outlined"
-            />
-          )}
-        />
-      </Grid>
-    );
-  };
+
   const steps = ['dateOut', 'returnedDate'];
   const lateHoursOrDays = calculateLateHoursOrDays(contract , 6);
   let total = contract.total ;
   let lateFees = 0
   let additionalKilloMetersFees = 0
+  let remainingDues = contract.remainingDues
+  let paid = watch('paid')
 
     if ('lateInHours' in lateHoursOrDays){
-    total =  contract.total + lateHoursOrDays[Object.keys(lateHoursOrDays)[0]] * contract.vehicle.extraHourPrice
+       total =  contract.total + lateHoursOrDays[Object.keys(lateHoursOrDays)[0]] * contract.vehicle.extraHourPrice
      lateFees = lateHoursOrDays[Object.keys(lateHoursOrDays)[0]] * contract.vehicle.extraHourPrice
+     remainingDues = Math.floor(total - paid )
      setValue('total',total)
     }
     if("lateInDays" in lateHoursOrDays){
       total =  contract.total + lateHoursOrDays[Object.keys(lateHoursOrDays)[0]] * contract.dailyRent
      lateFees = lateHoursOrDays[Object.keys(lateHoursOrDays)[0]] * contract.dailyRent
+     remainingDues = Math.floor(total - paid )
      setValue('total',total)
     }
     if("earlyInDays" in lateHoursOrDays){
       total =  contract.total - lateHoursOrDays[Object.keys(lateHoursOrDays)[0]] * contract.dailyRent
+     remainingDues = Math.floor(total - paid )
      setValue('total',total)
     }
+    const options = [
+      { value: 'VIP', label: t('customerEvaluationOptions.VIP') },
+      { value: 'Good', label: t('customerEvaluationOptions.Good') },
+      { value: 'Bad', label: t('customerEvaluationOptions.Bad') }
+    ];
 
-  contract.remainingDues = total - contract.paid ;
+    const discountOptions = [
+      { label: 'No Discount', value: 0 },
+      { label: '10% Discount', value: 0.1 },
+      { label: '15% Discount', value: 0.15 },
+      { label: '25% Discount', value: 0.25 },
+      { label: '50% Discount', value: 0.5 },
+    ];
 
   const meterReadingIn = watch('meterReadingIn')
-  let paid = watch('paid')
   let totalMeter = meterReadingIn - contract.meterReadingOut
   let totalKillometer = contract.days * contract.vehicle.dailyKilometerLimit
   if(totalMeter > totalKillometer){
    let additionalKilloMeters=  totalMeter - totalKillometer  
    additionalKilloMetersFees = Math.floor(additionalKilloMeters * contract.vehicle.extraKilometerPrice)
    total = Math.floor(total + additionalKilloMetersFees)
-   contract.remainingDues = Math.floor(total - contract.remainingDues)
-   setValue('remainingDues',contract.remainingDues)
-   setValue('total',total)
+   remainingDues = Math.floor(total - paid )
+   
+   setValue('addKillometerFess',additionalKilloMetersFees)
+
   }
-  const options = [
-    { value: 'VIP', label: t('customerEvaluationOptions.VIP') },
-    { value: 'Good', label: t('customerEvaluationOptions.Good') },
-    { value: 'Bad', label: t('customerEvaluationOptions.Bad') }
-  ];
-  
-  console.log(total);
+  console.log("الباقي"+" "+remainingDues);
+  setValue('total',total)
+
+  const onSubmit = (data) =>{
+    setValue('remainingDues',0)
+    setValue('paid',total)
+    data = convertFieldsToNumber(data)
+    console.log(data);
+  }
   return (
     <div className="container mx-auto">
         <Typography variant="h4" color="primary" gutterBottom>
@@ -164,23 +138,28 @@ const CloseContract = ({ lng }) => {
                 <Typography variant="body1">{contract.returnedDate}</Typography>
               </Grid>
               {/* Editable Inputs */}
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <Controller
-                  name="total"
-                  control={control}
-                  render={({ field }) => (
+              <Grid item xs={12} sm={6} md={4}>
+              <Controller
+                name="total"
+                control={control}
+                render={({ field }) => {
+                  const calculatedTotal = total - paid;
+                  const displayTotal = isNaN(calculatedTotal) ? 0 : calculatedTotal.toFixed(2);
+
+                  return (
                     <TextField
                       {...field}
                       label={t('tables.total')}
-                      value={(parseFloat(total) - parseFloat(paid)).toFixed(2) || contract.total}
+                      value={total}
                       InputProps={{ readOnly: true }}
                       fullWidth
                     />
-                  )}
-                />
-              </Grid>
+                  );
+                }}
+              />
+            </Grid>
 
-            <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Grid item xs={12} sm={6} md={4}>
               <Controller
                 name="paid"
                 control={control}
@@ -197,11 +176,11 @@ const CloseContract = ({ lng }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Grid item xs={12} sm={6} md={4}>
               <Controller
                 name="remainingDues"
                 control={control}
-                value={contract.remainingDues}
+                value={remainingDues}
                 render={({ field }) => (
                   <TextField
                     {...field}
@@ -212,14 +191,14 @@ const CloseContract = ({ lng }) => {
                     }
                     InputProps={{ readOnly: true }}
                     readOnly={true}
-                    value={Math.abs(contract.remainingDues)}
+                    value={remainingDues || contract.remainingDues}
                     fullWidth
                   />
                 )}
               />
             </Grid>
 
-            <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Grid item xs={12} sm={6} md={4}>
               <Controller
                 name="lateFees"
                 control={control}
@@ -237,7 +216,7 @@ const CloseContract = ({ lng }) => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Grid item xs={12} sm={6} md={4}>
               <Controller
                 name="addKillometerFess"
                 control={control}
@@ -255,7 +234,7 @@ const CloseContract = ({ lng }) => {
               />
             </Grid>
 
-              <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Grid item xs={12} sm={6} md={4}>
                 <TextField
                   label={t('tables.dailyKilometerLimit')}
                   value={contract.vehicle?.dailyKilometerLimit}
@@ -265,7 +244,7 @@ const CloseContract = ({ lng }) => {
                   variant="outlined"
                   />
               </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Grid item xs={12} sm={6} md={4}>
                 <Controller
                   name="meterReadingOut"
                   control={control}
@@ -282,7 +261,7 @@ const CloseContract = ({ lng }) => {
                   )}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Grid item xs={12} sm={6} md={4}>
                 <Controller
                   name="meterReadingIn"
                   control={control}
@@ -300,7 +279,7 @@ const CloseContract = ({ lng }) => {
                   )}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Grid item xs={12} sm={6} md={4}>
                 <Controller
                   name="customerName"
                   control={control}
@@ -317,7 +296,7 @@ const CloseContract = ({ lng }) => {
                   )}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Grid item xs={12} sm={6} md={4}>
                 <Controller
                   name="debt"
                   control={control}
@@ -334,7 +313,7 @@ const CloseContract = ({ lng }) => {
                   )}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Grid item xs={12} sm={6} md={4}>
               <Controller
                 name="idNumber"
                 control={control}
@@ -351,7 +330,7 @@ const CloseContract = ({ lng }) => {
                 )}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Grid item xs={12} sm={6} md={4}>
               <Autocomplete
                 options={options}
                 getOptionLabel={(option) => option.label}
@@ -367,7 +346,27 @@ const CloseContract = ({ lng }) => {
                 )}
               />
             </Grid>
-                  
+            <Grid item xs={12} sm={6} md={4}>
+            <Controller
+              name="discount"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Autocomplete
+                  {...field}
+                  options={discountOptions}
+                  onChange={(event, newValue) => {
+                    if (newValue) {
+                      setValue('discount', newValue.value);
+                    }
+                  }}
+                  renderInput={(params) => (
+                    <TextField {...params} label="Discount" variant="outlined" />
+                  )}
+                />
+              )}
+            />
+            </Grid>
           </Grid>
           <div className="flex gap-4">
           <Button type='submit' style={{marginTop:'2rem'}} variant="contained" color="success" onClick={handleSubmit}>
