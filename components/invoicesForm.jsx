@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Dialog, TextField, Button, Snackbar, Grid, InputLabel, Select, MenuItem, Autocomplete } from '@mui/material';
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from '@/app/i18n/client';
 import { nationalitiesArray} from '@/data/info';
 import { createVehicle, updateVehicle, updateVehicleById } from '@/prisma';
@@ -10,16 +10,17 @@ import { useSystemContext } from '@/context/context';
 import { useRouter } from 'next/navigation';
 import { convertFieldsToNumber } from '@/helper/convertors';
 import { DisplaySuccessMessage, ErrorMessage } from './messages';
+import { createCustomer } from '@/prisma/customers';
 
-export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formData , formTitle, cars, customers , lng}) => {
+export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formData , formTitle, cars, customers , lng , type}) => {
   const { t } = useTranslation(lng , 'dashboard')
-  const { setErrorMessage , setSuccessMessage ,setSubmitted} = useSystemContext()
+  const { setErrorMessage , setSuccessMessage ,setSubmitted , setAddNew} = useSystemContext()
   const router = useRouter()
-  console.log('form');
   const {
     register,
     handleSubmit,
     reset,
+    control,
     setValue, 
     formState: { errors },
   } = useForm();
@@ -31,24 +32,63 @@ export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formD
     'اخري',
   ];
   const onSubmit = (data) => {
-    data = {...data , userId}
+    data = { ...data};
     data = convertFieldsToNumber(data);
-    createVehicle(data)
-    .then((result) => {
-      if (result.error) {
-        console.error(result.error);
-        setErrorMessage(`vehicleExists`);
-      } else {
-        setSubmitted(true);
-        setSuccessMessage('vehicleCreatedSuccess');
-        reset();
-        router.refresh();
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-  }
+    if (type === 'customer') {
+      createCustomer(data , userId)
+        .then((result) => {
+          if (result.error) {
+            console.error(result.error);
+            setErrorMessage('customerExists');
+          } else {
+            setAddNew(false)
+            setSubmitted(true);
+            setSuccessMessage('customerCreatedSuccess');
+            reset();
+            router.refresh();
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }  else if (type === 'maintenance') {
+      const { plateNumber, maintenanceType, client, date, cost, description } = data;
+      createMaintenanceForVehicle(plateNumber,userId, {
+        maintenanceType,
+        client,
+        date,
+        cost,
+        description,
+      })
+        .then((newMaintenance) => {
+          setAddNew(false)
+          setSubmitted(true);
+          setSuccessMessage('customerCreatedSuccess');
+          reset();
+          router.refresh();
+        })
+        .catch((error) => {
+          console.error('Error creating maintenance for vehicle:', error);
+        });
+    } else {
+      createVehicle(data , userId)
+        .then((result) => {
+          if (result.error) {
+            console.error(result.error);
+            setErrorMessage('vehicleExists');
+          } else {
+            setAddNew(false)
+            setSubmitted(true);
+            setSuccessMessage('vehicleCreatedSuccess');
+            reset();
+            router.refresh();
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+  };
   const getType = (key) => {
     if (key.includes('Date')) {
       return 'date';
@@ -112,8 +152,6 @@ return (
     maxWidth="md" // Adjust as needed
     PaperProps={{ style: { width: '90%', maxHeight: '90vh', overflowY: 'auto' } }}
     >
-      <ErrorMessage lng={lng}/>
-      <DisplaySuccessMessage lng={lng}/>
       <div className="flex justify-between items-center">
       <h1 className="p-4 text-xl font-semibold">{t(`tables.${formTitle}`)}</h1>
         <button
@@ -146,8 +184,30 @@ return (
           {errors[key] && <span>This field is required</span>}
           </Grid>
         );
-        } 
-        if (key === 'car' && cars) {
+        } else if (key === 'category') {
+          return (
+           <Grid item xs={12} sm={6} md={4} key={key} >
+             <Autocomplete
+              options={['individual', 'company'].map((option) => ({
+                value: option,
+                label: t(`tables.${option}`), 
+              }))}
+              onChange={(e, value) => {
+                setValue(key, value.value);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={t(`tables.${key}`)}
+                  variant="outlined"
+                  fullWidth
+                  dir="rtl"
+                />
+              )}
+            />
+           </Grid>
+          );
+        }else if (key === 'car' && cars) {
         return (
         <Grid xs={12} sm={6} md={4} key={key}>
         <Autocomplete
@@ -186,23 +246,22 @@ return (
         );
         } else if (key === 'nationality' && nationalitiesArray) {
           return (
-            <Grid xs={12} sm={6} md={4} key={key}>
-              <InputLabel>{formattedKey}</InputLabel>
-              <Select
+            <Grid item xs={12} sm={6} md={4} key={key}>
+            <Autocomplete
                 {...register(key)}
-                label={formattedKey}
-                variant="outlined"
-                fullWidth
-                defaultValue="" 
-              >
-                {nationalitiesArray.map((option, index) => (
-                  <MenuItem key={index} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Select>
-              {errors[key] && <span>This field is required</span>}
-            </Grid>
+                options={nationalitiesArray}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={formattedKey}
+                    variant="outlined"
+                    fullWidth
+                    error={!!errors[key]}
+                    helperText={errors[key] && 'This field is required'}
+                  />
+                )}
+              />
+          </Grid>
           );
         }else if (key === 'transmission') {
           return (

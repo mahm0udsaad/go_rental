@@ -4,7 +4,7 @@ import {Collapse, Table, TableBody, TableCell, TableContainer, TableHead, TableR
 import { Skeleton } from '@mui/material'; 
 import React , { useEffect, useState } from 'react';
 import ButtonLink from './buttonLink';
-import { getLastNumber } from '@/helper/convertors';
+import { extractNonObjectKeyValuePairsFromArray, getLastNumber } from '@/helper/convertors';
 
 export const RentalRows = ({ rentalData, lng, isLoading }) => {
   const { t } = useTranslation(lng, 'dashboard');
@@ -72,13 +72,14 @@ export const RentalRows = ({ rentalData, lng, isLoading }) => {
 
 export const CollabsedTable = ({ data, lng , cars}) => {
   const { t } = useTranslation(lng, 'dashboard');
+  data = extractNonObjectKeyValuePairsFromArray(data)
   const tableHeaders = Object.keys(data[0]).slice(0, 7);
   const getColorClass = (status) => {
-    if (status === 'Rented') {
+    if (status === 'Expense' || status === 'Rented') {
       return 'bg-orange-300 text-orange-700 font-bold';
     }else if (status === 'Late') {
       return 'bg-red-300 text-red-700 font-bold';
-    } else if (status === 'open' || status === 'Active' || status === 'Available') {
+    } else if (status === 'Revenue' || status === 'open' || status === 'Active' || status === 'Available') {
       return 'bg-green-300 text-green-700 font-bold';
     }
     return '';

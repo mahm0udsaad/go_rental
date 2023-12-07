@@ -33,6 +33,16 @@ export type Customer = $Result.DefaultSelection<Prisma.$CustomerPayload>
  * 
  */
 export type Contract = $Result.DefaultSelection<Prisma.$ContractPayload>
+/**
+ * Model Transaction
+ * 
+ */
+export type Transaction = $Result.DefaultSelection<Prisma.$TransactionPayload>
+/**
+ * Model Maintenance
+ * 
+ */
+export type Maintenance = $Result.DefaultSelection<Prisma.$MaintenancePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -163,6 +173,26 @@ export class PrismaClient<
     * ```
     */
   get contract(): Prisma.ContractDelegate<ExtArgs>;
+
+  /**
+   * `prisma.transaction`: Exposes CRUD operations for the **Transaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Transactions
+    * const transactions = await prisma.transaction.findMany()
+    * ```
+    */
+  get transaction(): Prisma.TransactionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.maintenance`: Exposes CRUD operations for the **Maintenance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Maintenances
+    * const maintenances = await prisma.maintenance.findMany()
+    * ```
+    */
+  get maintenance(): Prisma.MaintenanceDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -220,8 +250,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.6.0
-   * Query Engine version: e95e739751f42d8ca026f6b910f5a2dc5adeaeee
+   * Prisma Client JS version: 5.7.0
+   * Query Engine version: 79fb5193cf0a8fdbef536e4b4a159cad677ab1b9
    */
   export type PrismaVersion = {
     client: string
@@ -636,7 +666,9 @@ export namespace Prisma {
     User: 'User',
     Vehicle: 'Vehicle',
     Customer: 'Customer',
-    Contract: 'Contract'
+    Contract: 'Contract',
+    Transaction: 'Transaction',
+    Maintenance: 'Maintenance'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -653,7 +685,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'user' | 'vehicle' | 'customer' | 'contract'
+      modelProps: 'user' | 'vehicle' | 'customer' | 'contract' | 'transaction' | 'maintenance'
       txIsolationLevel: never
     },
     model: {
@@ -953,6 +985,154 @@ export namespace Prisma {
           }
         }
       }
+      Transaction: {
+        payload: Prisma.$TransactionPayload<ExtArgs>
+        fields: Prisma.TransactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TransactionFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TransactionFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+          }
+          findFirst: {
+            args: Prisma.TransactionFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TransactionFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+          }
+          findMany: {
+            args: Prisma.TransactionFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>[]
+          }
+          create: {
+            args: Prisma.TransactionCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+          }
+          createMany: {
+            args: Prisma.TransactionCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.TransactionDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+          }
+          update: {
+            args: Prisma.TransactionUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.TransactionDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TransactionUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.TransactionUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+          }
+          aggregate: {
+            args: Prisma.TransactionAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateTransaction>
+          }
+          groupBy: {
+            args: Prisma.TransactionGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<TransactionGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.TransactionFindRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.TransactionAggregateRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
+          }
+          count: {
+            args: Prisma.TransactionCountArgs<ExtArgs>,
+            result: $Utils.Optional<TransactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      Maintenance: {
+        payload: Prisma.$MaintenancePayload<ExtArgs>
+        fields: Prisma.MaintenanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MaintenanceFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MaintenanceFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>
+          }
+          findFirst: {
+            args: Prisma.MaintenanceFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MaintenanceFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>
+          }
+          findMany: {
+            args: Prisma.MaintenanceFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>[]
+          }
+          create: {
+            args: Prisma.MaintenanceCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>
+          }
+          createMany: {
+            args: Prisma.MaintenanceCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.MaintenanceDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>
+          }
+          update: {
+            args: Prisma.MaintenanceUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>
+          }
+          deleteMany: {
+            args: Prisma.MaintenanceDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MaintenanceUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.MaintenanceUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$MaintenancePayload>
+          }
+          aggregate: {
+            args: Prisma.MaintenanceAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateMaintenance>
+          }
+          groupBy: {
+            args: Prisma.MaintenanceGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<MaintenanceGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.MaintenanceFindRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.MaintenanceAggregateRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
+          }
+          count: {
+            args: Prisma.MaintenanceCountArgs<ExtArgs>,
+            result: $Utils.Optional<MaintenanceCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1093,12 +1273,16 @@ export namespace Prisma {
     Vehicles: number
     Customers: number
     Contracts: number
+    Maintenances: number
+    Transactions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Vehicles?: boolean | UserCountOutputTypeCountVehiclesArgs
     Customers?: boolean | UserCountOutputTypeCountCustomersArgs
     Contracts?: boolean | UserCountOutputTypeCountContractsArgs
+    Maintenances?: boolean | UserCountOutputTypeCountMaintenancesArgs
+    Transactions?: boolean | UserCountOutputTypeCountTransactionsArgs
   }
 
   // Custom InputTypes
@@ -1138,6 +1322,22 @@ export namespace Prisma {
   }
 
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
+  }
+
+
 
   /**
    * Count Type VehicleCountOutputType
@@ -1145,10 +1345,14 @@ export namespace Prisma {
 
   export type VehicleCountOutputType = {
     Contracts: number
+    Transactions: number
+    Maintenances: number
   }
 
   export type VehicleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Contracts?: boolean | VehicleCountOutputTypeCountContractsArgs
+    Transactions?: boolean | VehicleCountOutputTypeCountTransactionsArgs
+    Maintenances?: boolean | VehicleCountOutputTypeCountMaintenancesArgs
   }
 
   // Custom InputTypes
@@ -1172,6 +1376,22 @@ export namespace Prisma {
   }
 
 
+  /**
+   * VehicleCountOutputType without action
+   */
+  export type VehicleCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
+  }
+
+
+  /**
+   * VehicleCountOutputType without action
+   */
+  export type VehicleCountOutputTypeCountMaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+  }
+
+
 
   /**
    * Count Type CustomerCountOutputType
@@ -1179,10 +1399,12 @@ export namespace Prisma {
 
   export type CustomerCountOutputType = {
     Contracts: number
+    Transactions: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Contracts?: boolean | CustomerCountOutputTypeCountContractsArgs
+    Transactions?: boolean | CustomerCountOutputTypeCountTransactionsArgs
   }
 
   // Custom InputTypes
@@ -1203,6 +1425,48 @@ export namespace Prisma {
    */
   export type CustomerCountOutputTypeCountContractsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ContractWhereInput
+  }
+
+
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
+  }
+
+
+
+  /**
+   * Count Type ContractCountOutputType
+   */
+
+  export type ContractCountOutputType = {
+    Transactions: number
+  }
+
+  export type ContractCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Transactions?: boolean | ContractCountOutputTypeCountTransactionsArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * ContractCountOutputType without action
+   */
+  export type ContractCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContractCountOutputType
+     */
+    select?: ContractCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * ContractCountOutputType without action
+   */
+  export type ContractCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
   }
 
 
@@ -1378,6 +1642,8 @@ export namespace Prisma {
     Vehicles?: boolean | User$VehiclesArgs<ExtArgs>
     Customers?: boolean | User$CustomersArgs<ExtArgs>
     Contracts?: boolean | User$ContractsArgs<ExtArgs>
+    Maintenances?: boolean | User$MaintenancesArgs<ExtArgs>
+    Transactions?: boolean | User$TransactionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1393,6 +1659,8 @@ export namespace Prisma {
     Vehicles?: boolean | User$VehiclesArgs<ExtArgs>
     Customers?: boolean | User$CustomersArgs<ExtArgs>
     Contracts?: boolean | User$ContractsArgs<ExtArgs>
+    Maintenances?: boolean | User$MaintenancesArgs<ExtArgs>
+    Transactions?: boolean | User$TransactionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -1403,6 +1671,8 @@ export namespace Prisma {
       Vehicles: Prisma.$VehiclePayload<ExtArgs>[]
       Customers: Prisma.$CustomerPayload<ExtArgs>[]
       Contracts: Prisma.$ContractPayload<ExtArgs>[]
+      Maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
+      Transactions: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1807,6 +2077,10 @@ export namespace Prisma {
     Customers<T extends User$CustomersArgs<ExtArgs> = {}>(args?: Subset<T, User$CustomersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     Contracts<T extends User$ContractsArgs<ExtArgs> = {}>(args?: Subset<T, User$ContractsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    Maintenances<T extends User$MaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, User$MaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    Transactions<T extends User$TransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$TransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2245,6 +2519,48 @@ export namespace Prisma {
 
 
   /**
+   * User.Maintenances
+   */
+  export type User$MaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+
+  /**
+   * User.Transactions
+   */
+  export type User$TransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    cursor?: TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2612,6 +2928,8 @@ export namespace Prisma {
     dailyKilometerLimit?: boolean
     user?: boolean | Vehicle$userArgs<ExtArgs>
     Contracts?: boolean | Vehicle$ContractsArgs<ExtArgs>
+    Transactions?: boolean | Vehicle$TransactionsArgs<ExtArgs>
+    Maintenances?: boolean | Vehicle$MaintenancesArgs<ExtArgs>
     _count?: boolean | VehicleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["vehicle"]>
 
@@ -2641,6 +2959,8 @@ export namespace Prisma {
   export type VehicleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Vehicle$userArgs<ExtArgs>
     Contracts?: boolean | Vehicle$ContractsArgs<ExtArgs>
+    Transactions?: boolean | Vehicle$TransactionsArgs<ExtArgs>
+    Maintenances?: boolean | Vehicle$MaintenancesArgs<ExtArgs>
     _count?: boolean | VehicleCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2650,6 +2970,8 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
       Contracts: Prisma.$ContractPayload<ExtArgs>[]
+      Transactions: Prisma.$TransactionPayload<ExtArgs>[]
+      Maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3068,6 +3390,10 @@ export namespace Prisma {
 
     Contracts<T extends Vehicle$ContractsArgs<ExtArgs> = {}>(args?: Subset<T, Vehicle$ContractsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, 'findMany'> | Null>;
 
+    Transactions<T extends Vehicle$TransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Vehicle$TransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    Maintenances<T extends Vehicle$MaintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Vehicle$MaintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, 'findMany'> | Null>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3100,22 +3426,22 @@ export namespace Prisma {
     readonly userId: FieldRef<"Vehicle", 'String'>
     readonly plateNumber: FieldRef<"Vehicle", 'String'>
     readonly brand: FieldRef<"Vehicle", 'String'>
-    readonly meter: FieldRef<"Vehicle", 'Int'>
+    readonly meter: FieldRef<"Vehicle", 'Float'>
     readonly status: FieldRef<"Vehicle", 'String'>
     readonly rentalCount: FieldRef<"Vehicle", 'Int'>
     readonly transmission: FieldRef<"Vehicle", 'String'>
-    readonly manufactureYear: FieldRef<"Vehicle", 'Int'>
+    readonly manufactureYear: FieldRef<"Vehicle", 'Float'>
     readonly color: FieldRef<"Vehicle", 'String'>
-    readonly extraHourPrice: FieldRef<"Vehicle", 'Int'>
-    readonly dailyRent: FieldRef<"Vehicle", 'Int'>
-    readonly weeklyRent: FieldRef<"Vehicle", 'Int'>
-    readonly monthlyRent: FieldRef<"Vehicle", 'Int'>
+    readonly extraHourPrice: FieldRef<"Vehicle", 'Float'>
+    readonly dailyRent: FieldRef<"Vehicle", 'Float'>
+    readonly weeklyRent: FieldRef<"Vehicle", 'Float'>
+    readonly monthlyRent: FieldRef<"Vehicle", 'Float'>
     readonly insuranceCompany: FieldRef<"Vehicle", 'String'>
     readonly registrationType: FieldRef<"Vehicle", 'String'>
     readonly fuelType: FieldRef<"Vehicle", 'String'>
-    readonly extraKilometerPrice: FieldRef<"Vehicle", 'Int'>
+    readonly extraKilometerPrice: FieldRef<"Vehicle", 'Float'>
     readonly vehicleType: FieldRef<"Vehicle", 'String'>
-    readonly dailyKilometerLimit: FieldRef<"Vehicle", 'Int'>
+    readonly dailyKilometerLimit: FieldRef<"Vehicle", 'Float'>
   }
     
 
@@ -3494,6 +3820,48 @@ export namespace Prisma {
 
 
   /**
+   * Vehicle.Transactions
+   */
+  export type Vehicle$TransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    cursor?: TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+
+  /**
+   * Vehicle.Maintenances
+   */
+  export type Vehicle$MaintenancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    cursor?: MaintenanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+
+  /**
    * Vehicle without action
    */
   export type VehicleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3707,7 +4075,7 @@ export namespace Prisma {
     idNumber: string
     idExpirationDate: string | null
     mobile: string | null
-    debt: number
+    debt: number | null
     _count: CustomerCountAggregateOutputType | null
     _avg: CustomerAvgAggregateOutputType | null
     _sum: CustomerSumAggregateOutputType | null
@@ -3741,6 +4109,7 @@ export namespace Prisma {
     debt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     Contracts?: boolean | Customer$ContractsArgs<ExtArgs>
+    Transactions?: boolean | Customer$TransactionsArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
@@ -3759,6 +4128,7 @@ export namespace Prisma {
   export type CustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     Contracts?: boolean | Customer$ContractsArgs<ExtArgs>
+    Transactions?: boolean | Customer$TransactionsArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3768,6 +4138,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       Contracts: Prisma.$ContractPayload<ExtArgs>[]
+      Transactions: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3778,7 +4149,7 @@ export namespace Prisma {
       idNumber: string
       idExpirationDate: string | null
       mobile: string | null
-      debt: number
+      debt: number | null
     }, ExtArgs["result"]["customer"]>
     composites: {}
   }
@@ -4175,6 +4546,8 @@ export namespace Prisma {
 
     Contracts<T extends Customer$ContractsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$ContractsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, 'findMany'> | Null>;
 
+    Transactions<T extends Customer$TransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$TransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'findMany'> | Null>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4211,7 +4584,7 @@ export namespace Prisma {
     readonly idNumber: FieldRef<"Customer", 'String'>
     readonly idExpirationDate: FieldRef<"Customer", 'String'>
     readonly mobile: FieldRef<"Customer", 'String'>
-    readonly debt: FieldRef<"Customer", 'Int'>
+    readonly debt: FieldRef<"Customer", 'Float'>
   }
     
 
@@ -4574,6 +4947,27 @@ export namespace Prisma {
 
 
   /**
+   * Customer.Transactions
+   */
+  export type Customer$TransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    cursor?: TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+
+  /**
    * Customer without action
    */
   export type CustomerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4608,6 +5002,7 @@ export namespace Prisma {
     meterReadingOut: number | null
     meterReadingIn: number | null
     dailyRent: number | null
+    days: number | null
   }
 
   export type ContractSumAggregateOutputType = {
@@ -4617,6 +5012,7 @@ export namespace Prisma {
     meterReadingOut: number | null
     meterReadingIn: number | null
     dailyRent: number | null
+    days: number | null
   }
 
   export type ContractMinAggregateOutputType = {
@@ -4630,11 +5026,16 @@ export namespace Prisma {
     meterReadingIn: number | null
     timeOut: string | null
     dailyRent: number | null
+    days: number | null
     timeIn: string | null
     dateOut: string | null
     returnedDate: string | null
+    returnStatus: string | null
+    earlyReturnFee: string | null
+    lateReturnFee: string | null
     invoiceDetails: string | null
     customerId: string | null
+    transacionId: string | null
   }
 
   export type ContractMaxAggregateOutputType = {
@@ -4648,11 +5049,16 @@ export namespace Prisma {
     meterReadingIn: number | null
     timeOut: string | null
     dailyRent: number | null
+    days: number | null
     timeIn: string | null
     dateOut: string | null
     returnedDate: string | null
+    returnStatus: string | null
+    earlyReturnFee: string | null
+    lateReturnFee: string | null
     invoiceDetails: string | null
     customerId: string | null
+    transacionId: string | null
   }
 
   export type ContractCountAggregateOutputType = {
@@ -4666,11 +5072,16 @@ export namespace Prisma {
     meterReadingIn: number
     timeOut: number
     dailyRent: number
+    days: number
     timeIn: number
     dateOut: number
     returnedDate: number
+    returnStatus: number
+    earlyReturnFee: number
+    lateReturnFee: number
     invoiceDetails: number
     customerId: number
+    transacionId: number
     _all: number
   }
 
@@ -4682,6 +5093,7 @@ export namespace Prisma {
     meterReadingOut?: true
     meterReadingIn?: true
     dailyRent?: true
+    days?: true
   }
 
   export type ContractSumAggregateInputType = {
@@ -4691,6 +5103,7 @@ export namespace Prisma {
     meterReadingOut?: true
     meterReadingIn?: true
     dailyRent?: true
+    days?: true
   }
 
   export type ContractMinAggregateInputType = {
@@ -4704,11 +5117,16 @@ export namespace Prisma {
     meterReadingIn?: true
     timeOut?: true
     dailyRent?: true
+    days?: true
     timeIn?: true
     dateOut?: true
     returnedDate?: true
+    returnStatus?: true
+    earlyReturnFee?: true
+    lateReturnFee?: true
     invoiceDetails?: true
     customerId?: true
+    transacionId?: true
   }
 
   export type ContractMaxAggregateInputType = {
@@ -4722,11 +5140,16 @@ export namespace Prisma {
     meterReadingIn?: true
     timeOut?: true
     dailyRent?: true
+    days?: true
     timeIn?: true
     dateOut?: true
     returnedDate?: true
+    returnStatus?: true
+    earlyReturnFee?: true
+    lateReturnFee?: true
     invoiceDetails?: true
     customerId?: true
+    transacionId?: true
   }
 
   export type ContractCountAggregateInputType = {
@@ -4740,11 +5163,16 @@ export namespace Prisma {
     meterReadingIn?: true
     timeOut?: true
     dailyRent?: true
+    days?: true
     timeIn?: true
     dateOut?: true
     returnedDate?: true
+    returnStatus?: true
+    earlyReturnFee?: true
+    lateReturnFee?: true
     invoiceDetails?: true
     customerId?: true
+    transacionId?: true
     _all?: true
   }
 
@@ -4845,11 +5273,16 @@ export namespace Prisma {
     meterReadingIn: number | null
     timeOut: string
     dailyRent: number
+    days: number
     timeIn: string
     dateOut: string
     returnedDate: string
+    returnStatus: string | null
+    earlyReturnFee: string | null
+    lateReturnFee: string | null
     invoiceDetails: string | null
     customerId: string
+    transacionId: string | null
     _count: ContractCountAggregateOutputType | null
     _avg: ContractAvgAggregateOutputType | null
     _sum: ContractSumAggregateOutputType | null
@@ -4882,14 +5315,21 @@ export namespace Prisma {
     meterReadingIn?: boolean
     timeOut?: boolean
     dailyRent?: boolean
+    days?: boolean
     timeIn?: boolean
     dateOut?: boolean
     returnedDate?: boolean
+    returnStatus?: boolean
+    earlyReturnFee?: boolean
+    lateReturnFee?: boolean
     invoiceDetails?: boolean
     customerId?: boolean
+    transacionId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
+    Transactions?: boolean | Contract$TransactionsArgs<ExtArgs>
+    _count?: boolean | ContractCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contract"]>
 
   export type ContractSelectScalar = {
@@ -4903,17 +5343,24 @@ export namespace Prisma {
     meterReadingIn?: boolean
     timeOut?: boolean
     dailyRent?: boolean
+    days?: boolean
     timeIn?: boolean
     dateOut?: boolean
     returnedDate?: boolean
+    returnStatus?: boolean
+    earlyReturnFee?: boolean
+    lateReturnFee?: boolean
     invoiceDetails?: boolean
     customerId?: boolean
+    transacionId?: boolean
   }
 
   export type ContractInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
+    Transactions?: boolean | Contract$TransactionsArgs<ExtArgs>
+    _count?: boolean | ContractCountOutputTypeDefaultArgs<ExtArgs>
   }
 
 
@@ -4923,6 +5370,7 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs>
       customer: Prisma.$CustomerPayload<ExtArgs>
       vehicle: Prisma.$VehiclePayload<ExtArgs>
+      Transactions: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4935,11 +5383,16 @@ export namespace Prisma {
       meterReadingIn: number | null
       timeOut: string
       dailyRent: number
+      days: number
       timeIn: string
       dateOut: string
       returnedDate: string
+      returnStatus: string | null
+      earlyReturnFee: string | null
+      lateReturnFee: string | null
       invoiceDetails: string | null
       customerId: string
+      transacionId: string | null
     }, ExtArgs["result"]["contract"]>
     composites: {}
   }
@@ -5338,6 +5791,8 @@ export namespace Prisma {
 
     vehicle<T extends VehicleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VehicleDefaultArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
+    Transactions<T extends Contract$TransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Contract$TransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'findMany'> | Null>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5369,18 +5824,23 @@ export namespace Prisma {
     readonly id: FieldRef<"Contract", 'String'>
     readonly userId: FieldRef<"Contract", 'String'>
     readonly plateNumber: FieldRef<"Contract", 'String'>
-    readonly total: FieldRef<"Contract", 'Int'>
-    readonly paid: FieldRef<"Contract", 'Int'>
-    readonly remainingDues: FieldRef<"Contract", 'Int'>
-    readonly meterReadingOut: FieldRef<"Contract", 'Int'>
-    readonly meterReadingIn: FieldRef<"Contract", 'Int'>
+    readonly total: FieldRef<"Contract", 'Float'>
+    readonly paid: FieldRef<"Contract", 'Float'>
+    readonly remainingDues: FieldRef<"Contract", 'Float'>
+    readonly meterReadingOut: FieldRef<"Contract", 'Float'>
+    readonly meterReadingIn: FieldRef<"Contract", 'Float'>
     readonly timeOut: FieldRef<"Contract", 'String'>
-    readonly dailyRent: FieldRef<"Contract", 'Int'>
+    readonly dailyRent: FieldRef<"Contract", 'Float'>
+    readonly days: FieldRef<"Contract", 'Float'>
     readonly timeIn: FieldRef<"Contract", 'String'>
     readonly dateOut: FieldRef<"Contract", 'String'>
     readonly returnedDate: FieldRef<"Contract", 'String'>
+    readonly returnStatus: FieldRef<"Contract", 'String'>
+    readonly earlyReturnFee: FieldRef<"Contract", 'String'>
+    readonly lateReturnFee: FieldRef<"Contract", 'String'>
     readonly invoiceDetails: FieldRef<"Contract", 'String'>
     readonly customerId: FieldRef<"Contract", 'String'>
+    readonly transacionId: FieldRef<"Contract", 'String'>
   }
     
 
@@ -5722,6 +6182,27 @@ export namespace Prisma {
 
 
   /**
+   * Contract.Transactions
+   */
+  export type Contract$TransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    cursor?: TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+
+  /**
    * Contract without action
    */
   export type ContractDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5733,6 +6214,2193 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: ContractInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model Transaction
+   */
+
+  export type AggregateTransaction = {
+    _count: TransactionCountAggregateOutputType | null
+    _avg: TransactionAvgAggregateOutputType | null
+    _sum: TransactionSumAggregateOutputType | null
+    _min: TransactionMinAggregateOutputType | null
+    _max: TransactionMaxAggregateOutputType | null
+  }
+
+  export type TransactionAvgAggregateOutputType = {
+    amount: number | null
+  }
+
+  export type TransactionSumAggregateOutputType = {
+    amount: number | null
+  }
+
+  export type TransactionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    amount: number | null
+    type: string | null
+    plateNumber: string | null
+    createdAt: Date | null
+    contractId: string | null
+    customerId: string | null
+    maintenanceId: string | null
+  }
+
+  export type TransactionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    amount: number | null
+    type: string | null
+    plateNumber: string | null
+    createdAt: Date | null
+    contractId: string | null
+    customerId: string | null
+    maintenanceId: string | null
+  }
+
+  export type TransactionCountAggregateOutputType = {
+    id: number
+    userId: number
+    amount: number
+    type: number
+    plateNumber: number
+    createdAt: number
+    contractId: number
+    customerId: number
+    maintenanceId: number
+    _all: number
+  }
+
+
+  export type TransactionAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type TransactionSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type TransactionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    amount?: true
+    type?: true
+    plateNumber?: true
+    createdAt?: true
+    contractId?: true
+    customerId?: true
+    maintenanceId?: true
+  }
+
+  export type TransactionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    amount?: true
+    type?: true
+    plateNumber?: true
+    createdAt?: true
+    contractId?: true
+    customerId?: true
+    maintenanceId?: true
+  }
+
+  export type TransactionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    amount?: true
+    type?: true
+    plateNumber?: true
+    createdAt?: true
+    contractId?: true
+    customerId?: true
+    maintenanceId?: true
+    _all?: true
+  }
+
+  export type TransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Transaction to aggregate.
+     */
+    where?: TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Transactions
+    **/
+    _count?: true | TransactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TransactionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TransactionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TransactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TransactionMaxAggregateInputType
+  }
+
+  export type GetTransactionAggregateType<T extends TransactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateTransaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTransaction[P]>
+      : GetScalarType<T[P], AggregateTransaction[P]>
+  }
+
+
+
+
+  export type TransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithAggregationInput | TransactionOrderByWithAggregationInput[]
+    by: TransactionScalarFieldEnum[] | TransactionScalarFieldEnum
+    having?: TransactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TransactionCountAggregateInputType | true
+    _avg?: TransactionAvgAggregateInputType
+    _sum?: TransactionSumAggregateInputType
+    _min?: TransactionMinAggregateInputType
+    _max?: TransactionMaxAggregateInputType
+  }
+
+  export type TransactionGroupByOutputType = {
+    id: string
+    userId: string
+    amount: number
+    type: string
+    plateNumber: string
+    createdAt: Date
+    contractId: string | null
+    customerId: string | null
+    maintenanceId: string | null
+    _count: TransactionCountAggregateOutputType | null
+    _avg: TransactionAvgAggregateOutputType | null
+    _sum: TransactionSumAggregateOutputType | null
+    _min: TransactionMinAggregateOutputType | null
+    _max: TransactionMaxAggregateOutputType | null
+  }
+
+  type GetTransactionGroupByPayload<T extends TransactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TransactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TransactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TransactionGroupByOutputType[P]>
+            : GetScalarType<T[P], TransactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    amount?: boolean
+    type?: boolean
+    plateNumber?: boolean
+    createdAt?: boolean
+    contractId?: boolean
+    customerId?: boolean
+    maintenanceId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    contract?: boolean | Transaction$contractArgs<ExtArgs>
+    customer?: boolean | Transaction$customerArgs<ExtArgs>
+    Maintenance?: boolean | Transaction$MaintenanceArgs<ExtArgs>
+    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["transaction"]>
+
+  export type TransactionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    amount?: boolean
+    type?: boolean
+    plateNumber?: boolean
+    createdAt?: boolean
+    contractId?: boolean
+    customerId?: boolean
+    maintenanceId?: boolean
+  }
+
+  export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    contract?: boolean | Transaction$contractArgs<ExtArgs>
+    customer?: boolean | Transaction$customerArgs<ExtArgs>
+    Maintenance?: boolean | Transaction$MaintenanceArgs<ExtArgs>
+    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
+  }
+
+
+  export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Transaction"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      contract: Prisma.$ContractPayload<ExtArgs> | null
+      customer: Prisma.$CustomerPayload<ExtArgs> | null
+      Maintenance: Prisma.$MaintenancePayload<ExtArgs> | null
+      vehicle: Prisma.$VehiclePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      amount: number
+      type: string
+      plateNumber: string
+      createdAt: Date
+      contractId: string | null
+      customerId: string | null
+      maintenanceId: string | null
+    }, ExtArgs["result"]["transaction"]>
+    composites: {}
+  }
+
+
+  type TransactionGetPayload<S extends boolean | null | undefined | TransactionDefaultArgs> = $Result.GetResult<Prisma.$TransactionPayload, S>
+
+  type TransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TransactionFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: TransactionCountAggregateInputType | true
+    }
+
+  export interface TransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Transaction'], meta: { name: 'Transaction' } }
+    /**
+     * Find zero or one Transaction that matches the filter.
+     * @param {TransactionFindUniqueArgs} args - Arguments to find a Transaction
+     * @example
+     * // Get one Transaction
+     * const transaction = await prisma.transaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends TransactionFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, TransactionFindUniqueArgs<ExtArgs>>
+    ): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Transaction that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {TransactionFindUniqueOrThrowArgs} args - Arguments to find a Transaction
+     * @example
+     * // Get one Transaction
+     * const transaction = await prisma.transaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends TransactionFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TransactionFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Transaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionFindFirstArgs} args - Arguments to find a Transaction
+     * @example
+     * // Get one Transaction
+     * const transaction = await prisma.transaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends TransactionFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, TransactionFindFirstArgs<ExtArgs>>
+    ): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Transaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionFindFirstOrThrowArgs} args - Arguments to find a Transaction
+     * @example
+     * // Get one Transaction
+     * const transaction = await prisma.transaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends TransactionFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, TransactionFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Transactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Transactions
+     * const transactions = await prisma.transaction.findMany()
+     * 
+     * // Get first 10 Transactions
+     * const transactions = await prisma.transaction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const transactionWithIdOnly = await prisma.transaction.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends TransactionFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TransactionFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Transaction.
+     * @param {TransactionCreateArgs} args - Arguments to create a Transaction.
+     * @example
+     * // Create one Transaction
+     * const Transaction = await prisma.transaction.create({
+     *   data: {
+     *     // ... data to create a Transaction
+     *   }
+     * })
+     * 
+    **/
+    create<T extends TransactionCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, TransactionCreateArgs<ExtArgs>>
+    ): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Transactions.
+     *     @param {TransactionCreateManyArgs} args - Arguments to create many Transactions.
+     *     @example
+     *     // Create many Transactions
+     *     const transaction = await prisma.transaction.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends TransactionCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TransactionCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Transaction.
+     * @param {TransactionDeleteArgs} args - Arguments to delete one Transaction.
+     * @example
+     * // Delete one Transaction
+     * const Transaction = await prisma.transaction.delete({
+     *   where: {
+     *     // ... filter to delete one Transaction
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends TransactionDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, TransactionDeleteArgs<ExtArgs>>
+    ): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Transaction.
+     * @param {TransactionUpdateArgs} args - Arguments to update one Transaction.
+     * @example
+     * // Update one Transaction
+     * const transaction = await prisma.transaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends TransactionUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, TransactionUpdateArgs<ExtArgs>>
+    ): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Transactions.
+     * @param {TransactionDeleteManyArgs} args - Arguments to filter Transactions to delete.
+     * @example
+     * // Delete a few Transactions
+     * const { count } = await prisma.transaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends TransactionDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, TransactionDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Transactions
+     * const transaction = await prisma.transaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends TransactionUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, TransactionUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Transaction.
+     * @param {TransactionUpsertArgs} args - Arguments to update or create a Transaction.
+     * @example
+     * // Update or create a Transaction
+     * const transaction = await prisma.transaction.upsert({
+     *   create: {
+     *     // ... data to create a Transaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Transaction we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends TransactionUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, TransactionUpsertArgs<ExtArgs>>
+    ): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Transactions that matches the filter.
+     * @param {TransactionFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const transaction = await prisma.transaction.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: TransactionFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Transaction.
+     * @param {TransactionAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const transaction = await prisma.transaction.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: TransactionAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionCountArgs} args - Arguments to filter Transactions to count.
+     * @example
+     * // Count the number of Transactions
+     * const count = await prisma.transaction.count({
+     *   where: {
+     *     // ... the filter for the Transactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends TransactionCountArgs>(
+      args?: Subset<T, TransactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TransactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Transaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TransactionAggregateArgs>(args: Subset<T, TransactionAggregateArgs>): Prisma.PrismaPromise<GetTransactionAggregateType<T>>
+
+    /**
+     * Group by Transaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TransactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TransactionGroupByArgs['orderBy'] }
+        : { orderBy?: TransactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Transaction model
+   */
+  readonly fields: TransactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Transaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    contract<T extends Transaction$contractArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$contractArgs<ExtArgs>>): Prisma__ContractClient<$Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    customer<T extends Transaction$customerArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$customerArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    Maintenance<T extends Transaction$MaintenanceArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$MaintenanceArgs<ExtArgs>>): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    vehicle<T extends VehicleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VehicleDefaultArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Transaction model
+   */ 
+  interface TransactionFieldRefs {
+    readonly id: FieldRef<"Transaction", 'String'>
+    readonly userId: FieldRef<"Transaction", 'String'>
+    readonly amount: FieldRef<"Transaction", 'Float'>
+    readonly type: FieldRef<"Transaction", 'String'>
+    readonly plateNumber: FieldRef<"Transaction", 'String'>
+    readonly createdAt: FieldRef<"Transaction", 'DateTime'>
+    readonly contractId: FieldRef<"Transaction", 'String'>
+    readonly customerId: FieldRef<"Transaction", 'String'>
+    readonly maintenanceId: FieldRef<"Transaction", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Transaction findUnique
+   */
+  export type TransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Transaction to fetch.
+     */
+    where: TransactionWhereUniqueInput
+  }
+
+
+  /**
+   * Transaction findUniqueOrThrow
+   */
+  export type TransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Transaction to fetch.
+     */
+    where: TransactionWhereUniqueInput
+  }
+
+
+  /**
+   * Transaction findFirst
+   */
+  export type TransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Transaction to fetch.
+     */
+    where?: TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Transactions.
+     */
+    cursor?: TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Transactions.
+     */
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+
+  /**
+   * Transaction findFirstOrThrow
+   */
+  export type TransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Transaction to fetch.
+     */
+    where?: TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Transactions.
+     */
+    cursor?: TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Transactions.
+     */
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+
+  /**
+   * Transaction findMany
+   */
+  export type TransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Transactions to fetch.
+     */
+    where?: TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Transactions.
+     */
+    cursor?: TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+
+  /**
+   * Transaction create
+   */
+  export type TransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Transaction.
+     */
+    data: XOR<TransactionCreateInput, TransactionUncheckedCreateInput>
+  }
+
+
+  /**
+   * Transaction createMany
+   */
+  export type TransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Transactions.
+     */
+    data: TransactionCreateManyInput | TransactionCreateManyInput[]
+  }
+
+
+  /**
+   * Transaction update
+   */
+  export type TransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Transaction.
+     */
+    data: XOR<TransactionUpdateInput, TransactionUncheckedUpdateInput>
+    /**
+     * Choose, which Transaction to update.
+     */
+    where: TransactionWhereUniqueInput
+  }
+
+
+  /**
+   * Transaction updateMany
+   */
+  export type TransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Transactions.
+     */
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which Transactions to update
+     */
+    where?: TransactionWhereInput
+  }
+
+
+  /**
+   * Transaction upsert
+   */
+  export type TransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Transaction to update in case it exists.
+     */
+    where: TransactionWhereUniqueInput
+    /**
+     * In case the Transaction found by the `where` argument doesn't exist, create a new Transaction with this data.
+     */
+    create: XOR<TransactionCreateInput, TransactionUncheckedCreateInput>
+    /**
+     * In case the Transaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TransactionUpdateInput, TransactionUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Transaction delete
+   */
+  export type TransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * Filter which Transaction to delete.
+     */
+    where: TransactionWhereUniqueInput
+  }
+
+
+  /**
+   * Transaction deleteMany
+   */
+  export type TransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Transactions to delete
+     */
+    where?: TransactionWhereInput
+  }
+
+
+  /**
+   * Transaction findRaw
+   */
+  export type TransactionFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Transaction aggregateRaw
+   */
+  export type TransactionAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Transaction.contract
+   */
+  export type Transaction$contractArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contract
+     */
+    select?: ContractSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ContractInclude<ExtArgs> | null
+    where?: ContractWhereInput
+  }
+
+
+  /**
+   * Transaction.customer
+   */
+  export type Transaction$customerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: CustomerInclude<ExtArgs> | null
+    where?: CustomerWhereInput
+  }
+
+
+  /**
+   * Transaction.Maintenance
+   */
+  export type Transaction$MaintenanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    where?: MaintenanceWhereInput
+  }
+
+
+  /**
+   * Transaction without action
+   */
+  export type TransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model Maintenance
+   */
+
+  export type AggregateMaintenance = {
+    _count: MaintenanceCountAggregateOutputType | null
+    _avg: MaintenanceAvgAggregateOutputType | null
+    _sum: MaintenanceSumAggregateOutputType | null
+    _min: MaintenanceMinAggregateOutputType | null
+    _max: MaintenanceMaxAggregateOutputType | null
+  }
+
+  export type MaintenanceAvgAggregateOutputType = {
+    cost: number | null
+  }
+
+  export type MaintenanceSumAggregateOutputType = {
+    cost: number | null
+  }
+
+  export type MaintenanceMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    plateNumber: string | null
+    maintenanceType: string | null
+    client: string | null
+    date: string | null
+    cost: number | null
+    description: string | null
+  }
+
+  export type MaintenanceMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    plateNumber: string | null
+    maintenanceType: string | null
+    client: string | null
+    date: string | null
+    cost: number | null
+    description: string | null
+  }
+
+  export type MaintenanceCountAggregateOutputType = {
+    id: number
+    userId: number
+    plateNumber: number
+    maintenanceType: number
+    client: number
+    date: number
+    cost: number
+    description: number
+    _all: number
+  }
+
+
+  export type MaintenanceAvgAggregateInputType = {
+    cost?: true
+  }
+
+  export type MaintenanceSumAggregateInputType = {
+    cost?: true
+  }
+
+  export type MaintenanceMinAggregateInputType = {
+    id?: true
+    userId?: true
+    plateNumber?: true
+    maintenanceType?: true
+    client?: true
+    date?: true
+    cost?: true
+    description?: true
+  }
+
+  export type MaintenanceMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    plateNumber?: true
+    maintenanceType?: true
+    client?: true
+    date?: true
+    cost?: true
+    description?: true
+  }
+
+  export type MaintenanceCountAggregateInputType = {
+    id?: true
+    userId?: true
+    plateNumber?: true
+    maintenanceType?: true
+    client?: true
+    date?: true
+    cost?: true
+    description?: true
+    _all?: true
+  }
+
+  export type MaintenanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Maintenance to aggregate.
+     */
+    where?: MaintenanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maintenances to fetch.
+     */
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MaintenanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maintenances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maintenances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Maintenances
+    **/
+    _count?: true | MaintenanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MaintenanceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MaintenanceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MaintenanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MaintenanceMaxAggregateInputType
+  }
+
+  export type GetMaintenanceAggregateType<T extends MaintenanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateMaintenance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMaintenance[P]>
+      : GetScalarType<T[P], AggregateMaintenance[P]>
+  }
+
+
+
+
+  export type MaintenanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceWhereInput
+    orderBy?: MaintenanceOrderByWithAggregationInput | MaintenanceOrderByWithAggregationInput[]
+    by: MaintenanceScalarFieldEnum[] | MaintenanceScalarFieldEnum
+    having?: MaintenanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MaintenanceCountAggregateInputType | true
+    _avg?: MaintenanceAvgAggregateInputType
+    _sum?: MaintenanceSumAggregateInputType
+    _min?: MaintenanceMinAggregateInputType
+    _max?: MaintenanceMaxAggregateInputType
+  }
+
+  export type MaintenanceGroupByOutputType = {
+    id: string
+    userId: string
+    plateNumber: string
+    maintenanceType: string
+    client: string | null
+    date: string
+    cost: number
+    description: string | null
+    _count: MaintenanceCountAggregateOutputType | null
+    _avg: MaintenanceAvgAggregateOutputType | null
+    _sum: MaintenanceSumAggregateOutputType | null
+    _min: MaintenanceMinAggregateOutputType | null
+    _max: MaintenanceMaxAggregateOutputType | null
+  }
+
+  type GetMaintenanceGroupByPayload<T extends MaintenanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MaintenanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MaintenanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MaintenanceGroupByOutputType[P]>
+            : GetScalarType<T[P], MaintenanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MaintenanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    plateNumber?: boolean
+    maintenanceType?: boolean
+    client?: boolean
+    date?: boolean
+    cost?: boolean
+    description?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
+    transaction?: boolean | Maintenance$transactionArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenance"]>
+
+  export type MaintenanceSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    plateNumber?: boolean
+    maintenanceType?: boolean
+    client?: boolean
+    date?: boolean
+    cost?: boolean
+    description?: boolean
+  }
+
+  export type MaintenanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    vehicle?: boolean | VehicleDefaultArgs<ExtArgs>
+    transaction?: boolean | Maintenance$transactionArgs<ExtArgs>
+  }
+
+
+  export type $MaintenancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Maintenance"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      vehicle: Prisma.$VehiclePayload<ExtArgs>
+      transaction: Prisma.$TransactionPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      plateNumber: string
+      maintenanceType: string
+      client: string | null
+      date: string
+      cost: number
+      description: string | null
+    }, ExtArgs["result"]["maintenance"]>
+    composites: {}
+  }
+
+
+  type MaintenanceGetPayload<S extends boolean | null | undefined | MaintenanceDefaultArgs> = $Result.GetResult<Prisma.$MaintenancePayload, S>
+
+  type MaintenanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MaintenanceFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: MaintenanceCountAggregateInputType | true
+    }
+
+  export interface MaintenanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Maintenance'], meta: { name: 'Maintenance' } }
+    /**
+     * Find zero or one Maintenance that matches the filter.
+     * @param {MaintenanceFindUniqueArgs} args - Arguments to find a Maintenance
+     * @example
+     * // Get one Maintenance
+     * const maintenance = await prisma.maintenance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends MaintenanceFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, MaintenanceFindUniqueArgs<ExtArgs>>
+    ): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Maintenance that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {MaintenanceFindUniqueOrThrowArgs} args - Arguments to find a Maintenance
+     * @example
+     * // Get one Maintenance
+     * const maintenance = await prisma.maintenance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends MaintenanceFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MaintenanceFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Maintenance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceFindFirstArgs} args - Arguments to find a Maintenance
+     * @example
+     * // Get one Maintenance
+     * const maintenance = await prisma.maintenance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends MaintenanceFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, MaintenanceFindFirstArgs<ExtArgs>>
+    ): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Maintenance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceFindFirstOrThrowArgs} args - Arguments to find a Maintenance
+     * @example
+     * // Get one Maintenance
+     * const maintenance = await prisma.maintenance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends MaintenanceFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, MaintenanceFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Maintenances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Maintenances
+     * const maintenances = await prisma.maintenance.findMany()
+     * 
+     * // Get first 10 Maintenances
+     * const maintenances = await prisma.maintenance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const maintenanceWithIdOnly = await prisma.maintenance.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends MaintenanceFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MaintenanceFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Maintenance.
+     * @param {MaintenanceCreateArgs} args - Arguments to create a Maintenance.
+     * @example
+     * // Create one Maintenance
+     * const Maintenance = await prisma.maintenance.create({
+     *   data: {
+     *     // ... data to create a Maintenance
+     *   }
+     * })
+     * 
+    **/
+    create<T extends MaintenanceCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, MaintenanceCreateArgs<ExtArgs>>
+    ): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Maintenances.
+     *     @param {MaintenanceCreateManyArgs} args - Arguments to create many Maintenances.
+     *     @example
+     *     // Create many Maintenances
+     *     const maintenance = await prisma.maintenance.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends MaintenanceCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MaintenanceCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Maintenance.
+     * @param {MaintenanceDeleteArgs} args - Arguments to delete one Maintenance.
+     * @example
+     * // Delete one Maintenance
+     * const Maintenance = await prisma.maintenance.delete({
+     *   where: {
+     *     // ... filter to delete one Maintenance
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends MaintenanceDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, MaintenanceDeleteArgs<ExtArgs>>
+    ): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Maintenance.
+     * @param {MaintenanceUpdateArgs} args - Arguments to update one Maintenance.
+     * @example
+     * // Update one Maintenance
+     * const maintenance = await prisma.maintenance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends MaintenanceUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, MaintenanceUpdateArgs<ExtArgs>>
+    ): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Maintenances.
+     * @param {MaintenanceDeleteManyArgs} args - Arguments to filter Maintenances to delete.
+     * @example
+     * // Delete a few Maintenances
+     * const { count } = await prisma.maintenance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends MaintenanceDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, MaintenanceDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Maintenances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Maintenances
+     * const maintenance = await prisma.maintenance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends MaintenanceUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, MaintenanceUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Maintenance.
+     * @param {MaintenanceUpsertArgs} args - Arguments to update or create a Maintenance.
+     * @example
+     * // Update or create a Maintenance
+     * const maintenance = await prisma.maintenance.upsert({
+     *   create: {
+     *     // ... data to create a Maintenance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Maintenance we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends MaintenanceUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, MaintenanceUpsertArgs<ExtArgs>>
+    ): Prisma__MaintenanceClient<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Maintenances that matches the filter.
+     * @param {MaintenanceFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const maintenance = await prisma.maintenance.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: MaintenanceFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Maintenance.
+     * @param {MaintenanceAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const maintenance = await prisma.maintenance.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: MaintenanceAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of Maintenances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceCountArgs} args - Arguments to filter Maintenances to count.
+     * @example
+     * // Count the number of Maintenances
+     * const count = await prisma.maintenance.count({
+     *   where: {
+     *     // ... the filter for the Maintenances we want to count
+     *   }
+     * })
+    **/
+    count<T extends MaintenanceCountArgs>(
+      args?: Subset<T, MaintenanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MaintenanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Maintenance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MaintenanceAggregateArgs>(args: Subset<T, MaintenanceAggregateArgs>): Prisma.PrismaPromise<GetMaintenanceAggregateType<T>>
+
+    /**
+     * Group by Maintenance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MaintenanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MaintenanceGroupByArgs['orderBy'] }
+        : { orderBy?: MaintenanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MaintenanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaintenanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Maintenance model
+   */
+  readonly fields: MaintenanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Maintenance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MaintenanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    vehicle<T extends VehicleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VehicleDefaultArgs<ExtArgs>>): Prisma__VehicleClient<$Result.GetResult<Prisma.$VehiclePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    transaction<T extends Maintenance$transactionArgs<ExtArgs> = {}>(args?: Subset<T, Maintenance$transactionArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Maintenance model
+   */ 
+  interface MaintenanceFieldRefs {
+    readonly id: FieldRef<"Maintenance", 'String'>
+    readonly userId: FieldRef<"Maintenance", 'String'>
+    readonly plateNumber: FieldRef<"Maintenance", 'String'>
+    readonly maintenanceType: FieldRef<"Maintenance", 'String'>
+    readonly client: FieldRef<"Maintenance", 'String'>
+    readonly date: FieldRef<"Maintenance", 'String'>
+    readonly cost: FieldRef<"Maintenance", 'Float'>
+    readonly description: FieldRef<"Maintenance", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Maintenance findUnique
+   */
+  export type MaintenanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Maintenance to fetch.
+     */
+    where: MaintenanceWhereUniqueInput
+  }
+
+
+  /**
+   * Maintenance findUniqueOrThrow
+   */
+  export type MaintenanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Maintenance to fetch.
+     */
+    where: MaintenanceWhereUniqueInput
+  }
+
+
+  /**
+   * Maintenance findFirst
+   */
+  export type MaintenanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Maintenance to fetch.
+     */
+    where?: MaintenanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maintenances to fetch.
+     */
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Maintenances.
+     */
+    cursor?: MaintenanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maintenances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maintenances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Maintenances.
+     */
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+
+  /**
+   * Maintenance findFirstOrThrow
+   */
+  export type MaintenanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Maintenance to fetch.
+     */
+    where?: MaintenanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maintenances to fetch.
+     */
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Maintenances.
+     */
+    cursor?: MaintenanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maintenances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maintenances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Maintenances.
+     */
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+
+  /**
+   * Maintenance findMany
+   */
+  export type MaintenanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Maintenances to fetch.
+     */
+    where?: MaintenanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Maintenances to fetch.
+     */
+    orderBy?: MaintenanceOrderByWithRelationInput | MaintenanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Maintenances.
+     */
+    cursor?: MaintenanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Maintenances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Maintenances.
+     */
+    skip?: number
+    distinct?: MaintenanceScalarFieldEnum | MaintenanceScalarFieldEnum[]
+  }
+
+
+  /**
+   * Maintenance create
+   */
+  export type MaintenanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Maintenance.
+     */
+    data: XOR<MaintenanceCreateInput, MaintenanceUncheckedCreateInput>
+  }
+
+
+  /**
+   * Maintenance createMany
+   */
+  export type MaintenanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Maintenances.
+     */
+    data: MaintenanceCreateManyInput | MaintenanceCreateManyInput[]
+  }
+
+
+  /**
+   * Maintenance update
+   */
+  export type MaintenanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Maintenance.
+     */
+    data: XOR<MaintenanceUpdateInput, MaintenanceUncheckedUpdateInput>
+    /**
+     * Choose, which Maintenance to update.
+     */
+    where: MaintenanceWhereUniqueInput
+  }
+
+
+  /**
+   * Maintenance updateMany
+   */
+  export type MaintenanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Maintenances.
+     */
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyInput>
+    /**
+     * Filter which Maintenances to update
+     */
+    where?: MaintenanceWhereInput
+  }
+
+
+  /**
+   * Maintenance upsert
+   */
+  export type MaintenanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Maintenance to update in case it exists.
+     */
+    where: MaintenanceWhereUniqueInput
+    /**
+     * In case the Maintenance found by the `where` argument doesn't exist, create a new Maintenance with this data.
+     */
+    create: XOR<MaintenanceCreateInput, MaintenanceUncheckedCreateInput>
+    /**
+     * In case the Maintenance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MaintenanceUpdateInput, MaintenanceUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Maintenance delete
+   */
+  export type MaintenanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
+    /**
+     * Filter which Maintenance to delete.
+     */
+    where: MaintenanceWhereUniqueInput
+  }
+
+
+  /**
+   * Maintenance deleteMany
+   */
+  export type MaintenanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Maintenances to delete
+     */
+    where?: MaintenanceWhereInput
+  }
+
+
+  /**
+   * Maintenance findRaw
+   */
+  export type MaintenanceFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Maintenance aggregateRaw
+   */
+  export type MaintenanceAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Maintenance.transaction
+   */
+  export type Maintenance$transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+  }
+
+
+  /**
+   * Maintenance without action
+   */
+  export type MaintenanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Maintenance
+     */
+    select?: MaintenanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: MaintenanceInclude<ExtArgs> | null
   }
 
 
@@ -5804,14 +8472,48 @@ export namespace Prisma {
     meterReadingIn: 'meterReadingIn',
     timeOut: 'timeOut',
     dailyRent: 'dailyRent',
+    days: 'days',
     timeIn: 'timeIn',
     dateOut: 'dateOut',
     returnedDate: 'returnedDate',
+    returnStatus: 'returnStatus',
+    earlyReturnFee: 'earlyReturnFee',
+    lateReturnFee: 'lateReturnFee',
     invoiceDetails: 'invoiceDetails',
-    customerId: 'customerId'
+    customerId: 'customerId',
+    transacionId: 'transacionId'
   };
 
   export type ContractScalarFieldEnum = (typeof ContractScalarFieldEnum)[keyof typeof ContractScalarFieldEnum]
+
+
+  export const TransactionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    amount: 'amount',
+    type: 'type',
+    plateNumber: 'plateNumber',
+    createdAt: 'createdAt',
+    contractId: 'contractId',
+    customerId: 'customerId',
+    maintenanceId: 'maintenanceId'
+  };
+
+  export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
+  export const MaintenanceScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    plateNumber: 'plateNumber',
+    maintenanceType: 'maintenanceType',
+    client: 'client',
+    date: 'date',
+    cost: 'cost',
+    description: 'description'
+  };
+
+  export type MaintenanceScalarFieldEnum = (typeof MaintenanceScalarFieldEnum)[keyof typeof MaintenanceScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5864,20 +8566,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -5888,6 +8576,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
   /**
    * Deep Input Types
@@ -5906,6 +8608,8 @@ export namespace Prisma {
     Vehicles?: VehicleListRelationFilter
     Customers?: CustomerListRelationFilter
     Contracts?: ContractListRelationFilter
+    Maintenances?: MaintenanceListRelationFilter
+    Transactions?: TransactionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -5917,6 +8621,8 @@ export namespace Prisma {
     Vehicles?: VehicleOrderByRelationAggregateInput
     Customers?: CustomerOrderByRelationAggregateInput
     Contracts?: ContractOrderByRelationAggregateInput
+    Maintenances?: MaintenanceOrderByRelationAggregateInput
+    Transactions?: TransactionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -5931,6 +8637,8 @@ export namespace Prisma {
     Vehicles?: VehicleListRelationFilter
     Customers?: CustomerListRelationFilter
     Contracts?: ContractListRelationFilter
+    Maintenances?: MaintenanceListRelationFilter
+    Transactions?: TransactionListRelationFilter
   }, "id" | "userId" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -5963,24 +8671,26 @@ export namespace Prisma {
     userId?: StringNullableFilter<"Vehicle"> | string | null
     plateNumber?: StringFilter<"Vehicle"> | string
     brand?: StringFilter<"Vehicle"> | string
-    meter?: IntFilter<"Vehicle"> | number
+    meter?: FloatFilter<"Vehicle"> | number
     status?: StringFilter<"Vehicle"> | string
     rentalCount?: IntNullableFilter<"Vehicle"> | number | null
     transmission?: StringFilter<"Vehicle"> | string
-    manufactureYear?: IntNullableFilter<"Vehicle"> | number | null
+    manufactureYear?: FloatNullableFilter<"Vehicle"> | number | null
     color?: StringNullableFilter<"Vehicle"> | string | null
-    extraHourPrice?: IntFilter<"Vehicle"> | number
-    dailyRent?: IntFilter<"Vehicle"> | number
-    weeklyRent?: IntFilter<"Vehicle"> | number
-    monthlyRent?: IntFilter<"Vehicle"> | number
+    extraHourPrice?: FloatFilter<"Vehicle"> | number
+    dailyRent?: FloatFilter<"Vehicle"> | number
+    weeklyRent?: FloatFilter<"Vehicle"> | number
+    monthlyRent?: FloatFilter<"Vehicle"> | number
     insuranceCompany?: StringNullableFilter<"Vehicle"> | string | null
     registrationType?: StringNullableFilter<"Vehicle"> | string | null
     fuelType?: StringFilter<"Vehicle"> | string
-    extraKilometerPrice?: IntFilter<"Vehicle"> | number
+    extraKilometerPrice?: FloatFilter<"Vehicle"> | number
     vehicleType?: StringNullableFilter<"Vehicle"> | string | null
-    dailyKilometerLimit?: IntFilter<"Vehicle"> | number
+    dailyKilometerLimit?: FloatFilter<"Vehicle"> | number
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     Contracts?: ContractListRelationFilter
+    Transactions?: TransactionListRelationFilter
+    Maintenances?: MaintenanceListRelationFilter
   }
 
   export type VehicleOrderByWithRelationInput = {
@@ -6006,6 +8716,8 @@ export namespace Prisma {
     dailyKilometerLimit?: SortOrder
     user?: UserOrderByWithRelationInput
     Contracts?: ContractOrderByRelationAggregateInput
+    Transactions?: TransactionOrderByRelationAggregateInput
+    Maintenances?: MaintenanceOrderByRelationAggregateInput
   }
 
   export type VehicleWhereUniqueInput = Prisma.AtLeast<{
@@ -6016,24 +8728,26 @@ export namespace Prisma {
     NOT?: VehicleWhereInput | VehicleWhereInput[]
     userId?: StringNullableFilter<"Vehicle"> | string | null
     brand?: StringFilter<"Vehicle"> | string
-    meter?: IntFilter<"Vehicle"> | number
+    meter?: FloatFilter<"Vehicle"> | number
     status?: StringFilter<"Vehicle"> | string
     rentalCount?: IntNullableFilter<"Vehicle"> | number | null
     transmission?: StringFilter<"Vehicle"> | string
-    manufactureYear?: IntNullableFilter<"Vehicle"> | number | null
+    manufactureYear?: FloatNullableFilter<"Vehicle"> | number | null
     color?: StringNullableFilter<"Vehicle"> | string | null
-    extraHourPrice?: IntFilter<"Vehicle"> | number
-    dailyRent?: IntFilter<"Vehicle"> | number
-    weeklyRent?: IntFilter<"Vehicle"> | number
-    monthlyRent?: IntFilter<"Vehicle"> | number
+    extraHourPrice?: FloatFilter<"Vehicle"> | number
+    dailyRent?: FloatFilter<"Vehicle"> | number
+    weeklyRent?: FloatFilter<"Vehicle"> | number
+    monthlyRent?: FloatFilter<"Vehicle"> | number
     insuranceCompany?: StringNullableFilter<"Vehicle"> | string | null
     registrationType?: StringNullableFilter<"Vehicle"> | string | null
     fuelType?: StringFilter<"Vehicle"> | string
-    extraKilometerPrice?: IntFilter<"Vehicle"> | number
+    extraKilometerPrice?: FloatFilter<"Vehicle"> | number
     vehicleType?: StringNullableFilter<"Vehicle"> | string | null
-    dailyKilometerLimit?: IntFilter<"Vehicle"> | number
+    dailyKilometerLimit?: FloatFilter<"Vehicle"> | number
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     Contracts?: ContractListRelationFilter
+    Transactions?: TransactionListRelationFilter
+    Maintenances?: MaintenanceListRelationFilter
   }, "id" | "plateNumber">
 
   export type VehicleOrderByWithAggregationInput = {
@@ -6072,22 +8786,22 @@ export namespace Prisma {
     userId?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
     plateNumber?: StringWithAggregatesFilter<"Vehicle"> | string
     brand?: StringWithAggregatesFilter<"Vehicle"> | string
-    meter?: IntWithAggregatesFilter<"Vehicle"> | number
+    meter?: FloatWithAggregatesFilter<"Vehicle"> | number
     status?: StringWithAggregatesFilter<"Vehicle"> | string
     rentalCount?: IntNullableWithAggregatesFilter<"Vehicle"> | number | null
     transmission?: StringWithAggregatesFilter<"Vehicle"> | string
-    manufactureYear?: IntNullableWithAggregatesFilter<"Vehicle"> | number | null
+    manufactureYear?: FloatNullableWithAggregatesFilter<"Vehicle"> | number | null
     color?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
-    extraHourPrice?: IntWithAggregatesFilter<"Vehicle"> | number
-    dailyRent?: IntWithAggregatesFilter<"Vehicle"> | number
-    weeklyRent?: IntWithAggregatesFilter<"Vehicle"> | number
-    monthlyRent?: IntWithAggregatesFilter<"Vehicle"> | number
+    extraHourPrice?: FloatWithAggregatesFilter<"Vehicle"> | number
+    dailyRent?: FloatWithAggregatesFilter<"Vehicle"> | number
+    weeklyRent?: FloatWithAggregatesFilter<"Vehicle"> | number
+    monthlyRent?: FloatWithAggregatesFilter<"Vehicle"> | number
     insuranceCompany?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
     registrationType?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
     fuelType?: StringWithAggregatesFilter<"Vehicle"> | string
-    extraKilometerPrice?: IntWithAggregatesFilter<"Vehicle"> | number
+    extraKilometerPrice?: FloatWithAggregatesFilter<"Vehicle"> | number
     vehicleType?: StringNullableWithAggregatesFilter<"Vehicle"> | string | null
-    dailyKilometerLimit?: IntWithAggregatesFilter<"Vehicle"> | number
+    dailyKilometerLimit?: FloatWithAggregatesFilter<"Vehicle"> | number
   }
 
   export type CustomerWhereInput = {
@@ -6102,9 +8816,10 @@ export namespace Prisma {
     idNumber?: StringFilter<"Customer"> | string
     idExpirationDate?: StringNullableFilter<"Customer"> | string | null
     mobile?: StringNullableFilter<"Customer"> | string | null
-    debt?: IntFilter<"Customer"> | number
+    debt?: FloatNullableFilter<"Customer"> | number | null
     user?: XOR<UserRelationFilter, UserWhereInput>
     Contracts?: ContractListRelationFilter
+    Transactions?: TransactionListRelationFilter
   }
 
   export type CustomerOrderByWithRelationInput = {
@@ -6119,6 +8834,7 @@ export namespace Prisma {
     debt?: SortOrder
     user?: UserOrderByWithRelationInput
     Contracts?: ContractOrderByRelationAggregateInput
+    Transactions?: TransactionOrderByRelationAggregateInput
   }
 
   export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -6133,9 +8849,10 @@ export namespace Prisma {
     idNumber?: StringFilter<"Customer"> | string
     idExpirationDate?: StringNullableFilter<"Customer"> | string | null
     mobile?: StringNullableFilter<"Customer"> | string | null
-    debt?: IntFilter<"Customer"> | number
+    debt?: FloatNullableFilter<"Customer"> | number | null
     user?: XOR<UserRelationFilter, UserWhereInput>
     Contracts?: ContractListRelationFilter
+    Transactions?: TransactionListRelationFilter
   }, "id">
 
   export type CustomerOrderByWithAggregationInput = {
@@ -6167,7 +8884,7 @@ export namespace Prisma {
     idNumber?: StringWithAggregatesFilter<"Customer"> | string
     idExpirationDate?: StringNullableWithAggregatesFilter<"Customer"> | string | null
     mobile?: StringNullableWithAggregatesFilter<"Customer"> | string | null
-    debt?: IntWithAggregatesFilter<"Customer"> | number
+    debt?: FloatNullableWithAggregatesFilter<"Customer"> | number | null
   }
 
   export type ContractWhereInput = {
@@ -6177,21 +8894,27 @@ export namespace Prisma {
     id?: StringFilter<"Contract"> | string
     userId?: StringFilter<"Contract"> | string
     plateNumber?: StringFilter<"Contract"> | string
-    total?: IntFilter<"Contract"> | number
-    paid?: IntFilter<"Contract"> | number
-    remainingDues?: IntFilter<"Contract"> | number
-    meterReadingOut?: IntFilter<"Contract"> | number
-    meterReadingIn?: IntNullableFilter<"Contract"> | number | null
+    total?: FloatFilter<"Contract"> | number
+    paid?: FloatFilter<"Contract"> | number
+    remainingDues?: FloatFilter<"Contract"> | number
+    meterReadingOut?: FloatFilter<"Contract"> | number
+    meterReadingIn?: FloatNullableFilter<"Contract"> | number | null
     timeOut?: StringFilter<"Contract"> | string
-    dailyRent?: IntFilter<"Contract"> | number
+    dailyRent?: FloatFilter<"Contract"> | number
+    days?: FloatFilter<"Contract"> | number
     timeIn?: StringFilter<"Contract"> | string
     dateOut?: StringFilter<"Contract"> | string
     returnedDate?: StringFilter<"Contract"> | string
+    returnStatus?: StringNullableFilter<"Contract"> | string | null
+    earlyReturnFee?: StringNullableFilter<"Contract"> | string | null
+    lateReturnFee?: StringNullableFilter<"Contract"> | string | null
     invoiceDetails?: StringNullableFilter<"Contract"> | string | null
     customerId?: StringFilter<"Contract"> | string
+    transacionId?: StringNullableFilter<"Contract"> | string | null
     user?: XOR<UserRelationFilter, UserWhereInput>
     customer?: XOR<CustomerRelationFilter, CustomerWhereInput>
     vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+    Transactions?: TransactionListRelationFilter
   }
 
   export type ContractOrderByWithRelationInput = {
@@ -6205,14 +8928,20 @@ export namespace Prisma {
     meterReadingIn?: SortOrder
     timeOut?: SortOrder
     dailyRent?: SortOrder
+    days?: SortOrder
     timeIn?: SortOrder
     dateOut?: SortOrder
     returnedDate?: SortOrder
+    returnStatus?: SortOrder
+    earlyReturnFee?: SortOrder
+    lateReturnFee?: SortOrder
     invoiceDetails?: SortOrder
     customerId?: SortOrder
+    transacionId?: SortOrder
     user?: UserOrderByWithRelationInput
     customer?: CustomerOrderByWithRelationInput
     vehicle?: VehicleOrderByWithRelationInput
+    Transactions?: TransactionOrderByRelationAggregateInput
   }
 
   export type ContractWhereUniqueInput = Prisma.AtLeast<{
@@ -6222,21 +8951,27 @@ export namespace Prisma {
     OR?: ContractWhereInput[]
     NOT?: ContractWhereInput | ContractWhereInput[]
     userId?: StringFilter<"Contract"> | string
-    total?: IntFilter<"Contract"> | number
-    paid?: IntFilter<"Contract"> | number
-    remainingDues?: IntFilter<"Contract"> | number
-    meterReadingOut?: IntFilter<"Contract"> | number
-    meterReadingIn?: IntNullableFilter<"Contract"> | number | null
+    total?: FloatFilter<"Contract"> | number
+    paid?: FloatFilter<"Contract"> | number
+    remainingDues?: FloatFilter<"Contract"> | number
+    meterReadingOut?: FloatFilter<"Contract"> | number
+    meterReadingIn?: FloatNullableFilter<"Contract"> | number | null
     timeOut?: StringFilter<"Contract"> | string
-    dailyRent?: IntFilter<"Contract"> | number
+    dailyRent?: FloatFilter<"Contract"> | number
+    days?: FloatFilter<"Contract"> | number
     timeIn?: StringFilter<"Contract"> | string
     dateOut?: StringFilter<"Contract"> | string
     returnedDate?: StringFilter<"Contract"> | string
+    returnStatus?: StringNullableFilter<"Contract"> | string | null
+    earlyReturnFee?: StringNullableFilter<"Contract"> | string | null
+    lateReturnFee?: StringNullableFilter<"Contract"> | string | null
     invoiceDetails?: StringNullableFilter<"Contract"> | string | null
     customerId?: StringFilter<"Contract"> | string
+    transacionId?: StringNullableFilter<"Contract"> | string | null
     user?: XOR<UserRelationFilter, UserWhereInput>
     customer?: XOR<CustomerRelationFilter, CustomerWhereInput>
     vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+    Transactions?: TransactionListRelationFilter
   }, "id" | "plateNumber">
 
   export type ContractOrderByWithAggregationInput = {
@@ -6250,11 +8985,16 @@ export namespace Prisma {
     meterReadingIn?: SortOrder
     timeOut?: SortOrder
     dailyRent?: SortOrder
+    days?: SortOrder
     timeIn?: SortOrder
     dateOut?: SortOrder
     returnedDate?: SortOrder
+    returnStatus?: SortOrder
+    earlyReturnFee?: SortOrder
+    lateReturnFee?: SortOrder
     invoiceDetails?: SortOrder
     customerId?: SortOrder
+    transacionId?: SortOrder
     _count?: ContractCountOrderByAggregateInput
     _avg?: ContractAvgOrderByAggregateInput
     _max?: ContractMaxOrderByAggregateInput
@@ -6269,18 +9009,190 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Contract"> | string
     userId?: StringWithAggregatesFilter<"Contract"> | string
     plateNumber?: StringWithAggregatesFilter<"Contract"> | string
-    total?: IntWithAggregatesFilter<"Contract"> | number
-    paid?: IntWithAggregatesFilter<"Contract"> | number
-    remainingDues?: IntWithAggregatesFilter<"Contract"> | number
-    meterReadingOut?: IntWithAggregatesFilter<"Contract"> | number
-    meterReadingIn?: IntNullableWithAggregatesFilter<"Contract"> | number | null
+    total?: FloatWithAggregatesFilter<"Contract"> | number
+    paid?: FloatWithAggregatesFilter<"Contract"> | number
+    remainingDues?: FloatWithAggregatesFilter<"Contract"> | number
+    meterReadingOut?: FloatWithAggregatesFilter<"Contract"> | number
+    meterReadingIn?: FloatNullableWithAggregatesFilter<"Contract"> | number | null
     timeOut?: StringWithAggregatesFilter<"Contract"> | string
-    dailyRent?: IntWithAggregatesFilter<"Contract"> | number
+    dailyRent?: FloatWithAggregatesFilter<"Contract"> | number
+    days?: FloatWithAggregatesFilter<"Contract"> | number
     timeIn?: StringWithAggregatesFilter<"Contract"> | string
     dateOut?: StringWithAggregatesFilter<"Contract"> | string
     returnedDate?: StringWithAggregatesFilter<"Contract"> | string
+    returnStatus?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+    earlyReturnFee?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+    lateReturnFee?: StringNullableWithAggregatesFilter<"Contract"> | string | null
     invoiceDetails?: StringNullableWithAggregatesFilter<"Contract"> | string | null
     customerId?: StringWithAggregatesFilter<"Contract"> | string
+    transacionId?: StringNullableWithAggregatesFilter<"Contract"> | string | null
+  }
+
+  export type TransactionWhereInput = {
+    AND?: TransactionWhereInput | TransactionWhereInput[]
+    OR?: TransactionWhereInput[]
+    NOT?: TransactionWhereInput | TransactionWhereInput[]
+    id?: StringFilter<"Transaction"> | string
+    userId?: StringFilter<"Transaction"> | string
+    amount?: FloatFilter<"Transaction"> | number
+    type?: StringFilter<"Transaction"> | string
+    plateNumber?: StringFilter<"Transaction"> | string
+    createdAt?: DateTimeFilter<"Transaction"> | Date | string
+    contractId?: StringNullableFilter<"Transaction"> | string | null
+    customerId?: StringNullableFilter<"Transaction"> | string | null
+    maintenanceId?: StringNullableFilter<"Transaction"> | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    contract?: XOR<ContractNullableRelationFilter, ContractWhereInput> | null
+    customer?: XOR<CustomerNullableRelationFilter, CustomerWhereInput> | null
+    Maintenance?: XOR<MaintenanceNullableRelationFilter, MaintenanceWhereInput> | null
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+  }
+
+  export type TransactionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    type?: SortOrder
+    plateNumber?: SortOrder
+    createdAt?: SortOrder
+    contractId?: SortOrder
+    customerId?: SortOrder
+    maintenanceId?: SortOrder
+    user?: UserOrderByWithRelationInput
+    contract?: ContractOrderByWithRelationInput
+    customer?: CustomerOrderByWithRelationInput
+    Maintenance?: MaintenanceOrderByWithRelationInput
+    vehicle?: VehicleOrderByWithRelationInput
+  }
+
+  export type TransactionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    maintenanceId?: string
+    AND?: TransactionWhereInput | TransactionWhereInput[]
+    OR?: TransactionWhereInput[]
+    NOT?: TransactionWhereInput | TransactionWhereInput[]
+    userId?: StringFilter<"Transaction"> | string
+    amount?: FloatFilter<"Transaction"> | number
+    type?: StringFilter<"Transaction"> | string
+    plateNumber?: StringFilter<"Transaction"> | string
+    createdAt?: DateTimeFilter<"Transaction"> | Date | string
+    contractId?: StringNullableFilter<"Transaction"> | string | null
+    customerId?: StringNullableFilter<"Transaction"> | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    contract?: XOR<ContractNullableRelationFilter, ContractWhereInput> | null
+    customer?: XOR<CustomerNullableRelationFilter, CustomerWhereInput> | null
+    Maintenance?: XOR<MaintenanceNullableRelationFilter, MaintenanceWhereInput> | null
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+  }, "id" | "maintenanceId">
+
+  export type TransactionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    type?: SortOrder
+    plateNumber?: SortOrder
+    createdAt?: SortOrder
+    contractId?: SortOrder
+    customerId?: SortOrder
+    maintenanceId?: SortOrder
+    _count?: TransactionCountOrderByAggregateInput
+    _avg?: TransactionAvgOrderByAggregateInput
+    _max?: TransactionMaxOrderByAggregateInput
+    _min?: TransactionMinOrderByAggregateInput
+    _sum?: TransactionSumOrderByAggregateInput
+  }
+
+  export type TransactionScalarWhereWithAggregatesInput = {
+    AND?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
+    OR?: TransactionScalarWhereWithAggregatesInput[]
+    NOT?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Transaction"> | string
+    userId?: StringWithAggregatesFilter<"Transaction"> | string
+    amount?: FloatWithAggregatesFilter<"Transaction"> | number
+    type?: StringWithAggregatesFilter<"Transaction"> | string
+    plateNumber?: StringWithAggregatesFilter<"Transaction"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
+    contractId?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    customerId?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    maintenanceId?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+  }
+
+  export type MaintenanceWhereInput = {
+    AND?: MaintenanceWhereInput | MaintenanceWhereInput[]
+    OR?: MaintenanceWhereInput[]
+    NOT?: MaintenanceWhereInput | MaintenanceWhereInput[]
+    id?: StringFilter<"Maintenance"> | string
+    userId?: StringFilter<"Maintenance"> | string
+    plateNumber?: StringFilter<"Maintenance"> | string
+    maintenanceType?: StringFilter<"Maintenance"> | string
+    client?: StringNullableFilter<"Maintenance"> | string | null
+    date?: StringFilter<"Maintenance"> | string
+    cost?: FloatFilter<"Maintenance"> | number
+    description?: StringNullableFilter<"Maintenance"> | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+    transaction?: XOR<TransactionNullableRelationFilter, TransactionWhereInput> | null
+  }
+
+  export type MaintenanceOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    plateNumber?: SortOrder
+    maintenanceType?: SortOrder
+    client?: SortOrder
+    date?: SortOrder
+    cost?: SortOrder
+    description?: SortOrder
+    user?: UserOrderByWithRelationInput
+    vehicle?: VehicleOrderByWithRelationInput
+    transaction?: TransactionOrderByWithRelationInput
+  }
+
+  export type MaintenanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MaintenanceWhereInput | MaintenanceWhereInput[]
+    OR?: MaintenanceWhereInput[]
+    NOT?: MaintenanceWhereInput | MaintenanceWhereInput[]
+    userId?: StringFilter<"Maintenance"> | string
+    plateNumber?: StringFilter<"Maintenance"> | string
+    maintenanceType?: StringFilter<"Maintenance"> | string
+    client?: StringNullableFilter<"Maintenance"> | string | null
+    date?: StringFilter<"Maintenance"> | string
+    cost?: FloatFilter<"Maintenance"> | number
+    description?: StringNullableFilter<"Maintenance"> | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    vehicle?: XOR<VehicleRelationFilter, VehicleWhereInput>
+    transaction?: XOR<TransactionNullableRelationFilter, TransactionWhereInput> | null
+  }, "id">
+
+  export type MaintenanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    plateNumber?: SortOrder
+    maintenanceType?: SortOrder
+    client?: SortOrder
+    date?: SortOrder
+    cost?: SortOrder
+    description?: SortOrder
+    _count?: MaintenanceCountOrderByAggregateInput
+    _avg?: MaintenanceAvgOrderByAggregateInput
+    _max?: MaintenanceMaxOrderByAggregateInput
+    _min?: MaintenanceMinOrderByAggregateInput
+    _sum?: MaintenanceSumOrderByAggregateInput
+  }
+
+  export type MaintenanceScalarWhereWithAggregatesInput = {
+    AND?: MaintenanceScalarWhereWithAggregatesInput | MaintenanceScalarWhereWithAggregatesInput[]
+    OR?: MaintenanceScalarWhereWithAggregatesInput[]
+    NOT?: MaintenanceScalarWhereWithAggregatesInput | MaintenanceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Maintenance"> | string
+    userId?: StringWithAggregatesFilter<"Maintenance"> | string
+    plateNumber?: StringWithAggregatesFilter<"Maintenance"> | string
+    maintenanceType?: StringWithAggregatesFilter<"Maintenance"> | string
+    client?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
+    date?: StringWithAggregatesFilter<"Maintenance"> | string
+    cost?: FloatWithAggregatesFilter<"Maintenance"> | number
+    description?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
   }
 
   export type UserCreateInput = {
@@ -6292,6 +9204,8 @@ export namespace Prisma {
     Vehicles?: VehicleCreateNestedManyWithoutUserInput
     Customers?: CustomerCreateNestedManyWithoutUserInput
     Contracts?: ContractCreateNestedManyWithoutUserInput
+    Maintenances?: MaintenanceCreateNestedManyWithoutUserInput
+    Transactions?: TransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6303,6 +9217,8 @@ export namespace Prisma {
     Vehicles?: VehicleUncheckedCreateNestedManyWithoutUserInput
     Customers?: CustomerUncheckedCreateNestedManyWithoutUserInput
     Contracts?: ContractUncheckedCreateNestedManyWithoutUserInput
+    Maintenances?: MaintenanceUncheckedCreateNestedManyWithoutUserInput
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -6313,6 +9229,8 @@ export namespace Prisma {
     Vehicles?: VehicleUpdateManyWithoutUserNestedInput
     Customers?: CustomerUpdateManyWithoutUserNestedInput
     Contracts?: ContractUpdateManyWithoutUserNestedInput
+    Maintenances?: MaintenanceUpdateManyWithoutUserNestedInput
+    Transactions?: TransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6323,6 +9241,8 @@ export namespace Prisma {
     Vehicles?: VehicleUncheckedUpdateManyWithoutUserNestedInput
     Customers?: CustomerUncheckedUpdateManyWithoutUserNestedInput
     Contracts?: ContractUncheckedUpdateManyWithoutUserNestedInput
+    Maintenances?: MaintenanceUncheckedUpdateManyWithoutUserNestedInput
+    Transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -6369,6 +9289,8 @@ export namespace Prisma {
     dailyKilometerLimit: number
     user?: UserCreateNestedOneWithoutVehiclesInput
     Contracts?: ContractCreateNestedManyWithoutVehicleInput
+    Transactions?: TransactionCreateNestedManyWithoutVehicleInput
+    Maintenances?: MaintenanceCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleUncheckedCreateInput = {
@@ -6393,52 +9315,58 @@ export namespace Prisma {
     vehicleType?: string | null
     dailyKilometerLimit: number
     Contracts?: ContractUncheckedCreateNestedManyWithoutVehicleInput
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutVehicleInput
+    Maintenances?: MaintenanceUncheckedCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleUpdateInput = {
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
-    meter?: IntFieldUpdateOperationsInput | number
+    meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
     transmission?: StringFieldUpdateOperationsInput | string
-    manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
+    manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
-    extraHourPrice?: IntFieldUpdateOperationsInput | number
-    dailyRent?: IntFieldUpdateOperationsInput | number
-    weeklyRent?: IntFieldUpdateOperationsInput | number
-    monthlyRent?: IntFieldUpdateOperationsInput | number
+    extraHourPrice?: FloatFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    weeklyRent?: FloatFieldUpdateOperationsInput | number
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
     insuranceCompany?: NullableStringFieldUpdateOperationsInput | string | null
     registrationType?: NullableStringFieldUpdateOperationsInput | string | null
     fuelType?: StringFieldUpdateOperationsInput | string
-    extraKilometerPrice?: IntFieldUpdateOperationsInput | number
+    extraKilometerPrice?: FloatFieldUpdateOperationsInput | number
     vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyKilometerLimit?: IntFieldUpdateOperationsInput | number
+    dailyKilometerLimit?: FloatFieldUpdateOperationsInput | number
     user?: UserUpdateOneWithoutVehiclesNestedInput
     Contracts?: ContractUpdateManyWithoutVehicleNestedInput
+    Transactions?: TransactionUpdateManyWithoutVehicleNestedInput
+    Maintenances?: MaintenanceUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleUncheckedUpdateInput = {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
-    meter?: IntFieldUpdateOperationsInput | number
+    meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
     transmission?: StringFieldUpdateOperationsInput | string
-    manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
+    manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
-    extraHourPrice?: IntFieldUpdateOperationsInput | number
-    dailyRent?: IntFieldUpdateOperationsInput | number
-    weeklyRent?: IntFieldUpdateOperationsInput | number
-    monthlyRent?: IntFieldUpdateOperationsInput | number
+    extraHourPrice?: FloatFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    weeklyRent?: FloatFieldUpdateOperationsInput | number
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
     insuranceCompany?: NullableStringFieldUpdateOperationsInput | string | null
     registrationType?: NullableStringFieldUpdateOperationsInput | string | null
     fuelType?: StringFieldUpdateOperationsInput | string
-    extraKilometerPrice?: IntFieldUpdateOperationsInput | number
+    extraKilometerPrice?: FloatFieldUpdateOperationsInput | number
     vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyKilometerLimit?: IntFieldUpdateOperationsInput | number
+    dailyKilometerLimit?: FloatFieldUpdateOperationsInput | number
     Contracts?: ContractUncheckedUpdateManyWithoutVehicleNestedInput
+    Transactions?: TransactionUncheckedUpdateManyWithoutVehicleNestedInput
+    Maintenances?: MaintenanceUncheckedUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleCreateManyInput = {
@@ -6467,44 +9395,44 @@ export namespace Prisma {
   export type VehicleUpdateManyMutationInput = {
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
-    meter?: IntFieldUpdateOperationsInput | number
+    meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
     transmission?: StringFieldUpdateOperationsInput | string
-    manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
+    manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
-    extraHourPrice?: IntFieldUpdateOperationsInput | number
-    dailyRent?: IntFieldUpdateOperationsInput | number
-    weeklyRent?: IntFieldUpdateOperationsInput | number
-    monthlyRent?: IntFieldUpdateOperationsInput | number
+    extraHourPrice?: FloatFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    weeklyRent?: FloatFieldUpdateOperationsInput | number
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
     insuranceCompany?: NullableStringFieldUpdateOperationsInput | string | null
     registrationType?: NullableStringFieldUpdateOperationsInput | string | null
     fuelType?: StringFieldUpdateOperationsInput | string
-    extraKilometerPrice?: IntFieldUpdateOperationsInput | number
+    extraKilometerPrice?: FloatFieldUpdateOperationsInput | number
     vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyKilometerLimit?: IntFieldUpdateOperationsInput | number
+    dailyKilometerLimit?: FloatFieldUpdateOperationsInput | number
   }
 
   export type VehicleUncheckedUpdateManyInput = {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
-    meter?: IntFieldUpdateOperationsInput | number
+    meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
     transmission?: StringFieldUpdateOperationsInput | string
-    manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
+    manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
-    extraHourPrice?: IntFieldUpdateOperationsInput | number
-    dailyRent?: IntFieldUpdateOperationsInput | number
-    weeklyRent?: IntFieldUpdateOperationsInput | number
-    monthlyRent?: IntFieldUpdateOperationsInput | number
+    extraHourPrice?: FloatFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    weeklyRent?: FloatFieldUpdateOperationsInput | number
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
     insuranceCompany?: NullableStringFieldUpdateOperationsInput | string | null
     registrationType?: NullableStringFieldUpdateOperationsInput | string | null
     fuelType?: StringFieldUpdateOperationsInput | string
-    extraKilometerPrice?: IntFieldUpdateOperationsInput | number
+    extraKilometerPrice?: FloatFieldUpdateOperationsInput | number
     vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyKilometerLimit?: IntFieldUpdateOperationsInput | number
+    dailyKilometerLimit?: FloatFieldUpdateOperationsInput | number
   }
 
   export type CustomerCreateInput = {
@@ -6515,9 +9443,10 @@ export namespace Prisma {
     idNumber: string
     idExpirationDate?: string | null
     mobile?: string | null
-    debt: number
+    debt?: number | null
     user: UserCreateNestedOneWithoutCustomersInput
     Contracts?: ContractCreateNestedManyWithoutCustomerInput
+    Transactions?: TransactionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateInput = {
@@ -6529,8 +9458,9 @@ export namespace Prisma {
     idNumber: string
     idExpirationDate?: string | null
     mobile?: string | null
-    debt: number
+    debt?: number | null
     Contracts?: ContractUncheckedCreateNestedManyWithoutCustomerInput
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUpdateInput = {
@@ -6540,9 +9470,10 @@ export namespace Prisma {
     idNumber?: StringFieldUpdateOperationsInput | string
     idExpirationDate?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
-    debt?: IntFieldUpdateOperationsInput | number
+    debt?: NullableFloatFieldUpdateOperationsInput | number | null
     user?: UserUpdateOneRequiredWithoutCustomersNestedInput
     Contracts?: ContractUpdateManyWithoutCustomerNestedInput
+    Transactions?: TransactionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateInput = {
@@ -6553,8 +9484,9 @@ export namespace Prisma {
     idNumber?: StringFieldUpdateOperationsInput | string
     idExpirationDate?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
-    debt?: IntFieldUpdateOperationsInput | number
+    debt?: NullableFloatFieldUpdateOperationsInput | number | null
     Contracts?: ContractUncheckedUpdateManyWithoutCustomerNestedInput
+    Transactions?: TransactionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateManyInput = {
@@ -6566,7 +9498,7 @@ export namespace Prisma {
     idNumber: string
     idExpirationDate?: string | null
     mobile?: string | null
-    debt: number
+    debt?: number | null
   }
 
   export type CustomerUpdateManyMutationInput = {
@@ -6576,7 +9508,7 @@ export namespace Prisma {
     idNumber?: StringFieldUpdateOperationsInput | string
     idExpirationDate?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
-    debt?: IntFieldUpdateOperationsInput | number
+    debt?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type CustomerUncheckedUpdateManyInput = {
@@ -6587,7 +9519,7 @@ export namespace Prisma {
     idNumber?: StringFieldUpdateOperationsInput | string
     idExpirationDate?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
-    debt?: IntFieldUpdateOperationsInput | number
+    debt?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type ContractCreateInput = {
@@ -6599,13 +9531,19 @@ export namespace Prisma {
     meterReadingIn?: number | null
     timeOut: string
     dailyRent: number
+    days: number
     timeIn: string
     dateOut: string
     returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
     invoiceDetails?: string | null
+    transacionId?: string | null
     user: UserCreateNestedOneWithoutContractsInput
     customer: CustomerCreateNestedOneWithoutContractsInput
     vehicle: VehicleCreateNestedOneWithoutContractsInput
+    Transactions?: TransactionCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateInput = {
@@ -6619,45 +9557,63 @@ export namespace Prisma {
     meterReadingIn?: number | null
     timeOut: string
     dailyRent: number
+    days: number
     timeIn: string
     dateOut: string
     returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
     invoiceDetails?: string | null
     customerId: string
+    transacionId?: string | null
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractUpdateInput = {
-    total?: IntFieldUpdateOperationsInput | number
-    paid?: IntFieldUpdateOperationsInput | number
-    remainingDues?: IntFieldUpdateOperationsInput | number
-    meterReadingOut?: IntFieldUpdateOperationsInput | number
-    meterReadingIn?: NullableIntFieldUpdateOperationsInput | number | null
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
     timeOut?: StringFieldUpdateOperationsInput | string
-    dailyRent?: IntFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
     timeIn?: StringFieldUpdateOperationsInput | string
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutContractsNestedInput
     customer?: CustomerUpdateOneRequiredWithoutContractsNestedInput
     vehicle?: VehicleUpdateOneRequiredWithoutContractsNestedInput
+    Transactions?: TransactionUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
-    total?: IntFieldUpdateOperationsInput | number
-    paid?: IntFieldUpdateOperationsInput | number
-    remainingDues?: IntFieldUpdateOperationsInput | number
-    meterReadingOut?: IntFieldUpdateOperationsInput | number
-    meterReadingIn?: NullableIntFieldUpdateOperationsInput | number | null
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
     timeOut?: StringFieldUpdateOperationsInput | string
-    dailyRent?: IntFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
     timeIn?: StringFieldUpdateOperationsInput | string
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
     customerId?: StringFieldUpdateOperationsInput | string
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
+    Transactions?: TransactionUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ContractCreateManyInput = {
@@ -6671,42 +9627,207 @@ export namespace Prisma {
     meterReadingIn?: number | null
     timeOut: string
     dailyRent: number
+    days: number
     timeIn: string
     dateOut: string
     returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
     invoiceDetails?: string | null
     customerId: string
+    transacionId?: string | null
   }
 
   export type ContractUpdateManyMutationInput = {
-    total?: IntFieldUpdateOperationsInput | number
-    paid?: IntFieldUpdateOperationsInput | number
-    remainingDues?: IntFieldUpdateOperationsInput | number
-    meterReadingOut?: IntFieldUpdateOperationsInput | number
-    meterReadingIn?: NullableIntFieldUpdateOperationsInput | number | null
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
     timeOut?: StringFieldUpdateOperationsInput | string
-    dailyRent?: IntFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
     timeIn?: StringFieldUpdateOperationsInput | string
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ContractUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
-    total?: IntFieldUpdateOperationsInput | number
-    paid?: IntFieldUpdateOperationsInput | number
-    remainingDues?: IntFieldUpdateOperationsInput | number
-    meterReadingOut?: IntFieldUpdateOperationsInput | number
-    meterReadingIn?: NullableIntFieldUpdateOperationsInput | number | null
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
     timeOut?: StringFieldUpdateOperationsInput | string
-    dailyRent?: IntFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
     timeIn?: StringFieldUpdateOperationsInput | string
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
     customerId?: StringFieldUpdateOperationsInput | string
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TransactionCreateInput = {
+    id?: string
+    amount: number
+    type: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutTransactionsInput
+    contract?: ContractCreateNestedOneWithoutTransactionsInput
+    customer?: CustomerCreateNestedOneWithoutTransactionsInput
+    Maintenance?: MaintenanceCreateNestedOneWithoutTransactionInput
+    vehicle: VehicleCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    amount: number
+    type: string
+    plateNumber: string
+    createdAt?: Date | string
+    contractId?: string | null
+    customerId?: string | null
+    maintenanceId?: string | null
+  }
+
+  export type TransactionUpdateInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
+    contract?: ContractUpdateOneWithoutTransactionsNestedInput
+    customer?: CustomerUpdateOneWithoutTransactionsNestedInput
+    Maintenance?: MaintenanceUpdateOneWithoutTransactionNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type TransactionUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TransactionCreateManyInput = {
+    id?: string
+    userId: string
+    amount: number
+    type: string
+    plateNumber: string
+    createdAt?: Date | string
+    contractId?: string | null
+    customerId?: string | null
+    maintenanceId?: string | null
+  }
+
+  export type TransactionUpdateManyMutationInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceCreateInput = {
+    id?: string
+    maintenanceType: string
+    client?: string | null
+    date: string
+    cost: number
+    description?: string | null
+    user: UserCreateNestedOneWithoutMaintenancesInput
+    vehicle: VehicleCreateNestedOneWithoutMaintenancesInput
+    transaction?: TransactionCreateNestedOneWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateInput = {
+    id?: string
+    userId: string
+    plateNumber: string
+    maintenanceType: string
+    client?: string | null
+    date: string
+    cost: number
+    description?: string | null
+    transaction?: TransactionUncheckedCreateNestedOneWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUpdateInput = {
+    maintenanceType?: StringFieldUpdateOperationsInput | string
+    client?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    cost?: FloatFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutMaintenancesNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutMaintenancesNestedInput
+    transaction?: TransactionUpdateOneWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    maintenanceType?: StringFieldUpdateOperationsInput | string
+    client?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    cost?: FloatFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction?: TransactionUncheckedUpdateOneWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceCreateManyInput = {
+    id?: string
+    userId: string
+    plateNumber: string
+    maintenanceType: string
+    client?: string | null
+    date: string
+    cost: number
+    description?: string | null
+  }
+
+  export type MaintenanceUpdateManyMutationInput = {
+    maintenanceType?: StringFieldUpdateOperationsInput | string
+    client?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    cost?: FloatFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    maintenanceType?: StringFieldUpdateOperationsInput | string
+    client?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    cost?: FloatFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -6753,6 +9874,18 @@ export namespace Prisma {
     none?: ContractWhereInput
   }
 
+  export type MaintenanceListRelationFilter = {
+    every?: MaintenanceWhereInput
+    some?: MaintenanceWhereInput
+    none?: MaintenanceWhereInput
+  }
+
+  export type TransactionListRelationFilter = {
+    every?: TransactionWhereInput
+    some?: TransactionWhereInput
+    none?: TransactionWhereInput
+  }
+
   export type VehicleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -6762,6 +9895,14 @@ export namespace Prisma {
   }
 
   export type ContractOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MaintenanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TransactionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -6837,15 +9978,15 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -6857,6 +9998,18 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
     isSet?: boolean
   }
 
@@ -6977,20 +10130,20 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
     _count?: NestedIntFilter<$PrismaModel>
     _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7007,6 +10160,23 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
     isSet?: boolean
   }
 
@@ -7080,11 +10250,16 @@ export namespace Prisma {
     meterReadingIn?: SortOrder
     timeOut?: SortOrder
     dailyRent?: SortOrder
+    days?: SortOrder
     timeIn?: SortOrder
     dateOut?: SortOrder
     returnedDate?: SortOrder
+    returnStatus?: SortOrder
+    earlyReturnFee?: SortOrder
+    lateReturnFee?: SortOrder
     invoiceDetails?: SortOrder
     customerId?: SortOrder
+    transacionId?: SortOrder
   }
 
   export type ContractAvgOrderByAggregateInput = {
@@ -7094,6 +10269,7 @@ export namespace Prisma {
     meterReadingOut?: SortOrder
     meterReadingIn?: SortOrder
     dailyRent?: SortOrder
+    days?: SortOrder
   }
 
   export type ContractMaxOrderByAggregateInput = {
@@ -7107,11 +10283,16 @@ export namespace Prisma {
     meterReadingIn?: SortOrder
     timeOut?: SortOrder
     dailyRent?: SortOrder
+    days?: SortOrder
     timeIn?: SortOrder
     dateOut?: SortOrder
     returnedDate?: SortOrder
+    returnStatus?: SortOrder
+    earlyReturnFee?: SortOrder
+    lateReturnFee?: SortOrder
     invoiceDetails?: SortOrder
     customerId?: SortOrder
+    transacionId?: SortOrder
   }
 
   export type ContractMinOrderByAggregateInput = {
@@ -7125,11 +10306,16 @@ export namespace Prisma {
     meterReadingIn?: SortOrder
     timeOut?: SortOrder
     dailyRent?: SortOrder
+    days?: SortOrder
     timeIn?: SortOrder
     dateOut?: SortOrder
     returnedDate?: SortOrder
+    returnStatus?: SortOrder
+    earlyReturnFee?: SortOrder
+    lateReturnFee?: SortOrder
     invoiceDetails?: SortOrder
     customerId?: SortOrder
+    transacionId?: SortOrder
   }
 
   export type ContractSumOrderByAggregateInput = {
@@ -7139,6 +10325,112 @@ export namespace Prisma {
     meterReadingOut?: SortOrder
     meterReadingIn?: SortOrder
     dailyRent?: SortOrder
+    days?: SortOrder
+  }
+
+  export type ContractNullableRelationFilter = {
+    is?: ContractWhereInput | null
+    isNot?: ContractWhereInput | null
+  }
+
+  export type CustomerNullableRelationFilter = {
+    is?: CustomerWhereInput | null
+    isNot?: CustomerWhereInput | null
+  }
+
+  export type MaintenanceNullableRelationFilter = {
+    is?: MaintenanceWhereInput | null
+    isNot?: MaintenanceWhereInput | null
+  }
+
+  export type TransactionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    type?: SortOrder
+    plateNumber?: SortOrder
+    createdAt?: SortOrder
+    contractId?: SortOrder
+    customerId?: SortOrder
+    maintenanceId?: SortOrder
+  }
+
+  export type TransactionAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type TransactionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    type?: SortOrder
+    plateNumber?: SortOrder
+    createdAt?: SortOrder
+    contractId?: SortOrder
+    customerId?: SortOrder
+    maintenanceId?: SortOrder
+  }
+
+  export type TransactionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    type?: SortOrder
+    plateNumber?: SortOrder
+    createdAt?: SortOrder
+    contractId?: SortOrder
+    customerId?: SortOrder
+    maintenanceId?: SortOrder
+  }
+
+  export type TransactionSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type TransactionNullableRelationFilter = {
+    is?: TransactionWhereInput | null
+    isNot?: TransactionWhereInput | null
+  }
+
+  export type MaintenanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    plateNumber?: SortOrder
+    maintenanceType?: SortOrder
+    client?: SortOrder
+    date?: SortOrder
+    cost?: SortOrder
+    description?: SortOrder
+  }
+
+  export type MaintenanceAvgOrderByAggregateInput = {
+    cost?: SortOrder
+  }
+
+  export type MaintenanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    plateNumber?: SortOrder
+    maintenanceType?: SortOrder
+    client?: SortOrder
+    date?: SortOrder
+    cost?: SortOrder
+    description?: SortOrder
+  }
+
+  export type MaintenanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    plateNumber?: SortOrder
+    maintenanceType?: SortOrder
+    client?: SortOrder
+    date?: SortOrder
+    cost?: SortOrder
+    description?: SortOrder
+  }
+
+  export type MaintenanceSumOrderByAggregateInput = {
+    cost?: SortOrder
   }
 
   export type VehicleCreateNestedManyWithoutUserInput = {
@@ -7162,6 +10454,20 @@ export namespace Prisma {
     connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
   }
 
+  export type MaintenanceCreateNestedManyWithoutUserInput = {
+    create?: XOR<MaintenanceCreateWithoutUserInput, MaintenanceUncheckedCreateWithoutUserInput> | MaintenanceCreateWithoutUserInput[] | MaintenanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutUserInput | MaintenanceCreateOrConnectWithoutUserInput[]
+    createMany?: MaintenanceCreateManyUserInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type TransactionCreateNestedManyWithoutUserInput = {
+    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
+    createMany?: TransactionCreateManyUserInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
   export type VehicleUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<VehicleCreateWithoutUserInput, VehicleUncheckedCreateWithoutUserInput> | VehicleCreateWithoutUserInput[] | VehicleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: VehicleCreateOrConnectWithoutUserInput | VehicleCreateOrConnectWithoutUserInput[]
@@ -7181,6 +10487,20 @@ export namespace Prisma {
     connectOrCreate?: ContractCreateOrConnectWithoutUserInput | ContractCreateOrConnectWithoutUserInput[]
     createMany?: ContractCreateManyUserInputEnvelope
     connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MaintenanceCreateWithoutUserInput, MaintenanceUncheckedCreateWithoutUserInput> | MaintenanceCreateWithoutUserInput[] | MaintenanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutUserInput | MaintenanceCreateOrConnectWithoutUserInput[]
+    createMany?: MaintenanceCreateManyUserInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type TransactionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
+    createMany?: TransactionCreateManyUserInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -7233,6 +10553,34 @@ export namespace Prisma {
     deleteMany?: ContractScalarWhereInput | ContractScalarWhereInput[]
   }
 
+  export type MaintenanceUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutUserInput, MaintenanceUncheckedCreateWithoutUserInput> | MaintenanceCreateWithoutUserInput[] | MaintenanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutUserInput | MaintenanceCreateOrConnectWithoutUserInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutUserInput | MaintenanceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MaintenanceCreateManyUserInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutUserInput | MaintenanceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutUserInput | MaintenanceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type TransactionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutUserInput | TransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TransactionCreateManyUserInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutUserInput | TransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutUserInput | TransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
   export type VehicleUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<VehicleCreateWithoutUserInput, VehicleUncheckedCreateWithoutUserInput> | VehicleCreateWithoutUserInput[] | VehicleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: VehicleCreateOrConnectWithoutUserInput | VehicleCreateOrConnectWithoutUserInput[]
@@ -7275,6 +10623,34 @@ export namespace Prisma {
     deleteMany?: ContractScalarWhereInput | ContractScalarWhereInput[]
   }
 
+  export type MaintenanceUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutUserInput, MaintenanceUncheckedCreateWithoutUserInput> | MaintenanceCreateWithoutUserInput[] | MaintenanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutUserInput | MaintenanceCreateOrConnectWithoutUserInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutUserInput | MaintenanceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MaintenanceCreateManyUserInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutUserInput | MaintenanceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutUserInput | MaintenanceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutUserInput | TransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TransactionCreateManyUserInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutUserInput | TransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutUserInput | TransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutVehiclesInput = {
     create?: XOR<UserCreateWithoutVehiclesInput, UserUncheckedCreateWithoutVehiclesInput>
     connectOrCreate?: UserCreateOrConnectWithoutVehiclesInput
@@ -7288,6 +10664,20 @@ export namespace Prisma {
     connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
   }
 
+  export type TransactionCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<TransactionCreateWithoutVehicleInput, TransactionUncheckedCreateWithoutVehicleInput> | TransactionCreateWithoutVehicleInput[] | TransactionUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutVehicleInput | TransactionCreateOrConnectWithoutVehicleInput[]
+    createMany?: TransactionCreateManyVehicleInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
+  export type MaintenanceCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<MaintenanceCreateWithoutVehicleInput, MaintenanceUncheckedCreateWithoutVehicleInput> | MaintenanceCreateWithoutVehicleInput[] | MaintenanceUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutVehicleInput | MaintenanceCreateOrConnectWithoutVehicleInput[]
+    createMany?: MaintenanceCreateManyVehicleInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
   export type ContractUncheckedCreateNestedManyWithoutVehicleInput = {
     create?: XOR<ContractCreateWithoutVehicleInput, ContractUncheckedCreateWithoutVehicleInput> | ContractCreateWithoutVehicleInput[] | ContractUncheckedCreateWithoutVehicleInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutVehicleInput | ContractCreateOrConnectWithoutVehicleInput[]
@@ -7295,7 +10685,21 @@ export namespace Prisma {
     connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
+  export type TransactionUncheckedCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<TransactionCreateWithoutVehicleInput, TransactionUncheckedCreateWithoutVehicleInput> | TransactionCreateWithoutVehicleInput[] | TransactionUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutVehicleInput | TransactionCreateOrConnectWithoutVehicleInput[]
+    createMany?: TransactionCreateManyVehicleInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
+  export type MaintenanceUncheckedCreateNestedManyWithoutVehicleInput = {
+    create?: XOR<MaintenanceCreateWithoutVehicleInput, MaintenanceUncheckedCreateWithoutVehicleInput> | MaintenanceCreateWithoutVehicleInput[] | MaintenanceUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutVehicleInput | MaintenanceCreateOrConnectWithoutVehicleInput[]
+    createMany?: MaintenanceCreateManyVehicleInputEnvelope
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
@@ -7304,6 +10708,15 @@ export namespace Prisma {
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+    unset?: boolean
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
@@ -7341,6 +10754,34 @@ export namespace Prisma {
     deleteMany?: ContractScalarWhereInput | ContractScalarWhereInput[]
   }
 
+  export type TransactionUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<TransactionCreateWithoutVehicleInput, TransactionUncheckedCreateWithoutVehicleInput> | TransactionCreateWithoutVehicleInput[] | TransactionUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutVehicleInput | TransactionCreateOrConnectWithoutVehicleInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutVehicleInput | TransactionUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: TransactionCreateManyVehicleInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutVehicleInput | TransactionUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutVehicleInput | TransactionUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
+  export type MaintenanceUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutVehicleInput, MaintenanceUncheckedCreateWithoutVehicleInput> | MaintenanceCreateWithoutVehicleInput[] | MaintenanceUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutVehicleInput | MaintenanceCreateOrConnectWithoutVehicleInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutVehicleInput | MaintenanceUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: MaintenanceCreateManyVehicleInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutVehicleInput | MaintenanceUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutVehicleInput | MaintenanceUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+  }
+
   export type ContractUncheckedUpdateManyWithoutVehicleNestedInput = {
     create?: XOR<ContractCreateWithoutVehicleInput, ContractUncheckedCreateWithoutVehicleInput> | ContractCreateWithoutVehicleInput[] | ContractUncheckedCreateWithoutVehicleInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutVehicleInput | ContractCreateOrConnectWithoutVehicleInput[]
@@ -7353,6 +10794,34 @@ export namespace Prisma {
     update?: ContractUpdateWithWhereUniqueWithoutVehicleInput | ContractUpdateWithWhereUniqueWithoutVehicleInput[]
     updateMany?: ContractUpdateManyWithWhereWithoutVehicleInput | ContractUpdateManyWithWhereWithoutVehicleInput[]
     deleteMany?: ContractScalarWhereInput | ContractScalarWhereInput[]
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<TransactionCreateWithoutVehicleInput, TransactionUncheckedCreateWithoutVehicleInput> | TransactionCreateWithoutVehicleInput[] | TransactionUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutVehicleInput | TransactionCreateOrConnectWithoutVehicleInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutVehicleInput | TransactionUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: TransactionCreateManyVehicleInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutVehicleInput | TransactionUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutVehicleInput | TransactionUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutVehicleNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutVehicleInput, MaintenanceUncheckedCreateWithoutVehicleInput> | MaintenanceCreateWithoutVehicleInput[] | MaintenanceUncheckedCreateWithoutVehicleInput[]
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutVehicleInput | MaintenanceCreateOrConnectWithoutVehicleInput[]
+    upsert?: MaintenanceUpsertWithWhereUniqueWithoutVehicleInput | MaintenanceUpsertWithWhereUniqueWithoutVehicleInput[]
+    createMany?: MaintenanceCreateManyVehicleInputEnvelope
+    set?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    disconnect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    delete?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    connect?: MaintenanceWhereUniqueInput | MaintenanceWhereUniqueInput[]
+    update?: MaintenanceUpdateWithWhereUniqueWithoutVehicleInput | MaintenanceUpdateWithWhereUniqueWithoutVehicleInput[]
+    updateMany?: MaintenanceUpdateManyWithWhereWithoutVehicleInput | MaintenanceUpdateManyWithWhereWithoutVehicleInput[]
+    deleteMany?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutCustomersInput = {
@@ -7368,11 +10837,25 @@ export namespace Prisma {
     connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
   }
 
+  export type TransactionCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<TransactionCreateWithoutCustomerInput, TransactionUncheckedCreateWithoutCustomerInput> | TransactionCreateWithoutCustomerInput[] | TransactionUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutCustomerInput | TransactionCreateOrConnectWithoutCustomerInput[]
+    createMany?: TransactionCreateManyCustomerInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
   export type ContractUncheckedCreateNestedManyWithoutCustomerInput = {
     create?: XOR<ContractCreateWithoutCustomerInput, ContractUncheckedCreateWithoutCustomerInput> | ContractCreateWithoutCustomerInput[] | ContractUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutCustomerInput | ContractCreateOrConnectWithoutCustomerInput[]
     createMany?: ContractCreateManyCustomerInputEnvelope
     connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+  }
+
+  export type TransactionUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<TransactionCreateWithoutCustomerInput, TransactionUncheckedCreateWithoutCustomerInput> | TransactionCreateWithoutCustomerInput[] | TransactionUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutCustomerInput | TransactionCreateOrConnectWithoutCustomerInput[]
+    createMany?: TransactionCreateManyCustomerInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutCustomersNestedInput = {
@@ -7397,6 +10880,20 @@ export namespace Prisma {
     deleteMany?: ContractScalarWhereInput | ContractScalarWhereInput[]
   }
 
+  export type TransactionUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<TransactionCreateWithoutCustomerInput, TransactionUncheckedCreateWithoutCustomerInput> | TransactionCreateWithoutCustomerInput[] | TransactionUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutCustomerInput | TransactionCreateOrConnectWithoutCustomerInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutCustomerInput | TransactionUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: TransactionCreateManyCustomerInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutCustomerInput | TransactionUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutCustomerInput | TransactionUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
   export type ContractUncheckedUpdateManyWithoutCustomerNestedInput = {
     create?: XOR<ContractCreateWithoutCustomerInput, ContractUncheckedCreateWithoutCustomerInput> | ContractCreateWithoutCustomerInput[] | ContractUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: ContractCreateOrConnectWithoutCustomerInput | ContractCreateOrConnectWithoutCustomerInput[]
@@ -7409,6 +10906,20 @@ export namespace Prisma {
     update?: ContractUpdateWithWhereUniqueWithoutCustomerInput | ContractUpdateWithWhereUniqueWithoutCustomerInput[]
     updateMany?: ContractUpdateManyWithWhereWithoutCustomerInput | ContractUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: ContractScalarWhereInput | ContractScalarWhereInput[]
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<TransactionCreateWithoutCustomerInput, TransactionUncheckedCreateWithoutCustomerInput> | TransactionCreateWithoutCustomerInput[] | TransactionUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutCustomerInput | TransactionCreateOrConnectWithoutCustomerInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutCustomerInput | TransactionUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: TransactionCreateManyCustomerInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutCustomerInput | TransactionUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutCustomerInput | TransactionUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutContractsInput = {
@@ -7427,6 +10938,20 @@ export namespace Prisma {
     create?: XOR<VehicleCreateWithoutContractsInput, VehicleUncheckedCreateWithoutContractsInput>
     connectOrCreate?: VehicleCreateOrConnectWithoutContractsInput
     connect?: VehicleWhereUniqueInput
+  }
+
+  export type TransactionCreateNestedManyWithoutContractInput = {
+    create?: XOR<TransactionCreateWithoutContractInput, TransactionUncheckedCreateWithoutContractInput> | TransactionCreateWithoutContractInput[] | TransactionUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutContractInput | TransactionCreateOrConnectWithoutContractInput[]
+    createMany?: TransactionCreateManyContractInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
+  export type TransactionUncheckedCreateNestedManyWithoutContractInput = {
+    create?: XOR<TransactionCreateWithoutContractInput, TransactionUncheckedCreateWithoutContractInput> | TransactionCreateWithoutContractInput[] | TransactionUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutContractInput | TransactionCreateOrConnectWithoutContractInput[]
+    createMany?: TransactionCreateManyContractInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutContractsNestedInput = {
@@ -7451,6 +10976,170 @@ export namespace Prisma {
     upsert?: VehicleUpsertWithoutContractsInput
     connect?: VehicleWhereUniqueInput
     update?: XOR<XOR<VehicleUpdateToOneWithWhereWithoutContractsInput, VehicleUpdateWithoutContractsInput>, VehicleUncheckedUpdateWithoutContractsInput>
+  }
+
+  export type TransactionUpdateManyWithoutContractNestedInput = {
+    create?: XOR<TransactionCreateWithoutContractInput, TransactionUncheckedCreateWithoutContractInput> | TransactionCreateWithoutContractInput[] | TransactionUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutContractInput | TransactionCreateOrConnectWithoutContractInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutContractInput | TransactionUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: TransactionCreateManyContractInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutContractInput | TransactionUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutContractInput | TransactionUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutContractNestedInput = {
+    create?: XOR<TransactionCreateWithoutContractInput, TransactionUncheckedCreateWithoutContractInput> | TransactionCreateWithoutContractInput[] | TransactionUncheckedCreateWithoutContractInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutContractInput | TransactionCreateOrConnectWithoutContractInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutContractInput | TransactionUpsertWithWhereUniqueWithoutContractInput[]
+    createMany?: TransactionCreateManyContractInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutContractInput | TransactionUpdateWithWhereUniqueWithoutContractInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutContractInput | TransactionUpdateManyWithWhereWithoutContractInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTransactionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ContractCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<ContractCreateWithoutTransactionsInput, ContractUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutTransactionsInput
+    connect?: ContractWhereUniqueInput
+  }
+
+  export type CustomerCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<CustomerCreateWithoutTransactionsInput, CustomerUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutTransactionsInput
+    connect?: CustomerWhereUniqueInput
+  }
+
+  export type MaintenanceCreateNestedOneWithoutTransactionInput = {
+    create?: XOR<MaintenanceCreateWithoutTransactionInput, MaintenanceUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutTransactionInput
+    connect?: MaintenanceWhereUniqueInput
+  }
+
+  export type VehicleCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<VehicleCreateWithoutTransactionsInput, VehicleUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: VehicleCreateOrConnectWithoutTransactionsInput
+    connect?: VehicleWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutTransactionsNestedInput = {
+    create?: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTransactionsInput
+    upsert?: UserUpsertWithoutTransactionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTransactionsInput, UserUpdateWithoutTransactionsInput>, UserUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type ContractUpdateOneWithoutTransactionsNestedInput = {
+    create?: XOR<ContractCreateWithoutTransactionsInput, ContractUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: ContractCreateOrConnectWithoutTransactionsInput
+    upsert?: ContractUpsertWithoutTransactionsInput
+    disconnect?: boolean
+    delete?: ContractWhereInput | boolean
+    connect?: ContractWhereUniqueInput
+    update?: XOR<XOR<ContractUpdateToOneWithWhereWithoutTransactionsInput, ContractUpdateWithoutTransactionsInput>, ContractUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type CustomerUpdateOneWithoutTransactionsNestedInput = {
+    create?: XOR<CustomerCreateWithoutTransactionsInput, CustomerUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutTransactionsInput
+    upsert?: CustomerUpsertWithoutTransactionsInput
+    disconnect?: boolean
+    delete?: CustomerWhereInput | boolean
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutTransactionsInput, CustomerUpdateWithoutTransactionsInput>, CustomerUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type MaintenanceUpdateOneWithoutTransactionNestedInput = {
+    create?: XOR<MaintenanceCreateWithoutTransactionInput, MaintenanceUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: MaintenanceCreateOrConnectWithoutTransactionInput
+    upsert?: MaintenanceUpsertWithoutTransactionInput
+    disconnect?: boolean
+    delete?: MaintenanceWhereInput | boolean
+    connect?: MaintenanceWhereUniqueInput
+    update?: XOR<XOR<MaintenanceUpdateToOneWithWhereWithoutTransactionInput, MaintenanceUpdateWithoutTransactionInput>, MaintenanceUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type VehicleUpdateOneRequiredWithoutTransactionsNestedInput = {
+    create?: XOR<VehicleCreateWithoutTransactionsInput, VehicleUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: VehicleCreateOrConnectWithoutTransactionsInput
+    upsert?: VehicleUpsertWithoutTransactionsInput
+    connect?: VehicleWhereUniqueInput
+    update?: XOR<XOR<VehicleUpdateToOneWithWhereWithoutTransactionsInput, VehicleUpdateWithoutTransactionsInput>, VehicleUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type UserCreateNestedOneWithoutMaintenancesInput = {
+    create?: XOR<UserCreateWithoutMaintenancesInput, UserUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMaintenancesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type VehicleCreateNestedOneWithoutMaintenancesInput = {
+    create?: XOR<VehicleCreateWithoutMaintenancesInput, VehicleUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: VehicleCreateOrConnectWithoutMaintenancesInput
+    connect?: VehicleWhereUniqueInput
+  }
+
+  export type TransactionCreateNestedOneWithoutMaintenanceInput = {
+    create?: XOR<TransactionCreateWithoutMaintenanceInput, TransactionUncheckedCreateWithoutMaintenanceInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutMaintenanceInput
+    connect?: TransactionWhereUniqueInput
+  }
+
+  export type TransactionUncheckedCreateNestedOneWithoutMaintenanceInput = {
+    create?: XOR<TransactionCreateWithoutMaintenanceInput, TransactionUncheckedCreateWithoutMaintenanceInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutMaintenanceInput
+    connect?: TransactionWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutMaintenancesNestedInput = {
+    create?: XOR<UserCreateWithoutMaintenancesInput, UserUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMaintenancesInput
+    upsert?: UserUpsertWithoutMaintenancesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMaintenancesInput, UserUpdateWithoutMaintenancesInput>, UserUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type VehicleUpdateOneRequiredWithoutMaintenancesNestedInput = {
+    create?: XOR<VehicleCreateWithoutMaintenancesInput, VehicleUncheckedCreateWithoutMaintenancesInput>
+    connectOrCreate?: VehicleCreateOrConnectWithoutMaintenancesInput
+    upsert?: VehicleUpsertWithoutMaintenancesInput
+    connect?: VehicleWhereUniqueInput
+    update?: XOR<XOR<VehicleUpdateToOneWithWhereWithoutMaintenancesInput, VehicleUpdateWithoutMaintenancesInput>, VehicleUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type TransactionUpdateOneWithoutMaintenanceNestedInput = {
+    create?: XOR<TransactionCreateWithoutMaintenanceInput, TransactionUncheckedCreateWithoutMaintenanceInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutMaintenanceInput
+    upsert?: TransactionUpsertWithoutMaintenanceInput
+    disconnect?: TransactionWhereInput | boolean
+    delete?: TransactionWhereInput | boolean
+    connect?: TransactionWhereUniqueInput
+    update?: XOR<XOR<TransactionUpdateToOneWithWhereWithoutMaintenanceInput, TransactionUpdateWithoutMaintenanceInput>, TransactionUncheckedUpdateWithoutMaintenanceInput>
+  }
+
+  export type TransactionUncheckedUpdateOneWithoutMaintenanceNestedInput = {
+    create?: XOR<TransactionCreateWithoutMaintenanceInput, TransactionUncheckedCreateWithoutMaintenanceInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutMaintenanceInput
+    upsert?: TransactionUpsertWithoutMaintenanceInput
+    disconnect?: TransactionWhereInput | boolean
+    delete?: TransactionWhereInput | boolean
+    connect?: TransactionWhereUniqueInput
+    update?: XOR<XOR<TransactionUpdateToOneWithWhereWithoutMaintenanceInput, TransactionUpdateWithoutMaintenanceInput>, TransactionUncheckedUpdateWithoutMaintenanceInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -7535,6 +11224,17 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -7544,6 +11244,18 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
     isSet?: boolean
   }
 
@@ -7565,23 +11277,7 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
     notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -7589,7 +11285,12 @@ export namespace Prisma {
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7609,7 +11310,7 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -7617,7 +11318,12 @@ export namespace Prisma {
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
     isSet?: boolean
   }
 
@@ -7642,6 +11348,8 @@ export namespace Prisma {
     vehicleType?: string | null
     dailyKilometerLimit: number
     Contracts?: ContractCreateNestedManyWithoutVehicleInput
+    Transactions?: TransactionCreateNestedManyWithoutVehicleInput
+    Maintenances?: MaintenanceCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleUncheckedCreateWithoutUserInput = {
@@ -7665,6 +11373,8 @@ export namespace Prisma {
     vehicleType?: string | null
     dailyKilometerLimit: number
     Contracts?: ContractUncheckedCreateNestedManyWithoutVehicleInput
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutVehicleInput
+    Maintenances?: MaintenanceUncheckedCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleCreateOrConnectWithoutUserInput = {
@@ -7684,8 +11394,9 @@ export namespace Prisma {
     idNumber: string
     idExpirationDate?: string | null
     mobile?: string | null
-    debt: number
+    debt?: number | null
     Contracts?: ContractCreateNestedManyWithoutCustomerInput
+    Transactions?: TransactionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutUserInput = {
@@ -7696,8 +11407,9 @@ export namespace Prisma {
     idNumber: string
     idExpirationDate?: string | null
     mobile?: string | null
-    debt: number
+    debt?: number | null
     Contracts?: ContractUncheckedCreateNestedManyWithoutCustomerInput
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutUserInput = {
@@ -7718,12 +11430,18 @@ export namespace Prisma {
     meterReadingIn?: number | null
     timeOut: string
     dailyRent: number
+    days: number
     timeIn: string
     dateOut: string
     returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
     invoiceDetails?: string | null
+    transacionId?: string | null
     customer: CustomerCreateNestedOneWithoutContractsInput
     vehicle: VehicleCreateNestedOneWithoutContractsInput
+    Transactions?: TransactionCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutUserInput = {
@@ -7736,11 +11454,17 @@ export namespace Prisma {
     meterReadingIn?: number | null
     timeOut: string
     dailyRent: number
+    days: number
     timeIn: string
     dateOut: string
     returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
     invoiceDetails?: string | null
     customerId: string
+    transacionId?: string | null
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutUserInput = {
@@ -7750,6 +11474,68 @@ export namespace Prisma {
 
   export type ContractCreateManyUserInputEnvelope = {
     data: ContractCreateManyUserInput | ContractCreateManyUserInput[]
+  }
+
+  export type MaintenanceCreateWithoutUserInput = {
+    id?: string
+    maintenanceType: string
+    client?: string | null
+    date: string
+    cost: number
+    description?: string | null
+    vehicle: VehicleCreateNestedOneWithoutMaintenancesInput
+    transaction?: TransactionCreateNestedOneWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutUserInput = {
+    id?: string
+    plateNumber: string
+    maintenanceType: string
+    client?: string | null
+    date: string
+    cost: number
+    description?: string | null
+    transaction?: TransactionUncheckedCreateNestedOneWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutUserInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutUserInput, MaintenanceUncheckedCreateWithoutUserInput>
+  }
+
+  export type MaintenanceCreateManyUserInputEnvelope = {
+    data: MaintenanceCreateManyUserInput | MaintenanceCreateManyUserInput[]
+  }
+
+  export type TransactionCreateWithoutUserInput = {
+    id?: string
+    amount: number
+    type: string
+    createdAt?: Date | string
+    contract?: ContractCreateNestedOneWithoutTransactionsInput
+    customer?: CustomerCreateNestedOneWithoutTransactionsInput
+    Maintenance?: MaintenanceCreateNestedOneWithoutTransactionInput
+    vehicle: VehicleCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionUncheckedCreateWithoutUserInput = {
+    id?: string
+    amount: number
+    type: string
+    plateNumber: string
+    createdAt?: Date | string
+    contractId?: string | null
+    customerId?: string | null
+    maintenanceId?: string | null
+  }
+
+  export type TransactionCreateOrConnectWithoutUserInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type TransactionCreateManyUserInputEnvelope = {
+    data: TransactionCreateManyUserInput | TransactionCreateManyUserInput[]
   }
 
   export type VehicleUpsertWithWhereUniqueWithoutUserInput = {
@@ -7776,22 +11562,22 @@ export namespace Prisma {
     userId?: StringNullableFilter<"Vehicle"> | string | null
     plateNumber?: StringFilter<"Vehicle"> | string
     brand?: StringFilter<"Vehicle"> | string
-    meter?: IntFilter<"Vehicle"> | number
+    meter?: FloatFilter<"Vehicle"> | number
     status?: StringFilter<"Vehicle"> | string
     rentalCount?: IntNullableFilter<"Vehicle"> | number | null
     transmission?: StringFilter<"Vehicle"> | string
-    manufactureYear?: IntNullableFilter<"Vehicle"> | number | null
+    manufactureYear?: FloatNullableFilter<"Vehicle"> | number | null
     color?: StringNullableFilter<"Vehicle"> | string | null
-    extraHourPrice?: IntFilter<"Vehicle"> | number
-    dailyRent?: IntFilter<"Vehicle"> | number
-    weeklyRent?: IntFilter<"Vehicle"> | number
-    monthlyRent?: IntFilter<"Vehicle"> | number
+    extraHourPrice?: FloatFilter<"Vehicle"> | number
+    dailyRent?: FloatFilter<"Vehicle"> | number
+    weeklyRent?: FloatFilter<"Vehicle"> | number
+    monthlyRent?: FloatFilter<"Vehicle"> | number
     insuranceCompany?: StringNullableFilter<"Vehicle"> | string | null
     registrationType?: StringNullableFilter<"Vehicle"> | string | null
     fuelType?: StringFilter<"Vehicle"> | string
-    extraKilometerPrice?: IntFilter<"Vehicle"> | number
+    extraKilometerPrice?: FloatFilter<"Vehicle"> | number
     vehicleType?: StringNullableFilter<"Vehicle"> | string | null
-    dailyKilometerLimit?: IntFilter<"Vehicle"> | number
+    dailyKilometerLimit?: FloatFilter<"Vehicle"> | number
   }
 
   export type CustomerUpsertWithWhereUniqueWithoutUserInput = {
@@ -7822,7 +11608,7 @@ export namespace Prisma {
     idNumber?: StringFilter<"Customer"> | string
     idExpirationDate?: StringNullableFilter<"Customer"> | string | null
     mobile?: StringNullableFilter<"Customer"> | string | null
-    debt?: IntFilter<"Customer"> | number
+    debt?: FloatNullableFilter<"Customer"> | number | null
   }
 
   export type ContractUpsertWithWhereUniqueWithoutUserInput = {
@@ -7848,18 +11634,84 @@ export namespace Prisma {
     id?: StringFilter<"Contract"> | string
     userId?: StringFilter<"Contract"> | string
     plateNumber?: StringFilter<"Contract"> | string
-    total?: IntFilter<"Contract"> | number
-    paid?: IntFilter<"Contract"> | number
-    remainingDues?: IntFilter<"Contract"> | number
-    meterReadingOut?: IntFilter<"Contract"> | number
-    meterReadingIn?: IntNullableFilter<"Contract"> | number | null
+    total?: FloatFilter<"Contract"> | number
+    paid?: FloatFilter<"Contract"> | number
+    remainingDues?: FloatFilter<"Contract"> | number
+    meterReadingOut?: FloatFilter<"Contract"> | number
+    meterReadingIn?: FloatNullableFilter<"Contract"> | number | null
     timeOut?: StringFilter<"Contract"> | string
-    dailyRent?: IntFilter<"Contract"> | number
+    dailyRent?: FloatFilter<"Contract"> | number
+    days?: FloatFilter<"Contract"> | number
     timeIn?: StringFilter<"Contract"> | string
     dateOut?: StringFilter<"Contract"> | string
     returnedDate?: StringFilter<"Contract"> | string
+    returnStatus?: StringNullableFilter<"Contract"> | string | null
+    earlyReturnFee?: StringNullableFilter<"Contract"> | string | null
+    lateReturnFee?: StringNullableFilter<"Contract"> | string | null
     invoiceDetails?: StringNullableFilter<"Contract"> | string | null
     customerId?: StringFilter<"Contract"> | string
+    transacionId?: StringNullableFilter<"Contract"> | string | null
+  }
+
+  export type MaintenanceUpsertWithWhereUniqueWithoutUserInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutUserInput, MaintenanceUncheckedUpdateWithoutUserInput>
+    create: XOR<MaintenanceCreateWithoutUserInput, MaintenanceUncheckedCreateWithoutUserInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutUserInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutUserInput, MaintenanceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutUserInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type MaintenanceScalarWhereInput = {
+    AND?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+    OR?: MaintenanceScalarWhereInput[]
+    NOT?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
+    id?: StringFilter<"Maintenance"> | string
+    userId?: StringFilter<"Maintenance"> | string
+    plateNumber?: StringFilter<"Maintenance"> | string
+    maintenanceType?: StringFilter<"Maintenance"> | string
+    client?: StringNullableFilter<"Maintenance"> | string | null
+    date?: StringFilter<"Maintenance"> | string
+    cost?: FloatFilter<"Maintenance"> | number
+    description?: StringNullableFilter<"Maintenance"> | string | null
+  }
+
+  export type TransactionUpsertWithWhereUniqueWithoutUserInput = {
+    where: TransactionWhereUniqueInput
+    update: XOR<TransactionUpdateWithoutUserInput, TransactionUncheckedUpdateWithoutUserInput>
+    create: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type TransactionUpdateWithWhereUniqueWithoutUserInput = {
+    where: TransactionWhereUniqueInput
+    data: XOR<TransactionUpdateWithoutUserInput, TransactionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TransactionUpdateManyWithWhereWithoutUserInput = {
+    where: TransactionScalarWhereInput
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TransactionScalarWhereInput = {
+    AND?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+    OR?: TransactionScalarWhereInput[]
+    NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+    id?: StringFilter<"Transaction"> | string
+    userId?: StringFilter<"Transaction"> | string
+    amount?: FloatFilter<"Transaction"> | number
+    type?: StringFilter<"Transaction"> | string
+    plateNumber?: StringFilter<"Transaction"> | string
+    createdAt?: DateTimeFilter<"Transaction"> | Date | string
+    contractId?: StringNullableFilter<"Transaction"> | string | null
+    customerId?: StringNullableFilter<"Transaction"> | string | null
+    maintenanceId?: StringNullableFilter<"Transaction"> | string | null
   }
 
   export type UserCreateWithoutVehiclesInput = {
@@ -7870,6 +11722,8 @@ export namespace Prisma {
     email: string
     Customers?: CustomerCreateNestedManyWithoutUserInput
     Contracts?: ContractCreateNestedManyWithoutUserInput
+    Maintenances?: MaintenanceCreateNestedManyWithoutUserInput
+    Transactions?: TransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVehiclesInput = {
@@ -7880,6 +11734,8 @@ export namespace Prisma {
     email: string
     Customers?: CustomerUncheckedCreateNestedManyWithoutUserInput
     Contracts?: ContractUncheckedCreateNestedManyWithoutUserInput
+    Maintenances?: MaintenanceUncheckedCreateNestedManyWithoutUserInput
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVehiclesInput = {
@@ -7896,12 +11752,18 @@ export namespace Prisma {
     meterReadingIn?: number | null
     timeOut: string
     dailyRent: number
+    days: number
     timeIn: string
     dateOut: string
     returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
     invoiceDetails?: string | null
+    transacionId?: string | null
     user: UserCreateNestedOneWithoutContractsInput
     customer: CustomerCreateNestedOneWithoutContractsInput
+    Transactions?: TransactionCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutVehicleInput = {
@@ -7914,11 +11776,17 @@ export namespace Prisma {
     meterReadingIn?: number | null
     timeOut: string
     dailyRent: number
+    days: number
     timeIn: string
     dateOut: string
     returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
     invoiceDetails?: string | null
     customerId: string
+    transacionId?: string | null
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutVehicleInput = {
@@ -7928,6 +11796,68 @@ export namespace Prisma {
 
   export type ContractCreateManyVehicleInputEnvelope = {
     data: ContractCreateManyVehicleInput | ContractCreateManyVehicleInput[]
+  }
+
+  export type TransactionCreateWithoutVehicleInput = {
+    id?: string
+    amount: number
+    type: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutTransactionsInput
+    contract?: ContractCreateNestedOneWithoutTransactionsInput
+    customer?: CustomerCreateNestedOneWithoutTransactionsInput
+    Maintenance?: MaintenanceCreateNestedOneWithoutTransactionInput
+  }
+
+  export type TransactionUncheckedCreateWithoutVehicleInput = {
+    id?: string
+    userId: string
+    amount: number
+    type: string
+    createdAt?: Date | string
+    contractId?: string | null
+    customerId?: string | null
+    maintenanceId?: string | null
+  }
+
+  export type TransactionCreateOrConnectWithoutVehicleInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutVehicleInput, TransactionUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type TransactionCreateManyVehicleInputEnvelope = {
+    data: TransactionCreateManyVehicleInput | TransactionCreateManyVehicleInput[]
+  }
+
+  export type MaintenanceCreateWithoutVehicleInput = {
+    id?: string
+    maintenanceType: string
+    client?: string | null
+    date: string
+    cost: number
+    description?: string | null
+    user: UserCreateNestedOneWithoutMaintenancesInput
+    transaction?: TransactionCreateNestedOneWithoutMaintenanceInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutVehicleInput = {
+    id?: string
+    userId: string
+    maintenanceType: string
+    client?: string | null
+    date: string
+    cost: number
+    description?: string | null
+    transaction?: TransactionUncheckedCreateNestedOneWithoutMaintenanceInput
+  }
+
+  export type MaintenanceCreateOrConnectWithoutVehicleInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutVehicleInput, MaintenanceUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type MaintenanceCreateManyVehicleInputEnvelope = {
+    data: MaintenanceCreateManyVehicleInput | MaintenanceCreateManyVehicleInput[]
   }
 
   export type UserUpsertWithoutVehiclesInput = {
@@ -7948,6 +11878,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     Customers?: CustomerUpdateManyWithoutUserNestedInput
     Contracts?: ContractUpdateManyWithoutUserNestedInput
+    Maintenances?: MaintenanceUpdateManyWithoutUserNestedInput
+    Transactions?: TransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVehiclesInput = {
@@ -7957,6 +11889,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     Customers?: CustomerUncheckedUpdateManyWithoutUserNestedInput
     Contracts?: ContractUncheckedUpdateManyWithoutUserNestedInput
+    Maintenances?: MaintenanceUncheckedUpdateManyWithoutUserNestedInput
+    Transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ContractUpsertWithWhereUniqueWithoutVehicleInput = {
@@ -7975,6 +11909,38 @@ export namespace Prisma {
     data: XOR<ContractUpdateManyMutationInput, ContractUncheckedUpdateManyWithoutVehicleInput>
   }
 
+  export type TransactionUpsertWithWhereUniqueWithoutVehicleInput = {
+    where: TransactionWhereUniqueInput
+    update: XOR<TransactionUpdateWithoutVehicleInput, TransactionUncheckedUpdateWithoutVehicleInput>
+    create: XOR<TransactionCreateWithoutVehicleInput, TransactionUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type TransactionUpdateWithWhereUniqueWithoutVehicleInput = {
+    where: TransactionWhereUniqueInput
+    data: XOR<TransactionUpdateWithoutVehicleInput, TransactionUncheckedUpdateWithoutVehicleInput>
+  }
+
+  export type TransactionUpdateManyWithWhereWithoutVehicleInput = {
+    where: TransactionScalarWhereInput
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutVehicleInput>
+  }
+
+  export type MaintenanceUpsertWithWhereUniqueWithoutVehicleInput = {
+    where: MaintenanceWhereUniqueInput
+    update: XOR<MaintenanceUpdateWithoutVehicleInput, MaintenanceUncheckedUpdateWithoutVehicleInput>
+    create: XOR<MaintenanceCreateWithoutVehicleInput, MaintenanceUncheckedCreateWithoutVehicleInput>
+  }
+
+  export type MaintenanceUpdateWithWhereUniqueWithoutVehicleInput = {
+    where: MaintenanceWhereUniqueInput
+    data: XOR<MaintenanceUpdateWithoutVehicleInput, MaintenanceUncheckedUpdateWithoutVehicleInput>
+  }
+
+  export type MaintenanceUpdateManyWithWhereWithoutVehicleInput = {
+    where: MaintenanceScalarWhereInput
+    data: XOR<MaintenanceUpdateManyMutationInput, MaintenanceUncheckedUpdateManyWithoutVehicleInput>
+  }
+
   export type UserCreateWithoutCustomersInput = {
     id?: string
     createdAt?: Date | string
@@ -7983,6 +11949,8 @@ export namespace Prisma {
     email: string
     Vehicles?: VehicleCreateNestedManyWithoutUserInput
     Contracts?: ContractCreateNestedManyWithoutUserInput
+    Maintenances?: MaintenanceCreateNestedManyWithoutUserInput
+    Transactions?: TransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCustomersInput = {
@@ -7993,6 +11961,8 @@ export namespace Prisma {
     email: string
     Vehicles?: VehicleUncheckedCreateNestedManyWithoutUserInput
     Contracts?: ContractUncheckedCreateNestedManyWithoutUserInput
+    Maintenances?: MaintenanceUncheckedCreateNestedManyWithoutUserInput
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCustomersInput = {
@@ -8009,12 +11979,18 @@ export namespace Prisma {
     meterReadingIn?: number | null
     timeOut: string
     dailyRent: number
+    days: number
     timeIn: string
     dateOut: string
     returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
     invoiceDetails?: string | null
+    transacionId?: string | null
     user: UserCreateNestedOneWithoutContractsInput
     vehicle: VehicleCreateNestedOneWithoutContractsInput
+    Transactions?: TransactionCreateNestedManyWithoutContractInput
   }
 
   export type ContractUncheckedCreateWithoutCustomerInput = {
@@ -8028,10 +12004,16 @@ export namespace Prisma {
     meterReadingIn?: number | null
     timeOut: string
     dailyRent: number
+    days: number
     timeIn: string
     dateOut: string
     returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
     invoiceDetails?: string | null
+    transacionId?: string | null
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutContractInput
   }
 
   export type ContractCreateOrConnectWithoutCustomerInput = {
@@ -8041,6 +12023,37 @@ export namespace Prisma {
 
   export type ContractCreateManyCustomerInputEnvelope = {
     data: ContractCreateManyCustomerInput | ContractCreateManyCustomerInput[]
+  }
+
+  export type TransactionCreateWithoutCustomerInput = {
+    id?: string
+    amount: number
+    type: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutTransactionsInput
+    contract?: ContractCreateNestedOneWithoutTransactionsInput
+    Maintenance?: MaintenanceCreateNestedOneWithoutTransactionInput
+    vehicle: VehicleCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionUncheckedCreateWithoutCustomerInput = {
+    id?: string
+    userId: string
+    amount: number
+    type: string
+    plateNumber: string
+    createdAt?: Date | string
+    contractId?: string | null
+    maintenanceId?: string | null
+  }
+
+  export type TransactionCreateOrConnectWithoutCustomerInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutCustomerInput, TransactionUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type TransactionCreateManyCustomerInputEnvelope = {
+    data: TransactionCreateManyCustomerInput | TransactionCreateManyCustomerInput[]
   }
 
   export type UserUpsertWithoutCustomersInput = {
@@ -8061,6 +12074,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     Vehicles?: VehicleUpdateManyWithoutUserNestedInput
     Contracts?: ContractUpdateManyWithoutUserNestedInput
+    Maintenances?: MaintenanceUpdateManyWithoutUserNestedInput
+    Transactions?: TransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomersInput = {
@@ -8070,6 +12085,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     Vehicles?: VehicleUncheckedUpdateManyWithoutUserNestedInput
     Contracts?: ContractUncheckedUpdateManyWithoutUserNestedInput
+    Maintenances?: MaintenanceUncheckedUpdateManyWithoutUserNestedInput
+    Transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ContractUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -8088,6 +12105,22 @@ export namespace Prisma {
     data: XOR<ContractUpdateManyMutationInput, ContractUncheckedUpdateManyWithoutCustomerInput>
   }
 
+  export type TransactionUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: TransactionWhereUniqueInput
+    update: XOR<TransactionUpdateWithoutCustomerInput, TransactionUncheckedUpdateWithoutCustomerInput>
+    create: XOR<TransactionCreateWithoutCustomerInput, TransactionUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type TransactionUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: TransactionWhereUniqueInput
+    data: XOR<TransactionUpdateWithoutCustomerInput, TransactionUncheckedUpdateWithoutCustomerInput>
+  }
+
+  export type TransactionUpdateManyWithWhereWithoutCustomerInput = {
+    where: TransactionScalarWhereInput
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutCustomerInput>
+  }
+
   export type UserCreateWithoutContractsInput = {
     id?: string
     createdAt?: Date | string
@@ -8096,6 +12129,8 @@ export namespace Prisma {
     email: string
     Vehicles?: VehicleCreateNestedManyWithoutUserInput
     Customers?: CustomerCreateNestedManyWithoutUserInput
+    Maintenances?: MaintenanceCreateNestedManyWithoutUserInput
+    Transactions?: TransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutContractsInput = {
@@ -8106,6 +12141,8 @@ export namespace Prisma {
     email: string
     Vehicles?: VehicleUncheckedCreateNestedManyWithoutUserInput
     Customers?: CustomerUncheckedCreateNestedManyWithoutUserInput
+    Maintenances?: MaintenanceUncheckedCreateNestedManyWithoutUserInput
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutContractsInput = {
@@ -8121,8 +12158,9 @@ export namespace Prisma {
     idNumber: string
     idExpirationDate?: string | null
     mobile?: string | null
-    debt: number
+    debt?: number | null
     user: UserCreateNestedOneWithoutCustomersInput
+    Transactions?: TransactionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutContractsInput = {
@@ -8134,7 +12172,8 @@ export namespace Prisma {
     idNumber: string
     idExpirationDate?: string | null
     mobile?: string | null
-    debt: number
+    debt?: number | null
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutContractsInput = {
@@ -8163,6 +12202,8 @@ export namespace Prisma {
     vehicleType?: string | null
     dailyKilometerLimit: number
     user?: UserCreateNestedOneWithoutVehiclesInput
+    Transactions?: TransactionCreateNestedManyWithoutVehicleInput
+    Maintenances?: MaintenanceCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleUncheckedCreateWithoutContractsInput = {
@@ -8186,11 +12227,44 @@ export namespace Prisma {
     extraKilometerPrice: number
     vehicleType?: string | null
     dailyKilometerLimit: number
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutVehicleInput
+    Maintenances?: MaintenanceUncheckedCreateNestedManyWithoutVehicleInput
   }
 
   export type VehicleCreateOrConnectWithoutContractsInput = {
     where: VehicleWhereUniqueInput
     create: XOR<VehicleCreateWithoutContractsInput, VehicleUncheckedCreateWithoutContractsInput>
+  }
+
+  export type TransactionCreateWithoutContractInput = {
+    id?: string
+    amount: number
+    type: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutTransactionsInput
+    customer?: CustomerCreateNestedOneWithoutTransactionsInput
+    Maintenance?: MaintenanceCreateNestedOneWithoutTransactionInput
+    vehicle: VehicleCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionUncheckedCreateWithoutContractInput = {
+    id?: string
+    userId: string
+    amount: number
+    type: string
+    plateNumber: string
+    createdAt?: Date | string
+    customerId?: string | null
+    maintenanceId?: string | null
+  }
+
+  export type TransactionCreateOrConnectWithoutContractInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutContractInput, TransactionUncheckedCreateWithoutContractInput>
+  }
+
+  export type TransactionCreateManyContractInputEnvelope = {
+    data: TransactionCreateManyContractInput | TransactionCreateManyContractInput[]
   }
 
   export type UserUpsertWithoutContractsInput = {
@@ -8211,6 +12285,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     Vehicles?: VehicleUpdateManyWithoutUserNestedInput
     Customers?: CustomerUpdateManyWithoutUserNestedInput
+    Maintenances?: MaintenanceUpdateManyWithoutUserNestedInput
+    Transactions?: TransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutContractsInput = {
@@ -8220,6 +12296,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     Vehicles?: VehicleUncheckedUpdateManyWithoutUserNestedInput
     Customers?: CustomerUncheckedUpdateManyWithoutUserNestedInput
+    Maintenances?: MaintenanceUncheckedUpdateManyWithoutUserNestedInput
+    Transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CustomerUpsertWithoutContractsInput = {
@@ -8240,8 +12318,9 @@ export namespace Prisma {
     idNumber?: StringFieldUpdateOperationsInput | string
     idExpirationDate?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
-    debt?: IntFieldUpdateOperationsInput | number
+    debt?: NullableFloatFieldUpdateOperationsInput | number | null
     user?: UserUpdateOneRequiredWithoutCustomersNestedInput
+    Transactions?: TransactionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutContractsInput = {
@@ -8252,7 +12331,8 @@ export namespace Prisma {
     idNumber?: StringFieldUpdateOperationsInput | string
     idExpirationDate?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
-    debt?: IntFieldUpdateOperationsInput | number
+    debt?: NullableFloatFieldUpdateOperationsInput | number | null
+    Transactions?: TransactionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type VehicleUpsertWithoutContractsInput = {
@@ -8269,45 +12349,705 @@ export namespace Prisma {
   export type VehicleUpdateWithoutContractsInput = {
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
-    meter?: IntFieldUpdateOperationsInput | number
+    meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
     transmission?: StringFieldUpdateOperationsInput | string
-    manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
+    manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
-    extraHourPrice?: IntFieldUpdateOperationsInput | number
-    dailyRent?: IntFieldUpdateOperationsInput | number
-    weeklyRent?: IntFieldUpdateOperationsInput | number
-    monthlyRent?: IntFieldUpdateOperationsInput | number
+    extraHourPrice?: FloatFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    weeklyRent?: FloatFieldUpdateOperationsInput | number
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
     insuranceCompany?: NullableStringFieldUpdateOperationsInput | string | null
     registrationType?: NullableStringFieldUpdateOperationsInput | string | null
     fuelType?: StringFieldUpdateOperationsInput | string
-    extraKilometerPrice?: IntFieldUpdateOperationsInput | number
+    extraKilometerPrice?: FloatFieldUpdateOperationsInput | number
     vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyKilometerLimit?: IntFieldUpdateOperationsInput | number
+    dailyKilometerLimit?: FloatFieldUpdateOperationsInput | number
     user?: UserUpdateOneWithoutVehiclesNestedInput
+    Transactions?: TransactionUpdateManyWithoutVehicleNestedInput
+    Maintenances?: MaintenanceUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleUncheckedUpdateWithoutContractsInput = {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
-    meter?: IntFieldUpdateOperationsInput | number
+    meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
     transmission?: StringFieldUpdateOperationsInput | string
-    manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
+    manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
-    extraHourPrice?: IntFieldUpdateOperationsInput | number
-    dailyRent?: IntFieldUpdateOperationsInput | number
-    weeklyRent?: IntFieldUpdateOperationsInput | number
-    monthlyRent?: IntFieldUpdateOperationsInput | number
+    extraHourPrice?: FloatFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    weeklyRent?: FloatFieldUpdateOperationsInput | number
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
     insuranceCompany?: NullableStringFieldUpdateOperationsInput | string | null
     registrationType?: NullableStringFieldUpdateOperationsInput | string | null
     fuelType?: StringFieldUpdateOperationsInput | string
-    extraKilometerPrice?: IntFieldUpdateOperationsInput | number
+    extraKilometerPrice?: FloatFieldUpdateOperationsInput | number
     vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyKilometerLimit?: IntFieldUpdateOperationsInput | number
+    dailyKilometerLimit?: FloatFieldUpdateOperationsInput | number
+    Transactions?: TransactionUncheckedUpdateManyWithoutVehicleNestedInput
+    Maintenances?: MaintenanceUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type TransactionUpsertWithWhereUniqueWithoutContractInput = {
+    where: TransactionWhereUniqueInput
+    update: XOR<TransactionUpdateWithoutContractInput, TransactionUncheckedUpdateWithoutContractInput>
+    create: XOR<TransactionCreateWithoutContractInput, TransactionUncheckedCreateWithoutContractInput>
+  }
+
+  export type TransactionUpdateWithWhereUniqueWithoutContractInput = {
+    where: TransactionWhereUniqueInput
+    data: XOR<TransactionUpdateWithoutContractInput, TransactionUncheckedUpdateWithoutContractInput>
+  }
+
+  export type TransactionUpdateManyWithWhereWithoutContractInput = {
+    where: TransactionScalarWhereInput
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutContractInput>
+  }
+
+  export type UserCreateWithoutTransactionsInput = {
+    id?: string
+    createdAt?: Date | string
+    userId: string
+    username: string
+    email: string
+    Vehicles?: VehicleCreateNestedManyWithoutUserInput
+    Customers?: CustomerCreateNestedManyWithoutUserInput
+    Contracts?: ContractCreateNestedManyWithoutUserInput
+    Maintenances?: MaintenanceCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    createdAt?: Date | string
+    userId: string
+    username: string
+    email: string
+    Vehicles?: VehicleUncheckedCreateNestedManyWithoutUserInput
+    Customers?: CustomerUncheckedCreateNestedManyWithoutUserInput
+    Contracts?: ContractUncheckedCreateNestedManyWithoutUserInput
+    Maintenances?: MaintenanceUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTransactionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type ContractCreateWithoutTransactionsInput = {
+    id?: string
+    total: number
+    paid: number
+    remainingDues: number
+    meterReadingOut: number
+    meterReadingIn?: number | null
+    timeOut: string
+    dailyRent: number
+    days: number
+    timeIn: string
+    dateOut: string
+    returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
+    invoiceDetails?: string | null
+    transacionId?: string | null
+    user: UserCreateNestedOneWithoutContractsInput
+    customer: CustomerCreateNestedOneWithoutContractsInput
+    vehicle: VehicleCreateNestedOneWithoutContractsInput
+  }
+
+  export type ContractUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    userId: string
+    plateNumber: string
+    total: number
+    paid: number
+    remainingDues: number
+    meterReadingOut: number
+    meterReadingIn?: number | null
+    timeOut: string
+    dailyRent: number
+    days: number
+    timeIn: string
+    dateOut: string
+    returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
+    invoiceDetails?: string | null
+    customerId: string
+    transacionId?: string | null
+  }
+
+  export type ContractCreateOrConnectWithoutTransactionsInput = {
+    where: ContractWhereUniqueInput
+    create: XOR<ContractCreateWithoutTransactionsInput, ContractUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type CustomerCreateWithoutTransactionsInput = {
+    id?: string
+    customerName: string
+    category: string
+    nationality: string
+    idNumber: string
+    idExpirationDate?: string | null
+    mobile?: string | null
+    debt?: number | null
+    user: UserCreateNestedOneWithoutCustomersInput
+    Contracts?: ContractCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    userId: string
+    customerName: string
+    category: string
+    nationality: string
+    idNumber: string
+    idExpirationDate?: string | null
+    mobile?: string | null
+    debt?: number | null
+    Contracts?: ContractUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutTransactionsInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutTransactionsInput, CustomerUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type MaintenanceCreateWithoutTransactionInput = {
+    id?: string
+    maintenanceType: string
+    client?: string | null
+    date: string
+    cost: number
+    description?: string | null
+    user: UserCreateNestedOneWithoutMaintenancesInput
+    vehicle: VehicleCreateNestedOneWithoutMaintenancesInput
+  }
+
+  export type MaintenanceUncheckedCreateWithoutTransactionInput = {
+    id?: string
+    userId: string
+    plateNumber: string
+    maintenanceType: string
+    client?: string | null
+    date: string
+    cost: number
+    description?: string | null
+  }
+
+  export type MaintenanceCreateOrConnectWithoutTransactionInput = {
+    where: MaintenanceWhereUniqueInput
+    create: XOR<MaintenanceCreateWithoutTransactionInput, MaintenanceUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type VehicleCreateWithoutTransactionsInput = {
+    id?: string
+    plateNumber: string
+    brand: string
+    meter: number
+    status?: string
+    rentalCount?: number | null
+    transmission?: string
+    manufactureYear?: number | null
+    color?: string | null
+    extraHourPrice: number
+    dailyRent: number
+    weeklyRent: number
+    monthlyRent: number
+    insuranceCompany?: string | null
+    registrationType?: string | null
+    fuelType: string
+    extraKilometerPrice: number
+    vehicleType?: string | null
+    dailyKilometerLimit: number
+    user?: UserCreateNestedOneWithoutVehiclesInput
+    Contracts?: ContractCreateNestedManyWithoutVehicleInput
+    Maintenances?: MaintenanceCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    userId?: string | null
+    plateNumber: string
+    brand: string
+    meter: number
+    status?: string
+    rentalCount?: number | null
+    transmission?: string
+    manufactureYear?: number | null
+    color?: string | null
+    extraHourPrice: number
+    dailyRent: number
+    weeklyRent: number
+    monthlyRent: number
+    insuranceCompany?: string | null
+    registrationType?: string | null
+    fuelType: string
+    extraKilometerPrice: number
+    vehicleType?: string | null
+    dailyKilometerLimit: number
+    Contracts?: ContractUncheckedCreateNestedManyWithoutVehicleInput
+    Maintenances?: MaintenanceUncheckedCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleCreateOrConnectWithoutTransactionsInput = {
+    where: VehicleWhereUniqueInput
+    create: XOR<VehicleCreateWithoutTransactionsInput, VehicleUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type UserUpsertWithoutTransactionsInput = {
+    update: XOR<UserUpdateWithoutTransactionsInput, UserUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTransactionsInput, UserUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type UserUpdateWithoutTransactionsInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    Vehicles?: VehicleUpdateManyWithoutUserNestedInput
+    Customers?: CustomerUpdateManyWithoutUserNestedInput
+    Contracts?: ContractUpdateManyWithoutUserNestedInput
+    Maintenances?: MaintenanceUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTransactionsInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    Vehicles?: VehicleUncheckedUpdateManyWithoutUserNestedInput
+    Customers?: CustomerUncheckedUpdateManyWithoutUserNestedInput
+    Contracts?: ContractUncheckedUpdateManyWithoutUserNestedInput
+    Maintenances?: MaintenanceUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ContractUpsertWithoutTransactionsInput = {
+    update: XOR<ContractUpdateWithoutTransactionsInput, ContractUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<ContractCreateWithoutTransactionsInput, ContractUncheckedCreateWithoutTransactionsInput>
+    where?: ContractWhereInput
+  }
+
+  export type ContractUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: ContractWhereInput
+    data: XOR<ContractUpdateWithoutTransactionsInput, ContractUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type ContractUpdateWithoutTransactionsInput = {
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
+    timeOut?: StringFieldUpdateOperationsInput | string
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
+    timeIn?: StringFieldUpdateOperationsInput | string
+    dateOut?: StringFieldUpdateOperationsInput | string
+    returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutContractsNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutContractsNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutContractsNestedInput
+  }
+
+  export type ContractUncheckedUpdateWithoutTransactionsInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
+    timeOut?: StringFieldUpdateOperationsInput | string
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
+    timeIn?: StringFieldUpdateOperationsInput | string
+    dateOut?: StringFieldUpdateOperationsInput | string
+    returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: StringFieldUpdateOperationsInput | string
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CustomerUpsertWithoutTransactionsInput = {
+    update: XOR<CustomerUpdateWithoutTransactionsInput, CustomerUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<CustomerCreateWithoutTransactionsInput, CustomerUncheckedCreateWithoutTransactionsInput>
+    where?: CustomerWhereInput
+  }
+
+  export type CustomerUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutTransactionsInput, CustomerUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type CustomerUpdateWithoutTransactionsInput = {
+    customerName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    nationality?: StringFieldUpdateOperationsInput | string
+    idNumber?: StringFieldUpdateOperationsInput | string
+    idExpirationDate?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    debt?: NullableFloatFieldUpdateOperationsInput | number | null
+    user?: UserUpdateOneRequiredWithoutCustomersNestedInput
+    Contracts?: ContractUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutTransactionsInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    nationality?: StringFieldUpdateOperationsInput | string
+    idNumber?: StringFieldUpdateOperationsInput | string
+    idExpirationDate?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    debt?: NullableFloatFieldUpdateOperationsInput | number | null
+    Contracts?: ContractUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type MaintenanceUpsertWithoutTransactionInput = {
+    update: XOR<MaintenanceUpdateWithoutTransactionInput, MaintenanceUncheckedUpdateWithoutTransactionInput>
+    create: XOR<MaintenanceCreateWithoutTransactionInput, MaintenanceUncheckedCreateWithoutTransactionInput>
+    where?: MaintenanceWhereInput
+  }
+
+  export type MaintenanceUpdateToOneWithWhereWithoutTransactionInput = {
+    where?: MaintenanceWhereInput
+    data: XOR<MaintenanceUpdateWithoutTransactionInput, MaintenanceUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type MaintenanceUpdateWithoutTransactionInput = {
+    maintenanceType?: StringFieldUpdateOperationsInput | string
+    client?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    cost?: FloatFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutMaintenancesNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutMaintenancesNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutTransactionInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    maintenanceType?: StringFieldUpdateOperationsInput | string
+    client?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    cost?: FloatFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VehicleUpsertWithoutTransactionsInput = {
+    update: XOR<VehicleUpdateWithoutTransactionsInput, VehicleUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<VehicleCreateWithoutTransactionsInput, VehicleUncheckedCreateWithoutTransactionsInput>
+    where?: VehicleWhereInput
+  }
+
+  export type VehicleUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: VehicleWhereInput
+    data: XOR<VehicleUpdateWithoutTransactionsInput, VehicleUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type VehicleUpdateWithoutTransactionsInput = {
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    meter?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    transmission?: StringFieldUpdateOperationsInput | string
+    manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    extraHourPrice?: FloatFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    weeklyRent?: FloatFieldUpdateOperationsInput | number
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
+    insuranceCompany?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationType?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: StringFieldUpdateOperationsInput | string
+    extraKilometerPrice?: FloatFieldUpdateOperationsInput | number
+    vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyKilometerLimit?: FloatFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutVehiclesNestedInput
+    Contracts?: ContractUpdateManyWithoutVehicleNestedInput
+    Maintenances?: MaintenanceUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type VehicleUncheckedUpdateWithoutTransactionsInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    meter?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    transmission?: StringFieldUpdateOperationsInput | string
+    manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    extraHourPrice?: FloatFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    weeklyRent?: FloatFieldUpdateOperationsInput | number
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
+    insuranceCompany?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationType?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: StringFieldUpdateOperationsInput | string
+    extraKilometerPrice?: FloatFieldUpdateOperationsInput | number
+    vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyKilometerLimit?: FloatFieldUpdateOperationsInput | number
+    Contracts?: ContractUncheckedUpdateManyWithoutVehicleNestedInput
+    Maintenances?: MaintenanceUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type UserCreateWithoutMaintenancesInput = {
+    id?: string
+    createdAt?: Date | string
+    userId: string
+    username: string
+    email: string
+    Vehicles?: VehicleCreateNestedManyWithoutUserInput
+    Customers?: CustomerCreateNestedManyWithoutUserInput
+    Contracts?: ContractCreateNestedManyWithoutUserInput
+    Transactions?: TransactionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMaintenancesInput = {
+    id?: string
+    createdAt?: Date | string
+    userId: string
+    username: string
+    email: string
+    Vehicles?: VehicleUncheckedCreateNestedManyWithoutUserInput
+    Customers?: CustomerUncheckedCreateNestedManyWithoutUserInput
+    Contracts?: ContractUncheckedCreateNestedManyWithoutUserInput
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMaintenancesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMaintenancesInput, UserUncheckedCreateWithoutMaintenancesInput>
+  }
+
+  export type VehicleCreateWithoutMaintenancesInput = {
+    id?: string
+    plateNumber: string
+    brand: string
+    meter: number
+    status?: string
+    rentalCount?: number | null
+    transmission?: string
+    manufactureYear?: number | null
+    color?: string | null
+    extraHourPrice: number
+    dailyRent: number
+    weeklyRent: number
+    monthlyRent: number
+    insuranceCompany?: string | null
+    registrationType?: string | null
+    fuelType: string
+    extraKilometerPrice: number
+    vehicleType?: string | null
+    dailyKilometerLimit: number
+    user?: UserCreateNestedOneWithoutVehiclesInput
+    Contracts?: ContractCreateNestedManyWithoutVehicleInput
+    Transactions?: TransactionCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleUncheckedCreateWithoutMaintenancesInput = {
+    id?: string
+    userId?: string | null
+    plateNumber: string
+    brand: string
+    meter: number
+    status?: string
+    rentalCount?: number | null
+    transmission?: string
+    manufactureYear?: number | null
+    color?: string | null
+    extraHourPrice: number
+    dailyRent: number
+    weeklyRent: number
+    monthlyRent: number
+    insuranceCompany?: string | null
+    registrationType?: string | null
+    fuelType: string
+    extraKilometerPrice: number
+    vehicleType?: string | null
+    dailyKilometerLimit: number
+    Contracts?: ContractUncheckedCreateNestedManyWithoutVehicleInput
+    Transactions?: TransactionUncheckedCreateNestedManyWithoutVehicleInput
+  }
+
+  export type VehicleCreateOrConnectWithoutMaintenancesInput = {
+    where: VehicleWhereUniqueInput
+    create: XOR<VehicleCreateWithoutMaintenancesInput, VehicleUncheckedCreateWithoutMaintenancesInput>
+  }
+
+  export type TransactionCreateWithoutMaintenanceInput = {
+    id?: string
+    amount: number
+    type: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutTransactionsInput
+    contract?: ContractCreateNestedOneWithoutTransactionsInput
+    customer?: CustomerCreateNestedOneWithoutTransactionsInput
+    vehicle: VehicleCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionUncheckedCreateWithoutMaintenanceInput = {
+    id?: string
+    userId: string
+    amount: number
+    type: string
+    plateNumber: string
+    createdAt?: Date | string
+    contractId?: string | null
+    customerId?: string | null
+  }
+
+  export type TransactionCreateOrConnectWithoutMaintenanceInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutMaintenanceInput, TransactionUncheckedCreateWithoutMaintenanceInput>
+  }
+
+  export type UserUpsertWithoutMaintenancesInput = {
+    update: XOR<UserUpdateWithoutMaintenancesInput, UserUncheckedUpdateWithoutMaintenancesInput>
+    create: XOR<UserCreateWithoutMaintenancesInput, UserUncheckedCreateWithoutMaintenancesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMaintenancesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMaintenancesInput, UserUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type UserUpdateWithoutMaintenancesInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    Vehicles?: VehicleUpdateManyWithoutUserNestedInput
+    Customers?: CustomerUpdateManyWithoutUserNestedInput
+    Contracts?: ContractUpdateManyWithoutUserNestedInput
+    Transactions?: TransactionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMaintenancesInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    Vehicles?: VehicleUncheckedUpdateManyWithoutUserNestedInput
+    Customers?: CustomerUncheckedUpdateManyWithoutUserNestedInput
+    Contracts?: ContractUncheckedUpdateManyWithoutUserNestedInput
+    Transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type VehicleUpsertWithoutMaintenancesInput = {
+    update: XOR<VehicleUpdateWithoutMaintenancesInput, VehicleUncheckedUpdateWithoutMaintenancesInput>
+    create: XOR<VehicleCreateWithoutMaintenancesInput, VehicleUncheckedCreateWithoutMaintenancesInput>
+    where?: VehicleWhereInput
+  }
+
+  export type VehicleUpdateToOneWithWhereWithoutMaintenancesInput = {
+    where?: VehicleWhereInput
+    data: XOR<VehicleUpdateWithoutMaintenancesInput, VehicleUncheckedUpdateWithoutMaintenancesInput>
+  }
+
+  export type VehicleUpdateWithoutMaintenancesInput = {
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    meter?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    transmission?: StringFieldUpdateOperationsInput | string
+    manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    extraHourPrice?: FloatFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    weeklyRent?: FloatFieldUpdateOperationsInput | number
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
+    insuranceCompany?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationType?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: StringFieldUpdateOperationsInput | string
+    extraKilometerPrice?: FloatFieldUpdateOperationsInput | number
+    vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyKilometerLimit?: FloatFieldUpdateOperationsInput | number
+    user?: UserUpdateOneWithoutVehiclesNestedInput
+    Contracts?: ContractUpdateManyWithoutVehicleNestedInput
+    Transactions?: TransactionUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type VehicleUncheckedUpdateWithoutMaintenancesInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    meter?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
+    transmission?: StringFieldUpdateOperationsInput | string
+    manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    extraHourPrice?: FloatFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    weeklyRent?: FloatFieldUpdateOperationsInput | number
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
+    insuranceCompany?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationType?: NullableStringFieldUpdateOperationsInput | string | null
+    fuelType?: StringFieldUpdateOperationsInput | string
+    extraKilometerPrice?: FloatFieldUpdateOperationsInput | number
+    vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyKilometerLimit?: FloatFieldUpdateOperationsInput | number
+    Contracts?: ContractUncheckedUpdateManyWithoutVehicleNestedInput
+    Transactions?: TransactionUncheckedUpdateManyWithoutVehicleNestedInput
+  }
+
+  export type TransactionUpsertWithoutMaintenanceInput = {
+    update: XOR<TransactionUpdateWithoutMaintenanceInput, TransactionUncheckedUpdateWithoutMaintenanceInput>
+    create: XOR<TransactionCreateWithoutMaintenanceInput, TransactionUncheckedCreateWithoutMaintenanceInput>
+    where?: TransactionWhereInput
+  }
+
+  export type TransactionUpdateToOneWithWhereWithoutMaintenanceInput = {
+    where?: TransactionWhereInput
+    data: XOR<TransactionUpdateWithoutMaintenanceInput, TransactionUncheckedUpdateWithoutMaintenanceInput>
+  }
+
+  export type TransactionUpdateWithoutMaintenanceInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
+    contract?: ContractUpdateOneWithoutTransactionsNestedInput
+    customer?: CustomerUpdateOneWithoutTransactionsNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutMaintenanceInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VehicleCreateManyUserInput = {
@@ -8340,7 +13080,7 @@ export namespace Prisma {
     idNumber: string
     idExpirationDate?: string | null
     mobile?: string | null
-    debt: number
+    debt?: number | null
   }
 
   export type ContractCreateManyUserInput = {
@@ -8353,76 +13093,106 @@ export namespace Prisma {
     meterReadingIn?: number | null
     timeOut: string
     dailyRent: number
+    days: number
     timeIn: string
     dateOut: string
     returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
     invoiceDetails?: string | null
     customerId: string
+    transacionId?: string | null
+  }
+
+  export type MaintenanceCreateManyUserInput = {
+    id?: string
+    plateNumber: string
+    maintenanceType: string
+    client?: string | null
+    date: string
+    cost: number
+    description?: string | null
+  }
+
+  export type TransactionCreateManyUserInput = {
+    id?: string
+    amount: number
+    type: string
+    plateNumber: string
+    createdAt?: Date | string
+    contractId?: string | null
+    customerId?: string | null
+    maintenanceId?: string | null
   }
 
   export type VehicleUpdateWithoutUserInput = {
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
-    meter?: IntFieldUpdateOperationsInput | number
+    meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
     transmission?: StringFieldUpdateOperationsInput | string
-    manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
+    manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
-    extraHourPrice?: IntFieldUpdateOperationsInput | number
-    dailyRent?: IntFieldUpdateOperationsInput | number
-    weeklyRent?: IntFieldUpdateOperationsInput | number
-    monthlyRent?: IntFieldUpdateOperationsInput | number
+    extraHourPrice?: FloatFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    weeklyRent?: FloatFieldUpdateOperationsInput | number
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
     insuranceCompany?: NullableStringFieldUpdateOperationsInput | string | null
     registrationType?: NullableStringFieldUpdateOperationsInput | string | null
     fuelType?: StringFieldUpdateOperationsInput | string
-    extraKilometerPrice?: IntFieldUpdateOperationsInput | number
+    extraKilometerPrice?: FloatFieldUpdateOperationsInput | number
     vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyKilometerLimit?: IntFieldUpdateOperationsInput | number
+    dailyKilometerLimit?: FloatFieldUpdateOperationsInput | number
     Contracts?: ContractUpdateManyWithoutVehicleNestedInput
+    Transactions?: TransactionUpdateManyWithoutVehicleNestedInput
+    Maintenances?: MaintenanceUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleUncheckedUpdateWithoutUserInput = {
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
-    meter?: IntFieldUpdateOperationsInput | number
+    meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
     transmission?: StringFieldUpdateOperationsInput | string
-    manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
+    manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
-    extraHourPrice?: IntFieldUpdateOperationsInput | number
-    dailyRent?: IntFieldUpdateOperationsInput | number
-    weeklyRent?: IntFieldUpdateOperationsInput | number
-    monthlyRent?: IntFieldUpdateOperationsInput | number
+    extraHourPrice?: FloatFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    weeklyRent?: FloatFieldUpdateOperationsInput | number
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
     insuranceCompany?: NullableStringFieldUpdateOperationsInput | string | null
     registrationType?: NullableStringFieldUpdateOperationsInput | string | null
     fuelType?: StringFieldUpdateOperationsInput | string
-    extraKilometerPrice?: IntFieldUpdateOperationsInput | number
+    extraKilometerPrice?: FloatFieldUpdateOperationsInput | number
     vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyKilometerLimit?: IntFieldUpdateOperationsInput | number
+    dailyKilometerLimit?: FloatFieldUpdateOperationsInput | number
     Contracts?: ContractUncheckedUpdateManyWithoutVehicleNestedInput
+    Transactions?: TransactionUncheckedUpdateManyWithoutVehicleNestedInput
+    Maintenances?: MaintenanceUncheckedUpdateManyWithoutVehicleNestedInput
   }
 
   export type VehicleUncheckedUpdateManyWithoutUserInput = {
     plateNumber?: StringFieldUpdateOperationsInput | string
     brand?: StringFieldUpdateOperationsInput | string
-    meter?: IntFieldUpdateOperationsInput | number
+    meter?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     rentalCount?: NullableIntFieldUpdateOperationsInput | number | null
     transmission?: StringFieldUpdateOperationsInput | string
-    manufactureYear?: NullableIntFieldUpdateOperationsInput | number | null
+    manufactureYear?: NullableFloatFieldUpdateOperationsInput | number | null
     color?: NullableStringFieldUpdateOperationsInput | string | null
-    extraHourPrice?: IntFieldUpdateOperationsInput | number
-    dailyRent?: IntFieldUpdateOperationsInput | number
-    weeklyRent?: IntFieldUpdateOperationsInput | number
-    monthlyRent?: IntFieldUpdateOperationsInput | number
+    extraHourPrice?: FloatFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    weeklyRent?: FloatFieldUpdateOperationsInput | number
+    monthlyRent?: FloatFieldUpdateOperationsInput | number
     insuranceCompany?: NullableStringFieldUpdateOperationsInput | string | null
     registrationType?: NullableStringFieldUpdateOperationsInput | string | null
     fuelType?: StringFieldUpdateOperationsInput | string
-    extraKilometerPrice?: IntFieldUpdateOperationsInput | number
+    extraKilometerPrice?: FloatFieldUpdateOperationsInput | number
     vehicleType?: NullableStringFieldUpdateOperationsInput | string | null
-    dailyKilometerLimit?: IntFieldUpdateOperationsInput | number
+    dailyKilometerLimit?: FloatFieldUpdateOperationsInput | number
   }
 
   export type CustomerUpdateWithoutUserInput = {
@@ -8432,8 +13202,9 @@ export namespace Prisma {
     idNumber?: StringFieldUpdateOperationsInput | string
     idExpirationDate?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
-    debt?: IntFieldUpdateOperationsInput | number
+    debt?: NullableFloatFieldUpdateOperationsInput | number | null
     Contracts?: ContractUpdateManyWithoutCustomerNestedInput
+    Transactions?: TransactionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutUserInput = {
@@ -8443,8 +13214,9 @@ export namespace Prisma {
     idNumber?: StringFieldUpdateOperationsInput | string
     idExpirationDate?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
-    debt?: IntFieldUpdateOperationsInput | number
+    debt?: NullableFloatFieldUpdateOperationsInput | number | null
     Contracts?: ContractUncheckedUpdateManyWithoutCustomerNestedInput
+    Transactions?: TransactionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateManyWithoutUserInput = {
@@ -8454,55 +13226,131 @@ export namespace Prisma {
     idNumber?: StringFieldUpdateOperationsInput | string
     idExpirationDate?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: NullableStringFieldUpdateOperationsInput | string | null
-    debt?: IntFieldUpdateOperationsInput | number
+    debt?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type ContractUpdateWithoutUserInput = {
-    total?: IntFieldUpdateOperationsInput | number
-    paid?: IntFieldUpdateOperationsInput | number
-    remainingDues?: IntFieldUpdateOperationsInput | number
-    meterReadingOut?: IntFieldUpdateOperationsInput | number
-    meterReadingIn?: NullableIntFieldUpdateOperationsInput | number | null
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
     timeOut?: StringFieldUpdateOperationsInput | string
-    dailyRent?: IntFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
     timeIn?: StringFieldUpdateOperationsInput | string
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
     customer?: CustomerUpdateOneRequiredWithoutContractsNestedInput
     vehicle?: VehicleUpdateOneRequiredWithoutContractsNestedInput
+    Transactions?: TransactionUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutUserInput = {
     plateNumber?: StringFieldUpdateOperationsInput | string
-    total?: IntFieldUpdateOperationsInput | number
-    paid?: IntFieldUpdateOperationsInput | number
-    remainingDues?: IntFieldUpdateOperationsInput | number
-    meterReadingOut?: IntFieldUpdateOperationsInput | number
-    meterReadingIn?: NullableIntFieldUpdateOperationsInput | number | null
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
     timeOut?: StringFieldUpdateOperationsInput | string
-    dailyRent?: IntFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
     timeIn?: StringFieldUpdateOperationsInput | string
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
     customerId?: StringFieldUpdateOperationsInput | string
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
+    Transactions?: TransactionUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateManyWithoutUserInput = {
     plateNumber?: StringFieldUpdateOperationsInput | string
-    total?: IntFieldUpdateOperationsInput | number
-    paid?: IntFieldUpdateOperationsInput | number
-    remainingDues?: IntFieldUpdateOperationsInput | number
-    meterReadingOut?: IntFieldUpdateOperationsInput | number
-    meterReadingIn?: NullableIntFieldUpdateOperationsInput | number | null
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
     timeOut?: StringFieldUpdateOperationsInput | string
-    dailyRent?: IntFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
     timeIn?: StringFieldUpdateOperationsInput | string
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
     customerId?: StringFieldUpdateOperationsInput | string
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceUpdateWithoutUserInput = {
+    maintenanceType?: StringFieldUpdateOperationsInput | string
+    client?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    cost?: FloatFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    vehicle?: VehicleUpdateOneRequiredWithoutMaintenancesNestedInput
+    transaction?: TransactionUpdateOneWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutUserInput = {
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    maintenanceType?: StringFieldUpdateOperationsInput | string
+    client?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    cost?: FloatFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction?: TransactionUncheckedUpdateOneWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutUserInput = {
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    maintenanceType?: StringFieldUpdateOperationsInput | string
+    client?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    cost?: FloatFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TransactionUpdateWithoutUserInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contract?: ContractUpdateOneWithoutTransactionsNestedInput
+    customer?: CustomerUpdateOneWithoutTransactionsNestedInput
+    Maintenance?: MaintenanceUpdateOneWithoutTransactionNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutUserInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutUserInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ContractCreateManyVehicleInput = {
@@ -8515,59 +13363,161 @@ export namespace Prisma {
     meterReadingIn?: number | null
     timeOut: string
     dailyRent: number
+    days: number
     timeIn: string
     dateOut: string
     returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
     invoiceDetails?: string | null
     customerId: string
+    transacionId?: string | null
+  }
+
+  export type TransactionCreateManyVehicleInput = {
+    id?: string
+    userId: string
+    amount: number
+    type: string
+    createdAt?: Date | string
+    contractId?: string | null
+    customerId?: string | null
+    maintenanceId?: string | null
+  }
+
+  export type MaintenanceCreateManyVehicleInput = {
+    id?: string
+    userId: string
+    maintenanceType: string
+    client?: string | null
+    date: string
+    cost: number
+    description?: string | null
   }
 
   export type ContractUpdateWithoutVehicleInput = {
-    total?: IntFieldUpdateOperationsInput | number
-    paid?: IntFieldUpdateOperationsInput | number
-    remainingDues?: IntFieldUpdateOperationsInput | number
-    meterReadingOut?: IntFieldUpdateOperationsInput | number
-    meterReadingIn?: NullableIntFieldUpdateOperationsInput | number | null
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
     timeOut?: StringFieldUpdateOperationsInput | string
-    dailyRent?: IntFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
     timeIn?: StringFieldUpdateOperationsInput | string
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutContractsNestedInput
     customer?: CustomerUpdateOneRequiredWithoutContractsNestedInput
+    Transactions?: TransactionUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutVehicleInput = {
     userId?: StringFieldUpdateOperationsInput | string
-    total?: IntFieldUpdateOperationsInput | number
-    paid?: IntFieldUpdateOperationsInput | number
-    remainingDues?: IntFieldUpdateOperationsInput | number
-    meterReadingOut?: IntFieldUpdateOperationsInput | number
-    meterReadingIn?: NullableIntFieldUpdateOperationsInput | number | null
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
     timeOut?: StringFieldUpdateOperationsInput | string
-    dailyRent?: IntFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
     timeIn?: StringFieldUpdateOperationsInput | string
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
     customerId?: StringFieldUpdateOperationsInput | string
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
+    Transactions?: TransactionUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateManyWithoutVehicleInput = {
     userId?: StringFieldUpdateOperationsInput | string
-    total?: IntFieldUpdateOperationsInput | number
-    paid?: IntFieldUpdateOperationsInput | number
-    remainingDues?: IntFieldUpdateOperationsInput | number
-    meterReadingOut?: IntFieldUpdateOperationsInput | number
-    meterReadingIn?: NullableIntFieldUpdateOperationsInput | number | null
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
     timeOut?: StringFieldUpdateOperationsInput | string
-    dailyRent?: IntFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
     timeIn?: StringFieldUpdateOperationsInput | string
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
     customerId?: StringFieldUpdateOperationsInput | string
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TransactionUpdateWithoutVehicleInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
+    contract?: ContractUpdateOneWithoutTransactionsNestedInput
+    customer?: CustomerUpdateOneWithoutTransactionsNestedInput
+    Maintenance?: MaintenanceUpdateOneWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutVehicleInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutVehicleInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceUpdateWithoutVehicleInput = {
+    maintenanceType?: StringFieldUpdateOperationsInput | string
+    client?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    cost?: FloatFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutMaintenancesNestedInput
+    transaction?: TransactionUpdateOneWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateWithoutVehicleInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    maintenanceType?: StringFieldUpdateOperationsInput | string
+    client?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    cost?: FloatFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction?: TransactionUncheckedUpdateOneWithoutMaintenanceNestedInput
+  }
+
+  export type MaintenanceUncheckedUpdateManyWithoutVehicleInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    maintenanceType?: StringFieldUpdateOperationsInput | string
+    client?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: StringFieldUpdateOperationsInput | string
+    cost?: FloatFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ContractCreateManyCustomerInput = {
@@ -8581,58 +13531,162 @@ export namespace Prisma {
     meterReadingIn?: number | null
     timeOut: string
     dailyRent: number
+    days: number
     timeIn: string
     dateOut: string
     returnedDate: string
+    returnStatus?: string | null
+    earlyReturnFee?: string | null
+    lateReturnFee?: string | null
     invoiceDetails?: string | null
+    transacionId?: string | null
+  }
+
+  export type TransactionCreateManyCustomerInput = {
+    id?: string
+    userId: string
+    amount: number
+    type: string
+    plateNumber: string
+    createdAt?: Date | string
+    contractId?: string | null
+    maintenanceId?: string | null
   }
 
   export type ContractUpdateWithoutCustomerInput = {
-    total?: IntFieldUpdateOperationsInput | number
-    paid?: IntFieldUpdateOperationsInput | number
-    remainingDues?: IntFieldUpdateOperationsInput | number
-    meterReadingOut?: IntFieldUpdateOperationsInput | number
-    meterReadingIn?: NullableIntFieldUpdateOperationsInput | number | null
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
     timeOut?: StringFieldUpdateOperationsInput | string
-    dailyRent?: IntFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
     timeIn?: StringFieldUpdateOperationsInput | string
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutContractsNestedInput
     vehicle?: VehicleUpdateOneRequiredWithoutContractsNestedInput
+    Transactions?: TransactionUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateWithoutCustomerInput = {
     userId?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
-    total?: IntFieldUpdateOperationsInput | number
-    paid?: IntFieldUpdateOperationsInput | number
-    remainingDues?: IntFieldUpdateOperationsInput | number
-    meterReadingOut?: IntFieldUpdateOperationsInput | number
-    meterReadingIn?: NullableIntFieldUpdateOperationsInput | number | null
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
     timeOut?: StringFieldUpdateOperationsInput | string
-    dailyRent?: IntFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
     timeIn?: StringFieldUpdateOperationsInput | string
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
+    Transactions?: TransactionUncheckedUpdateManyWithoutContractNestedInput
   }
 
   export type ContractUncheckedUpdateManyWithoutCustomerInput = {
     userId?: StringFieldUpdateOperationsInput | string
     plateNumber?: StringFieldUpdateOperationsInput | string
-    total?: IntFieldUpdateOperationsInput | number
-    paid?: IntFieldUpdateOperationsInput | number
-    remainingDues?: IntFieldUpdateOperationsInput | number
-    meterReadingOut?: IntFieldUpdateOperationsInput | number
-    meterReadingIn?: NullableIntFieldUpdateOperationsInput | number | null
+    total?: FloatFieldUpdateOperationsInput | number
+    paid?: FloatFieldUpdateOperationsInput | number
+    remainingDues?: FloatFieldUpdateOperationsInput | number
+    meterReadingOut?: FloatFieldUpdateOperationsInput | number
+    meterReadingIn?: NullableFloatFieldUpdateOperationsInput | number | null
     timeOut?: StringFieldUpdateOperationsInput | string
-    dailyRent?: IntFieldUpdateOperationsInput | number
+    dailyRent?: FloatFieldUpdateOperationsInput | number
+    days?: FloatFieldUpdateOperationsInput | number
     timeIn?: StringFieldUpdateOperationsInput | string
     dateOut?: StringFieldUpdateOperationsInput | string
     returnedDate?: StringFieldUpdateOperationsInput | string
+    returnStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    earlyReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
+    lateReturnFee?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    transacionId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TransactionUpdateWithoutCustomerInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
+    contract?: ContractUpdateOneWithoutTransactionsNestedInput
+    Maintenance?: MaintenanceUpdateOneWithoutTransactionNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutCustomerInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutCustomerInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contractId?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TransactionCreateManyContractInput = {
+    id?: string
+    userId: string
+    amount: number
+    type: string
+    plateNumber: string
+    createdAt?: Date | string
+    customerId?: string | null
+    maintenanceId?: string | null
+  }
+
+  export type TransactionUpdateWithoutContractInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
+    customer?: CustomerUpdateOneWithoutTransactionsNestedInput
+    Maintenance?: MaintenanceUpdateOneWithoutTransactionNestedInput
+    vehicle?: VehicleUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutContractInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutContractInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    plateNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
@@ -8653,6 +13707,10 @@ export namespace Prisma {
      */
     export type CustomerCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CustomerCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use ContractCountOutputTypeDefaultArgs instead
+     */
+    export type ContractCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ContractCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use UserDefaultArgs instead
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
@@ -8668,6 +13726,14 @@ export namespace Prisma {
      * @deprecated Use ContractDefaultArgs instead
      */
     export type ContractArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ContractDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TransactionDefaultArgs instead
+     */
+    export type TransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TransactionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MaintenanceDefaultArgs instead
+     */
+    export type MaintenanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MaintenanceDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

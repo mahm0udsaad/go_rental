@@ -4,17 +4,18 @@ import { useForm, Controller } from 'react-hook-form';
 import { TextField, Grid, Button, Autocomplete, Paper } from '@mui/material';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { calculateReturnDate, formatDate, formatTime } from '@/helper/dateNow';
-import { nationalitiesArray, Customers } from '@/data/info';
+import { nationalitiesArray} from '@/data/info';
 import { useTranslation } from '@/app/i18n/client';
 import { getVehicleById } from '@/prisma';
-import { createContractAndCustomer } from '@/prisma/contracts';
+import { createContractAndCustomer, createContractWithExistingCustomer } from '@/prisma/contracts';
 import { useSystemContext } from '@/context/context';
-import { DisplaySuccessMessage, ErrorMessage } from './messages';
 import { convertFieldsToNumber } from '@/helper/convertors';
+import { getAllCustomersByUserId, searchCustomerByIdNumber } from '@/prisma/customers';
 
-const RentNewCarForm = ({ lng , userId}) => {
+const RentNewCarForm = ({ lng , userId , Customers}) => {
   const { control, handleSubmit, setValue, watch, reset } = useForm();
-  const {  setSuccessMessage, setlinkDisabled , setErrorMessage , isLinkLoading ,setLinkLoading } = useSystemContext()
+  const {  setSuccessMessage,  setErrorMessage , isLinkLoading ,setLinkLoading } = useSystemContext()
+  const [ linkDisabled ,setlinkDisabled ] = useState(false)
   const [newCustomer, setNewCustomer] = useState(false);
   const [car, setCar] = useState(null);
   const router = useRouter();
@@ -26,6 +27,8 @@ const RentNewCarForm = ({ lng , userId}) => {
       "days",
       "idNumber",
       "nationality",
+      "extraHourPrice",
+      "extraKilometerPrice",
 ]
   const isRequired = (key) => requiredKeys.includes(key);
     useEffect(()=>{
@@ -113,27 +116,54 @@ const RentNewCarForm = ({ lng , userId}) => {
     }, [days , paid]);
   
     const onSubmit = async (data) => {
-      setlinkDisabled(true)
-      setLinkLoading(true)
-      data = convertFieldsToNumber(data);
-
       try {
-        await createContractAndCustomer(data, userId);
-        setSuccessMessage("contractAddedSuccessfully")
-        setLinkLoading(false)
-        setlinkDisabled(false)
-        router.push('/dashboard')
-        router.refresh()
+        setlinkDisabled(true);
+        setLinkLoading(true);
+        data = convertFieldsToNumber(data);
+        const customer = await searchCustomerByIdNumber(data.idNumber);
+    
+        if (customer) {
+          const contractData = {
+            dateOut: data.dateOut,
+            returnedDate: data.returnedDate,
+            timeOut: data.timeOut,
+            days: data.days,
+            total: data.total,
+            paid: data.paid,
+            remainingDues: data.remainingDues,
+            meterReadingOut: data.meterReadingOut,
+            timeIn: data.timeIn,
+            dailyRent: data.dailyRent,
+          };
+    
+          const { newContract, updatedVehicle } = await createContractWithExistingCustomer(
+            contractData,
+            customer.id,
+            data.plateNumber,
+            userId
+          );
+          // Perform actions after creating the contract and updating the vehicle
+          setSuccessMessage('contractAddedSuccessfully');
+          // setLinkLoading(false);
+          // setlinkDisabled(false);
+          // router.push('/dashboard');
+        } else {
+          await createContractAndCustomer(data, userId);
+    
+          setSuccessMessage('contractAddedSuccessfully');
+          setLinkLoading(false);
+          setlinkDisabled(false);
+          router.push('/dashboard');
+        }
       } catch (error) {
-        console.error('Error submitting form:', error);
+        console.error('Error:', error);
       }
     };
+    
 
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-       <ErrorMessage lng={lng}/>
-       <DisplaySuccessMessage lng={lng}/>
         <Paper variant="outlined" style={{ padding: '20px' }}>
         <h1 className='text-lg pb-4'>{t("carDetalis")}</h1>
         <Grid container spacing={2}>
@@ -360,10 +390,10 @@ const RentNewCarForm = ({ lng , userId}) => {
           </Grid>
         </Paper>
        
-        <Button type="submit" variant="contained" color="success" className="mt-3">
+        <Button disabled={linkDisabled} type="submit" variant="contained" color="success" className="mt-3">
         {isLinkLoading ? (
-          <div class="flex justify-center items-center">
-            <div class="border-t-4 border-blue-500 rounded-full animate-spin h-5 w-5"></div>
+          <div className="flex justify-center items-center">
+            <div className="border-t-4 border-blue-500 rounded-full animate-spin h-5 w-5"></div>
         </div>
         ) : (
           t('actions.addNew')

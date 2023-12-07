@@ -32,6 +32,54 @@ export const fetchUserCars = async (userId) => {
             dailyKilometerLimit: true,
           },
         },
+        Customers:{
+         select:{
+          id:true,
+          customerName:true,
+          category:true,
+          nationality:true,
+          idNumber:true,
+          idExpirationDate:true,
+          mobile:true,
+          debt:true,
+          Contracts:{
+            select:{
+              paid:true,
+              remainingDues:true,
+              plateNumber:true,
+            }
+          },
+         }
+        },
+        Contracts:{
+        select:{
+          id:true,
+          plateNumber:true,
+          total:true,
+          paid:true,
+          remainingDues:true,
+          meterReadingOut:true,
+          meterReadingIn:true,
+          timeOut:true,
+          dailyRent:true,
+          timeIn:true,
+          dateOut:true,
+          returnedDate:true,
+          returnStatus:true,
+          earlyReturnFee:true,
+          lateReturnFee:true,
+          invoiceDetails:true,
+          customer:true
+        }
+        },
+        Transactions:{
+          select:{
+            id:true,
+            amount:true,    
+            type:true,      
+            plateNumber:true,
+          }
+        }
       },
     });
     return userCarsData;
@@ -59,7 +107,6 @@ export async function createVehicle(vehicleData , userId) {
     // Check if the plateNumber already exists
     const existingVehicle = await prisma.vehicle.findUnique({
       where: {
-        userId,
         plateNumber: vehicleData.plateNumber,
       },
     });
@@ -71,7 +118,10 @@ export async function createVehicle(vehicleData , userId) {
 
     // If plate number doesn't exist, create the new vehicle
     const newVehicle = await prisma.vehicle.create({
-      data: { userId , ...vehicleData },
+      data: {      
+      user: { connect: { userId } },
+      ...vehicleData 
+    },
     });
     return { newVehicle };
   } catch (error) {
@@ -117,5 +167,6 @@ export async function deleteVehicleById(id) {
     return { error: `Error deleting vehicle: ${error.message}` };
   }
 }
+
 
 

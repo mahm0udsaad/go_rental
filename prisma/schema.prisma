@@ -16,6 +16,9 @@ model User {
   Vehicles  Vehicle[]
   Customers  Customer[]
   Contracts  Contract[]
+  Maintenances         Maintenance[] 
+  Transactions         Transaction[] 
+
 }
 
 model Vehicle {
@@ -26,7 +29,7 @@ model Vehicle {
   brand               String
   meter               Float
   status              String @default("Available")
-  rentalCount         Int?    
+  rentalCount         Int     @default(0)    
   transmission        String @default("Automatic")
   manufactureYear     Float?
   color               String?
@@ -41,6 +44,9 @@ model Vehicle {
   vehicleType         String?
   dailyKilometerLimit Float
   Contracts           Contract[]
+  Transactions         Transaction[] 
+  Maintenances         Maintenance[] 
+
 }
 model Customer {
   id                  String  @id @default(auto()) @map("_id") @db.ObjectId
@@ -52,8 +58,10 @@ model Customer {
   idNumber            String
   idExpirationDate    String?
   mobile              String?
-  debt                Float
+  debt                Float? @default(0)
   Contracts           Contract[]
+  Transactions         Transaction[] 
+
 }
 model Contract {
   id                  String  @id @default(auto()) @map("_id") @db.ObjectId
@@ -67,6 +75,7 @@ model Contract {
   meterReadingIn      Float?
   timeOut             String
   dailyRent           Float
+  days                Float
   timeIn              String
   dateOut             String
   returnedDate        String
@@ -75,23 +84,45 @@ model Contract {
   lateReturnFee       String?
   invoiceDetails      String?
   customerId          String        @db.ObjectId
+  transacionId        String?        @db.ObjectId
   customer            Customer     @relation(fields: [customerId], references: [id])
   vehicle             Vehicle      @relation(fields: [plateNumber], references: [plateNumber])
+  Transactions         Transaction[] 
+}
+model Transaction {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  user           User      @relation(fields: [userId], references: [userId])
+  userId         String
+  amount         Float
+  type           String
+  plateNumber    String
+  createdAt  DateTime @default(now())
+  
+  contract   Contract? @relation(fields: [contractId], references: [id])
+  contractId String?   @db.ObjectId
+  
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  customerId String?  @db.ObjectId
+  
+  Maintenance   Maintenance? @relation(fields: [maintenanceId], references: [id])
+  maintenanceId String?  @db.ObjectId @unique
+
+  vehicle    Vehicle   @relation(fields: [plateNumber], references: [plateNumber])
+}
+model Maintenance {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  user           User      @relation(fields: [userId], references: [userId])
+  userId         String
+  plateNumber    String
+  maintenanceType String
+  client         String?
+  date           String
+  cost           Float
+  description    String?
+  vehicle        Vehicle   @relation(fields: [plateNumber], references: [plateNumber])
+  transaction    Transaction?
 }
 
-// model MaFloatenance {
-//   id        String    @id @default(auto()) @map("_id") @db.ObjectId
-//   plateNumber         String
-//   maFloatenanceType     String
-//   client              String
-//   date                String
-//   cost                Float
-//   description         String?
-
-//   vehicle             Vehicle      @relation(fields: [plateNumber], references: [plateNumber])
-//   user                User?        @relation("user_maFloatenances", fields: [userId], references: [userId])
-//   userId              String?
-// }
 // model Invoice {
 //   id        String    @id @default(auto()) @map("_id") @db.ObjectId
 //   user                User?        @relation(fields: [userId], references: [id])
@@ -109,19 +140,4 @@ model Contract {
 //   contract            Contract?    @relation(fields: [contractId], references: [id])
 //   contractId          String?
 // }
-// model Transaction {
-//   id                  String       @id @default(uuid()) @map("_id")
-//   transactionId       String
-//   operation           String
-//   payment             String
-//   paymentDate         String
-//   amount              Float
-//   contract            Contract[]    
-//   contractId          String?
-//   invoice             Invoice[]     
-//   invoiceId           String?
-//   maFloatenance         MaFloatenance[] 
-//   maFloatenanceId       String?
-//   user                User?        
-//   userId              String?
-// }
+

@@ -1,32 +1,30 @@
 "use client"
 import { Cards } from "@/components/cards"
-import { Customers as CustomersData } from "@/data/info"
 import { CollabsedTable } from "@/components/tables";
 import { ActionBtns } from "@/components/actionBtns";
 import { useState } from "react";
 import { useTranslation } from "@/app/i18n/client";
+import { useSystemContext } from "@/context/context";
+import { InvoiceFormModal } from "../invoicesForm";
 
-export default function Customers ({ lng }){
+export default function Customers ({ lng , Customers , userId}){
   const { t } = useTranslation(lng , "dashboard")
-  const newCustomerNumber = CustomersData[CustomersData.length - 1].id + 1;
+  const { addNew , setAddNew } = useSystemContext()
+  const newCustomerNumber = Customers[Customers.length - 1].id + 1;
   const [formData , setFormData ] = useState({
-      customerNumber: newCustomerNumber,
-      nationality: '',
       customerName: '',
-      idOrResidenceCard: '',
-      idCardDate: '',
-      placeOfIssueIDCard: '',
-      driversLicenseNumber: '',
-      licenseExpiryDate: '',
-      placeOfIssueLicense: '',
-      dateOfBirth: '',
-      placeOfBirth: '',
-      mobileNumber: '',
-      homePhone: '',
-      workPhone: '',
-      homeAddress: '',
-      workAddress: ''
+      nationality: '',
+      category: '',
+      idNumber: '',
+      idExpirationDate:'',
+      mobile:'',
   })
+  const requiredKeys = [
+    "nationality",
+    "customerName",
+    "idNumber",
+    "mobileNumber",
+  ]
   const cards = [
     {title:t('totalCustomers'),number: `120`},
     {title:t('inactiveCustomers'),number: `50`},
@@ -40,8 +38,11 @@ export default function Customers ({ lng }){
         <Cards lng={lng} card={card} i={i} key={i}/>
       ))}
       </div>
-      <ActionBtns lng={lng} formTitle={"New Customer"} data={CustomersData} fileName={"Customers"} formData={formData} setFormData={setFormData} />
-      <CollabsedTable lng={lng} data={CustomersData} />
+      <ActionBtns lng={lng} data={Customers}  formTitle={"New Customer"} fileName={"Customers"} />
+      <CollabsedTable lng={lng} data={Customers} />
+        {addNew && (
+          <InvoiceFormModal type={"customer"} requiredKeys={requiredKeys} userId={userId} lng={lng}   formTitle={"New Customer"} formData={formData}  isOpen={addNew} setIsOpen={setAddNew} />
+      )}
       </>
   ) 
 }

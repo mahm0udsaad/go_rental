@@ -7,8 +7,9 @@ import { InvoiceFormModal } from "@/components/invoicesForm";
 import { useTranslation } from "@/app/i18n/client";
 import { useSystemContext } from "@/context/context";
 
-export const ActionBtns = ({lng, requiredKeys,userId, data , fileName , formData , setFormData  ,noAdd , formTitle ,cars ,customers}) =>{
+export const ActionBtns = ({lng, data , fileName ,noAdd ,  formTitle}) =>{
   const { addNew , setAddNew } = useSystemContext()
+
   const isAr = lng === "ar"
   const { t } = useTranslation(lng , "dashboard")
     return (
@@ -26,15 +27,12 @@ export const ActionBtns = ({lng, requiredKeys,userId, data , fileName , formData
         </button>
         {!noAdd && <button
         onClick={()=> setAddNew(true)}
-        className="hover:opacity-50 flex items-center justify-center bg-[#4969b2] p-4 mt-2 py-1 rounded-md self-start cursor-pointer"
-      >
+          className="hover:opacity-50 flex items-center justify-center bg-[#4969b2] p-4 mt-2 py-1 rounded-md self-start cursor-pointer"
+        >
         <IoIosAdd className="w-6 h-6 mx-2" />
         <span className="text-sm">{t(`actions.addNew`)} {t(`tables.${formTitle}`)}</span>
       </button>}
       </div>
-      {addNew && (
-          <InvoiceFormModal requiredKeys={requiredKeys} userId={userId} lng={lng} cars={cars} customers={customers}  formTitle={formTitle} formData={formData}  isOpen={addNew} setIsOpen={setAddNew} />
-      )}
       </>
     )
 }

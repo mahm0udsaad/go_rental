@@ -167,6 +167,7 @@
     "company": "شركة",
     "edit":"تعديل",
     "close":"اغلاق",
+    "type":"النوع",
     "remainingDuesToCustomer":"المتبقي له"
   },
   "messages":{
@@ -181,7 +182,8 @@
     "lateInHours":"ساعات متاخره",
     "earlyInDays":"ايام مبكره",
     "lateInDays":"ايام متاخره",
-    "inTime":"في الميعاد"
+    "inTime":"في الميعاد",
+    "customerExists":"تم اضافه العميل بنجاح"
   },
   "carDetalis":"تفاصيل السياره",
   "customerDetalis":"تفاصيل العميل",

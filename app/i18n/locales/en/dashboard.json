@@ -168,6 +168,7 @@
     "company": "Company",
     "edit":"Edit",
     "close":"close",
+    "type":"Type",
     "remainingDuesToCustomer":"Remaining To Customer"
   },
   "messages":{
@@ -182,7 +183,9 @@
     "lateInHours":"Late Hours",
     "earlyInDays":"Early Days",
     "lateInDays":"Late Days",
-    "inTime":"In Time"
+    "inTime":"In Time",
+    "customerExists":"Customer Created Successfully "
+
   },
 
   "carDetalis":"car Details",

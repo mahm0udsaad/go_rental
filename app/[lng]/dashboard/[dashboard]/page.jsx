@@ -12,11 +12,11 @@ import RentNewCar from '@/components/pages/rent';
 import { auth } from '@clerk/nextjs';
 import { getAllContractsByUserId } from '@/prisma/contracts';
 import CloseContract from '@/components/pages/closeContract';
-import { ErrorMessage } from '@/components/messages';
+import { fetchUserCars } from '@/prisma';
 
 const PageRenderer =async ({ params }) => {
   const { userId } = await auth()
-  const contracts= await getAllContractsByUserId(userId)
+  const userData = await fetchUserCars(userId)
   const renderPageComponent = () => {
     switch (params.dashboard) {
       case 'reports':
@@ -24,15 +24,15 @@ const PageRenderer =async ({ params }) => {
         case 'rent':
           return <RentNewCar lng={params.lng} />;
       case 'contracts':
-        return <Contracts contracts={contracts} lng={params.lng} />;
+        return <Contracts contracts={userData.Contracts} lng={params.lng} />;
       case 'customers':
-        return <Customers lng={params.lng} />;
+        return <Customers userId={userId} Customers={userData.Customers} lng={params.lng} />;
       case 'invoices':
         return <Invoices lng={params.lng} />;
       case 'maintenance':
-        return <Maintenance lng={params.lng} />;
+        return <Maintenance maintenance={userData.Maintenance} lng={params.lng} />;
       case 'treasury':
-        return <Treasury lng={params.lng} />;
+        return <Treasury Transactions={userData.Transactions} lng={params.lng} />;
         case 'closeContract':
         return <CloseContract lng={params.lng} />;
       default:

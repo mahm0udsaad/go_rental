@@ -10,7 +10,7 @@ import { CollabsedTable } from "../tables";
 import { GridView } from "../gridCarsView";
 import { Tooltip } from "@mui/material"; 
 import { useState } from "react";
-import { EditVehicleForm } from "../invoicesForm";
+import { EditVehicleForm, InvoiceFormModal } from "../invoicesForm";
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { getVehicleById } from "@/prisma";
@@ -18,7 +18,7 @@ import { getVehicleById } from "@/prisma";
 export default function Cars ({userId, lng ,Cars}){
 
   const CarsOverview = generateCarsOverview(Cars, ["status"], ["allCars"]);
-  const { isDeleteModalOpen, setIsDeleteModalOpen } = useSystemContext();
+  const { isDeleteModalOpen, setIsDeleteModalOpen ,addNew , setAddNew  } = useSystemContext();
 
   const [ isGrid , setIsGrid ] = useState(false)
   const { t } = useTranslation(lng , "dashboard")
@@ -107,6 +107,9 @@ export default function Cars ({userId, lng ,Cars}){
        </>
        }
       <EditVehicleForm formData={car} lng={lng}  isOpen={openEditModal} setIsOpen={setOpenEditModal} />
+      {addNew && (
+          <InvoiceFormModal requiredKeys={requiredKeys} userId={userId} lng={lng}  formTitle={"New Vehicle"} formData={formData}  isOpen={addNew} setIsOpen={setAddNew} />
+      )}
       </>
   )
 }

@@ -24,7 +24,6 @@ await createUserIfNotExists(userData)
   .catch((error) => {
     console.error('Error:', error);
   });
-  
   await updateVehicleStatusForLateContracts()
 
   return (

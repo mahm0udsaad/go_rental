@@ -2,6 +2,7 @@
 export const convertFieldsToNumber = (data) => {
   const keysToConvertToNumber = [
     'meter',
+    'days',
     'rentalCount',
     'manufactureYear',
     'extraHourPrice',

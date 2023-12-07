@@ -16,12 +16,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.6.0
- * Query Engine version: e95e739751f42d8ca026f6b910f5a2dc5adeaeee
+ * Prisma Client JS version: 5.7.0
+ * Query Engine version: 79fb5193cf0a8fdbef536e4b4a159cad677ab1b9
  */
 Prisma.prismaVersion = {
-  client: "5.6.0",
-  engine: "e95e739751f42d8ca026f6b910f5a2dc5adeaeee"
+  client: "5.7.0",
+  engine: "79fb5193cf0a8fdbef536e4b4a159cad677ab1b9"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -154,11 +154,39 @@ exports.Prisma.ContractScalarFieldEnum = {
   meterReadingIn: 'meterReadingIn',
   timeOut: 'timeOut',
   dailyRent: 'dailyRent',
+  days: 'days',
   timeIn: 'timeIn',
   dateOut: 'dateOut',
   returnedDate: 'returnedDate',
+  returnStatus: 'returnStatus',
+  earlyReturnFee: 'earlyReturnFee',
+  lateReturnFee: 'lateReturnFee',
   invoiceDetails: 'invoiceDetails',
-  customerId: 'customerId'
+  customerId: 'customerId',
+  transacionId: 'transacionId'
+};
+
+exports.Prisma.TransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  amount: 'amount',
+  type: 'type',
+  plateNumber: 'plateNumber',
+  createdAt: 'createdAt',
+  contractId: 'contractId',
+  customerId: 'customerId',
+  maintenanceId: 'maintenanceId'
+};
+
+exports.Prisma.MaintenanceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  plateNumber: 'plateNumber',
+  maintenanceType: 'maintenanceType',
+  client: 'client',
+  date: 'date',
+  cost: 'cost',
+  description: 'description'
 };
 
 exports.Prisma.SortOrder = {
@@ -176,7 +204,9 @@ exports.Prisma.ModelName = {
   User: 'User',
   Vehicle: 'Vehicle',
   Customer: 'Customer',
-  Contract: 'Contract'
+  Contract: 'Contract',
+  Transaction: 'Transaction',
+  Maintenance: 'Maintenance'
 };
 
 /**
