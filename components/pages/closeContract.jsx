@@ -172,7 +172,7 @@ const CloseContract = ({ lng }) => {
                     <TextField
                       {...field}
                       label={t('tables.total')}
-                      value={(parseFloat(total) - parseFloat(paid)).toFixed(2)}
+                      value={(parseFloat(total) - parseFloat(paid)).toFixed(2) || contract.total}
                       InputProps={{ readOnly: true }}
                       fullWidth
                     />
