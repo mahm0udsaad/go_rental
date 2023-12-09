@@ -27,6 +27,7 @@ const customBeforeAuth = (req, res) => {
       if (lngInReferer) response.cookies.set(cookieName, lngInReferer);
       return response;
     }
+    
 
     return NextResponse.next();
   }

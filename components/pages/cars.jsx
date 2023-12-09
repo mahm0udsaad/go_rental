@@ -15,12 +15,11 @@ import { useSearchParams } from "next/navigation";
 import { getVehicleById } from "@/prisma";
 
 export default function Cars ({userId, lng ,Cars}){
-
-  const CarsOverview = generateCarsOverview(Cars, ["status"], ["allCars"]);
-  const { isDeleteModalOpen, setIsDeleteModalOpen ,addNew , setAddNew  } = useSystemContext();
-
+  const { addNew , setAddNew  } = useSystemContext();
   const [ isGrid , setIsGrid ] = useState(false)
   const { t } = useTranslation(lng , "dashboard")
+
+  const CarsOverview = generateCarsOverview(Cars, ["status"], ["allCars"]);
   
   const formData = {
     plateNumber: "",

@@ -25,6 +25,7 @@ export default function Treasury ({ lng ,Transactions}){
       </div>
       <ActionBtns lng={lng} noAdd={true} data={Transactions } fileName={"Transactions"} />
       {Transactions && Transactions.length > 0 ? <CollabsedTable lng={lng} data={Transactions} />: <h1 className="text-center pt-8">{t('messages.noTransactions')}</h1>}
+      
       </>
   )
 }
