@@ -190,7 +190,12 @@
     "lateInDays":"Late Days",
     "inTime":"In Time",
     "customerExists":"Customer Created Successfully ",
-    "maintenanceCardCreated":"Maintanance Card Created Successfully"
+    "maintenanceCardCreated":"Maintanance Card Created Successfully",
+    "noCustomers": "You Haven't added any Customer till now",
+    "noContracts": "You Haven't Created any Contract till now",
+    "noTransactions": "You Haven't Created any Transacion till now",
+    "noMaintanence": "You Haven't added any maintenance cards till now",
+    "noInvoces": "You Haven't added any Invoices till now"
 
   },
   "customerEvaluationOptions": {

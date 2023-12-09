@@ -1,5 +1,4 @@
 "use client"
-import { DeleteConfirmationDialog } from "../buttonLink";
 import { CiViewTable ,CiGrid41} from "react-icons/ci";
 import { ActionBtns } from "@/components/actionBtns";
 import { useSystemContext } from "@/context/context";
@@ -77,7 +76,6 @@ export default function Cars ({userId, lng ,Cars}){
   return (
     <>
     <h1>{t('titles.cars')}</h1>
-    <DeleteConfirmationDialog lng={lng} message={'deleteMessage'} isOpen={isDeleteModalOpen} setIsOpen={setIsDeleteModalOpen} />
     <div className="relative grid grid-cols-2 lg:grid-cols-4 w-full gap-3  py-4">
       {CarsOverview && CarsOverview.map((card , i )=> (
         <Cards lng={lng} card={card} i={i} key={i}/>

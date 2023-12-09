@@ -72,7 +72,7 @@ export const RentalRows = ({ rentalData, lng, isLoading }) => {
 
 export const CollabsedTable = ({ data, lng , cars}) => {
   const { t } = useTranslation(lng, 'dashboard');
-  data = extractNonObjectKeyValuePairsFromArray(data)
+  data = extractNonObjectKeyValuePairsFromArray(data) 
   const tableHeaders = Object.keys(data[0]).slice(0, 7);
   const getColorClass = (status) => {
     if (status === 'Expense' || status === 'Rented') {

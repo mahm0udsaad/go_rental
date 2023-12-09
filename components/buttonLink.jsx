@@ -4,10 +4,7 @@ import { Button, IconButton, Popover, Tooltip} from '@mui/material'
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { IoIosMore, IoMdCreate, IoMdTrash } from 'react-icons/io'; 
 import Link from 'next/link';
-import React , { useEffect, useLayoutEffect, useState } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { EditVehicleForm, InvoiceFormModal } from './invoicesForm';
+import React , { useState } from 'react';
 import { deleteVehicleById, getVehicleById } from '@/prisma';
 import { useSystemContext } from '@/context/context';
 
@@ -68,68 +65,35 @@ const ButtonLink  = ({ item, lng, isGrid }) => {
   );
 }
 
- const DeleteButton = ({ item, lng }) => {
-  const { t } = useTranslation(lng, 'dashboard');
-  const { car ,deleteParam , setCar , setIsDeleteModalOpen} = useSystemContext();
+// export const DeleteConfirmationDialog = ({ message, lng, isOpen, setIsOpen }) => {
+//   const { car } = useSystemContext();
+//   const { t } = useTranslation(lng, 'dashboard');
 
-  
-  return (
-    <>
-      <Link href={`?delete=${item.id}`}>
-        <Tooltip title="Delete">
-          <IconButton
-            onClick={handleOpenDeleteModal}
-            aria-label="delete"
-            variant="contained"
-            style={{ color: 'red', backgroundColor: 'lightgrey', marginRight: '10px' }}
-          >
-              <MdDelete style={{ marginRight: '5px' }} />
-          </IconButton>
-        </Tooltip>
-      </Link>
-    </>
-  );
-}
+//   const handleClose = () => {
+//     setIsOpen(false);
+//     router.push('/dashboard')
+//     router.refresh()
+//   };
 
-export const DeleteConfirmationDialog = ({ message, lng, isOpen, setIsOpen }) => {
-  const { car ,deleteParam} = useSystemContext();
-  const router = useRouter();
-  const { t } = useTranslation(lng, 'dashboard');
-  const handleDelete = () => {
-    deleteVehicleById(deleteParam);
-    router.push('/dashboard');
-    router.refresh();
-  };
-  const handleClose = () => {
-    setIsOpen(false);
-    router.push('/dashboard')
-    router.refresh()
-  };
-
-  const handleConfirmDelete = () => {
-    handleDelete();
-    setIsOpen(false);
-  };
-
-  return (
-    <Dialog open={isOpen} onClose={handleClose}>
-      <DialogTitle>Delete Vehicle</DialogTitle>
-      <DialogContent>
-        <p>{t(`messages.${message}`)} {car.plateNumber}</p>
-      </DialogContent>
-      <DialogActions>
-        <div className="flex gap-4">
-          <Button onClick={handleClose} variant='contained' color="primary">
-            {t('actions.cancel')}
-          </Button>
-          <Button onClick={handleDelete} variant='contained' color="error">
-            {t('actions.delete')}
-          </Button>
-        </div>
-      </DialogActions>
-    </Dialog>
-  );
-}
+//   return (
+//     <Dialog open={isOpen} onClose={handleClose}>
+//       <DialogTitle>Delete Vehicle</DialogTitle>
+//       <DialogContent>
+//         <p>{t(`messages.${message}`)} {car.plateNumber}</p>
+//       </DialogContent>
+//       <DialogActions>
+//         <div className="flex gap-4">
+//           <Button onClick={handleClose} variant='contained' color="primary">
+//             {t('actions.cancel')}
+//           </Button>
+//           <Button variant='contained' color="error">
+//             {t('actions.delete')}
+//           </Button>
+//         </div>
+//       </DialogActions>
+//     </Dialog>
+//   );
+// }
 
 const MorePopup = ({ item, lng }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -144,8 +108,6 @@ const MorePopup = ({ item, lng }) => {
 
   const open = Boolean(anchorEl);
   const id = open ? 'popup' : undefined;
-
-
 
   return (
     <>
@@ -167,15 +129,21 @@ const MorePopup = ({ item, lng }) => {
           horizontal: 'center',
         }}
       >
-        <div style={{ padding: '10px' }}>
+        <div className='p-4 flex '>
           <Link href={`dashboard?edit=${item.id}`}>
           <IconButton aria-label="edit" >
             <IoMdCreate />
           </IconButton>
           </Link>
-          <IconButton aria-label="delete" >
-            <IoMdTrash />
-          </IconButton>
+          <form action={()=>deleteVehicleById(item)}>
+            <Tooltip title="Delete">
+              <IconButton
+                type='submit'
+              >
+                  <IoMdTrash style={{ marginRight: '5px' }} />
+              </IconButton>
+            </Tooltip>
+          </form>
         </div>
       </Popover>
       </div>

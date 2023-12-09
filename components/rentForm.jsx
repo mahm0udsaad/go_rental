@@ -147,7 +147,6 @@ const RentNewCarForm = ({ lng , userId , Customers}) => {
           setLinkLoading(false);
           setlinkDisabled(false);
           router.push('/dashboard');
-          router.refresh()
         } else {
           await createContractAndCustomer(data, userId);
     
@@ -292,31 +291,42 @@ const RentNewCarForm = ({ lng , userId , Customers}) => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
               <Controller
-                name="customerSearch"
-                control={control}
-                render={({ field }) => (
-                    <Autocomplete
-                    {...field}
-                    options={Customers} 
-                    getOptionLabel={(customer) => `${customer.idNumber} - ${customer.customerName}`}
-                    onChange={(event, newValue) => {
-                        if (newValue) {
-                        const selectedCustomerByID = Customers.find((customer) => customer.idNumber === newValue.idNumber);
-                        const selectedCustomerByName = Customers.find((customer) => customer.customerName === newValue.customerName);
-                        
-                        if (selectedCustomerByID) {
-                            handleCustomerSelection(selectedCustomerByID);
-                        } else if (selectedCustomerByName) {
-                            handleCustomerSelection(selectedCustomerByName);
-                        }
-                        }
-                    }}
-                    renderInput={(params) => (
-                        <TextField {...params}  label={t('tables.customer')} variant="outlined" fullWidth value={''} /> 
-                        )}
+              name="customerSearch"
+              control={control}
+              render={({ field }) => (
+                <Autocomplete
+                  {...field}
+                  options={Customers || []}
+                  getOptionLabel={(customer) =>
+                    `${customer.idNumber} - ${customer.customerName}`
+                  }
+                  onChange={(event, newValue) => {
+                    if (newValue) {
+                      const selectedCustomer = Customers.find(
+                        (customer) => customer.idNumber === newValue.idNumber
+                      );
+
+                      if (selectedCustomer) {
+                        handleCustomerSelection(selectedCustomer);
+                      }
+                    }
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={
+                        Customers && Customers.length === 0
+                          ? t('messages.noCustomers')
+                          : t('tables.customer')
+                      }
+                      variant="outlined"
+                      fullWidth
                     />
-                )}
+                  )}
                 />
+              )}
+            />
+
               </Grid>
               {/* Customer details based on autocomplete */}
               {Object.keys(autocompleteCustomer).map((key) => (

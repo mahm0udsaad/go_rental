@@ -10,7 +10,6 @@ import { InvoiceFormModal } from "../invoicesForm";
 export default function Customers ({ lng , Customers , userId}){
   const { t } = useTranslation(lng , "dashboard")
   const { addNew , setAddNew } = useSystemContext()
-  const newCustomerNumber = Customers[Customers.length - 1].id + 1;
   const [formData , setFormData ] = useState({
       customerName: '',
       nationality: '',
@@ -39,7 +38,9 @@ export default function Customers ({ lng , Customers , userId}){
       ))}
       </div>
       <ActionBtns lng={lng} data={Customers}  formTitle={"New Customer"} fileName={"Customers"} />
-      <CollabsedTable lng={lng} data={Customers} />
+      {
+        Customers && Customers.length > 0 ?  <CollabsedTable lng={lng} data={Customers} /> : <h1 className="text-center pt-8">{t('messages.noCustomers')}</h1>
+      }
         {addNew && (
           <InvoiceFormModal type={"customer"} requiredKeys={requiredKeys} userId={userId} lng={lng}   formTitle={"New Customer"} formData={formData}  isOpen={addNew} setIsOpen={setAddNew} />
       )}

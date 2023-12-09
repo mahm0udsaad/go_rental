@@ -1,10 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { getContractByPlate, getContractByPlateNumber } from '@/prisma/contracts';
+import {  getContractByPlateNumber } from '@/prisma/contracts';
 import { Paper, Typography, Grid, Stepper, Step, StepLabel, TextField, Button, Autocomplete } from '@mui/material';
 import { useTranslation } from '@/app/i18n/client';
-import {  calculateHoursDifference, calculateLateHoursOrDays } from '@/helper/calc';
+import {  calculateLateHoursOrDays } from '@/helper/calc';
 import { useForm, Controller } from 'react-hook-form';
 import { convertFieldsToNumber } from '@/helper/convertors';
 
@@ -26,8 +26,6 @@ const CloseContract = ({ lng }) => {
   if (!contract) {
     return <div>Loading...</div>;
   }
-
-
   const handleColorChangeBasedOnStatus = (status) => {
     switch (status) {
       case "FreeHours":
@@ -43,7 +41,7 @@ const CloseContract = ({ lng }) => {
     }
   }
 
-  const steps = ['dateOut', 'returnedDate'];
+  const steps = [{lable:'dateOut' , value: contract.dateOut}, {lable:'returnedDate',value:contract.returnedDate}];
   const lateHoursOrDays = calculateLateHoursOrDays(contract , 6);
   let total = contract.total ;
   let lateFees = 0
@@ -98,35 +96,20 @@ const CloseContract = ({ lng }) => {
   setValue('total',total)
 
   const onSubmit = (data) =>{
-    setValue('remainingDues',0)
-    setValue('paid',total)
+    setValue('remainingDues',remainingDues)
+    setValue('paid',paid)
     data = convertFieldsToNumber(data)
     console.log(data);
   }
   return (
     <div className="container mx-auto">
+        <Grid className={`items-center justify-between flex `} item xs={12} sm={6} md={4}>
         <Typography variant="h4" color="primary" gutterBottom>
           {t('titles.closeContract')}
         </Typography>
         <Typography variant="h6" gutterBottom>
           {t('messages.contractDetails')} {plateNumber}
         </Typography>
-        <div className="flex flex-col items-center w-full" >
-          <Stepper className={`p-4 w-full ${isAr ? 'flex-row-reverse' : ''}`} activeStep={1} alternativeLabel>
-            {steps.map((label) => (
-              <Step key={label}>
-              <StepLabel>{t(`tables.${label}`)}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid className={` ${isAr ? 'flex-row-reverse' : ''}`} container spacing={2}>
-            {/* Date Out */}
-              <Grid className={`px-4 ${isAr ? 'justify-start' : 'justify-end'} flex`} item xs={12} sm={6} md={4}>
-                <Typography variant="body1">{contract.dateOut}</Typography>
-              </Grid>
-              {/* Returned Date */}
-              <Grid className={`items-center justify-center flex `} item xs={12} sm={6} md={4}>
                <div className={`flex flex-col justify-between items-center rounded-xl px-4 py-2 text-white ${handleColorChangeBasedOnStatus(Object.keys(lateHoursOrDays)[0])}`}>
                <h1 className='text-xl'>
                 {t(`messages.${Object.keys(lateHoursOrDays)[0]}`)}
@@ -134,70 +117,38 @@ const CloseContract = ({ lng }) => {
                 <span className='text-lg'>{lateHoursOrDays[Object.keys(lateHoursOrDays)[0]]}</span>
                </div>
               </Grid>
-              <Grid className={`px-4 ${isAr ? 'justify-end' : 'justify-start'} flex`} item xs={12} sm={6} md={4}>
-                <Typography variant="body1">{contract.returnedDate}</Typography>
-              </Grid>
-              {/* Editable Inputs */}
-              <Grid item xs={12} sm={6} md={4}>
-              <Controller
-                name="total"
-                control={control}
-                render={({ field }) => {
-                  const calculatedTotal = total - paid;
-                  const displayTotal = isNaN(calculatedTotal) ? 0 : calculatedTotal.toFixed(2);
-
-                  return (
-                    <TextField
-                      {...field}
-                      label={t('tables.total')}
-                      value={total}
-                      InputProps={{ readOnly: true }}
-                      fullWidth
-                    />
-                  );
-                }}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={4}>
-              <Controller
-                name="paid"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    defaultValue={contract.paid}
-                    label={t('tables.paid')}
-                    fullWidth
-                    margin="normal"
-                    variant="outlined"
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={4}>
-              <Controller
-                name="remainingDues"
-                control={control}
-                value={remainingDues}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label={
-                      contract.remainingDues < 0
-                        ? t('tables.remainingDuesToCustomer')
-                        : t('tables.remainingDues')
-                    }
-                    InputProps={{ readOnly: true }}
-                    readOnly={true}
-                    value={remainingDues || contract.remainingDues}
-                    fullWidth
-                  />
-                )}
-              />
-            </Grid>
-
+        <div className="flex flex-col items-center w-full" >
+          <Stepper className={`p-4 w-full ${isAr ? 'flex-row-reverse' : ''}`} activeStep={1} alternativeLabel>
+            {steps.map((item) => (
+              <Step key={item.lable}>
+              <StepLabel>{t(`tables.${item.lable}`)} <br />  <span className='pt-4'>{item.value}</span> </StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <Stepper className={`p-4 w-full ${isAr ? 'flex-row-reverse' : ''}`} activeStep={1,2,3} alternativeLabel>
+              <Step >
+              <StepLabel>{t(`tables.paid`)} <br />  <span className='pt-4'>{contract.paid}</span> </StepLabel>
+              </Step>
+              <Step >
+              <StepLabel>{t(`tables.remainingDues`)} <br />  <span className='pt-4'>{contract.remainingDues}</span> </StepLabel>
+              </Step>
+              {lateFees > 0 && 
+              <Step >
+              <StepLabel>{t(`tables.lateFees`)} <br />  <span className='pt-4'>{lateFees}</span> </StepLabel>
+              </Step>
+              }
+              {additionalKilloMetersFees > 0 && 
+              <Step >
+              <StepLabel>{t(`tables.additionalKilloMetersFees`)} <br />  <span className='pt-4'>{additionalKilloMetersFees}</span> </StepLabel>
+              </Step>
+              }
+              <Step >
+              <StepLabel>{t(`tables.total`)} <br />  <span className='pt-4'>{total}</span> </StepLabel>
+              </Step>
+          </Stepper>
+          <form onSubmit={handleSubmit(onSubmit)}>
+          <Grid className={` ${isAr ? 'flex-row-reverse' : ''}`} container spacing={2}>
+{/* 
             <Grid item xs={12} sm={6} md={4}>
               <Controller
                 name="lateFees"
@@ -243,7 +194,8 @@ const CloseContract = ({ lng }) => {
                   margin="normal"
                   variant="outlined"
                   />
-              </Grid>
+              </Grid> */}
+{/* 
               <Grid item xs={12} sm={6} md={4}>
                 <Controller
                   name="meterReadingOut"
@@ -260,26 +212,9 @@ const CloseContract = ({ lng }) => {
                     />
                   )}
                 />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
-                <Controller
-                  name="meterReadingIn"
-                  control={control}
-                  required={true}
-                  defaultValue={contract.meterReadingIn} 
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label={t('tables.meterReadingIn')}
-                      required
-                      fullWidth
-                      margin="normal"
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
+              </Grid> */}
+
+              {/* <Grid item xs={12} sm={6} md={4}>
                 <Controller
                   name="customerName"
                   control={control}
@@ -295,78 +230,59 @@ const CloseContract = ({ lng }) => {
                     />
                   )}
                 />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
-                <Controller
-                  name="debt"
-                  control={control}
-                  defaultValue={contract.customer?.debt} 
-                  render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label={t('tables.debt')}
-                      InputProps={{ readOnly: true }}
-                      fullWidth
-                      margin="normal"
-                      variant="outlined"
-                    />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
-              <Controller
-                name="idNumber"
-                control={control}
-                defaultValue={contract.customer?.idNumber} 
-                render={({ field }) => (
+              </Grid> */}
+              <div className="pt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
+                <div className="col-span-1 sm:col-span-2 md:col-span-1">
                   <TextField
-                    {...field}
-                    label={t('tables.idNumber')}
-                    InputProps={{ readOnly: true }}
+                    label={t('tables.meterReadingIn')}
+                    required
                     fullWidth
-                    margin="normal"
+                    className="w-full mb-4"
                     variant="outlined"
                   />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Autocomplete
-                options={options}
-                getOptionLabel={(option) => option.label}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={t('customerEvaluation')}
-                    variant="outlined"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
+                </div>
+
+                <div className="col-span-1 sm:col-span-2 md:col-span-1">
+                  <Autocomplete
+                    options={options}
+                    defaultValue={options[1].label}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={t('customerEvaluation')}
+                        defaultValue={options[0].label}
+                        variant="outlined"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        className="w-full mb-4"
+                      />
+                    )}
                   />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-            <Controller
-              name="discount"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <Autocomplete
-                  {...field}
-                  options={discountOptions}
-                  onChange={(event, newValue) => {
-                    if (newValue) {
-                      setValue('discount', newValue.value);
-                    }
-                  }}
-                  renderInput={(params) => (
-                    <TextField {...params} label="Discount" variant="outlined" />
-                  )}
-                />
-              )}
-            />
-            </Grid>
+                </div>
+
+                <div className="col-span-1 sm:col-span-2 md:col-span-1">
+                  <Controller
+                    name="discount"
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <Autocomplete
+                      options={discountOptions}
+                      defaultValue={discountOptions[0].label}
+                        onChange={(event, newValue) => {
+                          onChange(newValue ? newValue.value : '');
+                        }}
+                        value={value !== '' ? discountOptions.find(option => option.value === value) : null}
+                        renderInput={(params) => (
+                          <TextField {...params} defaultValue={discountOptions[0].label} label="Discount" variant="outlined" className="w-full mb-4" />
+                        )}
+                      />
+                    )}
+                  />
+                </div>
+                
+              </div>
           </Grid>
           <div className="flex gap-4">
           <Button type='submit' style={{marginTop:'2rem'}} variant="contained" color="success" onClick={handleSubmit}>

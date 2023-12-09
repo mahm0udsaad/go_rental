@@ -1,15 +1,20 @@
 
-import { ErrorMessage } from "@/components/messages";
 import NavBar from "@/components/navBar";
 import Cars from "@/components/pages/cars";
 import { fetchUserCars } from "@/prisma";
 import { updateVehicleStatusForLateContracts } from "@/prisma/contracts";
 import { createUserIfNotExists } from "@/prisma/user";
 import { auth, currentUser } from "@clerk/nextjs";
+import { unstable_noStore } from "next/cache";
 
-export default async function MainDashboardPage ({params:{lng}}){
+export default async function MainDashboardPage ({params:{ lng }}){
+  unstable_noStore()
+
   const { userId } = await auth()
   const user = await currentUser()
+  if(!user || userId){
+    <h1>No Enternet</h1>
+  }
   const userCars =  await fetchUserCars(userId)
 
   const userData = {

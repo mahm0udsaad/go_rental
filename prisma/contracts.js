@@ -1,6 +1,7 @@
 "use server"
 import { calculateLateHoursOrDays } from "@/helper/calc";
 import prisma from "./prisma";
+import { revalidatePath } from "next/cache";
 
 export async function createContractAndCustomer(data, userId) {
   try {
@@ -132,7 +133,6 @@ export async function getAllContractsByUserId(userId) {
   }
 }
 export async function getContractByPlateNumber(plateNumber){
-  try {
     const contract = await prisma.contract.findFirst({
       where: {
         plateNumber,
@@ -157,9 +157,6 @@ export async function getContractByPlateNumber(plateNumber){
       },
     });
     return contract; 
-  } catch (error) {
-    throw new Error(`Error fetching contract: ${error}`);
-  }
 };
 export async function updateVehicleStatusForLateContracts() {
   try {
@@ -247,6 +244,7 @@ export  async function createContractWithExistingCustomer(contractData, customer
       });
      return { newContract, updatedVehicle ,newTransaction};
     }
+    revalidatePath('/dashboard')
     return { newContract, updatedVehicle ,newTransaction};
   } catch (error) {
     console.error('Error creating contract with existing customer:', error);

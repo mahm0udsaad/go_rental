@@ -189,7 +189,12 @@
     "lateInDays":"ايام متاخره",
     "inTime":"في الميعاد",
     "customerExists":"تم اضافه العميل بنجاح",
-    "maintenanceCardCreated":"تم اضافه كارت الصيانه"
+    "maintenanceCardCreated":"تم اضافه كارت الصيانه",
+    "noCustomers": "لم تقم باضافه اي عميل حتي الان",
+    "noContracts": "لم تقم بانشاء اي عقد حتي الان",
+    "noTransactions": "لم تقم بانشاء اي معامله حتي الان",
+    "noMaintanence": "لم تقم بانشاء اي كروت صيانه حتي الان",
+    "noInvoces": "لم تقم بانشاء اي فواتير حتي الان"
   },
   "customerEvaluationOptions": {
     "VIP": "مميز",

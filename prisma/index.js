@@ -1,5 +1,6 @@
 "use server"
 
+import { revalidatePath } from "next/cache";
 import prisma from "./prisma";
 
 export const fetchUserCars = async (userId) => {
@@ -132,6 +133,7 @@ export async function createVehicle(vehicleData , userId) {
       ...vehicleData 
     },
     });
+    revalidatePath('/dashboard')
     return { newVehicle };
   } catch (error) {
     return { error: `Error creating vehicle: ${error.message}` };
@@ -146,6 +148,7 @@ export async function updateVehicleById(id, updatedVehicleData) {
       where: { id: id },
       data: { ...updatedVehicleData },
     });
+    revalidatePath('/dashboard')
     return updatedVehicle;
   } catch (error) {
     return { error: `Error updating vehicle: ${error.message}` };
@@ -166,16 +169,28 @@ export async function updateVehicle(id, updatedVehicleData) {
   }
 }
 // Delete a specific vehicle by ID
-export async function deleteVehicleById(id) {
+export async function deleteVehicleById(item) {
   try {
-    const deletedVehicle = await prisma.vehicle.delete({
-      where: { id: id },
+    const existingContracts = await prisma.contract.findFirst({
+      where: {
+        plateNumber:item.plateNumber,
+      }, 
     });
-    return { deletedVehicle };
+
+    if (existingContracts) {
+      console.log("this car has a runing contract");
+    } else {
+      const deletedVehicle = await prisma.vehicle.delete({
+        where: { id: item.id },
+      });
+      revalidatePath('/dashboard');
+      console.log("Vehicle " + deletedVehicle.plateNumber + " was deleted");
+    }
   } catch (error) {
-    return { error: `Error deleting vehicle: ${error.message}` };
+    console.error("Error deleting vehicle:", error);
   }
 }
+
 
 
 

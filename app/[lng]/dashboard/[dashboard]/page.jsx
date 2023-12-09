@@ -24,15 +24,15 @@ const PageRenderer =async ({ params }) => {
         case 'rent':
           return <RentNewCar lng={params.lng} />;
       case 'contracts':
-        return <Contracts contracts={userData.Contracts} lng={params.lng} />;
+        return <Contracts userId={userId} cars={userData?.Vehicles} contracts={userData?.Contracts} lng={params.lng} />;
       case 'customers':
-        return <Customers userId={userId} Customers={userData.Customers} lng={params.lng} />;
+        return <Customers userId={userId} Customers={userData?.Customers} lng={params.lng} />;
       case 'invoices':
         return <Invoices lng={params.lng} />;
       case 'maintenance':
-        return <Maintenance userId={userId} cars={userData.Vehicles} maintenance={userData.Maintenances} lng={params.lng} />;
+        return <Maintenance userId={userId} cars={userData?.Vehicles} maintenance={userData?.Maintenances} lng={params.lng} />;
       case 'treasury':
-        return <Treasury Transactions={userData.Transactions} lng={params.lng} />;
+        return <Treasury Transactions={userData?.Transactions} lng={params.lng} />;
         case 'closeContract':
         return <CloseContract lng={params.lng} />;
       default:

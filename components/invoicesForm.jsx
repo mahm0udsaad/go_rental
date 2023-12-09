@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Dialog, TextField, Button, Snackbar, Grid, InputLabel, Select, MenuItem, Autocomplete } from '@mui/material';
+import { Dialog, TextField, Button, Snackbar, Grid, InputLabel, Select, MenuItem, Autocomplete ,FormHelperText ,FormControl} from '@mui/material';
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from '@/app/i18n/client';
@@ -25,6 +25,12 @@ export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formD
     formState: { errors },
   } = useForm();
 
+  const handleSelectChange = (event) => {
+    const carId = event.target.value;
+    setValue('plateNumber', carId); // Update 'plateNumber' value using react-hook-form
+    console.log(carId);
+    router.push(`/dashboard/rent?carId=${carId}`);
+  };
   const onSubmit = (data) => {
     data = { ...data};
     data = convertFieldsToNumber(data);
@@ -39,7 +45,6 @@ export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formD
             setSubmitted(true);
             setSuccessMessage('customerCreatedSuccess');
             reset();
-            router.refresh();
           }
         })
         .catch((error) => {
@@ -52,11 +57,13 @@ export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formD
           setSubmitted(true);
           setSuccessMessage('maintenanceCardCreated');
           reset();
-          router.refresh();
         })
         .catch((error) => {
           console.error('Error creating maintenance for vehicle:', error);
         });
+    }else if(type === "contract"){
+      console.log(data);
+
     } else {
       createVehicle(data , userId)
         .then((result) => {
@@ -68,7 +75,6 @@ export const InvoiceFormModal = ({requiredKeys, userId ,isOpen, setIsOpen, formD
             setSubmitted(true);
             setSuccessMessage('vehicleCreatedSuccess');
             reset();
-            router.refresh();
           }
         })
         .catch((error) => {
@@ -212,7 +218,24 @@ return (
         {errors[key] && <span>This field is required</span>}
         </Grid>
         );
-        } else if (key === 'customerName' && customers) {
+        }else if (key === 'plateNumber' && type === "contract") {
+          return (
+        <Grid item xs={12} sm={6} md={4} key={key}>
+          <Autocomplete
+          options={cars}
+          getOptionLabel={(car) => `${car.plateNumber} - ${car.brand} - ${car.status}`}
+          onChange={(event, newValue) => {
+              console.log(event);
+              setValue('id', newValue); 
+          }}
+          renderInput={(params) => (
+          <TextField {...params} label={formattedKey} variant="outlined" fullWidth />
+          )}
+          />
+          {errors[key] && <span>This field is required</span>}
+          </Grid>
+          );
+          } else if (key === 'customerName' && customers) {
         return (
         <Grid xs={12} sm={6} md={4} key={key}>
         <Autocomplete
@@ -320,7 +343,6 @@ export const EditVehicleForm = ({ lng, isOpen, setIsOpen, formData }) => {
     }
   };
   
-
   return (
     <div className="flex absolute top-0 justify-center items-center h-screen">
       <Dialog

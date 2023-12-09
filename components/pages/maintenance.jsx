@@ -34,7 +34,7 @@ export default function Maintenance ({ lng , cars , maintenance , userId}){
       </div>
       <ActionBtns formTitle={'Maintanance Card'} lng={lng} />
       {
-        !maintenance || maintenance.length == 0 ?  <h1 className="text-center pt-8">no maintenance data</h1> : <CollabsedTable  lng={lng} data={maintenance} /> 
+        !maintenance || maintenance.length == 0 ?  <h1 className="text-center pt-8">{t("messages.noMaintanence")}</h1> : <CollabsedTable  lng={lng} data={maintenance} /> 
       }
       {addNew && (
         <InvoiceFormModal type={'maintenance'} requiredKeys={requiredKeys} cars={cars} data={maintenance} fileName={'maintenance'} userId={userId} lng={lng}  formTitle={"Maintanance Card"} formData={formData}  isOpen={addNew} setIsOpen={setAddNew} />
